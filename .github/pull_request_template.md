@@ -1,7 +1,7 @@
 <!---
-See a demo of this PR template in use: https://github.com/DataRecce/jaffle_shop_duckdb/pull/1
-Adapted from the official dbt pull request template: https://docs.getdbt.com/blog/analytics-pull-request-template
-For a detailed explanation of this template please refer to: https://medium.com/inthepipeline/de06f12fc38d
+Adapted from: 
+-[Recce](https://github.com/DataRecce/jaffle_shop_duckdb/pull/1)
+- [official dbt pull request template](https://docs.getdbt.com/blog/analytics-pull-request-template)
 -->
 
 <!---
