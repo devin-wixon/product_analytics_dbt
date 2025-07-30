@@ -16,5 +16,56 @@ snapshots:
     description: "Snapshot of raw_taco__users with SCD2 tracking, is_deleted and is_current flags, and valid_to set to 9999-12-31 for current rows."
     columns:
       - name: id
-        description: "Primary key from raw_taco__users."
-      # Add other columns as needed
+        description: "{{ doc('id') }}"
+      - name: sourced_id
+        description: "{{ doc('sourced_id') }}"
+      - name: grades
+        description: "{{ doc('grades') }}"
+      - name: identifier
+        description: "{{ doc('identifier') }}"
+      - name: role
+        description: "{{ doc('role') }}"
+      - name: status
+        description: "{{ doc('status') }}"
+      - name: username
+        description: "{{ doc('username') }}"
+      - name: okta_user_id
+        description: "{{ doc('okta_user_id') }}"
+      - name: class_id
+        description: "{{ doc('class_id') }}"
+      - name: email_sent
+        description: "{{ doc('email_sent') }}"
+      - name: district_id
+        description: "{{ doc('district_id') }}"
+      - name: date_last_modified
+        description: "{{ doc('date_last_modified') }}"
+      - name: phone
+        description: "{{ doc('phone') }}"
+      - name: other_grades
+        description: "{{ doc('other_grades') }}"
+      - name: invite_status
+        description: "{{ doc('invite_status') }}"
+      - name: disable_auto_sync
+        description: "{{ doc('disable_auto_sync') }}"
+      - name: manually_added
+        description: "{{ doc('manually_added') }}"
+      - name: contact_email
+        description: "{{ doc('contact_email') }}"
+      - name: override_district_auth
+        description: "{{ doc('override_district_auth') }}"
+      - name: role_id
+        description: "{{ doc('role_id') }}"
+      - name: settings
+        description: "{{ doc('settings') }}"
+      - name: state_id
+        description: "{{ doc('state_id') }}"
+      - name: dbt_scd_id
+        description: "{{ doc('dbt_scd_id') }}"
+      - name: dbt_updated_at
+        description: "{{ doc('dbt_updated_at') }}"
+      - name: dbt_valid_from
+        description: "{{ doc('dbt_valid_from') }}"
+      - name: dbt_valid_to
+        description: "{{ doc('dbt_valid_to') }}"
+      - name: dbt_is_deleted
+        description: "{{ doc('dbt_is_deleted') }}"

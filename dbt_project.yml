@@ -30,9 +30,11 @@ clean-targets:         # directories to be removed by `dbt clean`
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
 
 models:
+  +persist_docs:
+      relation: true
+      columns: true
+      
   product_analytics:
-    snapshots:
-
     staging:
       +materialized: table
       +schema: staging
@@ -45,7 +47,12 @@ models:
     example:
       +materialized: table
       # +database: product_analytics
+
 snapshots:
+  +persist_docs:
+      relation: true
+      columns: true
+
   product_analytics:
       +materialized: snapshot
       +schema: snapshots
