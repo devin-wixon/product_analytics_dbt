@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+    - name: taco
+      database: raw
+      tables:
+        - name: users
+        - name: districts
