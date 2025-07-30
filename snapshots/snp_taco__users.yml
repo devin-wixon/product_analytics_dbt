@@ -1,0 +1,20 @@
+snapshots:
+  - name: snp_taco__users
+    relation: source('taco', 'raw_taco__users')
+    config:
+      schema: snapshots
+      unique_key: id
+      strategy: timestamp
+      updated_at: date_last_modified
+      # hard_deletes new_record will add a dbt_is_deleted column and track deletes
+      # see: https://docs.getdbt.com/reference/resource-configs/hard-deletes 
+      hard_deletes: new_record
+      # sets valid_to date for current rows
+      dbt_valid_to_current: to_date('9999-12-31')
+      # snapshot_meta_column_names:
+        # dbt_is_deleted: is_deleted
+    description: "Snapshot of raw_taco__users with SCD2 tracking, is_deleted and is_current flags, and valid_to set to 9999-12-31 for current rows."
+    columns:
+      - name: id
+        description: "Primary key from raw_taco__users."
+      # Add other columns as needed

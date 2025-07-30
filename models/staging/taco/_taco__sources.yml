@@ -1,8 +1,28 @@
 version: 2
 
 sources:
-    - name: taco
-      database: raw
-      tables:
-        - name: users
-        - name: districts
+  - name: taco
+    description: >
+     "Tables extracted from the Taco Postgres database.
+     Tables are overwritten daily and may have changes and deletes.
+     Snapshots are used prior to staging to track changes at the extract cadence, daily."
+    database: raw
+    schema: taco
+    tables:
+      - name: raw_taco__users
+        description: ""
+        columns:
+          - name: id
+            description: "Primary key (will be renamed to user_id downstream)"
+            tests:
+              - unique
+              - not_null
+
+      - name: raw_taco__districts
+        description: ""
+        columns:
+          - name: id 
+            description: "Primary key (will be renamed to district_id downstream)"
+            tests:
+              - unique
+              - not_null

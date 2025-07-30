@@ -47,4 +47,5 @@ models:
       # +database: product_analytics
 snapshots:
   product_analytics:
-      +materialized: table
+      +materialized: snapshot
+      +schema: snapshots
