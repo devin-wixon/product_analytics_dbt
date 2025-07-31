@@ -33,7 +33,7 @@ snapshots:
       - name: identifier
         description: "{{ doc('user_identifier') }}"
       - name: role
-        description: "{{ doc('role') }}"
+        description: "{{ doc('user_role') }}"
       - name: status
         description: "{{ doc('user_status') }}"
       - name: username

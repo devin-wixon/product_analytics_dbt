@@ -4,33 +4,42 @@ source_table as (
 ),
 
 final as (
-        -- renaming as many columns have identical names between user, district,
+    -- renaming as many columns have identical names between user, district,
     select
         -- ids
         dbt_utils.surrogate_key(id, dbt_valid_from) as user_valid_from_id,
         id::int as user_id,
-        sourced_id::string as user_sourced_id,
-        grades::string as user_grades,
-        identifier::string as user_identifier,
-        role::string as role,
-        status::string as user_status,
-        username::string as username,
-        okta_user_id::string as okta_user_id,
-        class_id::int as class_id,
-        email_sent::boolean as user_email_sent,
         district_id::int as district_id,
-        date_last_modified::timestamp as date_last_modified,
-        phone::string as phone,
+        role::string as user_role,
+        role_id::int as role_id,
+        status::string as user_status,
+        username::string as username,        
+        grades::string as user_grades,
         other_grades::string as user_other_grades,
+        class_id::int as class_id,
+
+        -- identifiers
+        sourced_id::string as user_sourced_id,
+        identifier::string as user_identifier,
+        okta_user_id::string as okta_user_id,
+        
+        -- onboarding
         invite_status::string as user_invite_status,
         disable_auto_sync::boolean as disable_auto_sync,
         manually_added::boolean as manually_added,
-        contact_email::string as user_contact_email,
+        email_sent::boolean as user_email_sent,
         override_district_auth::boolean as override_district_auth,
-        role_id::int as role_id,
+       
+        -- will likely not be in final model
+        contact_email::string as user_contact_email,
+        phone::string as phone,
         settings::string as user_settings,
         state_id::int as user_state_id,
-        dbt_scd_id::string as dbt_scd_id,
+
+        -- timestamps
+        date_last_modified::timestamp as date_last_modified,
+        -- dbt_scd_id::string as dbt_scd_id,
+        -- history columns
         dbt_updated_at::timestamp as dbt_updated_at,
         dbt_valid_from::timestamp as dbt_valid_from,
         dbt_valid_to::timestamp as dbt_valid_to,

@@ -43,14 +43,11 @@ Type of district.
 
 | Value             | Meaning                       |
 |-------------------|------------------------------|
-| purchasing        | Purchasing entity            |
 | small-independent | Small independent (ICC)    |
 | international     | International district        |
 | district          | School district          |
 | head-start        | Head Start program            |
 | demo-test         | Demo or test         |
-
-Example: district
 {% enddocs %}
 
 {% docs district_settings %}
@@ -64,7 +61,7 @@ Example: TRUE
 {% enddocs %}
 
 {% docs district_website_slug %}
-Website slug for the district.  
+Website slug for the district. This is the subdomain for Lilypad.  
 Example: dallas-isd
 {% enddocs %}
 
@@ -138,7 +135,7 @@ Example: 19642
 {% enddocs %}
 
 
-{% docs role %}
+{% docs user_role %}
 Role of the user. Values are: teacher, admin, student.  
 Example: student
 {% enddocs %}
@@ -163,7 +160,7 @@ Example: (empty)
 
 
 {% docs class_id %}
-Identifier for the class the user is associated with.  
+Identifier for the class.  
 Example: 11
 {% enddocs %}
 
@@ -198,6 +195,12 @@ Example: (empty)
 {% enddocs %}
 
 
+{% docs disable_auto_sync %}
+If true, any changes to the user will be ignored in following syncs.   
+This applies to both new and existing users.  
+This setting can be disabled in the user interface if needed.  
+{% enddocs %}
+
 {% docs user_invite_status %}
 Indicates the onboarding status of the user.  
 
@@ -210,15 +213,7 @@ Indicates the onboarding status of the user.
 {% enddocs %}
 
 
-{% docs disable_auto_sync %}
-Indicates if automatic synchronization is disabled for the user.  
-Example: FALSE
-{% enddocs %}
-
-
 {% docs manually_added %}
-Indicates if the user was manually added.  
-Example: FALSE
 {% enddocs %}
 
 
@@ -229,26 +224,20 @@ Example: (empty)
 
 
 {% docs override_district_auth %}
-Indicates if district authentication is overridden for the user.  
-Example: (empty)
 {% enddocs %}
 
 
 {% docs role_id %}
-Identifier for the user's role.  
+Identifier for the user's role, such as teacher or student.  
 Example: (empty)
 {% enddocs %}
 
 
 {% docs user_settings %}
-Serialized settings or preferences for the user.  
-Example: (empty)
 {% enddocs %}
 
 
 {% docs user_state_id %}
-State-level identifier for the user.  
-Example: (empty)
 {% enddocs %}
 
 
