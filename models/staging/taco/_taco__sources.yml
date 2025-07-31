@@ -5,7 +5,7 @@ sources:
     description: >
      "Tables extracted from the Taco Postgres database.
      Tables are overwritten daily and may have changes and deletes.
-     Snapshots are used prior to staging to track changes at the extract cadence, daily."
+     For some sources, snapshots are used prior to staging to track changes at the extract cadence, daily."
     database: raw
     schema: taco
     tables:

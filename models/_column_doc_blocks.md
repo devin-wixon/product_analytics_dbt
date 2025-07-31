@@ -1,12 +1,12 @@
 
 
-{% docs id %}
+{% docs user_id %}
 Unique identifier for the user record.  
 Example: 452698
 {% enddocs %}
 
 
-{% docs sourced_id %}
+{% docs user_sourced_id %}
 External or source system identifier for the user.  
 Example: 23308
 {% enddocs %}
@@ -18,7 +18,7 @@ Example: ["08"]
 {% enddocs %}
 
 
-{% docs identifier %}
+{% docs user_identifier %}
 Alternate identifier for the user, possibly for integration or mapping.  
 Example: 19642
 {% enddocs %}
@@ -30,7 +30,7 @@ Example: student
 {% enddocs %}
 
 
-{% docs status %}
+{% docs user_status %}
 Current status of the user (e.g., active, inactive).  
 Example: active
 {% enddocs %}
@@ -67,7 +67,7 @@ Example: (empty)
 
 
 {% docs date_last_modified %}
-Timestamp of the last modification to the user record.  
+Timestamp of the last modification to the record in UTC.
 Example: 2025-07-30 00:00:00.000
 {% enddocs %}
 
@@ -85,8 +85,14 @@ Example: (empty)
 
 
 {% docs invite_status %}
-Status of the user's invitation (e.g., pending, accepted).  
-Example: sso
+Indicates the onboarding status of the user.  
+
+| Value        | Meaning                                                                 |
+|------------- |------------------------------------------------------------------------|
+| not_invited  | When auth_method is username_password and invite e-mail not sent        |
+| invited      | When auth_method is username_password and invite e-mail sent            |
+| sso          | When auth_method is one of (clever, classlink, SAML, openid)           |
+| registered   | When auth_method is username_password and user completed registration and setting up their password   |
 {% enddocs %}
 
 

@@ -16,17 +16,17 @@ snapshots:
     description: "Snapshot of raw_taco__users with SCD2 tracking, is_deleted and is_current flags, and valid_to set to 9999-12-31 for current rows."
     columns:
       - name: id
-        description: "{{ doc('id') }}"
+        description: "{{ doc('user_id') }}"
       - name: sourced_id
-        description: "{{ doc('sourced_id') }}"
+        description: "{{ doc('user_sourced_id') }}"
       - name: grades
         description: "{{ doc('grades') }}"
       - name: identifier
-        description: "{{ doc('identifier') }}"
+        description: "{{ doc('user_identifier') }}"
       - name: role
         description: "{{ doc('role') }}"
       - name: status
-        description: "{{ doc('status') }}"
+        description: "{{ doc('user_status') }}"
       - name: username
         description: "{{ doc('username') }}"
       - name: okta_user_id
