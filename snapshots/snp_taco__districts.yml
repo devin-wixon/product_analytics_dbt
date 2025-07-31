@@ -9,11 +9,15 @@ snapshots:
       hard_deletes: new_record
       dbt_valid_to_current: to_date('9999-12-31')
     description: >
-      "Purpose: Snapshot of raw_taco__districts with SCD2 tracking.  
-       Granularity: `id` x `dbt_valid_from`, or `dbt_scd_id`. 
-      Notes: 
-      - Adds columns such as `dbt_valid_from`, `dbt_valid_to, and is_deleted.  
-      - `valid_to` is set to 9999-12-31 for current rows."
+      Purpose: Snapshot of raw_taco__districts with SCD2 tracking.  
+
+      Granularity: `id` x `dbt_valid_from`, or `dbt_scd_id`.  
+
+      Notes:  
+      
+      - Adds columns such as `dbt_valid_from`, `dbt_valid_to`, and `is_deleted`.  
+
+      - `valid_to` is set to 9999-12-31 for current rows.
     columns:
       - name: id
         description: "{{ doc('district_id') }}"

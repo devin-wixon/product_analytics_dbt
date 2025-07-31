@@ -43,7 +43,7 @@ Type of district.
 
 | Value             | Meaning                       |
 |-------------------|------------------------------|
-| purchasing        | ? unknown              |
+| purchasing        | Purchasing entity            |
 | small-independent | Small independent (ICC)    |
 | international     | International district        |
 | district          | School district          |
