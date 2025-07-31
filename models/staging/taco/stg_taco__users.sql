@@ -7,7 +7,9 @@ final as (
     -- renaming as many columns have identical names between user, district,
     select
         -- ids
-        dbt_utils.surrogate_key(id, dbt_valid_from) as user_valid_from_id,
+        {{ dbt_utils.generate_surrogate_key(
+            ['id', 'dbt_valid_from']
+        )}} as user_id_valid_from_sk,
         id::int as user_id,
         district_id::int as district_id,
         role::string as user_role,
@@ -27,10 +29,11 @@ final as (
         invite_status::string as user_invite_status,
         disable_auto_sync::boolean as disable_auto_sync,
         manually_added::boolean as manually_added,
-        email_sent::boolean as user_email_sent,
+        -- TAG TO DO email_sent is all null in test set; might need to cast as boolean
+        email_sent::string as user_email_sent,
         override_district_auth::boolean as override_district_auth,
        
-        -- will likely not be in final model
+        -- TAG TO DO will likely not be in final model
         contact_email::string as user_contact_email,
         phone::string as phone,
         settings::string as user_settings,
@@ -47,4 +50,4 @@ final as (
     from source_table
 )
 
-select * from final where is_latest;
+select * from final
