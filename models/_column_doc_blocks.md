@@ -133,7 +133,7 @@ Example: ["08"]
 
 
 {% docs user_identifier %}
-Alternate identifier for the user, possibly for integration or mapping.  
+Alternate identifier for the user provided by the district, possibly for integration or mapping. 
 Example: 19642
 {% enddocs %}
 
