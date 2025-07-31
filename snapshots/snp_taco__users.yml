@@ -13,14 +13,19 @@ snapshots:
       dbt_valid_to_current: to_date('9999-12-31')
       # snapshot_meta_column_names:
         # dbt_is_deleted: is_deleted
-    description: "Snapshot of raw_taco__users with SCD2 tracking, is_deleted and is_current flags, and valid_to set to 9999-12-31 for current rows."
+    description: >
+     "Purpose: Snapshot of raw_taco__users with SCD2 tracking.  
+     Granularity: `id` x `dbt_valid_from`, or `dbt_scd_id`. 
+     Notes: 
+     - Adds columns such as `dbt_valid_from`, `dbt_valid_to, and is_deleted.  
+     - `valid_to` is set to 9999-12-31 for current rows."
     columns:
       - name: id
         description: "{{ doc('user_id') }}"
       - name: sourced_id
         description: "{{ doc('user_sourced_id') }}"
       - name: grades
-        description: "{{ doc('grades') }}"
+        description: "{{ doc('user_grades') }}"
       - name: identifier
         description: "{{ doc('user_identifier') }}"
       - name: role
@@ -34,7 +39,7 @@ snapshots:
       - name: class_id
         description: "{{ doc('class_id') }}"
       - name: email_sent
-        description: "{{ doc('email_sent') }}"
+        description: "{{ doc('user_email_sent') }}"
       - name: district_id
         description: "{{ doc('district_id') }}"
       - name: date_last_modified
@@ -42,23 +47,23 @@ snapshots:
       - name: phone
         description: "{{ doc('phone') }}"
       - name: other_grades
-        description: "{{ doc('other_grades') }}"
+        description: "{{ doc('user_other_grades') }}"
       - name: invite_status
-        description: "{{ doc('invite_status') }}"
+        description: "{{ doc('user_invite_status') }}"
       - name: disable_auto_sync
         description: "{{ doc('disable_auto_sync') }}"
       - name: manually_added
         description: "{{ doc('manually_added') }}"
       - name: contact_email
-        description: "{{ doc('contact_email') }}"
+        description: "{{ doc('user_contact_email') }}"
       - name: override_district_auth
         description: "{{ doc('override_district_auth') }}"
       - name: role_id
         description: "{{ doc('role_id') }}"
       - name: settings
-        description: "{{ doc('settings') }}"
+        description: "{{ doc('user_settings') }}"
       - name: state_id
-        description: "{{ doc('state_id') }}"
+        description: "{{ doc('user_state_id') }}"
       - name: dbt_scd_id
         description: "{{ doc('dbt_scd_id') }}"
       - name: dbt_updated_at

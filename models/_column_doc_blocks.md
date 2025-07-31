@@ -1,3 +1,117 @@
+{% docs district_name %}
+Name of the district.  
+Example: Dallas ISD
+{% enddocs %}
+
+{% docs district_address %}
+Physical address of the district.  
+Example: 123 Main St
+{% enddocs %}
+
+{% docs district_state %}
+State where the district is located.  
+Example: Louisiana
+{% enddocs %}
+
+{% docs district_sales_force_id %}
+Salesforce identifier for the district.  
+Example: SF12345
+{% enddocs %}
+
+{% docs district_mas_id %}
+MAS system identifier for the district.  
+Example: MAS98765
+{% enddocs %}
+
+{% docs district_sage_id %}
+Sage system identifier for the district.  
+Example: SAGE54321
+{% enddocs %}
+
+{% docs district_last_sync %}
+Timestamp of the last sync for the district.  
+Example: 2025-07-30 00:00:00.000
+{% enddocs %}
+
+{% docs district_curriculum %}
+Curriculum used by the district.  
+Example: Common Core
+{% enddocs %}
+
+{% docs district_type %}
+Type of district.  
+
+| Value             | Meaning                       |
+|-------------------|------------------------------|
+| purchasing        | ? unknown              |
+| small-independent | Small independent (ICC)    |
+| international     | International district        |
+| district          | School district          |
+| head-start        | Head Start program            |
+| demo-test         | Demo or test         |
+
+Example: district
+{% enddocs %}
+
+{% docs district_settings %}
+Serialized settings or preferences for the district.  
+Example: {"key": "value"}
+{% enddocs %}
+
+{% docs district_enabled %}
+Indicates if the district is enabled.  
+Example: TRUE
+{% enddocs %}
+
+{% docs district_website_slug %}
+Website slug for the district.  
+Example: dallas-isd
+{% enddocs %}
+
+{% docs district_city %}
+City where the district is located.  
+Example: Dallas
+{% enddocs %}
+
+{% docs district_date_last_modified %}
+Timestamp of the last modification to the district record in UTC.  
+Example: 2025-07-30 00:00:00.000
+{% enddocs %}
+
+{% docs district_sourced_id %}
+External or source system identifier for the district.  
+Example: 12345
+{% enddocs %}
+
+{% docs district_identifier %}
+Alternate identifier for the district, possibly for integration or mapping.  
+Example: 67890
+{% enddocs %}
+
+{% docs district_roster_file_created_at %}
+Timestamp when the district's roster file was created.  
+Example: 2025-07-30 00:00:00.000
+{% enddocs %}
+
+{% docs district_auto_rostering_checked_at %}
+Timestamp when auto rostering was last checked for the district.  
+Example: 2025-07-30 00:00:00.000
+{% enddocs %}
+
+{% docs district_auto_sync %}
+Indicates if automatic synchronization is enabled for the district.  
+Example: TRUE
+{% enddocs %}
+
+{% docs district_state_international %}
+International state or region for the district.  
+Example: Ontario
+{% enddocs %}
+
+{% docs district_general_settings %}
+General settings for the district, stored as a variant.  
+Example: {"setting": "value"}
+{% enddocs %}
 
 
 {% docs user_id %}
@@ -12,7 +126,7 @@ Example: 23308
 {% enddocs %}
 
 
-{% docs grades %}
+{% docs user_grades %}
 Array: Grade levels associated with the user.  
 Example: ["08"]
 {% enddocs %}
@@ -54,7 +168,7 @@ Example: 11
 {% enddocs %}
 
 
-{% docs email_sent %}
+{% docs user_email_sent %}
 Timestamp when an email was sent to the user.  
 Example: 2025-07-30 00:00:00.000
 {% enddocs %}
@@ -78,13 +192,13 @@ Example: (empty)
 {% enddocs %}
 
 
-{% docs other_grades %}
+{% docs user_other_grades %}
 Other grade levels associated with the user.  
 Example: (empty)
 {% enddocs %}
 
 
-{% docs invite_status %}
+{% docs user_invite_status %}
 Indicates the onboarding status of the user.  
 
 | Value        | Meaning                                                                 |
@@ -108,7 +222,7 @@ Example: FALSE
 {% enddocs %}
 
 
-{% docs contact_email %}
+{% docs user_contact_email %}
 Contact email address for the user.  
 Example: (empty)
 {% enddocs %}
@@ -126,13 +240,13 @@ Example: (empty)
 {% enddocs %}
 
 
-{% docs settings %}
+{% docs user_settings %}
 Serialized settings or preferences for the user.  
 Example: (empty)
 {% enddocs %}
 
 
-{% docs state_id %}
+{% docs user_state_id %}
 State-level identifier for the user.  
 Example: (empty)
 {% enddocs %}

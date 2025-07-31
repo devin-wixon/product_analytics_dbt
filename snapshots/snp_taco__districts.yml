@@ -1,0 +1,71 @@
+snapshots:
+  - name: snp_taco__districts
+    relation: source('taco', 'raw_taco__districts')
+    config:
+      schema: snapshots
+      unique_key: id
+      strategy: timestamp
+      updated_at: date_last_modified
+      hard_deletes: new_record
+      dbt_valid_to_current: to_date('9999-12-31')
+    description: >
+      "Purpose: Snapshot of raw_taco__districts with SCD2 tracking.  
+       Granularity: `id` x `dbt_valid_from`, or `dbt_scd_id`. 
+      Notes: 
+      - Adds columns such as `dbt_valid_from`, `dbt_valid_to, and is_deleted.  
+      - `valid_to` is set to 9999-12-31 for current rows."
+    columns:
+      - name: id
+        description: "{{ doc('district_id') }}"
+      - name: name
+        description: "{{ doc('district_name') }}"
+      - name: address
+        description: "{{ doc('district_address') }}"
+      - name: state
+        description: "{{ doc('district_state') }}"
+      - name: sales_force_id
+        description: "{{ doc('district_sales_force_id') }}"
+      - name: mas_id
+        description: "{{ doc('district_mas_id') }}"
+      - name: sage_id
+        description: "{{ doc('district_sage_id') }}"
+      - name: last_sync
+        description: "{{ doc('district_last_sync') }}"
+      - name: curriculum
+        description: "{{ doc('district_curriculum') }}"
+      - name: type
+        description: "{{ doc('district_type') }}"
+      - name: settings
+        description: "{{ doc('district_settings') }}"
+      - name: enabled
+        description: "{{ doc('district_enabled') }}"
+      - name: website_slug
+        description: "{{ doc('district_website_slug') }}"
+      - name: city
+        description: "{{ doc('district_city') }}"
+      - name: date_last_modified
+        description: "{{ doc('district_date_last_modified') }}"
+      - name: sourced_id
+        description: "{{ doc('district_sourced_id') }}"
+      - name: identifier
+        description: "{{ doc('district_identifier') }}"
+      - name: roster_file_created_at
+        description: "{{ doc('district_roster_file_created_at') }}"
+      - name: auto_rostering_checked_at
+        description: "{{ doc('district_auto_rostering_checked_at') }}"
+      - name: auto_sync
+        description: "{{ doc('district_auto_sync') }}"
+      - name: state_international
+        description: "{{ doc('district_state_international') }}"
+      - name: general_settings
+        description: "{{ doc('district_general_settings') }}"
+      - name: dbt_scd_id
+        description: "{{ doc('dbt_scd_id') }}"
+      - name: dbt_updated_at
+        description: "{{ doc('dbt_updated_at') }}"
+      - name: dbt_valid_from
+        description: "{{ doc('dbt_valid_from') }}"
+      - name: dbt_valid_to
+        description: "{{ doc('dbt_valid_to') }}"
+      - name: dbt_is_deleted
+        description: "{{ doc('dbt_is_deleted') }}"
