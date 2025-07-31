@@ -17,6 +17,11 @@ sources:
             tests:
               - unique
               - not_null
+              # complete this using the _etl_load columns once they are added
+            # freshness:
+            #   warn_after: { count: 1, period: day }
+            #   error_after: { count: 2, period: day }
+            #   loaded_at_field: loaded_at
 
       - name: raw_taco__districts
         description: ""
@@ -26,3 +31,8 @@ sources:
             tests:
               - unique
               - not_null
+              # complete this using the _etl_load columns once they are added
+            # freshness:
+            #   warn_after: { count: 1, period: day }
+            #   error_after: { count: 2, period: day }
+            #   loaded_at_field: loaded_at
