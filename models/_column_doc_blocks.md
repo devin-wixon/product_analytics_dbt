@@ -1,3 +1,4 @@
+
 {% docs district_name %}
 Name of the district.  
 Example: Dallas ISD
@@ -116,9 +117,13 @@ Unique identifier for the user record.
 Example: 452698
 {% enddocs %}
 
+{% docs user_id_valid_from_sk %}
+Surrogate key for user and the record's valid-from date, used for uniqueness and joins in user history models.
+Example: 8e7c2a1b2f3d4e5f6a7b8c9d0e1f2a3b
+{% enddocs %}
 
 {% docs user_sourced_id %}
-External or source system identifier for the user.  
+External user id, typically the user_id on the district SIS.
 Example: 23308
 {% enddocs %}
 
@@ -142,14 +147,12 @@ Example: student
 
 
 {% docs user_status %}
-Current status of the user (e.g., active, inactive).  
+<!-- TAG TO DO confirm values and flesh out with their menaing. -->
 Example: active
 {% enddocs %}
 
 
 {% docs username %}
-Username for user login or authentication.  
-Example: (empty)
 {% enddocs %}
 
 
@@ -160,8 +163,6 @@ Example: (empty)
 
 
 {% docs class_id %}
-Identifier for the class.  
-Example: 11
 {% enddocs %}
 
 
@@ -172,8 +173,6 @@ Example: 2025-07-30 00:00:00.000
 
 
 {% docs district_id %}
-Identifier for the district the user belongs to.  
-Example: (empty)
 {% enddocs %}
 
 
@@ -184,14 +183,10 @@ Example: 2025-07-30 00:00:00.000
 
 
 {% docs phone %}
-Phone number associated with the user.  
-Example: (empty)
 {% enddocs %}
 
 
 {% docs user_other_grades %}
-Other grade levels associated with the user.  
-Example: (empty)
 {% enddocs %}
 
 
@@ -218,8 +213,6 @@ Indicates the onboarding status of the user.
 
 
 {% docs user_contact_email %}
-Contact email address for the user.  
-Example: (empty)
 {% enddocs %}
 
 
