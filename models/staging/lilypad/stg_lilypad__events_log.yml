@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: stg_lilypad__events_log
+    description: |
+      Purpose: Events log from Lilypad raw events, with column typing and renaming as needed.
+      Granularity: One row per event, uniquely identified by `event_pk`.
+      Filters: None
+      Notes: Includes Snowflake event ingestion metadata columns.
+    columns:
+      - name: event_pk
+        description: "{{ doc('event_pk') }}"
+        tests:
+          - not_null
+          - unique
+      - name: server_timestamp
+        description: "{{ doc('server_timestamp') }}"
+      - name: client_timestamp
+        description: "{{ doc('client_timestamp') }}"
+      - name: user_id
+        description: "{{ doc('user_id') }}"
+      - name: session_uuid
+        description: "{{ doc('session_uuid') }}"
+      - name: name
+        description: "{{ doc('event_name') }}"
+      - name: path
+        description: "{{ doc('event_path') }}"
+      - name: event_value
+        description: "{{ doc('event_value') }}"
+      - name: category
+        description: "{{ doc('event_category') }}"
+      - name: event_value_human_readable
+        description: "{{ doc('event_value_human_readable') }}"
+      - name: _source_filename
+        description: "{{ doc('_source_filename') }}"
+      - name: _loaded_at_utc
+        description: "{{ doc('_loaded_at_utc') }}"

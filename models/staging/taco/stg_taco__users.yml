@@ -3,10 +3,11 @@ version: 2
 models:
   - name: stg_taco__users
     description: |
-      Purpose: Raw user data with some column typing and renaming.  
-      Granularity: One row per user per valid-from snapshot period (`user_id_valid_from_sk`).  
+      Purpose: Raw user history data with some column typing and renaming.  
+      Granularity: One row per user per user and modified date, defined by the combination of `user_id` and `dbt_valid_from` timestamp. 
+      This combination is uniquely identified by the surrogate key `user_id_valid_from_sk`.  
       Filters: None
-      Notes: Includes SCD2 (snapshot) history columns.
+      Notes: Includes snapshot history tracking columns (`dbt_...`).
     columns:
       - name: user_id_valid_from_sk
         description: "{{ doc('user_id_valid_from_sk') }}"

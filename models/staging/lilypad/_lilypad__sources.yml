@@ -1,0 +1,23 @@
+version: 2
+
+sources:
+  - name: lilypad
+    description: >
+     "Events extracted from the .log files written through Lilypad instrumentation.
+     Source is a Snowpipe in Snowflake receiving SNS upon S3 object reaction in AWS."
+    database: raw
+    schema: lilypad
+    tables:
+      - name: raw_lilypad__events_log
+        description: ""
+        columns:
+          - name: event_pk
+            description: "Primary key created through Snowflake UUID_STRING() function"
+            tests:
+              - unique
+              - not_null
+              # complete this once pipe is running
+            # freshness:
+            #   warn_after: { count: 1, period: day }
+            #   error_after: { count: 2, period: day }
+            #   loaded_at_field: loaded_at
