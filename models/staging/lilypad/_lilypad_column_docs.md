@@ -30,10 +30,6 @@ Path or location in the application where the event occurred.
 Raw value associated with the event (may be a string, number, or JSON).
 {% enddocs %}
 
-{% docs event_category %}
-Category or type of the event (e.g., navigation, error, interaction).
-{% enddocs %}
-
 {% docs event_value_human_readable %}
 Human-readable version of the event value, if available.
 {% enddocs %}

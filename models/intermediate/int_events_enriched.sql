@@ -1,5 +1,3 @@
-error here
-
 with events as 
 (
     select
@@ -18,14 +16,14 @@ with events as
     from {{ ref('stg_lilypad__events_log') }}
 ),
 
-events_joins as
+events_add_columns_to_join as
     events.* exclude (event_path),
     if(event_path = '' OR event_path = '/', NULL, event_path) AS event_path,
     if(event_value = '' OR event_value = '/', NULL, event_value) AS event_value,
 
-    -- Derived column for join key based on numeric event_value; can't use 'category' column
-    -- example: category is resource even when event_value is program_id, not resource_id
-    IF(
+    -- derived column for join key based on numeric event_value
+    if(
+        -- event value is numeric
         regexp_like(event_value, '^[0-9]+$'),
         case 
         -- these event names will have an event_value that joins to program_id
@@ -105,24 +103,29 @@ events_joins as
 
 
       
-, event_booleans as 
+, events_add_booleans as 
 (select
     events_joins.*,
-    event_name = 'auth.login', true, false) as is_login_event,
-    event_name in ('weekly.planner.modal.program.week.select', 'weekly.planner.modal.lastWeeklyPlanner.open') as is_planner_open_event,
-    -- regexp_like(path,'^/planner/') as is_planner_event, -- TAG TO DO need to exclude the modal events
-    -- ?? if join to resources here and add resource_type = 
+    event_name = 'auth.login' as is_login_event,
+    event_name in ('weekly.planner.modal.program.week.select', 'weekly.planner.modal.lastWeeklyPlanner.open') as is_planner_open_event
+
+from
+    events_add_columns_to_join as events_joins
+)
+
+select
+    *
+from
+    events_add_booleans
+
+-- regexp_like(path,'^/planner/') as is_planner_event, -- TAG TO DO need to exclude the modal events
+-- if join to resources here and add resource_type = 
 --    resource_type='document', event_client_date as is_resource_document_event,
 --     resource_type='activity', event_client_date as is_resource_activity_event,
 --     resource_type='book', event_client_date as is_resource_book_event,
 --     resource_type='audio', event_client_date as is_resource_audio_event,
 --     resource_type='video', event_client_date as is_resource_video_event,
-    --     resource_type = 'document' 
-    --     and event_name = 'router.enter') as n_document_router_enter_events,... etc
-    -- if join to program then...
-    -- user_program_agg.program_name in ('Yogapalooza', 'Inclusive Classroom') as is_yogapalooza_or_inclusive_classroom_program_event,
-
-from
-    user_program_resource_join
-)
-   
+--     resource_type = 'document' 
+--     and event_name = 'router.enter') as n_document_router_enter_events,... etc
+-- if join to program then...
+-- user_program_agg.program_name in ('Yogapalooza', 'Inclusive Classroom') as is_yogapalooza_or_inclusive_classroom_program_event,

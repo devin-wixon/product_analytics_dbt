@@ -27,8 +27,6 @@ models:
         description: "{{ doc('event_path') }}"
       - name: event_value
         description: "{{ doc('event_value') }}"
-      - name: category
-        description: "{{ doc('event_category') }}"
       - name: event_value_human_readable
         description: "{{ doc('event_value_human_readable') }}"
       - name: _source_filename

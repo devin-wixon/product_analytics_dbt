@@ -34,8 +34,11 @@ models:
       columns: true
       
   product_analytics:
+    utilities:
+      +materialized: view
+      +schema: utilities
     staging:
-      +materialized: table
+      +materialized: view
       +schema: staging
     intermediate:
       +materialized: table
