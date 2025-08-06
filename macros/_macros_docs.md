@@ -5,8 +5,8 @@ This is a built-in dbt macro that changes the dataset name based on `target` and
    * `staging`
    * `warehouse`
 * For any non-`prod` deployment, all models will deploy to the default dataset as indicated in `profiles.yml`. For example:
-   * `dev_mkahan`
-   * `dev_jdoe`
+   * `dbt_devin`
+   * `dbt_jdoe`
 
 More information can be found at the dbt docs site [here](https://docs.getdbt.com/docs/building-a-dbt-project/building-models/using-custom-schemas#how-does-dbt-generate-a-models-schema-name)
 
