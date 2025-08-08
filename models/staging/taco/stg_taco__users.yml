@@ -7,9 +7,7 @@ models:
       Granularity: One row per user, defined by `user_id`.  
       Filters: None
     columns:
-      # unique and not null testing in source for sk and user_id
-      - name: user_sk
-        description: "Surrogate key for the user"
+      # unique and not null testing in source for user_id
       - name: user_id
         description: "{{ doc('user_id') }}"
       - name: district_id

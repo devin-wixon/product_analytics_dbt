@@ -6,9 +6,6 @@ source_table as (
 final as (
     select
         -- ids
-        {{ dbt_utils.generate_surrogate_key(
-            ['id']
-        )}} as user_sk,
         id::int as user_id,
         district_id::int as district_id,
         role::string as user_role,
