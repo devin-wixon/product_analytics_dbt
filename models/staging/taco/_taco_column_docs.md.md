@@ -71,11 +71,6 @@ City where the district is located.
 Example: Dallas
 {% enddocs %}
 
-{% docs district_date_last_modified %}
-Timestamp of the last modification to the district record in UTC.  
-Example: 2025-07-30 00:00:00.000
-{% enddocs %}
-
 {% docs district_sourced_id %}
 External or source system identifier for the district.  
 Example: 12345
@@ -115,6 +110,11 @@ Example: {"setting": "value"}
 {% docs user_id %}
 Unique identifier for the user record.  
 Example: 452698
+{% enddocs %}
+
+{% docs user_sk %}
+Surrogate key for the user, used for uniqueness and joins.
+Example: 8e7c2a1b2f3d4e5f6a7b8c9d0e1f2a3b
 {% enddocs %}
 
 {% docs user_id_valid_from_sk %}
@@ -166,7 +166,7 @@ Example: (empty)
 {% enddocs %}
 
 
-{% docs user_email_sent %}
+{% docs email_sent_utc %}
 Timestamp when an email was sent to the user.  
 Example: 2025-07-30 00:00:00.000
 {% enddocs %}
@@ -176,7 +176,7 @@ Example: 2025-07-30 00:00:00.000
 {% enddocs %}
 
 
-{% docs date_last_modified %}
+{% docs date_last_modified_utc %}
 Timestamp of the last modification to the record in UTC.
 Example: 2025-07-30 00:00:00.000
 {% enddocs %}

@@ -1,6 +1,10 @@
+version: 2
+
 snapshots:
-  - name: snp_taco__districts
-    relation: source('taco', 'raw_taco__districts')
+  - name: snp_taco__districts_disabled
+  # disabled during development
+    enabled: false
+    relation: source('taco', 'raw_taco__district')
     config:
       schema: snapshots
       unique_key: id
@@ -9,7 +13,7 @@ snapshots:
       hard_deletes: new_record
       dbt_valid_to_current: to_date('9999-12-31')
     description: >
-      Purpose: Snapshot of raw_taco__districts with SCD2 tracking.  
+      Purpose: Snapshot of raw_taco__district with SCD2 tracking.  
 
       Granularity: `id` x `dbt_valid_from` or `dbt_scd_id`.  
 

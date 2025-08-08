@@ -1,52 +1,36 @@
 with
 source_table as (
-    select * from {{ ref('snp_taco__users') }}
+    select * from {{ source('taco', 'raw_taco__users') }}
 ),
 
 final as (
-    -- renaming as many columns have identical names between user, district,
     select
         -- ids
         {{ dbt_utils.generate_surrogate_key(
-            ['id', 'dbt_valid_from']
-        )}} as user_id_valid_from_sk,
+            ['id']
+        )}} as user_sk,
         id::int as user_id,
         district_id::int as district_id,
         role::string as user_role,
-        role_id::int as role_id,
+        
+        -- attributes
         status::string as user_status,
-        username::string as username,        
         grades::string as user_grades,
         other_grades::string as user_other_grades,
-        class_id::int as class_id,
-
+        
         -- identifiers
         sourced_id::string as user_sourced_id,
         identifier::string as user_identifier,
-        okta_user_id::string as okta_user_id,
         
-        -- onboarding
-        invite_status::string as user_invite_status,
+        -- flags
         disable_auto_sync::boolean as disable_auto_sync,
         manually_added::boolean as manually_added,
-        -- TAG TO DO email_sent is all null in test set; might need to cast as boolean
-        email_sent::string as user_email_sent,
-        override_district_auth::boolean as override_district_auth,
-       
-        -- TAG TO DO will likely not be in final model
-        contact_email::string as user_contact_email,
-        phone::string as phone,
-        settings::string as user_settings,
-        state_id::int as user_state_id,
-
+        invite_status::string as user_invite_status,
+        
         -- timestamps
-        date_last_modified::timestamp as date_last_modified,
-        -- dbt_scd_id::string as dbt_scd_id,
-        -- history columns
-        dbt_updated_at::timestamp as dbt_updated_at,
-        dbt_valid_from::timestamp as dbt_valid_from,
-        dbt_valid_to::timestamp as dbt_valid_to,
-        dbt_is_deleted::boolean as dbt_is_deleted
+        email_sent::timestamp as email_sent_utc,
+        date_last_modified::timestamp as date_last_modified_utc
+        -- deleted_at::timestamp as deleted_at_utc -- null in all columns of source 080825
     from source_table
 )
 

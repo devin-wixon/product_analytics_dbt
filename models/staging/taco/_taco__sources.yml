@@ -7,32 +7,75 @@ sources:
      Tables are overwritten daily and may have changes and deletes.
      For some sources, snapshots are used prior to staging to track changes at the extract cadence, daily."
     database: raw
-    schema: taco
+    schema: postgres_extracts
     tables:
-      - name: raw_taco__users
-        description: ""
+      - name: data_load_log
+        description: "Metadata about data extracts and loads"
+        columns:
+          - name: load_log_pk
+            description: ""
+            tests:
+              - unique
+              - not_null
+      - name: raw_taco__applications
+        description: "Third-party applications such as Cognitive Toy Box"
         columns:
           - name: id
-            description: "Primary key (will be renamed to user_id downstream)"
             tests:
               - unique
               - not_null
-              # complete this using the _etl_load columns once they are added
-            # freshness:
-            #   warn_after: { count: 1, period: day }
-            #   error_after: { count: 2, period: day }
-            #   loaded_at_field: loaded_at
-
-      - name: raw_taco__districts
-        description: ""
+      - name: raw_taco__district
+        description: "District information"
         columns:
-          - name: id 
-            description: "Primary key (will be renamed to district_id downstream)"
+          - name: id
             tests:
               - unique
               - not_null
-              # complete this using the _etl_load columns once they are added
-            # freshness:
-            #   warn_after: { count: 1, period: day }
-            #   error_after: { count: 2, period: day }
-            #   loaded_at_field: loaded_at
+      - name: raw_taco__districts_programs
+        description: "Programs associated with each district"
+        # no primary key in postgres; combination of district and program should be unique
+        columns:
+          - name: district_id
+            tests:
+              - not_null
+          - name: program_id
+            tests:
+              - not_null
+        tests:
+          - unique:
+              column_name: "district_id || '-' || program_id"
+      - name: raw_taco__district_applications
+        description: "Applications (third-party products) associated with each district"
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+      - name: raw_taco__district_application_licenses
+        description: "Licenses for applications (third-party products) associated with each district"
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+      - name: raw_taco__district_program_licenses
+        description: "Licenses for programs associated with each district"
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+      - name: raw_taco__enrollments
+        description: "Enrollments of users in schools or classes"
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+      - name: raw_taco__users
+        description: "Information on teacher, student and administrator users"
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null

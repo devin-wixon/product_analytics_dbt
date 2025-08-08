@@ -3,66 +3,49 @@ version: 2
 models:
   - name: stg_taco__users
     description: |
-      Purpose: Raw user history data with some column typing and renaming.  
-      Granularity: One row per user per user and modified date, defined by the combination of `user_id` and `dbt_valid_from` timestamp. 
-      This combination is uniquely identified by the surrogate key `user_id_valid_from_sk`.  
+      Purpose: Raw user data from the taco database with column typing and renaming.  
+      Granularity: One row per user, defined by `user_id`.  
       Filters: None
-      Notes: Includes snapshot history tracking columns (`dbt_...`).
     columns:
-      - name: user_id_valid_from_sk
-        description: "{{ doc('user_id_valid_from_sk') }}"
-        tests:
-          - not_null
-          - unique
+      # unique and not null testing in source for sk and user_id
+      - name: user_sk
+        description: "Surrogate key for the user"
       - name: user_id
         description: "{{ doc('user_id') }}"
       - name: district_id
         description: "{{ doc('district_id') }}"
       - name: user_role
         description: "{{ doc('user_role') }}"
-      - name: role_id
-        description: "{{ doc('role_id') }}"
       - name: user_status
         description: "{{ doc('user_status') }}"
-      - name: username
-        description: "{{ doc('username') }}"
       - name: user_grades
         description: "{{ doc('user_grades') }}"
       - name: user_other_grades
         description: "{{ doc('user_other_grades') }}"
-      - name: class_id
-        description: "{{ doc('class_id') }}"
       - name: user_sourced_id
         description: "{{ doc('user_sourced_id') }}"
       - name: user_identifier
         description: "{{ doc('user_identifier') }}"
-      - name: okta_user_id
-        description: "{{ doc('okta_user_id') }}"
-      - name: user_invite_status
-        description: "{{ doc('user_invite_status') }}"
       - name: disable_auto_sync
         description: "{{ doc('disable_auto_sync') }}"
       - name: manually_added
         description: "{{ doc('manually_added') }}"
-      - name: user_email_sent
-        description: "{{ doc('user_email_sent') }}"
-      - name: override_district_auth
-        description: "{{ doc('override_district_auth') }}"
-      - name: user_contact_email
-        description: "{{ doc('user_contact_email') }}"
-      - name: phone
-        description: "{{ doc('phone') }}"
-      - name: user_settings
-        description: "{{ doc('user_settings') }}"
-      - name: user_state_id
-        description: "{{ doc('user_state_id') }}"
-      - name: date_last_modified
-        description: "{{ doc('date_last_modified') }}"
-      - name: dbt_updated_at
-        description: "{{ doc('dbt_updated_at') }}"
-      - name: dbt_valid_from
-        description: "{{ doc('dbt_valid_from') }}"
-      - name: dbt_valid_to
-        description: "{{ doc('dbt_valid_to') }}"
-      - name: dbt_is_deleted
-        description: "{{ doc('dbt_is_deleted') }}"
+      - name: user_invite_status
+        description: "{{ doc('user_invite_status') }}"
+      - name: email_sent_utc
+        description: "{{ doc('email_sent_utc') }}"
+      - name: date_last_modified_utc
+        description: "{{ doc('date_last_modified_utc') }}"
+      # Commented out fields that aren't in the SQL
+      # - name: user_settings
+      #   description: "{{ doc('user_settings') }}"
+      # - name: user_state_id
+      #   description: "{{ doc('user_state_id') }}"
+      # - name: dbt_updated_at
+      #   description: "{{ doc('dbt_updated_at') }}"
+      # - name: dbt_valid_from
+      #   description: "{{ doc('dbt_valid_from') }}"
+      # - name: dbt_valid_to
+      #   description: "{{ doc('dbt_valid_to') }}"
+      # - name: dbt_is_deleted
+      #   description: "{{ doc('dbt_is_deleted') }}"

@@ -1,5 +1,9 @@
+version: 2
+
 snapshots:
-  - name: snp_taco__users
+  - name: snp_taco__users_disabled
+    # disabled during development
+    enabled: false
     relation: source('taco', 'raw_taco__users')
     config:
       schema: snapshots

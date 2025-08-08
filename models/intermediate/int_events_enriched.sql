@@ -75,6 +75,7 @@ events_add_columns_to_join as
         null
     ) as event_value_integer_join_column,
     
+
     -- path will give more program_id values than event_value, but sometimes event_value has the program when path is null
     cast(
         coalesce(

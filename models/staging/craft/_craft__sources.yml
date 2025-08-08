@@ -1,0 +1,26 @@
+version: 2
+
+sources:
+  - name: craft
+    description: >
+     "Tables extracted from the Craft Postgres database.
+     Tables are overwritten daily and may have changes and deletes.
+     For some sources, snapshots are used prior to staging to track changes at the extract cadence, daily."
+    database: raw
+    schema: taco
+    tables:
+      - name: raw_craft__programs
+        description: "Programs within Lilypad such as Toddler Joyful Discoveries"
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+
+      - name: raw_craft__resources
+        description: "Resources such as activities, documents, audio and video"
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
