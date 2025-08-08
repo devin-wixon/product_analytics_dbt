@@ -15,9 +15,31 @@ final as (
         
         -- attributes
         status::string as user_status,
-        grades::string as user_grades,
-        other_grades::string as user_other_grades,
-        
+        case 
+            when grades = '' or grades is null then null
+            -- array_compact removes null and [""]
+            -- array cast allows parsing with Snowflake array functions
+            else array_compact(try_parse_json(grades)::array)
+        end as user_grades,
+        -- other_grades mixes JSON-like arrays and plain text
+        case 
+            when other_grades = '' or other_grades is null then null
+            when other_grades like '[(%)]' then 
+                -- Handle [(PK)] format - extract content between parentheses
+                array_compact(array_construct(
+                    regexp_replace(other_grades, '\\[\\((.*)\\)\\]', '\\1')
+                ))
+            when other_grades like '%[%' and other_grades like '%]%' then 
+                -- Handle JSON-like arrays: ["PREKINDERGARTEN"], ["PK3"], etc.
+                array_compact(try_parse_json(other_grades)::array)
+            when other_grades like '%"%' then
+                -- Handle quoted strings that aren't arrays: "PREKINDERGARTEN"
+                array_compact(array_construct(replace(other_grades, '"', '')))
+            else
+                -- Handle plain text strings: PREKINDERGARTEN, THREES, etc.
+                array_compact(array_construct(other_grades))
+        end as user_other_grades,
+
         -- identifiers
         sourced_id::string as user_sourced_id,
         identifier::string as user_identifier,
