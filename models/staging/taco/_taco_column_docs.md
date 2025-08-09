@@ -47,7 +47,7 @@ Type of district.
 
 {% docs district_settings %}
 JSON of settings such as grades, rostering, and authentication methods
-Example: {"authentication.login_field": "email"}
+Example: {'grades': 'IT,PR,PK,TK,Other,KG,02', 'rostering': {'method': 'classlink', 'classlink_id': '1440', 'state_id_field': 'stateid', 'is_active_send_invite': 'false', 'allow_users_without_class_or_school': 'false'}, 'selfservice': {'rostering': {'show_clever': 'false'}, 'authentication': {'show_clever': 'true'}}, 'authentication': {'provider': 'class_link', 'classlink_settings': {'classlink_id': '1440'}}, 'product_launchers': {'aim_obs': {'url': '', 'enabled': True, 'access_key': '', 'private_key': ''}}, 'onboarding_required': 'false', 'user_pool_client_id': 'abcde'}
 {% enddocs %}
 
 {% docs is_district_enabled %}
@@ -94,8 +94,8 @@ Example: Brazilia
 {% enddocs %}
 
 {% docs district_general_settings %}
-General settings for the district, stored as a variant.  
-Example: {"setting": "value"}
+JSON of settings such as start date and end date
+Example: {'end_date': '2026-06-25', 'start_date': '2025-06-25', 'classroom_schedule': {'friday': {}, 'monday': {}, 'sunday': {}, 'tuesday': {}, 'saturday': {}, 'thursday': {}, 'wednesday': {}}}
 {% enddocs %}
 
 
