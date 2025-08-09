@@ -1,3 +1,11 @@
+{{
+  config(
+    enabled=false
+  )
+}}
+
+-- TAG TO DO Placeholder code with logic; needs debugging and finalizing
+
 with events as 
 (
     select
@@ -9,7 +17,6 @@ with events as
         event_name,
         event_path,
         event_value,
-        category,
         event_value_human_readable,
         _source_filename,
         _loaded_at_utc
@@ -17,17 +24,18 @@ with events as
 ),
 
 events_add_columns_to_join as
-    events.* exclude (event_path),
-    if(event_path = '' OR event_path = '/', NULL, event_path) AS event_path,
-    if(event_value = '' OR event_value = '/', NULL, event_value) AS event_value,
+(select
+    events.* exclude (event_path, event_value),
+    iff(event_path = '' OR event_path = '/', NULL, event_path) AS event_path,
+    iff(event_value = '' OR event_value = '/', NULL, event_value) AS event_value,
 
     -- derived column for join key based on numeric event_value
-    if(
+    iff(
         -- event value is numeric
         regexp_like(event_value, '^[0-9]+$'),
         case 
         -- these event names will have an event_value that joins to program_id
-            when name in (
+            when event_name in (
                 'weekly.planner.modal.lastWeeklyPlanner.open',
                 'weekly.planner.modal.program.select',
                 'weekly.planner.modal.program.deselect',
@@ -47,7 +55,7 @@ events_add_columns_to_join as
             ) then 'program_id'
             
              -- these event names will have an event_value that joins to resource_id
-            when name in (
+            when event_name in (
                 'weekly.planner.program.week.card.open',
                 'weekly.planner.program.week.card.toDo',
                 'weekly.planner.program.week.card.complete',
@@ -83,11 +91,11 @@ events_add_columns_to_join as
             when event_value_integer_join_column = 'program_id' then event_value 
             else null 
             end,
-            regexp_substr(events.path, 'resources/([^/]+)', 1, 1, 'e', 1),
-            regexp_substr(events.path, 'planner/([^/]+)', 1, 1, 'e', 1),
+            regexp_substr(events.event_path, 'resources/([^/]+)', 1, 1, 'e', 1),
+            regexp_substr(events.event_path, 'planner/([^/]+)', 1, 1, 'e', 1),
             regexp_substr(events.event_value, 'resources/([^/]+)', 1, 1, 'e', 1)
         ) as integer
-    ) as program_id
+    ) as program_id,
 
     -- path will give more resource_id values than event_value, but sometimes event_value has the resource when path is null
 
@@ -97,11 +105,13 @@ events_add_columns_to_join as
             when event_value_integer_join_column = 'resource_id' then event_value 
             else null 
             end,
-            regexp_substr(events.path, 'detail/([0-9]+)', 1, 1, 'e', 1),
+            regexp_substr(events.event_path, 'detail/([0-9]+)', 1, 1, 'e', 1),
             regexp_substr(events.event_value, 'detail/([0-9]+)', 1, 1, 'e', 1)
         ) as integer
     ) as resource_id
-
+from
+    events
+)
 
       
 , events_add_booleans as 
@@ -119,7 +129,7 @@ select
 from
     events_add_booleans
 
--- regexp_like(path,'^/planner/') as is_planner_event, -- TAG TO DO need to exclude the modal events
+-- regexp_like(event_path,'^/planner/') as is_planner_event, -- TAG TO DO need to exclude the modal events
 -- if join to resources here and add resource_type = 
 --    resource_type='document', event_client_date as is_resource_document_event,
 --     resource_type='activity', event_client_date as is_resource_activity_event,
