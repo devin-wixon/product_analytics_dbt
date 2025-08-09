@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: stg_taco__applications
+    description: |
+      Purpose: Raw application data from the taco database with column typing and renaming.  
+      Granularity: One row per application, defined by `application_id`.  
+      Filters: None
+    columns:
+      # unique and not null testing in source for application_id
+      - name: application_id
+      - name: application_name
+      - name: application_url
+      - name: application_meta_code
+      - name: application_type
+      - name: is_application_use_memberships
+      - name: is_application_enabled
+      - name: is_application_teachers_only

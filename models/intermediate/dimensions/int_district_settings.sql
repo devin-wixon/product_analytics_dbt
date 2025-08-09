@@ -1,6 +1,8 @@
 -- parse the district_settings column in stg_taco__districts
 
 -- TAG TO DO This is a placeholder not debugged or audited
+-- TAG TO DO union with district_general_settings 
+-- {'end_date': '2025-06-30', 'start_date': '2025-06-18', 'classroom_schedule': {'friday': {}, 'monday': {}, 'sunday': {}, 'tuesday': {}, 'saturday': {}, 'thursday': {}, 'wednesday': {}}}
 with
 source as (
     select 
