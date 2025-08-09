@@ -7,7 +7,7 @@ sources:
      Tables are overwritten daily and may have changes and deletes.
      For some sources, snapshots are used prior to staging to track changes at the extract cadence, daily."
     database: raw
-    schema: taco
+    schema: postgres_extracts
     tables:
       - name: raw_craft__programs
         description: "Programs within Lilypad such as Toddler Joyful Discoveries"
