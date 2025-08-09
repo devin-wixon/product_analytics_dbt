@@ -1,0 +1,282 @@
+version: 2
+
+models:
+  - name: int_district_settings
+    description: >
+      Configuration settings for school districts including authentication, rostering, 
+      product integrations, and self-service options. Each record represents a district's
+      complete configuration profile for the educational platform.
+    
+    columns:
+      - name: district_id
+        tests: 
+          - not_null
+          - unique
+      - name: grades
+        description: >
+          Comma-separated list of grade levels supported by the district.
+          Common values include IT (Infant/Toddler), PR (Pre-K), PK (Pre-Kindergarten), 
+          TK (Transitional Kindergarten), KG (Kindergarten), Other, TD, IN, and numbered grades (e.g., '02').
+        tests:
+          - not_null
+      
+      - name: rostering
+        description: >
+          Configuration object for student/staff roster management and data synchronization.
+        
+      - name: rostering.method
+        description: >
+          Method used for roster data integration. Options include:
+          - 'classlink': Integration with ClassLink SIS
+          - 'clever': Integration with Clever SIS  
+          - 'flat_file_csv': Manual CSV file uploads
+          - 'oneroster': OneRoster standard integration
+          - '' (empty): No rostering configured
+        
+      - name: rostering.classlink_id
+        description: >
+          Unique identifier for ClassLink integration when method is 'classlink'.
+          
+      - name: rostering.clever_id
+        description: >
+          Unique identifier for Clever integration when method is 'clever'.
+          
+      - name: rostering.upload_method
+        description: >
+          For flat_file_csv method, specifies how files are uploaded.
+          Values include 'manual' and 'sftp'.
+          
+      - name: rostering.rostering_type
+        description: >
+          Defines how roster updates are processed:
+          - 'additive': New records are added, existing records remain
+          - 'replace': Complete replacement of existing roster data
+          
+      - name: rostering.state_id_field
+        description: >
+          Field name used as the state identifier in roster data.
+          Common values: 'stateid', 'username', 'identifier'.
+          
+      - name: rostering.is_active_send_invite
+        description: >
+          Boolean flag controlling whether invitation emails are sent to users
+          when roster data is processed. Values: 'true', 'false', true, false.
+          
+      - name: rostering.allow_users_without_class_or_school
+        description: >
+          Boolean flag allowing users to exist without class or school assignment.
+          Values: 'true', 'false', true, false.
+          
+      - name: selfservice
+        description: >
+          Configuration object for self-service portal options available to districts.
+          
+      - name: selfservice.rostering.show_clever
+        description: >
+          Controls visibility of Clever rostering options in self-service portal.
+          Values: 'true', 'false'.
+          
+      - name: selfservice.authentication.show_clever
+        description: >
+          Controls visibility of Clever authentication options in self-service portal.
+          Values: 'true', 'false'.
+          
+      - name: authentication
+        description: >
+          Configuration object for user authentication and single sign-on settings.
+          
+      - name: authentication.provider
+        description: >
+          Primary authentication provider for the district. Options include:
+          - 'password': Standard username/password authentication
+          - 'class_link': ClassLink SSO integration
+          - 'clever': Clever SSO integration  
+          - 'saml': SAML-based SSO
+          
+      - name: authentication.login_field
+        description: >
+          Field used for user login identification, typically 'email'.
+          
+      - name: authentication.classlink_settings
+        description: >
+          Configuration object for ClassLink authentication settings.
+          
+      - name: authentication.classlink_settings.classlink_id
+        description: >
+          ClassLink organization identifier for authentication.
+          
+      - name: authentication.clever_settings
+        description: >
+          Configuration object for Clever authentication settings.
+          
+      - name: authentication.clever_settings.clever_id
+        description: >
+          Clever district identifier for authentication.
+          
+      - name: authentication.clever_settings.provider_name
+        description: >
+          Human-readable name of the Clever provider/district.
+          
+      - name: authentication.saml_settings
+        description: >
+          Configuration object for SAML authentication settings.
+          
+      - name: authentication.saml_settings.provider_name
+        description: >
+          Name identifier for the SAML provider.
+          
+      - name: authentication.saml_settings.metadata_document_file
+        description: >
+          File path or name of the SAML metadata document.
+          
+      - name: authentication.saml_settings.metadata_document_source
+        description: >
+          Source type for SAML metadata document (e.g., 'file').
+          
+      - name: product_launchers
+        description: >
+          Configuration object containing settings for integrated educational products
+          and third-party applications available to the district.
+          
+      - name: product_launchers.abcmouse
+        description: >
+          Configuration for ABCmouse educational content integration.
+          
+      - name: product_launchers.abc_mouse
+        description: >
+          Extended configuration for ABCmouse with additional district-specific settings.
+          
+      - name: product_launchers.abc_mouse.enabled
+        description: >
+          Boolean flag indicating if ABCmouse integration is active.
+          Values: 'true', 'false', true, false.
+          
+      - name: product_launchers.abc_mouse.abc_group_id
+        description: >
+          ABCmouse group identifier for the district.
+          
+      - name: product_launchers.abc_mouse.abc_district_sourced_id
+        description: >
+          District identifier used by ABCmouse system (typically prefixed with 'LILYPAD').
+          
+      - name: product_launchers.ccei
+        description: >
+          Configuration for CCEI (Center for Childhood Education Innovation) integration.
+          
+      - name: product_launchers.ccei.enabled
+        description: >
+          Boolean flag indicating if CCEI integration is active.
+          Values: 'true', 'false'.
+          
+      - name: product_launchers.cognitive_box
+        description: >
+          Configuration for Cognitive Box educational assessment platform.
+          
+      - name: product_launchers.cognitive_box.enabled
+        description: >
+          Boolean flag indicating if Cognitive Box integration is active.
+          Values: 'true', 'false'.
+          
+      - name: product_launchers.cognitive_box.api_key
+        description: >
+          Public API key identifier for Cognitive Box integration.
+          
+      - name: product_launchers.cognitive_box.api_key_value
+        description: >
+          Secret API key value for Cognitive Box authentication.
+          
+      - name: product_launchers.frogstreet_prek
+        description: >
+          Configuration for Frog Street Pre-K curriculum integration.
+          
+      - name: product_launchers.frogstreet_prek.enabled
+        description: >
+          Boolean flag indicating if Frog Street Pre-K integration is active.
+          Values: 'true', 'false', true, false.
+          
+      - name: product_launchers.frogstreet_prek.memberships
+        description: >
+          Membership configuration for Frog Street Pre-K access.
+          
+      - name: product_launchers.aim_crt
+        description: >
+          Configuration for AIM CRT (Curriculum Resource Tools) integration.
+          
+      - name: product_launchers.aim_crt.enabled
+        description: >
+          Boolean flag indicating if AIM CRT integration is active.
+          Values: 'true', 'false', true, false.
+          
+      - name: product_launchers.aim_crt.url
+        description: >
+          Base URL for AIM CRT platform access (typically linkit.com domain).
+          
+      - name: product_launchers.aim_crt.private_key
+        description: >
+          Private key for secure AIM CRT authentication.
+          
+      - name: product_launchers.aim_obs
+        description: >
+          Configuration for AIM OBS (Observation System) integration.
+          
+      - name: product_launchers.aim_obs.enabled
+        description: >
+          Boolean flag indicating if AIM OBS integration is active.
+          Values: 'true', 'false', true, false.
+          
+      - name: product_launchers.aim_obs.url
+        description: >
+          Base URL for AIM OBS platform access.
+          
+      - name: product_launchers.aim_obs.access_key
+        description: >
+          Access key for AIM OBS authentication.
+          
+      - name: product_launchers.aim_obs.secret_key
+        description: >
+          Secret key for secure AIM OBS authentication.
+          
+      - name: product_launchers.aim_obs.private_key
+        description: >
+          Private key for AIM OBS integration.
+          
+      - name: product_launchers.ctb
+        description: >
+          Configuration for CTB assessment platform integration.
+          
+      - name: product_launchers.ctb.enabled
+        description: >
+          Boolean flag indicating if CTB integration is active.
+          Values: 'true', 'false'.
+          
+      - name: product_launchers.edfi
+        description: >
+          Configuration for Ed-Fi data standard integration.
+          
+      - name: product_launchers.edfi.enabled
+        description: >
+          Boolean flag indicating if Ed-Fi integration is active.
+          Values: 'true', 'false'.
+          
+      - name: product_launchers.edfi.url
+        description: >
+          API endpoint URL for Ed-Fi data services (typically state education department).
+          
+      - name: product_launchers.keys_not_from_inheritance
+        description: >
+          Array of product launcher keys that are specific to this district
+          and not inherited from parent configurations.
+          
+      - name: onboarding_required
+        description: >
+          Flag indicating whether new users must complete an onboarding process.
+          Values: 'true', 'false', true, false.
+        tests:
+          - not_null
+          
+      - name: user_pool_client_id
+        description: >
+          AWS Cognito User Pool client identifier for authentication services.
+          Standard values include '21s5nl0a1v13s6m0u9fij1m0im' and '77i8os8dm0oibjd0cie6i8asd4'.
+        tests:
+          - not_null

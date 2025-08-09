@@ -11,7 +11,8 @@ final as (
         role::string as user_role,
         
         -- attributes
-        status::string as user_status,
+        -- standardizing capitalization (it's mixed ACTIVE, active, Active)
+        lower(status::string) as user_status,
         case 
             when grades = '' or grades is null then null
             -- array_compact removes null and [""]
@@ -42,8 +43,8 @@ final as (
         identifier::string as user_identifier,
         
         -- flags
-        disable_auto_sync::boolean as disable_auto_sync,
-        manually_added::boolean as manually_added,
+        disable_auto_sync::boolean as is_disable_auto_sync,
+        manually_added::boolean as is_manually_added,
         invite_status::string as user_invite_status,
         
         -- timestamps

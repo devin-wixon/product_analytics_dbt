@@ -24,10 +24,10 @@ models:
         description: "{{ doc('user_sourced_id') }}"
       - name: user_identifier
         description: "{{ doc('user_identifier') }}"
-      - name: disable_auto_sync
-        description: "{{ doc('disable_auto_sync') }}"
-      - name: manually_added
-        description: "{{ doc('manually_added') }}"
+      - name: is_disable_auto_sync
+        description: "{{ doc('is_disable_auto_sync') }}"
+      - name: is_manually_added
+        description: "{{ doc('is_manually_added') }}"
       - name: user_invite_status
         description: "{{ doc('user_invite_status') }}"
       - name: email_sent_utc

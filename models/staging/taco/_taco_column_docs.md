@@ -1,6 +1,5 @@
 
 {% docs district_name %}
-Name of the district.  
 Example: Dallas ISD
 {% enddocs %}
 
@@ -29,14 +28,9 @@ Sage system identifier for the district.
 Example: SAGE54321
 {% enddocs %}
 
-{% docs district_last_sync %}
-Timestamp of the last sync for the district.  
+{% docs district_last_sync_utc %}
+<!-- TAG TO DO confirm values and flesh out with their meaning. -->
 Example: 2025-07-30 00:00:00.000
-{% enddocs %}
-
-{% docs district_curriculum %}
-Curriculum used by the district.  
-Example: Common Core
 {% enddocs %}
 
 {% docs district_type %}
@@ -52,13 +46,12 @@ Type of district.
 {% enddocs %}
 
 {% docs district_settings %}
-Serialized settings or preferences for the district.  
-Example: {"key": "value"}
+JSON of settings such as grades, rostering, and authentication methods
+Example: {"authentication.login_field": "email"}
 {% enddocs %}
 
-{% docs district_enabled %}
-Indicates if the district is enabled.  
-Example: TRUE
+{% docs is_district_enabled %}
+<!-- TAG TO DO confirm values and flesh out with their meaning. -->
 {% enddocs %}
 
 {% docs district_website_slug %}
@@ -91,14 +84,13 @@ Timestamp when auto rostering was last checked for the district.
 Example: 2025-07-30 00:00:00.000
 {% enddocs %}
 
-{% docs district_auto_sync %}
-Indicates if automatic synchronization is enabled for the district.  
+{% docs is_district_auto_sync %}
+<!-- TAG TO DO confirm values and flesh out with their meaning. -->
 Example: TRUE
 {% enddocs %}
 
 {% docs district_state_international %}
-International state or region for the district.  
-Example: Ontario
+Example: Brazilia
 {% enddocs %}
 
 {% docs district_general_settings %}
@@ -130,7 +122,7 @@ Example: 23308
 
 {% docs user_grades %}
 Array: Grade levels associated with the user.  
-Example: ["08"]
+Example: ["IN", "TD", "PK"]
 {% enddocs %}
 
 
@@ -147,7 +139,7 @@ Example: student
 
 
 {% docs user_status %}
-<!-- TAG TO DO confirm values and flesh out with their menaing. -->
+<!-- TAG TO DO confirm values and flesh out with their meaning. -->
 Example: active
 {% enddocs %}
 
@@ -187,10 +179,11 @@ Example: 2025-07-30 00:00:00.000
 
 
 {% docs user_other_grades %}
+<!-- TAG TO DO confirm values and flesh out with their meaning. -->
 {% enddocs %}
 
 
-{% docs disable_auto_sync %}
+{% docs is_disable_auto_sync %}
 If true, any changes to the user will be ignored in following syncs.   
 This applies to both new and existing users.  
 This setting can be disabled in the user interface if needed.  
@@ -208,7 +201,7 @@ Indicates the onboarding status of the user.
 {% enddocs %}
 
 
-{% docs manually_added %}
+{% docs is_manually_added %}
 {% enddocs %}
 
 
@@ -217,12 +210,6 @@ Indicates the onboarding status of the user.
 
 
 {% docs override_district_auth %}
-{% enddocs %}
-
-
-{% docs role_id %}
-Identifier for the user's role, such as teacher or student.  
-Example: (empty)
 {% enddocs %}
 
 
