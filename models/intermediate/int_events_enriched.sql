@@ -114,7 +114,20 @@ events_add_columns_to_join as (
             null
         ) as event_value_integer_join_column,
 
-        -- program_id may be in path but not in event_value
+        -- events with odd behaviors
+        -- productLaunchOpen event_value is text name not application_id
+        case when event_name = 'productLaunchOpen' 
+            then event_value as launched_application_name end,
+
+        -- router.left events: 
+            -- path = route user navigating TO
+            -- event_value = rout use just LEFT
+        case when event_name = 'router.left' 
+            then event_path as path_entered end,
+        case when event_name = 'router.left' 
+        then event_value as path_left end,
+        
+       -- program_id may be in path but not in event_value
         -- for router.left this will be the program TO, not the one left
         cast(
             coalesce(
@@ -151,22 +164,7 @@ events_add_columns_to_join as (
                     events.event_value, 'detail/([0-9]+)', 1, 1, 'e', 1
                 )
             ) as integer
-        ) as resource_id,
-
-        -- events with odd behaviors
-        -- productLaunchOpen event_value is text name not application_id
-        case when event_name = 'productLaunchOpen' 
-            then event_value as launched_application_name end,
-
-        -- router.left events: 
-            -- path = route user navigating TO
-            -- event_value = rout use just LEFT
-        case when event_name = 'router.left' 
-            then event_path as path_entered end,
-        case when event_name = 'router.left' 
-        then event_value as path_left end
-
-
+        ) as resource_id
 
     from
         events
