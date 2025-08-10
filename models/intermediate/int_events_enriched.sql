@@ -25,50 +25,14 @@ with events as (
 events_add_columns_to_join as (
     select
         events.* exclude (event_path, event_value),
-        cast(
-            coalesce(
-                case
-                    when
-                        event_value_integer_join_column = 'program_id'
-                        then event_value
-                end,
-                regexp_substr(
-                    events.event_path, 'resources/([^/]+)', 1, 1, 'e', 1
-                ),
-                regexp_substr(
-                    events.event_path, 'planner/([^/]+)', 1, 1, 'e', 1
-                ),
-                regexp_substr(
-                    events.event_value, 'resources/([^/]+)', 1, 1, 'e', 1
-                )
-            ) as integer
-        ) as program_id,
-        cast(
-            coalesce(
-                case
-                    when
-                        event_value_integer_join_column = 'resource_id'
-                        then event_value
-                end,
-                regexp_substr(
-                    events.event_path, 'detail/([0-9]+)', 1, 1, 'e', 1
-                ),
-                regexp_substr(
-                    events.event_value, 'detail/([0-9]+)', 1, 1, 'e', 1
-                )
-            ) as integer
-        ) as resource_id,
-
-        -- derived column for join key based on numeric event_value
+        -- clean up
         iff(event_path = '' or event_path = '/', null, event_path)
             as event_path,
 
 
-        -- sometimes event_value has the program when path is null
         iff(event_value = '' or event_value = '/', null, event_value)
             as event_value,
-
-        -- sometimes event_value has the resource when path is null
+        -- derive column with what event_value should join to, if anything
 
         iff(
         -- event value is numeric
@@ -118,13 +82,95 @@ events_add_columns_to_join as (
                     'media.seek',
                     'media.changeVolume'
                 ) then 'resource_id'
+                -- TAG TO DO what is this joining to? metadata says: "Resource Filter id"
+                -- doesn't seem to be folder_id or resource_id
+                when event_name in (
+                    'program.resource.accordion.open',
+                    'program.resource.accordion.close'
+                ) then 'xxx'
+                -- TAG TO DO what is this joining to? metadata says: "Resource Filter id"
+                -- folder_id isn't right. sometimes it is, sometimes it isn't
+                when event_name in (
+                    'program.resource.accordion.list.close',
+                    'program.resource.accordion.list.open',
+                ) then `xxx`
+                -- TAG TO DO Confirm this, then add framework_id as a column below
+                when event_name in 
+                    ('weekly.planner.program.week.filter.change.framework'
+                ) then 'framework_id'
+                -- TAG TO DO what is this joining to? metadata says: "focus area type"
+                -- TAG TO DO then add focus_area_id as a column below as needed
+                when event_name in 
+                    ('weekly.planner.program.week.filter.deselect',
+                    'weekly.planner.program.week.filter.select'
+                ) then 'xxx'
+                -- TAG TO DO what is this joining to? metadata says: "domain id"
+                -- TAG TO DO then add domain_id as a column below as needed
+                when event_name in (
+                    'weekly.planner.program.week.report.skill.group.close',
+                    'weekly.planner.program.week.report.skill.group.open'
+                ) then 'xxx'
             end,
             null
-        ) as event_value_integer_join_column
+        ) as event_value_integer_join_column,
+
+        -- program_id may be in path but not in event_value
+        -- for router.left this will be the program TO, not the one left
+        cast(
+            coalesce(
+                case
+                    when
+                        event_value_integer_join_column = 'program_id'
+                        then event_value
+                end,
+                regexp_substr(
+                    events.event_path, 'resources/([^/]+)', 1, 1, 'e', 1
+                ),
+                regexp_substr(
+                    events.event_path, 'planner/([^/]+)', 1, 1, 'e', 1
+                ),
+                regexp_substr(
+                    events.event_value, 'resources/([^/]+)', 1, 1, 'e', 1
+                )
+            ) as integer
+        ) as program_id,
+
+        -- resource_id may be in path but not in event_value
+        -- for router.left this will be the resource TO, not the one left
+        cast(
+            coalesce(
+                case
+                    when
+                        event_value_integer_join_column = 'resource_id'
+                        then event_value
+                end,
+                regexp_substr(
+                    events.event_path, 'detail/([0-9]+)', 1, 1, 'e', 1
+                ),
+                regexp_substr(
+                    events.event_value, 'detail/([0-9]+)', 1, 1, 'e', 1
+                )
+            ) as integer
+        ) as resource_id,
+
+        -- events with odd behaviors
+        -- productLaunchOpen event_value is text name not application_id
+        case when event_name = 'productLaunchOpen' 
+            then event_value as launched_application_name end,
+
+        -- router.left events: 
+            -- path = route user navigating TO
+            -- event_value = rout use just LEFT
+        case when event_name = 'router.left' 
+            then event_path as path_entered end,
+        case when event_name = 'router.left' 
+        then event_value as path_left end
+
+
+
     from
         events
 ),
-
 
 events_add_booleans as (
     select
