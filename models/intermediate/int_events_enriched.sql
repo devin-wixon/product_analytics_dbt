@@ -6,8 +6,7 @@
 
 -- TAG TO DO Placeholder code with logic; needs debugging and finalizing
 
-with events as 
-(
+with events as (
     select
         event_pk,
         server_timestamp,
@@ -23,109 +22,124 @@ with events as
     from {{ ref('stg_lilypad__events_log') }}
 ),
 
-events_add_columns_to_join as
-(select
-    events.* exclude (event_path, event_value),
-    iff(event_path = '' OR event_path = '/', NULL, event_path) AS event_path,
-    iff(event_value = '' OR event_value = '/', NULL, event_value) AS event_value,
+events_add_columns_to_join as (
+    select
+        events.* exclude (event_path, event_value),
+        cast(
+            coalesce(
+                case
+                    when
+                        event_value_integer_join_column = 'program_id'
+                        then event_value
+                end,
+                regexp_substr(
+                    events.event_path, 'resources/([^/]+)', 1, 1, 'e', 1
+                ),
+                regexp_substr(
+                    events.event_path, 'planner/([^/]+)', 1, 1, 'e', 1
+                ),
+                regexp_substr(
+                    events.event_value, 'resources/([^/]+)', 1, 1, 'e', 1
+                )
+            ) as integer
+        ) as program_id,
+        cast(
+            coalesce(
+                case
+                    when
+                        event_value_integer_join_column = 'resource_id'
+                        then event_value
+                end,
+                regexp_substr(
+                    events.event_path, 'detail/([0-9]+)', 1, 1, 'e', 1
+                ),
+                regexp_substr(
+                    events.event_value, 'detail/([0-9]+)', 1, 1, 'e', 1
+                )
+            ) as integer
+        ) as resource_id,
 
-    -- derived column for join key based on numeric event_value
-    iff(
+        -- derived column for join key based on numeric event_value
+        iff(event_path = '' or event_path = '/', null, event_path)
+            as event_path,
+
+
+        -- sometimes event_value has the program when path is null
+        iff(event_value = '' or event_value = '/', null, event_value)
+            as event_value,
+
+        -- sometimes event_value has the resource when path is null
+
+        iff(
         -- event value is numeric
-        regexp_like(event_value, '^[0-9]+$'),
-        case 
-        -- these event names will have an event_value that joins to program_id
-            when event_name in (
-                'weekly.planner.modal.lastWeeklyPlanner.open',
-                'weekly.planner.modal.program.select',
-                'weekly.planner.modal.program.deselect',
-                'weekly.planner.modal.program.theme.select',
-                'weekly.planner.modal.program.theme.deselect',
-                'weekly.planner.modal.program.week.select',
-                'weekly.planner.program.week.complete',
-                'weekly.planner.program.week.report.open',
-                'weekly.planner.program.week.report.close',
-                'weekly.planner.program.week.print',
-                'weekly.planner.program.week.filter.open',
-                'weekly.planner.program.week.filter.close',
-                'weekly.planner.program.week.filter.select.all',
-                'weekly.planner.program.week.filter.deselect.all',
-                'weekly.planner.program.week.report.highFive',
-                'weekly.planner.modal.close'
-            ) then 'program_id'
-            
-             -- these event names will have an event_value that joins to resource_id
-            when event_name in (
-                'weekly.planner.program.week.card.open',
-                'weekly.planner.program.week.card.toDo',
-                'weekly.planner.program.week.card.complete',
-                'weekly.planner.program.week.card.skip',
-                'weekly.planner.program.week.card.needToRevisit',
-                'weekly.planner.resource.page.card.complete',
-                'weekly.planner.resource.page.card.skip',
-                'weekly.planner.resource.page.card.needToRevisit',
-                'download',
-                'openInNewTab',
-                'print',
-                'fullscreen',
-                'pdf.changePage',
-                'pdf.changeZoom',
-                'playlist.changeSong',
-                'playlist.autoPlay',
-                'media.start',
-                'media.play',
-                'media.pause',
-                'media.seek',
-                'media.changeVolume'
-            ) then 'resource_id'
-            else null
-        end,
-        null
-    ) as event_value_integer_join_column,
-    
+            regexp_like(event_value, '^[0-9]+$'),
+            case
+                -- event names with event_value that joins to program_id
+                when event_name in (
+                    'weekly.planner.modal.lastWeeklyPlanner.open',
+                    'weekly.planner.modal.program.select',
+                    'weekly.planner.modal.program.deselect',
+                    'weekly.planner.modal.program.theme.select',
+                    'weekly.planner.modal.program.theme.deselect',
+                    'weekly.planner.modal.program.week.select',
+                    'weekly.planner.program.week.complete',
+                    'weekly.planner.program.week.report.open',
+                    'weekly.planner.program.week.report.close',
+                    'weekly.planner.program.week.print',
+                    'weekly.planner.program.week.filter.open',
+                    'weekly.planner.program.week.filter.close',
+                    'weekly.planner.program.week.filter.select.all',
+                    'weekly.planner.program.week.filter.deselect.all',
+                    'weekly.planner.program.week.report.highFive',
+                    'weekly.planner.modal.close'
+                ) then 'program_id'
 
-    -- path will give more program_id values than event_value, but sometimes event_value has the program when path is null
-    cast(
-        coalesce(
-            case 
-            when event_value_integer_join_column = 'program_id' then event_value 
-            else null 
+                -- event names with event_value that joins to resource_id
+                when event_name in (
+                    'weekly.planner.program.week.card.open',
+                    'weekly.planner.program.week.card.toDo',
+                    'weekly.planner.program.week.card.complete',
+                    'weekly.planner.program.week.card.skip',
+                    'weekly.planner.program.week.card.needToRevisit',
+                    'weekly.planner.resource.page.card.complete',
+                    'weekly.planner.resource.page.card.skip',
+                    'weekly.planner.resource.page.card.needToRevisit',
+                    'download',
+                    'openInNewTab',
+                    'print',
+                    'fullscreen',
+                    'pdf.changePage',
+                    'pdf.changeZoom',
+                    'playlist.changeSong',
+                    'playlist.autoPlay',
+                    'media.start',
+                    'media.play',
+                    'media.pause',
+                    'media.seek',
+                    'media.changeVolume'
+                ) then 'resource_id'
             end,
-            regexp_substr(events.event_path, 'resources/([^/]+)', 1, 1, 'e', 1),
-            regexp_substr(events.event_path, 'planner/([^/]+)', 1, 1, 'e', 1),
-            regexp_substr(events.event_value, 'resources/([^/]+)', 1, 1, 'e', 1)
-        ) as integer
-    ) as program_id,
+            null
+        ) as event_value_integer_join_column
+    from
+        events
+),
 
-    -- path will give more resource_id values than event_value, but sometimes event_value has the resource when path is null
 
-    cast(
-        coalesce(
-            case 
-            when event_value_integer_join_column = 'resource_id' then event_value 
-            else null 
-            end,
-            regexp_substr(events.event_path, 'detail/([0-9]+)', 1, 1, 'e', 1),
-            regexp_substr(events.event_value, 'detail/([0-9]+)', 1, 1, 'e', 1)
-        ) as integer
-    ) as resource_id
-from
-    events
+events_add_booleans as (
+    select
+        events_joins.*,
+        events_joins.event_name = 'auth.login' as is_login_event,
+        events_joins.event_name in (
+            'weekly.planner.modal.program.week.select',
+            'weekly.planner.modal.lastWeeklyPlanner.open'
+        ) as is_planner_open_event
+
+    from
+        events_add_columns_to_join as events_joins
 )
 
-      
-, events_add_booleans as 
-(select
-    events_joins.*,
-    event_name = 'auth.login' as is_login_event,
-    event_name in ('weekly.planner.modal.program.week.select', 'weekly.planner.modal.lastWeeklyPlanner.open') as is_planner_open_event
-
-from
-    events_add_columns_to_join as events_joins
-)
-
-select
-    *
+select *
 from
     events_add_booleans
 
