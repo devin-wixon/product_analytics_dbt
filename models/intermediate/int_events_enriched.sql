@@ -126,7 +126,7 @@ events_add_columns_to_join as (
             then event_path as path_entered end,
         case when event_name = 'router.left' 
         then event_value as path_left end,
-        
+
        -- program_id may be in path but not in event_value
         -- for router.left this will be the program TO, not the one left
         cast(
@@ -181,11 +181,19 @@ events_add_booleans as (
 
     from
         events_add_columns_to_join as events_joins
-)
+), 
 
-select *
+final as 
+(select 
+    *
 from
     events_add_booleans
+)
+
+select
+    *
+from
+    final
 
 -- regexp_like(event_path,'^/planner/') as is_planner_event, -- TAG TO DO need to exclude the modal events
 -- if join to resources here and add resource_type = 
