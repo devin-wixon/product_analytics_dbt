@@ -24,7 +24,7 @@ with events as (
 
 events_add_columns_to_join as (
     select
-        events.* exclude (event_path, event_value),
+    events.* EXCLUDE (event_path, event_value),
         -- clean up
         iff(event_path = '' or event_path = '/', null, event_path)
             as event_path,
@@ -92,8 +92,8 @@ events_add_columns_to_join as (
                 -- folder_id isn't right. sometimes it is, sometimes it isn't
                 when event_name in (
                     'program.resource.accordion.list.close',
-                    'program.resource.accordion.list.open',
-                ) then `xxx`
+                    'program.resource.accordion.list.open'
+                ) then 'xxx'
                 -- TAG TO DO Confirm this, then add framework_id as a column below
                 when event_name in 
                     ('weekly.planner.program.week.filter.change.framework'
@@ -112,39 +112,29 @@ events_add_columns_to_join as (
                 ) then 'xxx'
             end,
             null
+            -- TAG TO DO repeat for all event_value: framework_id, focus_area_id, folder_id, etc.
         ) as event_value_integer_join_column,
 
         -- events with odd behaviors
+
         -- productLaunchOpen event_value is text name not application_id
-        case when event_name = 'productLaunchOpen' 
-            then event_value as launched_application_name end,
+        case when event_name = 'productLaunchOpen' then event_value else null end as launched_application_name,
 
         -- router.left events: 
             -- path = route user navigating TO
-            -- event_value = rout use just LEFT
-        case when event_name = 'router.left' 
-            then event_path as path_entered end,
-        case when event_name = 'router.left' 
-        then event_value as path_left end,
+            -- event_value = route user just LEFT
+        case when event_name = 'router.left' then event_path else null end as path_entered,
+        case when event_name = 'router.left' then event_value else null end as path_left,
+
 
        -- program_id may be in path but not in event_value
         -- for router.left this will be the program TO, not the one left
         cast(
             coalesce(
-                case
-                    when
-                        event_value_integer_join_column = 'program_id'
-                        then event_value
-                end,
-                regexp_substr(
-                    events.event_path, 'resources/([^/]+)', 1, 1, 'e', 1
-                ),
-                regexp_substr(
-                    events.event_path, 'planner/([^/]+)', 1, 1, 'e', 1
-                ),
-                regexp_substr(
-                    events.event_value, 'resources/([^/]+)', 1, 1, 'e', 1
-                )
+                case when event_value_integer_join_column = 'program_id' then event_value else null end,
+                regexp_substr(events.event_path, 'resources/([^/]+)', 1, 1, 'e', 1),
+                regexp_substr(events.event_path, 'planner/([^/]+)', 1, 1, 'e', 1),
+                regexp_substr(events.event_value, 'resources/([^/]+)', 1, 1, 'e', 1)
             ) as integer
         ) as program_id,
 
@@ -152,17 +142,9 @@ events_add_columns_to_join as (
         -- for router.left this will be the resource TO, not the one left
         cast(
             coalesce(
-                case
-                    when
-                        event_value_integer_join_column = 'resource_id'
-                        then event_value
-                end,
-                regexp_substr(
-                    events.event_path, 'detail/([0-9]+)', 1, 1, 'e', 1
-                ),
-                regexp_substr(
-                    events.event_value, 'detail/([0-9]+)', 1, 1, 'e', 1
-                )
+                case when event_value_integer_join_column = 'resource_id' then event_value else null end,
+                regexp_substr(events.event_path, 'detail/([0-9]+)', 1, 1, 'e', 1),
+                regexp_substr(events.event_value, 'detail/([0-9]+)', 1, 1, 'e', 1)
             ) as integer
         ) as resource_id
 
