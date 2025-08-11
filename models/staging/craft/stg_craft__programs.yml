@@ -13,6 +13,6 @@ models:
       - name: age_group
       - name: is_supplemental
       - name: custom_banner
-      - name: deleted_at_dt
       - name: clone_status
       - name: program_type
+      - name: deleted_date

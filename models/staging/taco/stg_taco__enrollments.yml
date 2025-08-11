@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: stg_taco__enrollments
+    description: |
+      Purpose: Raw enrollment data from the taco database with column typing and renaming.  
+      Granularity: One row per `enrollment_id`.  
+      Filters: None
+    columns:
+      # source tests uniqueness and not null for enrollment_id
+      - name: enrollment_id
+      - name: user_sourced_id
+      - name: class_sourced_id
+      - name: school_sourced_id
+      - name: user_source_id
+      - name: role
+      - name: user_id
+      - name: class_id
+      - name: is_primary
+      - name: status
+      - name: is_active
+      - name: district_id
+      - name: sourced_id
+      - name: school_id
+      - name: role_id
+      - name: start_date
+      - name: end_date
+      - name: last_modified_at_utc

@@ -7,7 +7,7 @@ models:
       Granularity: TAG TO DO investigating this.  
       Filters: None
     columns:
-      # source tests uniqueness of district_program_license_id
+      # source tests for unique district_program_license_id
       - name: district_program_license_id
       - name: district_id
       - name: program_id

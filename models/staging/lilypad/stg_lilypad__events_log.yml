@@ -21,9 +21,9 @@ models:
         description: "{{ doc('user_id') }}"
       - name: session_uuid
         description: "{{ doc('session_uuid') }}"
-      - name: name
+      - name: event_name
         description: "{{ doc('event_name') }}"
-      - name: path
+      - name: event_path
         description: "{{ doc('event_path') }}"
       - name: event_value
         description: "{{ doc('event_value') }}"
