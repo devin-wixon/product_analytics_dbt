@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: stg_taco__district_application_licenses
+    description: |
+      Purpose: Raw district application license data from the taco database with column typing and renaming.  
+      Granularity: TAG TO DO investigating this.  
+      Filters: None
+    columns:
+      # source tests uniqueness of district_application_license_id
+      - name: district_application_license_id
+      - name: district_id
+      - name: application_id
+      - name: license
+      - name: quantity_licenses
+      # - name: sales_record
+      - name: expiration_date_dt
+      - name: created_at
+      - name: updated_at
+      - name: deleted_at

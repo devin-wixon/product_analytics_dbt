@@ -41,6 +41,7 @@ sources:
           - name: program_id
             tests:
               - not_null
+        # ensure unique district x program combination; required for downstream models
         tests:
           - unique:
               column_name: "district_id || '-' || program_id"
@@ -51,30 +52,31 @@ sources:
             tests:
               - unique
               - not_null
-          # ensure unique district x application combination; required for downstream models
           - name: district_id
             tests:
               - not_null
           - name: application_id
             tests:
               - not_null
+        # ensure unique district x application combination; required for downstream models
         tests:
           - unique:
               column_name: "district_id || '-' || application_id"
       - name: raw_taco__district_application_licenses
-        description: "Licenses for applications (third-party products) associated with each district"
+        description: "Quantity and expiration dates for districts' applications (third-party products) licenses"
         columns:
           - name: id
             tests:
               - unique
               - not_null
       - name: raw_taco__district_program_licenses
-        description: "Licenses for programs associated with each district"
+        description: "Quantities and expiration dates of districts' program licenses"
         columns:
           - name: id
             tests:
               - unique
               - not_null
+
       - name: raw_taco__enrollments
         description: "Enrollments of users in schools or classes"
         columns:

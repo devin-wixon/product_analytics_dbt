@@ -12,6 +12,8 @@ models:
         tests:
           - unique
           - not_null
+      # source tests for non-null district_id, program_id
+      # source tests for unique district_id x program_id combination
       - name: district_id
       - name: program_id
       - name: is_enabled

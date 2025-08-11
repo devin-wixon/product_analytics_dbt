@@ -4,14 +4,16 @@ models:
   - name: stg_taco__district_program_licenses
     description: |
       Purpose: Raw district program license data from the taco database with column typing and renaming.  
-      Granularity: One row per license, defined by `district_program_license_id`.  
+      Granularity: TAG TO DO investigating this.  
       Filters: None
     columns:
+      # source tests uniqueness of district_program_license_id
       - name: district_program_license_id
       - name: district_id
       - name: program_id
       - name: license
       - name: quantity_licenses
+      # - name: sales_record
       - name: expiration_date_dt
       - name: created_at_utc
       - name: updated_at_utc
