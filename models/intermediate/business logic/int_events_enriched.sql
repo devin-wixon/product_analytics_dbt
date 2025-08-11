@@ -4,7 +4,7 @@
 
 with events as (
     select
-        event_pk,
+        event_id,
         server_timestamp,
         client_timestamp,
         user_id,
@@ -152,19 +152,52 @@ events_add_columns_to_join as (
 events_add_booleans as (
     select
         events_joins.*,
+        
         events_joins.event_name = 'auth.login' as is_login_event,
+        
         events_joins.event_name in (
             'weekly.planner.modal.program.week.select',
             'weekly.planner.modal.lastWeeklyPlanner.open'
-        ) as is_planner_open_event
+        ) as is_planner_open_event,
+
+        events_joins.event_name like 'weekly.planner%' 
+            and events_joins.event_name not like 'weekly.planner.modal%' 
+            as is_weekly_planner_event
 
     from
         events_add_columns_to_join as events_joins
 ), 
 
+
 final as 
 (select 
-    *
+    event_id,
+    user_id,
+    session_uuid,
+
+    server_timestamp,
+    client_timestamp,
+
+    -- attributes
+    event_name,
+    event_path,
+    event_value,
+    event_value_human_readable,
+    event_value_integer_join_column,
+    launched_application_name,
+    path_entered,
+    path_left,
+    program_id,
+    resource_id,
+
+    -- booleans
+    is_login_event,
+    is_planner_open_event,
+    is_weekly_planner_event
+    
+    -- don't persist ETL
+    -- _source_filename,
+    -- _loaded_at_utc,
 from
     events_add_booleans
 )
@@ -173,5 +206,3 @@ select
     *
 from
     final
-
--- regexp_like(event_path,'^/planner/') as is_planner_event, -- TAG TO DO need to exclude the modal events

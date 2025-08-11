@@ -8,8 +8,8 @@ models:
       Filters: None
       Notes: Includes Snowflake event ingestion metadata columns.
     columns:
-      - name: event_pk
-        description: "{{ doc('event_pk') }}"
+      - name: event_id
+        description: "{{ doc('event_id') }}"
         tests:
           - not_null
           - unique

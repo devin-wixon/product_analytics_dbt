@@ -1,0 +1,47 @@
+version: 2
+
+models:
+  - name: int_events_enriched
+    description: |
+      Purpose: Enriched events log with additional join keys and event flags derived from Lilypad events.
+      Granularity: One row per event, uniquely identified by `event_id`.
+      Filters: None
+      Notes: Includes derived columns for program/resource joins and event type flags.
+    columns:
+      # staging tests for for unique and nonnull event_id
+      - name: event_id
+        description: "{{ doc('event_id') }}"
+      - name: user_id
+        description: "{{ doc('user_id') }}"
+      - name: session_uuid
+        description: "{{ doc('session_uuid') }}"
+      - name: server_timestamp
+        description: "{{ doc('server_timestamp') }}"
+      - name: client_timestamp
+        description: "{{ doc('client_timestamp') }}"
+      - name: event_name
+        description: "{{ doc('event_name') }}"
+      - name: event_path
+        description: "{{ doc('event_path') }}"
+      - name: event_value
+        description: "{{ doc('event_value') }}"
+      - name: event_value_human_readable
+        description: "{{ doc('event_value_human_readable') }}"
+      - name: event_value_integer_join_column
+        description: "{{ doc('event_value_integer_join_column') }}"
+      - name: launched_application_name
+        description: "{{ doc('launched_application_name') }}"
+      - name: path_entered
+        description: "{{ doc('path_entered') }}"
+      - name: path_left
+        description: "{{ doc('path_left') }}"
+      - name: program_id
+        description: "{{ doc('program_id') }}"
+      - name: resource_id
+        description: "{{ doc('resource_id') }}"
+      - name: is_login_event
+        description: "{{ doc('is_login_event') }}"
+      - name: is_planner_open_event
+        description: "{{ doc('is_planner_open_event') }}"
+      - name: is_weekly_planner_event
+        description: "{{ doc('is_weekly_planner_event') }}"
