@@ -11,10 +11,6 @@ final as (
         application_id::int as application_id,
 
         -- attributes
-        url::string as url,
-        -- public_key::string as public_key,
-        -- secret_key::string as secret_key,
-        api_prefix::string as api_prefix,
         enabled::boolean as is_enabled,
         abc_group_id::string as abc_group_id,
 
