@@ -44,7 +44,7 @@ models:
     intermediate:
       +materialized: table
       +schema: intermediate
-      business_logic:
+      intermediate_logic:
         +materialized: view
         +schema: intermediate
     marts:

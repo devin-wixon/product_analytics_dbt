@@ -10,7 +10,6 @@ models:
       # unique and not null testing in source for application_id
       - name: application_id
       - name: application_name
-      - name: application_url
       - name: application_meta_code
       - name: application_type
       - name: is_application_use_memberships

@@ -1,3 +1,87 @@
+{% docs authentication_classlink_settings_classlink_id %}
+ClassLink organization identifier for authentication.
+{% enddocs %}
+
+{% docs authentication_clever_settings_clever_id %}
+Clever district identifier for authentication.
+{% enddocs %}
+
+{% docs authentication_clever_settings_provider_name %}
+Human-readable name of the Clever provider/district.
+{% enddocs %}
+
+{% docs authentication_login_field %}
+Field used for user login identification.
+{% enddocs %}
+
+{% docs authentication_provider %}
+Primary authentication provider for the district.
+{% enddocs %}
+
+{% docs authentication_saml_settings_metadata_document_file %}
+File path or name of the SAML metadata document.
+{% enddocs %}
+
+{% docs authentication_saml_settings_metadata_document_source %}
+Source type for SAML metadata document (e.g., file).
+{% enddocs %}
+
+{% docs authentication_saml_settings_provider_name %}
+Name identifier for the SAML provider.
+{% enddocs %}
+
+{% docs district_grades %}
+Comma-separated list of grade levels supported by the district.
+{% enddocs %}
+
+{% docs is_onboarding_required %}
+True means admins (with permission) will be redirected to onboarding as soon they login while other users will be redirected to an error page
+{% enddocs %}
+
+{% docs is_rostering_allow_users_without_class_or_school %}
+{% enddocs %}
+
+{% docs rostering_classlink_id %}
+{% enddocs %}
+
+{% docs rostering_clever_id %}
+{% enddocs %}
+
+{% docs rostering_is_active_send_invite %}
+{% enddocs %}
+
+
+{% docs rostering_method %}
+Values: classlink, clever, flat_file_csv, oneroster
+{% enddocs %}
+
+
+
+{% docs rostering_rostering_type %}
+Values: replace, additive
+{% enddocs %}
+
+{% docs rostering_state_id_field %}
+<!-- TAG TO DO confirm values and flesh out with their meaning. -->
+Values: stateid, identifier, username, sourcedid, state
+{% enddocs %}
+
+{% docs rostering_upload_method %}
+Values: manual, sftp.
+{% enddocs %}
+
+{% docs is_selfservice_authentication_show_clever %}
+Controls visibility of Clever authentication in self-service portal.
+{% enddocs %}
+
+{% docs is_selfservice_rostering_show_clever %}
+Controls visibility of Clever rostering in self-service portal.
+{% enddocs %}
+
+
+{% docs user_pool_client_id %}
+AWS Cognito User Pool client identifier for authentication services.
+{% enddocs %}
 
 
 {% docs event_value_integer_join_column %}

@@ -10,7 +10,6 @@ final as (
 
         -- attributes
         name::string as application_name,
-        url::string as application_url,
         meta_code::string as application_meta_code,
         type::string as application_type,
 
