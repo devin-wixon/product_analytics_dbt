@@ -5,13 +5,12 @@ source_table as (
 
 final as (
     select
-        -- ids
+        -- key info
         id::int as user_id,
         district_id::int as district_id,
-        role::string as user_role,
 
         -- attributes
-        -- standardizing capitalization (it's mixed ACTIVE, active, Active)
+        role::string as user_role,
         sourced_id::string as user_sourced_id,
         identifier::string as user_identifier,
         -- other_grades mixes JSON-like arrays and plain text
@@ -24,6 +23,7 @@ final as (
         -- flags
         email_sent::timestamp as email_sent_utc,
         date_last_modified::timestamp as date_last_modified_utc,
+        -- standardizing capitalization (it's mixed ACTIVE, active, Active)
         lower(status::string) as user_status,
 
         -- timestamps

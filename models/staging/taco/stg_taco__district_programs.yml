@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: stg_taco__districts_programs
+  - name: stg_taco__district_programs
     description: |
       Purpose: Raw district-program mapping data from the taco database with column typing and renaming.  
       Granularity: One row per district-program pair, defined by `district_id` and `program_id`.  
