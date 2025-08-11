@@ -51,6 +51,16 @@ sources:
             tests:
               - unique
               - not_null
+          # ensure unique district x application combination; required for downstream models
+          - name: district_id
+            tests:
+              - not_null
+          - name: application_id
+            tests:
+              - not_null
+        tests:
+          - unique:
+              column_name: "district_id || '-' || application_id"
       - name: raw_taco__district_application_licenses
         description: "Licenses for applications (third-party products) associated with each district"
         columns:
