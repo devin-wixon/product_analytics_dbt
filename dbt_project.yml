@@ -47,6 +47,9 @@ models:
     marts:
       +materialized: table
       +schema: marts
+    utilities:
+      +materialized: view
+      +schema: intermediate
 
 snapshots:
   +persist_docs:
