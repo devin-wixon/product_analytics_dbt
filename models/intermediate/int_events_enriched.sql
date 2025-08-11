@@ -1,8 +1,4 @@
-{{
-  config(
-    enabled=false
-  )
-}}
+
 
 -- TAG TO DO Placeholder code with logic; needs debugging and finalizing
 
@@ -129,7 +125,8 @@ events_add_columns_to_join as (
 
        -- program_id may be in path but not in event_value
         -- for router.left this will be the program TO, not the one left
-        cast(
+        -- if a user copy/pastes a path value that isn't numeric, it will null
+        try_cast(
             coalesce(
                 case when event_value_integer_join_column = 'program_id' then event_value else null end,
                 regexp_substr(events.event_path, 'resources/([^/]+)', 1, 1, 'e', 1),
@@ -140,7 +137,7 @@ events_add_columns_to_join as (
 
         -- resource_id may be in path but not in event_value
         -- for router.left this will be the resource TO, not the one left
-        cast(
+        try_cast(
             coalesce(
                 case when event_value_integer_join_column = 'resource_id' then event_value else null end,
                 regexp_substr(events.event_path, 'detail/([0-9]+)', 1, 1, 'e', 1),
@@ -178,13 +175,3 @@ from
     final
 
 -- regexp_like(event_path,'^/planner/') as is_planner_event, -- TAG TO DO need to exclude the modal events
--- if join to resources here and add resource_type = 
---    resource_type='document', event_client_date as is_resource_document_event,
---     resource_type='activity', event_client_date as is_resource_activity_event,
---     resource_type='book', event_client_date as is_resource_book_event,
---     resource_type='audio', event_client_date as is_resource_audio_event,
---     resource_type='video', event_client_date as is_resource_video_event,
---     resource_type = 'document' 
---     and event_name = 'router.enter') as n_document_router_enter_events,... etc
--- if join to program then...
--- user_program_agg.program_name in ('Yogapalooza', 'Inclusive Classroom') as is_yogapalooza_or_inclusive_classroom_program_event,
