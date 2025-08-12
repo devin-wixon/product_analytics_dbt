@@ -84,6 +84,9 @@ sources:
             tests:
               - unique
               - not_null
+          - name: user_id
+            tests:
+              - not_null
       - name: raw_taco__users
         description: "Information on teacher, student and administrator users"
         columns:
