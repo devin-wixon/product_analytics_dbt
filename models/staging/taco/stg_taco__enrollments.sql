@@ -12,7 +12,7 @@ final as (
 
         user_id::int as user_id,
         -- enrolled in
-        role::string as role,
+        role::string as user_role,
         class_id::int as class_id,
         district_id::int as district_id,
         school_id::int as school_id,

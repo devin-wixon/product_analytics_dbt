@@ -7,33 +7,5 @@ models:
       Granularity: One row per resource, defined by `resource_id`.  
       Filters: None
     columns:
-      # unique and not null testing in source for application_id
+      # source tests uniqueness and not null for resource_id
       - name: resource_id
-      - name: folder_id
-      - name: program_id
-      - name: author_id
-      - name: resource_type
-      - name: resource_code
-      - name: resource_title
-      - name: resource_description
-      - name: file_url
-      - name: section_title
-      - name: link
-      - name: is_legacy
-      - name: short_description
-      - name: order_number
-      - name: thumbnail_mobile_url
-      - name: thumbnail_web_url
-      - name: is_downloadable
-      - name: provider_id
-      - name: is_public
-      - name: uuid
-      - name: focus_area
-      - name: publication_status
-      - name: publication_origin_id
-      - name: focus_area_id
-      - name: sub_focus_area_id
-      - name: estimated_time
-      - name: physical_reference
-      - name: physical_page_number
-      - name: fts_title

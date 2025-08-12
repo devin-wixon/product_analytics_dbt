@@ -7,12 +7,5 @@ models:
       Granularity: One row per program, defined by `program_id`.  
       Filters: None
     columns:
+      # source tests uniqueness and not null for program_id
       - name: program_id
-      - name: program_name
-      - name: program_description
-      - name: age_group
-      - name: is_supplemental
-      - name: custom_banner
-      - name: clone_status
-      - name: program_type
-      - name: deleted_date

@@ -5,7 +5,7 @@ enrollments as (
         user_id,
 
         -- attributes
-        role::string as user_role,
+        user_role,
         class_id,
         school_id::int as school_id,
         district_id,
@@ -31,7 +31,7 @@ enrollments as (
     where 
       (start_date is null or start_date <= current_date())
       and (end_date is null or end_date > current_date())
-      and role != 'student'
+      and user_role != 'student'
 ),
 
 -- select one record per user x role x class x school, prioritizing most recent modification
@@ -39,14 +39,14 @@ user_current_enrollment as (
     select
         *
     from enrollments
-    qualify row_number() over (partition by user_id, role, class_id, school_id order by last_modified_at_utc desc) = 1
+    qualify row_number() over (partition by user_id, user_role, class_id, school_id order by last_modified_at_utc desc) = 1
 
 ),
 
 final as 
 ( select
     user_id,
-    role,
+    user_role,
     class_id,
     school_id,
     district_id,

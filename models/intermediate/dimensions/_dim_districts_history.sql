@@ -1,2 +1,5 @@
--- after snapshots are going, this will be the district history
---  at timepoint for event joining and user history
+-- placeholder for future class dimension
+select
+  1 as placeholder_column
+from
+  table(generator(rowcount => 1))

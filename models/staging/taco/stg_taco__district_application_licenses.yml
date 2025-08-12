@@ -9,12 +9,3 @@ models:
     columns:
       # source tests for unique district_application_license_id
       - name: district_application_license_id
-      - name: district_id
-      - name: application_id
-      - name: license
-      - name: quantity_licenses
-      # - name: sales_record
-      - name: expiration_date_dt
-      - name: created_at
-      - name: updated_at
-      - name: deleted_at

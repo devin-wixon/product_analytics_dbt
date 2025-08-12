@@ -133,7 +133,7 @@ Example: 19642
 
 
 {% docs user_role %}
-Role of the user. Values are: teacher, admin, student.  
+Role of the user. Values are: teacher, administrator, student.  
 Example: student
 {% enddocs %}
 
