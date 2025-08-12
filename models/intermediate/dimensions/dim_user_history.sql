@@ -1,0 +1,2 @@
+-- after snapshots are going, this will be the user history
+-- and their enrollment history at timepoint for event joining

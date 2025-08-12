@@ -1,0 +1,2 @@
+-- after snapshots are going, this will be the district history
+--  at timepoint for event joining and user history

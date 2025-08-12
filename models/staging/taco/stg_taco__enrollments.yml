@@ -9,20 +9,5 @@ models:
     columns:
       # source tests uniqueness and not null for enrollment_id
       - name: enrollment_id
-      - name: user_sourced_id
-      - name: class_sourced_id
-      - name: school_sourced_id
-      - name: user_source_id
-      - name: role
+      # source tests not null for user_id
       - name: user_id
-      - name: class_id
-      - name: is_primary
-      - name: status
-      - name: is_active
-      - name: district_id
-      - name: sourced_id
-      - name: school_id
-      - name: role_id
-      - name: start_date
-      - name: end_date
-      - name: last_modified_at_utc
