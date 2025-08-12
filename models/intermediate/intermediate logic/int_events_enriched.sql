@@ -95,17 +95,25 @@ events_add_columns_to_join as (
                     ('weekly.planner.program.week.filter.change.framework'
                 ) then 'framework_id'
                 -- TAG TO DO what is this joining to? metadata says: "focus area type"
-                -- TAG TO DO then add focus_area_id as a column below as needed
                 when event_name in 
                     ('weekly.planner.program.week.filter.deselect',
                     'weekly.planner.program.week.filter.select'
                 ) then 'xxx'
                 -- TAG TO DO what is this joining to? metadata says: "domain id"
-                -- TAG TO DO then add domain_id as a column below as needed
+
                 when event_name in (
                     'weekly.planner.program.week.report.skill.group.close',
                     'weekly.planner.program.week.report.skill.group.open'
                 ) then 'xxx'
+
+                -- TAG TO DO determine which/if events produce these in path or event_value
+                when event_name in ('xxx'
+  
+                ) then 'folder_id'
+                when event_name in ('xxx'
+  
+                ) then 'focus_area_id'
+            
             end,
             null
             -- TAG TO DO repeat for all event_value: framework_id, focus_area_id, folder_id, etc.
@@ -143,7 +151,11 @@ events_add_columns_to_join as (
                 regexp_substr(events.event_path, 'detail/([0-9]+)', 1, 1, 'e', 1),
                 regexp_substr(events.event_value, 'detail/([0-9]+)', 1, 1, 'e', 1)
             ) as integer
-        ) as resource_id
+        ) as resource_id,
+        -- TAG TO DO when able to get these from events; may be now, or may need to wait for restructuring
+        null as folder_id,
+        null as framework_id,
+        null as focus_area_id
 
     from
         events
@@ -189,6 +201,9 @@ final as
     path_left,
     program_id,
     resource_id,
+    folder_id,
+    framework_id,
+    focus_area_id,
 
     -- booleans
     is_login_event,

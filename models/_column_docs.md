@@ -127,3 +127,12 @@ Boolean: True if event_name is 'weekly.planner.modal.program.week.select' or 'we
 {% docs is_weekly_planner_event %}
 Boolean: True if event_name starts with 'weekly.planner' but does not start with 'weekly.planner.modal', otherwise false.
 {% enddocs %}
+
+{% docs folder_id %}
+{% enddocs %}
+
+{% docs framework_id %}
+{% enddocs %}
+
+{% docs focus_area_id %}
+{% enddocs %}

@@ -39,9 +39,16 @@ models:
         description: "{{ doc('program_id') }}"
       - name: resource_id
         description: "{{ doc('resource_id') }}"
+      - name: folder_id
+        description: "{{ doc('folder_id') }}"
+      - name: framework_id
+        description: "{{ doc('framework_id') }}"
+      - name: focus_area_id
+        description: "{{ doc('focus_area_id') }}"
       - name: is_login_event
         description: "{{ doc('is_login_event') }}"
       - name: is_planner_open_event
         description: "{{ doc('is_planner_open_event') }}"
       - name: is_weekly_planner_event
         description: "{{ doc('is_weekly_planner_event') }}"
+
