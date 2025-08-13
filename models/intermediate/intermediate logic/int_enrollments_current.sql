@@ -7,6 +7,14 @@ enrollments as (
         {{ ref('stg_taco__enrollments') }} 
     where 
         user_role != 'student'
+        -- start and end dates are optional and often null
+        -- but will be used where available
+        and (
+            enrollment_start_date is null or enrollment_start_date > current_date
+        )
+        and (
+            enrollment_start_date is null or enrollment_start_date > current_date
+        )
 ),
 
 -- select one record per user x role x class x school, prioritizing most recent modification

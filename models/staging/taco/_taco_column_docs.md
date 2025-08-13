@@ -122,7 +122,7 @@ Row-level identifier of the enrollment record in the external system. Used by ou
 
 
 {% docs enrollment_end_date %}
-Optional column that is often null; should not be used for analytics.
+Optional column that is often null.
 {% enddocs %}
 
 
@@ -131,7 +131,7 @@ Optional column that is often null; should not be used for analytics.
 
 
 {% docs enrollment_start_date %}
-Optional column that is often null; should not be used for analytics.
+Optional column that is often null.
 {% enddocs %}
 
 
@@ -197,8 +197,7 @@ Example: student
 
 
 {% docs user_status %}
-<!-- TAG TO DO confirm values and flesh out with their meaning. -->
-Example: active
+As of 2025-08, all values are "active" and the column is not useful.
 {% enddocs %}
 
 
