@@ -114,6 +114,11 @@ Integer resource_id derived from event_value or event_path, only for events wher
 {% enddocs %}
 
 
+{% docs is_app_launch_event %}
+Boolean: True if event_name is 'productLaunchOpen', otherwise false.
+{% enddocs %}
+
+
 {% docs is_login_event %}
 Boolean: True if event_name is 'auth.login', otherwise false.
 {% enddocs %}

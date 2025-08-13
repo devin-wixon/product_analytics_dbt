@@ -1,5 +1,9 @@
 
-
+-- {{
+--   config(
+--     materialized = 'table'
+--   )
+-- }}
 -- TAG TO DO Placeholder code with logic; needs debugging and finalizing
 
 with events as (
@@ -21,6 +25,7 @@ with events as (
 events_add_columns_to_join as (
     select
     events.* EXCLUDE (event_path, event_value),
+    date(server_timestamp) as event_date,
         -- clean up
         iff(event_path = '' or event_path = '/', null, event_path)
             as event_path,
@@ -163,17 +168,17 @@ events_add_columns_to_join as (
 
 events_add_booleans as (
     select
-        events_joins.*,
+        *,
         
-        events_joins.event_name = 'auth.login' as is_login_event,
-        
-        events_joins.event_name in (
+        event_name = 'auth.login' as is_login_event,
+        event_name = 'productLaunchOpen' as is_app_launch_event,
+        event_name in (
             'weekly.planner.modal.program.week.select',
             'weekly.planner.modal.lastWeeklyPlanner.open'
         ) as is_planner_open_event,
 
-        events_joins.event_name like 'weekly.planner%' 
-            and events_joins.event_name not like 'weekly.planner.modal%' 
+        event_name like 'weekly.planner%' 
+            and event_name not like 'weekly.planner.modal%' 
             as is_weekly_planner_event
 
     from
@@ -186,7 +191,7 @@ final as
     event_id,
     user_id,
     session_uuid,
-
+    event_date,
     server_timestamp,
     client_timestamp,
 
@@ -207,6 +212,7 @@ final as
 
     -- booleans
     is_login_event,
+    is_app_launch_event,
     is_planner_open_event,
     is_weekly_planner_event
     

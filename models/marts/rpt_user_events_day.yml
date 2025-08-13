@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: rpt_user_events_day
+    description: |
+      Purpose: Daily summary of user event activity, showing whether users engaged with specific features each day.
+      Granularity: One row per user per calendar day.
+      Filters: Inherited filter that user_role is not `student'
+      Notes: 
+    

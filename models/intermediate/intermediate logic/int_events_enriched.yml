@@ -19,6 +19,8 @@ models:
         description: "{{ doc('server_timestamp') }}"
       - name: client_timestamp
         description: "{{ doc('client_timestamp') }}"
+      - name: event_date
+        description: ""
       - name: event_name
         description: "{{ doc('event_name') }}"
       - name: event_path
@@ -47,6 +49,8 @@ models:
         description: "{{ doc('focus_area_id') }}"
       - name: is_login_event
         description: "{{ doc('is_login_event') }}"
+      - name: is_app_launch_event
+        description: "{{ doc('is_app_launch_event') }}"
       - name: is_planner_open_event
         description: "{{ doc('is_planner_open_event') }}"
       - name: is_weekly_planner_event
