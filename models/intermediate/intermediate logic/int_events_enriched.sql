@@ -1,9 +1,4 @@
 
--- {{
---   config(
---     materialized = 'table'
---   )
--- }}
 -- TAG TO DO Placeholder code with logic; needs debugging and finalizing
 
 with events as (
