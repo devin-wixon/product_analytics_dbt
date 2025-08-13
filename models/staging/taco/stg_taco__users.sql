@@ -1,6 +1,9 @@
 with
 source_table as (
-    select * from {{ source('taco', 'raw_taco__users') }}
+    select 
+        * 
+    from 
+        {{ source('taco', 'raw_taco__users') }}
 ),
 
 final as (
@@ -59,4 +62,7 @@ final as (
     from source_table
 )
 
-select * from final
+select 
+    * 
+from 
+    final

@@ -1,6 +1,9 @@
 with
 source_table as (
-    select * from {{ source('taco', 'raw_taco__districts_programs') }}
+    select 
+        * 
+    from 
+        {{ source('taco', 'raw_taco__districts_programs') }}
 ),
 
 final as (
@@ -21,4 +24,7 @@ final as (
     from source_table
 )
 
-select * from final
+select 
+    * 
+from 
+    final

@@ -1,6 +1,9 @@
 with
 source_table as (
-    select * from {{ source('taco', 'raw_taco__enrollments') }}
+    select 
+        * 
+    from 
+        {{ source('taco', 'raw_taco__enrollments') }}
 ),
 
 final as (
@@ -18,7 +21,8 @@ final as (
         
         -- other attributes
         primary::boolean as is_primary,
-        status::string as enrollment_status,
+        -- status & active are not meaningful; removed after staging layer
+        status::string as enrollment_status, 
         active::boolean as is_enrollment_active,   
            -- other ids
         usersourcedid::string as user_sourced_id,
@@ -27,6 +31,7 @@ final as (
         sourced_id::string as enrollment_sourced_id,   
 
         -- dates and timestamps
+        -- start & end dates are not meaningful; removed after staging layer
         start_date::date as enrollment_start_date,
         end_date::date as enrollment_end_date,
         last_modified::timestamp as last_modified_at_utc
@@ -35,4 +40,7 @@ final as (
     from source_table
 )
 
-select * from final
+select 
+    * 
+from 
+    final
