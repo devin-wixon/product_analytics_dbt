@@ -13,8 +13,3 @@ models:
       # source tests for unique district_id x application_id combination
       - name: district_id
       - name: application_id
-      - name: url
-      - name: api_prefix
-      - name: is_enabled
-      - name: abc_group_id
-      - name: created_at_utc

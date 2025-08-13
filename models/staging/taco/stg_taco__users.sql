@@ -1,6 +1,9 @@
 with
 source_table as (
-    select * from {{ source('taco', 'raw_taco__users') }}
+    select 
+        * 
+    from 
+        {{ source('taco', 'raw_taco__users') }}
 ),
 
 final as (
@@ -13,26 +16,22 @@ final as (
         role::string as user_role,
         sourced_id::string as user_sourced_id,
         identifier::string as user_identifier,
-        -- other_grades mixes JSON-like arrays and plain text
         disable_auto_sync::boolean as is_disable_auto_sync,
 
         -- identifiers
         manually_added::boolean as is_manually_added,
         invite_status::string as user_invite_status,
-
-        -- flags
-        email_sent::timestamp as email_sent_utc,
-        date_last_modified::timestamp as date_last_modified_utc,
         -- standardizing capitalization (it's mixed ACTIVE, active, Active)
         lower(status::string) as user_status,
 
-        -- timestamps
         case
             when grades = '' or grades is null then null
             -- array_compact removes null and [""]
             -- array cast allows parsing with Snowflake array functions
             else array_compact(try_parse_json(grades)::array)
         end as user_grades,
+
+        -- other_grades mixes JSON-like arrays and plain text
         case
             when other_grades = '' or other_grades is null then null
             when other_grades like '[(%)]'
@@ -54,9 +53,16 @@ final as (
             else
                 -- Handle plain text strings: PREKINDERGARTEN, THREES, etc.
                 array_compact(array_construct(other_grades))
-        end as user_other_grades
+        end as user_other_grades,
+        
+        -- timestamps
         -- deleted_at::timestamp as deleted_at_utc -- null in all columns of source 080825
+        email_sent::timestamp as email_sent_utc,
+        date_last_modified::timestamp as last_modified_at_utc
     from source_table
 )
 
-select * from final
+select 
+    * 
+from 
+    final

@@ -32,8 +32,8 @@ models:
         description: "{{ doc('user_invite_status') }}"
       - name: email_sent_utc
         description: "{{ doc('email_sent_utc') }}"
-      - name: date_last_modified_utc
-        description: "{{ doc('date_last_modified_utc') }}"
+      - name: last_modified_at_utc
+        description: "{{ doc('last_modified_at_utc') }}"
       # Commented out fields that aren't in the SQL
       # - name: user_settings
       #   description: "{{ doc('user_settings') }}"

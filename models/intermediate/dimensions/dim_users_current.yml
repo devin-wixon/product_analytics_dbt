@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: dim_users_current
+    description: |
+      Purpose: Current information about users, excluding students.
+      Granularity: One row per user.
+      Filters: user_role is not `student`
+    columns:
+      - name: user_id
+        description: "{{ doc('user_id') }}"
+      - name: user_role
+        description: "{{ doc('user_role') }}"
+      - name: user_sourced_id
+        description: "{{ doc('user_sourced_id') }}"
+      - name: is_disable_auto_sync
+        description: "{{ doc('is_disable_auto_sync') }}"
+      - name: is_manually_added
+        description: "{{ doc('is_manually_added') }}"
+      - name: user_invite_status
+        description: "{{ doc('user_invite_status') }}"
+      - name: user_grades
+        description: "{{ doc('user_grades') }}"
+      - name: user_other_grades
+        description: "{{ doc('user_other_grades') }}"
+      - name: email_sent_utc
+        description: "{{ doc('email_sent_utc') }}"
+      - name: user_last_modified_at_utc
+        description: "{{ doc('last_modified_at_utc') }}"

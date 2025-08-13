@@ -16,5 +16,3 @@ models:
       # source tests for unique district_id x program_id combination
       - name: district_id
       - name: program_id
-      - name: is_enabled
-      - name: expiration_date_dt

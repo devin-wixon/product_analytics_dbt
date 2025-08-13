@@ -1,6 +1,9 @@
 with
 source_table as (
-    select * from {{ source('craft', 'raw_craft__programs') }}
+    select 
+        * 
+    from 
+        {{ source('craft', 'raw_craft__programs') }}
 ),
 
 final as (
@@ -23,4 +26,7 @@ final as (
     from source_table
 )
 
-select * from final
+select 
+    * 
+from 
+    final

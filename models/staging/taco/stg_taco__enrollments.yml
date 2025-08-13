@@ -9,5 +9,37 @@ models:
     columns:
       # source tests uniqueness and not null for enrollment_id
       - name: enrollment_id
+        description: "{{ doc('enrollment_id') }}"
       # source tests not null for user_id
       - name: user_id
+        description: "{{ doc('user_id') }}"
+      - name: user_role
+        description: "{{ doc('user_role') }}"
+      - name: user_role_id
+        description: "{{ doc('user_role_id') }}"
+      - name: class_id
+        description: "{{ doc('class_id') }}"
+      - name: school_id
+        description: "{{ doc('school_id') }}"
+      - name: district_id
+        description: "{{ doc('district_id') }}"
+      - name: is_primary
+        description: "{{ doc('is_primary') }}"
+      - name: enrollment_status
+        description: "{{ doc('enrollment_status') }}"
+      - name: is_enrollment_active
+        description: "{{ doc('is_enrollment_active') }}"
+      - name: user_sourced_id
+        description: "{{ doc('user_sourced_id') }}"
+      - name: class_sourced_id
+        description: "{{ doc('class_sourced_id') }}"
+      - name: school_sourced_id
+        description: "{{ doc('school_sourced_id') }}"
+      - name: enrollment_sourced_id
+        description: "{{ doc('enrollment_sourced_id') }}"
+      - name: enrollment_start_date
+        description: "{{ doc('enrollment_start_date') }}"
+      - name: enrollment_end_date
+        description: "{{ doc('enrollment_end_date') }}"
+      - name: last_modified_at_utc
+        description: "{{ doc('last_modified_at_utc') }}"

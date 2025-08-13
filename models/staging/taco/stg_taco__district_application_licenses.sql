@@ -1,6 +1,9 @@
 with
 source_table as (
-    select * from {{ source('taco', 'raw_taco__district_application_licenses') }}
+    select 
+        * 
+    from 
+        {{ source('taco', 'raw_taco__district_application_licenses') }}
 ),
 
 final as (
@@ -16,11 +19,14 @@ final as (
         -- sales_record::string as sales_record
 
         -- timestamps
-        date(expiration_date::int) as expiration_dat_dt,
+        date(expiration_date::int) as expiration_date,
         created_at as created_at_utc,
         updated_at as updated_at_utc,
         deleted_at as deleted_at_utc
     from source_table
 )
 
-select * from final
+select 
+    * 
+from 
+    final

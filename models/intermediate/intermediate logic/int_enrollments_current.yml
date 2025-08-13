@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: int_enrollments_current
+    description: |
+      Purpose: Current active enrollments for users, as of today.
+      Granularity: One row per combination of user, role, class, and school.
+      Filters: 
+      - Only non-student roles.
+    # tests:
+    #   - dbt_utils.unique_combination_of_columns:
+    #       combination_of_columns:
+    #         - user_id
+    #         - user_role
+    #         - class_id
+    #         - school_id
+    columns:
+    # source tests for unique enrollment_id
+      - name: enrollment_id

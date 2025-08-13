@@ -1,9 +1,14 @@
 
 
 
-with source as (
+with source_table as (
+    select 
+        * 
+    from 
+    {{ source('lilypad', 'raw_lilypad__events_log') }}
+),
 
-
+final as (
     select
         -- ids
         event_pk as event_id,
@@ -24,10 +29,11 @@ with source as (
         -- load metadata
         _source_filename,
         _loaded_at_utc
-
-
-    from {{ source('lilypad', 'raw_lilypad__events_log') }}
-
+    from 
+        source_table
 )
 
-select * from source
+select 
+    * 
+from 
+    final
