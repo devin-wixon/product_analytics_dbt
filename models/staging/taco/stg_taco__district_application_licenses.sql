@@ -16,7 +16,7 @@ final as (
         -- sales_record::string as sales_record
 
         -- timestamps
-        date(expiration_date::int) as expiration_dat_dt,
+        date(expiration_date::int) as expiration_date,
         created_at as created_at_utc,
         updated_at as updated_at_utc,
         deleted_at as deleted_at_utc

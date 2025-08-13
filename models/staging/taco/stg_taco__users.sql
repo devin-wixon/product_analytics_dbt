@@ -55,7 +55,7 @@ final as (
         -- timestamps
         -- deleted_at::timestamp as deleted_at_utc -- null in all columns of source 080825
         email_sent::timestamp as email_sent_utc,
-        date_last_modified::timestamp as date_last_modified_utc
+        date_last_modified::timestamp as last_modified_at_utc
     from source_table
 )
 
