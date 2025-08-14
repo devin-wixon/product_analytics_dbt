@@ -37,7 +37,7 @@ user_daily_events as
     count(distinct case when is_app_launch_event then event_value end) as n_apps_launched
 from
     users
-join
+inner join
     events
 on
     users.user_id = events.user_id
@@ -47,6 +47,11 @@ group by
     users.user_grades,
     users.user_other_grades,
     events.event_date
+
+{% if target.name == 'dev' %}
+    -- Limit number of rows in development environment
+    limit 100000
+{% endif %}
 ),
 
 final as
