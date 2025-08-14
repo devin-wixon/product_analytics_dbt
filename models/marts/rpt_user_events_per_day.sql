@@ -30,7 +30,7 @@ user_daily_events as
     max(is_app_launch_event)::boolean as has_app_launch_event,
 
     -- Count metrics
-    count(events.*) as n_total_events,
+    count(events.event_id) as n_total_events,
     count(distinct resource_id) as n_resources_accessed,
     count(distinct program_id) as n_programs_accessed,
     -- event_value for app launch event is not the application_id, but text
