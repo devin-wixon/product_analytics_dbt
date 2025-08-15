@@ -1,0 +1,109 @@
+semantic_models:
+  - name: sem_user_activity
+    description: |
+      Purpose: User activity aggregated to daily level for per-user analysis, averages, and distributions.
+      Granularity: One row per user per day with activity.
+      Filters: None
+      Notes: Optimized for true per-user averages and distribution analysis across flexible time periods and dimensions.
+    model: ref('fct_user_activity_periods')
+    defaults:
+      agg_time_dimension: activity_date
+    
+    entities:
+      - name: user
+        type: foreign
+        expr: user_id
+      - name: activity_date
+        type: primary
+        expr: activity_date
+    
+    dimensions:
+      - name: activity_date
+        type: time
+        description: "Date of user activity"
+        type_params:
+          time_granularity: day
+      - name: user_id
+        type: categorical
+        description: "{{ doc('user_id') }}"
+    
+    measures:
+      # Per-user program metrics
+      - name: avg_programs_per_user
+        description: "Average programs accessed per user per period (true per-user average)"
+        agg: average
+        expr: programs_accessed
+        
+      - name: avg_programs_with_planner_per_user
+        description: "Average programs accessed via planner per user per period"
+        agg: average
+        expr: programs_with_planner
+        
+      - name: total_user_activity_periods
+        description: "Count of user-period combinations (for calculating distributions)"
+        agg: count
+        expr: user_id
+        
+      # Per-user resource metrics
+      - name: avg_resources_per_user
+        description: "Average resources accessed per user per period (true per-user average)"
+        agg: average
+        expr: resources_accessed
+        
+      - name: avg_videos_per_user
+        description: "Average videos accessed per user per period"
+        agg: average
+        expr: videos_accessed
+        
+      - name: avg_documents_per_user
+        description: "Average documents accessed per user per period"
+        agg: average
+        expr: documents_accessed
+        
+      # Per-user event metrics
+      - name: avg_total_events_per_user
+        description: "Average total events per user per period"
+        agg: average
+        expr: total_events
+        
+      - name: avg_login_events_per_user
+        description: "Average login events per user per period"
+        agg: average
+        expr: login_events
+        
+      - name: avg_planner_events_per_user
+        description: "Average planner events per user per period"
+        agg: average
+        expr: planner_events
+        
+      - name: avg_weekly_planner_events_per_user
+        description: "Average weekly planner events per user per period"
+        agg: average
+        expr: weekly_planner_events
+        
+      - name: avg_app_launch_events_per_user
+        description: "Average app launch events per user per period"
+        agg: average
+        expr: app_launch_events
+        
+      # Per-user session metrics
+      - name: avg_sessions_per_user
+        description: "Average sessions per user per period"
+        agg: average
+        expr: sessions
+        
+      - name: avg_active_minutes_per_user
+        description: "Average active minutes per user per period"
+        agg: average
+        expr: active_minutes
+        
+      # Sum metrics for totals
+      - name: total_programs_accessed_all_users
+        description: "Sum of programs accessed across all user-periods"
+        agg: sum
+        expr: programs_accessed
+        
+      - name: total_resources_accessed_all_users
+        description: "Sum of resources accessed across all user-periods"
+        agg: sum
+        expr: resources_accessed
