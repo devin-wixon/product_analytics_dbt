@@ -1,8 +1,0 @@
-metrics:
-  # Resource access metrics with full dimensional flexibility
-  - name: daily_unique_resources_accessed
-    description: "Count of unique resources accessed per day - can slice by resource_type, program_name, district_type, user_role"
-    type: simple
-    type_params:
-      measure: unique_resources_accessed
-    model: ref('sem_events')

@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: rpt_user_events_per_day
+  - name: rpt_user_events_date
     description: |
       Purpose: Daily summary of user activity, showing whether users engaged with specific features each day.
       Granularity: One row per user per calendar day.
