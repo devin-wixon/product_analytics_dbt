@@ -1,0 +1,21 @@
+semantic_models:
+  - name: sem_programs
+    description: |
+      Purpose: Provides program-level information for semantic analysis.
+      Granularity: One row per program.
+      Filters: None
+      Notes: 
+    model: ref('dim_programs')
+    
+    entities:
+      - name: program
+        type: primary
+        expr: program_id
+    
+    dimensions:
+      - name: program_id
+        type: categorical
+        description: "{{ doc('program_id') }}"
+      - name: program_name
+        type: categorical
+        description: ""

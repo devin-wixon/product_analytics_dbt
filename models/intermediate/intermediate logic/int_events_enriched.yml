@@ -19,8 +19,10 @@ models:
         description: "{{ doc('server_timestamp') }}"
       - name: client_timestamp
         description: "{{ doc('client_timestamp') }}"
-      - name: event_date
-        description: ""
+      - name: server_event_date
+        description: "{{ doc('server_event_date') }}"
+      - name: client_event_date
+        description: "{{ doc('client_event_date') }}"
       - name: event_name
         description: "{{ doc('event_name') }}"
       - name: event_path

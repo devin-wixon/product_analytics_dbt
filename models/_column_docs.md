@@ -34,6 +34,16 @@ Name identifier for the SAML provider.
 Comma-separated list of grade levels supported by the district.
 {% enddocs %}
 
+
+{% docs client_event_date %}
+Date of the event, derived from client timestamp.
+{% enddocs %}
+
+
+{% docs server_event_date %}
+Date of the event, derived from server timestamp.
+{% enddocs %}
+
 {% docs is_onboarding_required %}
 True means admins (with permission) will be redirected to onboarding as soon they login while other users will be redirected to an error page
 {% enddocs %}

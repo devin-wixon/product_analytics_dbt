@@ -228,7 +228,8 @@ External school id, typically the school_id on the district SIS.
 
 
 {% docs email_sent_utc %}
-Timestamp when an email was sent to the user.  
+<!-- TAG TO DO Confirm if only the invitation email -->
+Date or timestamp when an email was sent to the user.  
 Example: 2025-07-30 00:00:00.000
 {% enddocs %}
 

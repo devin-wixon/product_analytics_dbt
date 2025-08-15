@@ -1,0 +1,72 @@
+metrics:
+  # Resource access metrics with full dimensional flexibility
+  - name: daily_unique_resources_accessed
+    description: "Count of unique resources accessed per day - can slice by resource_type, program_name, district_type, user_role"
+    type: simple
+    type_params:
+      measure: unique_resources_accessed
+    model: ref('sem_events')
+
+  - name: daily_unique_documents_accessed
+    description: "Count of unique document resources accessed per day"
+    type: simple
+    type_params:
+      measure: unique_resources_accessed
+    model: ref('sem_events')
+    filter: |
+      {{ Dimension('resource__resource_type') }} = 'document'
+
+  - name: daily_unique_videos_accessed
+    description: "Count of unique video resources accessed per day"
+    type: simple
+    type_params:
+      measure: unique_resources_accessed
+    model: ref('sem_events')
+    filter: |
+      {{ Dimension('resource__resource_type') }} = 'video'
+
+  # Cross-dimensional content metrics - THIS IS WHAT WE NEEDED!
+  - name: daily_videos_accessed_by_teachers_in_small_districts
+    description: "Unique videos accessed by teachers in small independent districts"
+    type: simple
+    type_params:
+      measure: unique_resources_accessed
+    model: ref('sem_events')
+    filter: |
+      {{ Dimension('resource__resource_type') }} = 'video' AND
+      {{ Dimension('user__user_role') }} = 'teacher' AND
+      {{ Dimension('district__district_type') }} = 'small-independent'
+
+  - name: daily_documents_accessed_by_program
+    description: "Unique documents accessed per program (slice by program_name in Tableau)"
+    type: simple
+    type_params:
+      measure: unique_resources_accessed
+    model: ref('sem_events')
+    filter: |
+      {{ Dimension('resource__resource_type') }} = 'document'
+    # Group by program__program_name in reporting
+
+  - name: daily_resources_accessed_by_district_type
+    description: "Unique resources accessed, can be grouped by district_type"
+    type: simple
+    type_params:
+      measure: unique_resources_accessed
+    model: ref('sem_events')
+    # Group by district__district_type in Tableau
+
+  # Program-level content usage
+  - name: daily_unique_programs_accessed
+    description: "Count of unique programs accessed per day - can slice by all dimensions"
+    type: simple
+    type_params:
+      measure: unique_programs_accessed
+    model: ref('sem_events')
+
+  - name: daily_programs_accessed_by_user_role
+    description: "Unique programs accessed, slice by user_role"
+    type: simple
+    type_params:
+      measure: unique_programs_accessed
+    model: ref('sem_events')
+    # Group by user__user_role in reporting

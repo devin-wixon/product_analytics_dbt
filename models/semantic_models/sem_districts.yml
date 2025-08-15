@@ -1,0 +1,27 @@
+semantic_models:
+  - name: sem_districts
+    description: |
+      Purpose: Provides district-level information for semantic analysis.
+      Granularity: One row per district.
+      Filters: None
+      Notes: 
+    model: ref('dim_districts_current')
+    
+    entities:
+      - name: district
+        type: primary
+        expr: district_id
+    
+    dimensions:
+      - name: district_id
+        type: categorical
+        description: "{{ doc('district_id') }}"
+      - name: district_name
+        type: categorical
+        description: "{{ doc('district_name') }}"
+      - name: district_state
+        type: categorical
+        description: "{{ doc('district_state') }}"
+      - name: district_type
+        type: categorical
+        description: "{{ doc('district_type') }}"

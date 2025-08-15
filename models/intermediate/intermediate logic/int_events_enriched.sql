@@ -20,7 +20,8 @@ with events as (
 events_add_columns_to_join as (
     select
     events.* EXCLUDE (event_path, event_value),
-    date(server_timestamp) as event_date,
+    date(server_timestamp) as server_event_date,
+    date(client_timestamp) as client_event_date,
         -- clean up
         iff(event_path = '' or event_path = '/', null, event_path)
             as event_path,

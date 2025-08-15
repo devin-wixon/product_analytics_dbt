@@ -1,0 +1,53 @@
+metrics:
+  # Basic user engagement metrics
+  - name: daily_active_users
+    description: "Count of unique users with any events per day"
+    type: simple
+    type_params:
+      measure: unique_users
+    model: ref('sem_events')
+
+  - name: daily_login_users
+    description: "Count of unique users who logged in per day"
+    type: simple
+    type_params:
+      measure: unique_users_with_login
+    model: ref('sem_events')
+
+  - name: daily_planner_users
+    description: "Count of unique users who opened planner per day"
+    type: simple
+    type_params:
+      measure: unique_users_with_planner_open
+    model: ref('sem_events')
+
+  # Cross-dimensional metrics - NOW POSSIBLE with flexible approach
+  - name: daily_active_teachers_by_district_type
+    description: "Daily active teachers, can be sliced by district_type"
+    type: simple
+    type_params:
+      measure: unique_users
+    model: ref('sem_events')
+    filter: |
+      {{ Dimension('user__user_role') }} = 'teacher'
+    # Can be grouped by district__district_type in Tableau
+
+  - name: daily_planner_users_small_districts
+    description: "Daily planner users in small independent districts"
+    type: simple
+    type_params:
+      measure: unique_users_with_planner_open
+    model: ref('sem_events')
+    filter: |
+      {{ Dimension('district__district_type') }} = 'small-independent'
+
+  # Engagement rates with cross-dimensional capability
+  - name: teacher_planner_adoption_rate
+    description: "Percentage of teachers who used planner (can slice by district attributes)"
+    type: ratio
+    type_params:
+      numerator: unique_users_with_planner_open
+      denominator: unique_users
+    model: ref('sem_events')
+    filter: |
+      {{ Dimension('user__user_role') }} = 'teacher'

@@ -1,0 +1,157 @@
+semantic_models:
+  - name: sem_events
+    description: |
+      Purpose: Event-level data for flexible metric calculation with full dimensional access.
+      Granularity: One row per event.
+      Filters: None
+      Notes: Provides maximum flexibility for cross-dimensional analysis (users x districts x resources x programs).
+    model: ref('fct_events')
+    defaults:
+      agg_time_dimension: client_event_date
+    
+    entities:
+      - name: event
+        type: primary
+        expr: event_id
+      - name: user
+        type: foreign
+        expr: user_id
+      - name: resource
+        type: foreign
+        expr: resource_id
+      - name: program
+        type: foreign
+        expr: program_id
+      # - name: session
+      #   type: foreign
+      #   expr: session_uuid
+    
+    dimensions:
+      # entities are needed as dimensions to filter values
+      # or to group by (ex: event count per user)
+      - name: program_id
+        type: categorical
+        description: "{{ doc('program_id') }}"
+      - name: user_id
+        type: categorical
+        description: "{{ doc('user_id') }}"
+      - name: resource_id
+        type: categorical
+        description: "{{ doc('resource_id') }}"
+      # date related
+      - name: server_event_date
+        type: time
+        description: "{{ doc('event_date') }}"
+        type_params:
+          time_granularity: day
+      - name: client_event_date
+        type: time
+        description: "{{ doc('client_event_date') }}"
+        type_params:
+          time_granularity: day
+      # other attributes
+      - name: event_name
+        type: categorical
+        description: "{{ doc('event_name') }}"
+      - name: event_path
+        type: categorical
+        description: "{{ doc('event_path') }}"
+      - name: launched_application_name
+        description: "{{ doc('launched_application_name') }}"
+        agg: first
+        expr: launched_application_name
+      # booleans
+      - name: is_login_event
+        type: categorical
+        description: "{{ doc('is_login_event') }}"
+      - name: is_app_launch_event
+        type: categorical
+        description: "{{ doc('is_app_launch_event') }}"
+      - name: is_planner_open_event
+        type: categorical
+        description: "{{ doc('is_planner_open_event') }}"
+      - name: is_weekly_planner_event
+        type: categorical
+        description: "{{ doc('is_weekly_planner_event') }}"
+    
+    measures:
+      - name: total_events
+        description: "Total count of events"
+        agg: count
+        expr: event_id
+      - name: n_users
+        description: "Count of unique users"
+        agg: count_distinct
+        expr: user_id
+      # - name: n_sessions
+      #   description: "Count of unique sessions"
+      #   agg: count_distinct
+      #   expr: session_uuid
+
+      # counts of resources, programs, apps
+      - name: n_resources_accessed
+        description: "Count of unique resources accessed"
+        agg: count_distinct
+        expr: resource_id
+        filter: |
+          resource_id IS NOT NULL
+      - name: n_programs_accessed
+        description: "Count of unique programs accessed"
+        agg: count_distinct
+        expr: program_id
+        filter: |
+          program_id IS NOT NULL
+      - name: n_applications_launched
+        description: "Count of unique applications launched"
+        agg: count_distinct
+        expr: launched_application_name
+      # counts of users with behaviors
+      - name: n_users_with_login
+        description: "{{ doc('n_users_with_login') }}"
+        agg: count_distinct
+        expr: user_id
+        filter: |
+          is_login_event = true
+      - name: n_users_opened_planner
+        description: "Count of unique users with planner open events"
+        agg: count_distinct
+        expr: user_id
+        filter: |
+          is_planner_open_event = true
+      - name: n_users_used_weekly_planner
+        description: "Count of unique users with weekly planner events"
+        agg: count_distinct
+        expr: user_id
+        filter: |
+          is_weekly_planner_event = true
+      - name: n_users_launched_app
+        description: "Count of unique users with app launch events"
+        agg: count_distinct
+        expr: user_id
+        filter: |
+          is_app_launch_event = true
+      # counts of events
+      # - name: login_events
+      #   description: "Count of login events"
+      #   agg: count
+      #   expr: event_id
+      #   filter: |
+      #     is_login_event = true
+      - name: n_app_launch_events
+        description: "Count of app launch events"
+        agg: count
+        expr: event_id
+        filter: |
+          is_app_launch_event = true
+      - name: n_planner_open_events
+        description: "Count of planner open events"
+        agg: count
+        expr: event_id
+        filter: |
+          is_planner_open_event = true
+      # - name: weekly_planner_events
+      #   description: "Count of weekly planner events"
+      #   agg: count
+      #   expr: event_id
+      #   filter: |
+      #     is_weekly_planner_event = true
