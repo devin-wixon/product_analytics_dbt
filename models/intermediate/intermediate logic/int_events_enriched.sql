@@ -11,119 +11,51 @@ with events as (
         event_name,
         event_path,
         event_value,
-        event_value_human_readable,
-        _source_filename,
-        _loaded_at_utc
+        event_value_human_readable
+        -- _source_filename,
+        -- _loaded_at_utc
     from {{ ref('stg_lilypad__events_log') }}
 ),
 
-events_add_columns_to_join as (
+event_metadata as
+(select
+    *
+from
+    {{ ref('seed_event_log_metadata') }}
+
+)
+
+events_add_column_info as (
     select
     events.* EXCLUDE (event_path, event_value),
-    date(server_timestamp) as server_event_date,
-    date(client_timestamp) as client_event_date,
+    date(events.server_timestamp) as server_event_date,
+    date(events.client_timestamp) as client_event_date,
+    event_metadata.event_category as event_category,
         -- clean up
-        iff(event_path = '' or event_path = '/', null, event_path)
+        iff(events.event_path = '' or events.event_path = '/', null, events.event_path)
             as event_path,
 
 
-        iff(event_value = '' or event_value = '/', null, event_value)
+        iff(events.event_value = '' or events.event_value = '/', null, events.event_value)
             as event_value,
         -- derive column with what event_value should join to, if anything
 
         iff(
-        -- event value is numeric
-            regexp_like(event_value, '^[0-9]+$'),
-            case
-                -- event names with event_value that joins to program_id
-                when event_name in (
-                    'weekly.planner.modal.lastWeeklyPlanner.open',
-                    'weekly.planner.modal.program.select',
-                    'weekly.planner.modal.program.deselect',
-                    'weekly.planner.modal.program.theme.select',
-                    'weekly.planner.modal.program.theme.deselect',
-                    'weekly.planner.modal.program.week.select',
-                    'weekly.planner.program.week.complete',
-                    'weekly.planner.program.week.report.open',
-                    'weekly.planner.program.week.report.close',
-                    'weekly.planner.program.week.print',
-                    'weekly.planner.program.week.filter.open',
-                    'weekly.planner.program.week.filter.close',
-                    'weekly.planner.program.week.filter.select.all',
-                    'weekly.planner.program.week.filter.deselect.all',
-                    'weekly.planner.program.week.report.highFive',
-                    'weekly.planner.modal.close'
-                ) then 'program_id'
-
-                -- event names with event_value that joins to resource_id
-                when event_name in (
-                    'weekly.planner.program.week.card.open',
-                    'weekly.planner.program.week.card.toDo',
-                    'weekly.planner.program.week.card.complete',
-                    'weekly.planner.program.week.card.skip',
-                    'weekly.planner.program.week.card.needToRevisit',
-                    'weekly.planner.resource.page.card.complete',
-                    'weekly.planner.resource.page.card.skip',
-                    'weekly.planner.resource.page.card.needToRevisit',
-                    'download',
-                    'openInNewTab',
-                    'print',
-                    'fullscreen',
-                    'pdf.changePage',
-                    'pdf.changeZoom',
-                    'playlist.changeSong',
-                    'playlist.autoPlay',
-                    'media.start',
-                    'media.play',
-                    'media.pause',
-                    'media.seek',
-                    'media.changeVolume'
-                ) then 'resource_id'
-                -- TAG TO DO what is this joining to? metadata says: "Resource Filter id"
-                -- doesn't seem to be folder_id or resource_id
-                when event_name in (
-                    'program.resource.accordion.open',
-                    'program.resource.accordion.close'
-                ) then 'xxx'
-                -- TAG TO DO what is this joining to? metadata says: "Resource Filter id"
-                -- folder_id isn't right. sometimes it is, sometimes it isn't
-                when event_name in (
-                    'program.resource.accordion.list.close',
-                    'program.resource.accordion.list.open'
-                ) then 'xxx'
-                -- TAG TO DO Confirm this, then add framework_id as a column below
-                when event_name in 
-                    ('weekly.planner.program.week.filter.change.framework'
-                ) then 'framework_id'
-                -- TAG TO DO what is this joining to? metadata says: "focus area type"
-                when event_name in 
-                    ('weekly.planner.program.week.filter.deselect',
-                    'weekly.planner.program.week.filter.select'
-                ) then 'xxx'
-                -- TAG TO DO what is this joining to? metadata says: "domain id"
-
-                when event_name in (
-                    'weekly.planner.program.week.report.skill.group.close',
-                    'weekly.planner.program.week.report.skill.group.open'
-                ) then 'xxx'
-
-                -- TAG TO DO determine which/if events produce these in path or event_value
-                when event_name in ('xxx'
-  
-                ) then 'folder_id'
-                when event_name in ('xxx'
-  
-                ) then 'focus_area_id'
-            
-            end,
+        -- event value is numeric and joins to an id
+            regexp_like(events.event_value, '^[0-9]+$'),
+            event_metadata.event_value_joins_to,
             null
-            -- TAG TO DO repeat for all event_value: framework_id, focus_area_id, folder_id, etc.
         ) as event_value_integer_join_column,
 
-        -- events with odd behaviors
+        -- events with non-joining event_value
+        -- example: productLaunchOpen event_value is text name not application_id
+        iff(
+            event_metadata.event_value_not_id,
+            events.event_value,
+            null
+        ) as event_value_text,
 
-        -- productLaunchOpen event_value is text name not application_id
-        case when event_name = 'productLaunchOpen' then event_value else null end as launched_application_name,
+        -- case when event_name = 'productLaunchOpen' then event_value else null end as launched_application_name,
 
         -- router.left events: 
             -- path = route user navigating TO
@@ -137,7 +69,9 @@ events_add_columns_to_join as (
         -- if a user copy/pastes a path value that isn't numeric, it will null
         try_cast(
             coalesce(
-                case when event_value_integer_join_column = 'program_id' then event_value else null end,
+                case when event_metadata.event_value_joins_to = 'program_id' 
+                    and try_cast(event_value as integer) 
+                    then event_value else null end,
                 regexp_substr(events.event_path, 'resources/([^/]+)', 1, 1, 'e', 1),
                 regexp_substr(events.event_path, 'planner/([^/]+)', 1, 1, 'e', 1),
                 regexp_substr(events.event_value, 'resources/([^/]+)', 1, 1, 'e', 1)
@@ -148,75 +82,61 @@ events_add_columns_to_join as (
         -- for router.left this will be the resource TO, not the one left
         try_cast(
             coalesce(
-                case when event_value_integer_join_column = 'resource_id' then event_value else null end,
+                case when event_metadata.event_value_joins_to = 'resource_id' then event_value else null end,
                 regexp_substr(events.event_path, 'detail/([0-9]+)', 1, 1, 'e', 1),
                 regexp_substr(events.event_value, 'detail/([0-9]+)', 1, 1, 'e', 1)
             ) as integer
-        ) as resource_id,
-        -- TAG TO DO when able to get these from events; may be now, or may need to wait for restructuring
-        null as folder_id,
-        null as framework_id,
-        null as focus_area_id
-
+        ) as resource_id
     from
         events
+    left join 
+        event_metadata 
+    on 
+        events.event_name = event_metadata.event_name
 ),
 
-events_add_booleans as (
-    select
-        *,
-        
-        event_name = 'auth.login' as is_login_event,
-        event_name = 'productLaunchOpen' as is_app_launch_event,
-        event_name in (
-            'weekly.planner.modal.program.week.select',
-            'weekly.planner.modal.lastWeeklyPlanner.open'
-        ) as is_planner_open_event,
+events_add_pivots as 
+(select
+    events_add_column_info.*,
+    
+    -- pivot the other event_value_integer_join_columns using dbt_util.get_column_values
+    -- such as framework_id, folder_id, focus_area_id
+    {% set join_columns = dbt_utils.get_column_values(ref('seed_event_log_metadata'), 'event_value_joins_to') %}
+    {% if join_columns %}
+        {% for join_col in join_columns %}
+            {% if join_col not in ('program_id', 'resource_id') %}
+            -- Each column gets a comma prefix since they're all middle columns
+            ,case when event_value_integer_join_column = '{{ join_col }}'
+                then try_cast(event_value as integer)
+                else null
+            end as {{ join_col }}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 
-        event_name like 'weekly.planner%' 
-            and event_name not like 'weekly.planner.modal%' 
-            as is_weekly_planner_event
+    -- dynamic boolean flags: Create is_[category]_event columns
+    {% set event_categories = dbt_utils.get_column_values(ref('seed_event_log_metadata'), 'event_category') %}
+    {% if event_categories %}
+        {% for category in event_categories %}
+        --  only add commas between items, not after the final one
+        ,(event_category = '{{ category }}') as is_{{ category }}_event
+        {% endfor %}
+    {% endif %}
 
-    from
-        events_add_columns_to_join as events_joins
-), 
+from
+    events_add_column_info
+)
+
 
 
 final as 
 (select 
-    event_id,
-    user_id,
-    session_uuid,
-    event_date,
-    server_timestamp,
-    client_timestamp,
-
-    -- attributes
-    event_name,
-    event_path,
-    event_value,
-    event_value_human_readable,
-    event_value_integer_join_column,
-    launched_application_name,
-    path_entered,
-    path_left,
-    program_id,
-    resource_id,
-    folder_id,
-    framework_id,
-    focus_area_id,
-
-    -- booleans
-    is_login_event,
-    is_app_launch_event,
-    is_planner_open_event,
-    is_weekly_planner_event
-    
+   events_add_pivots.*
     -- don't persist ETL
     -- _source_filename,
     -- _loaded_at_utc,
 from
-    events_add_booleans
+    events_add_pivots
 )
 
 select
