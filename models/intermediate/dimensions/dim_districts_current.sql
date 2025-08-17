@@ -17,7 +17,7 @@ joined as (
         *
     from districts
     left join district_settings on districts.district_id = district_settings.district_id
-)
+),
 
 final as (
     select 

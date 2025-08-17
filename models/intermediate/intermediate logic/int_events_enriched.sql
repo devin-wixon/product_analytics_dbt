@@ -15,6 +15,9 @@ with events as (
         -- _source_filename,
         -- _loaded_at_utc
     from {{ ref('stg_lilypad__events_log') }}
+    {%- if target.name == 'dev' -%}
+    limit 50000
+    {%- endif -%}
 ),
 
 event_metadata as
@@ -23,7 +26,7 @@ event_metadata as
 from
     {{ ref('seed_event_log_metadata') }}
 
-)
+),
 
 events_add_column_info as (
     select
@@ -50,7 +53,7 @@ events_add_column_info as (
         -- events with non-joining event_value
         -- example: productLaunchOpen event_value is text name not application_id
         iff(
-            event_metadata.event_value_not_id,
+            event_metadata.event_value_not_id is not null,
             events.event_value,
             null
         ) as event_value_text,
@@ -60,8 +63,8 @@ events_add_column_info as (
         -- router.left events: 
             -- path = route user navigating TO
             -- event_value = route user just LEFT
-        case when event_name = 'router.left' then event_path else null end as path_entered,
-        case when event_name = 'router.left' then event_value else null end as path_left,
+        case when events.event_name = 'router.left' then event_path else null end as path_entered,
+        case when events.event_name = 'router.left' then event_value else null end as path_left,
 
 
        -- program_id may be in path but not in event_value
@@ -70,8 +73,8 @@ events_add_column_info as (
         try_cast(
             coalesce(
                 case when event_metadata.event_value_joins_to = 'program_id' 
-                    and try_cast(event_value as integer) 
-                    then event_value else null end,
+                    and try_cast(events.event_value as integer) 
+                    then events.event_value else null end,
                 regexp_substr(events.event_path, 'resources/([^/]+)', 1, 1, 'e', 1),
                 regexp_substr(events.event_path, 'planner/([^/]+)', 1, 1, 'e', 1),
                 regexp_substr(events.event_value, 'resources/([^/]+)', 1, 1, 'e', 1)
@@ -82,7 +85,7 @@ events_add_column_info as (
         -- for router.left this will be the resource TO, not the one left
         try_cast(
             coalesce(
-                case when event_metadata.event_value_joins_to = 'resource_id' then event_value else null end,
+                case when event_metadata.event_value_joins_to = 'resource_id' then events.event_value else null end,
                 regexp_substr(events.event_path, 'detail/([0-9]+)', 1, 1, 'e', 1),
                 regexp_substr(events.event_value, 'detail/([0-9]+)', 1, 1, 'e', 1)
             ) as integer
@@ -97,37 +100,42 @@ events_add_column_info as (
 
 events_add_pivots as 
 (select
-    events_add_column_info.*,
+    -- do not follow with a comma; conditional comma below
+    events_add_column_info.*
     
     -- pivot the other event_value_integer_join_columns using dbt_util.get_column_values
     -- such as framework_id, folder_id, focus_area_id
-    {% set join_columns = dbt_utils.get_column_values(ref('seed_event_log_metadata'), 'event_value_joins_to') %}
-    {% if join_columns %}
-        {% for join_col in join_columns %}
-            {% if join_col not in ('program_id', 'resource_id') %}
+    {%- set join_columns = dbt_utils.get_column_values(ref('seed_event_log_metadata'), 'event_value_joins_to') -%}
+    -- only if a join column exists
+    {%- if join_columns -%}
+        {%- for join_col in join_columns %}
+            {%- if join_col and join_col not in ('program_id', 'resource_id') -%}
             -- Each column gets a comma prefix since they're all middle columns
-            ,case when event_value_integer_join_column = '{{ join_col }}'
+            , case when event_value_integer_join_column = '{{ join_col }}'
                 then try_cast(event_value as integer)
                 else null
             end as {{ join_col }}
-            {% endif %}
-        {% endfor %}
-    {% endif %}
+            {%- endif -%}
+        {%- endfor -%}
+    {%- endif -%}
 
     -- dynamic boolean flags: Create is_[category]_event columns
-    {% set event_categories = dbt_utils.get_column_values(ref('seed_event_log_metadata'), 'event_category') %}
-    {% if event_categories %}
-        {% for category in event_categories %}
-        --  only add commas between items, not after the final one
-        ,(event_category = '{{ category }}') as is_{{ category }}_event
-        {% endfor %}
-    {% endif %}
-
-from
+    {%- set event_categories = dbt_utils.get_column_values(
+        table=ref('seed_event_log_metadata'),
+        column='event_category',
+        where="event_category is not null and event_category != ''",
+        order_by='event_category'
+        )-%}
+    -- only if an event category exists
+    {%- if event_categories -%}
+        {%- for category in event_categories -%}
+            --  only add commas between items, not after the final one
+            ,(event_category = '{{ category }}') as is_{{ category }}_event
+        {%- endfor %}
+    {%- endif %}
+ from
     events_add_column_info
-)
-
-
+),
 
 final as 
 (select 

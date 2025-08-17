@@ -29,7 +29,7 @@ user_daily_activity as (
 
         -- Resource metrics  
         count(distinct events.resource_id) as resources_accessed,
-        {% for resource_type in dbt_utils.get_values('dim_resource_types', 'resource_type') %}
+        {% for resource_type in dbt_utils.get_column_values(ref('dim_resources_current'), 'resource_type') %}
             count(distinct case when events.resource_type = '{{ resource_type }}' then events.resource_id end) as n_{{ resource_type }}_accessed,
         {% endfor %}
 

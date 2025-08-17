@@ -1,4 +1,4 @@
-﻿event_name,event_category,notes,trigger,event_value_not_id,event_value_joins_to,example_values,event_capture_start_date,event_capture_end_date
+﻿event_name,event_category,notes,event_trigger,event_value_not_id,event_value_joins_to,example_values,event_capture_start_date,event_capture_end_date
 auth.login,login,,Use logged in successfully,TBD,,,,
 auth.logout,logout,,TBD,TBD,,,,
 device.orientation,interface,,TBD,TBD,,,,
