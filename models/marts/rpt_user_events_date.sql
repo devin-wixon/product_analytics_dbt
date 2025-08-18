@@ -1,3 +1,8 @@
+{{ config(
+    enabled = False
+    )
+}}
+
 with 
 users as
 (select
