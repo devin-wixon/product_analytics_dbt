@@ -7,7 +7,7 @@ with events as (
         server_timestamp,
         client_timestamp,
         user_id,
-        session_uuid,
+        -- session_uuid,
         event_name,
         event_path,
         event_value,
@@ -15,7 +15,7 @@ with events as (
         -- _source_filename,
         -- _loaded_at_utc
     from {{ ref('stg_lilypad__events_log') }}
-    {%- if target.name == 'dev' -%}
+    {%- if target.name == 'default' %}
     limit 50000
     {%- endif -%}
 ),
@@ -34,6 +34,8 @@ events_add_column_info as (
     date(events.server_timestamp) as server_event_date,
     date(events.client_timestamp) as client_event_date,
     event_metadata.event_category as event_category,
+    event_metadata.event_value_joins_to,
+    event_metadata.event_value_not_id,
         -- clean up
         iff(events.event_path = '' or events.event_path = '/', null, events.event_path)
             as event_path,
@@ -42,21 +44,6 @@ events_add_column_info as (
         iff(events.event_value = '' or events.event_value = '/', null, events.event_value)
             as event_value,
         -- derive column with what event_value should join to, if anything
-
-        iff(
-        -- event value is numeric and joins to an id
-            regexp_like(events.event_value, '^[0-9]+$'),
-            event_metadata.event_value_joins_to,
-            null
-        ) as event_value_integer_join_column,
-
-        -- events with non-joining event_value
-        -- example: productLaunchOpen event_value is text name not application_id
-        iff(
-            event_metadata.event_value_not_id is not null,
-            events.event_value,
-            null
-        ) as event_value_text,
 
         -- case when event_name = 'productLaunchOpen' then event_value else null end as launched_application_name,
 
@@ -85,7 +72,9 @@ events_add_column_info as (
         -- for router.left this will be the resource TO, not the one left
         try_cast(
             coalesce(
-                case when event_metadata.event_value_joins_to = 'resource_id' then events.event_value else null end,
+                case when event_metadata.event_value_joins_to = 'resource_id' 
+                and try_cast(events.event_value as integer) 
+                then events.event_value else null end,
                 regexp_substr(events.event_path, 'detail/([0-9]+)', 1, 1, 'e', 1),
                 regexp_substr(events.event_value, 'detail/([0-9]+)', 1, 1, 'e', 1)
             ) as integer
@@ -103,21 +92,41 @@ events_add_pivots as
     -- do not follow with a comma; conditional comma below
     events_add_column_info.*
     
-    -- pivot the other event_value_integer_join_columns using dbt_util.get_column_values
-    -- such as framework_id, folder_id, focus_area_id
-    {%- set join_columns = dbt_utils.get_column_values(ref('seed_event_log_metadata'), 'event_value_joins_to') -%}
-    -- only if a join column exists
-    {%- if join_columns -%}
-        {%- for join_col in join_columns %}
-            {%- if join_col and join_col not in ('program_id', 'resource_id') -%}
-            -- Each column gets a comma prefix since they're all middle columns
-            , case when event_value_integer_join_column = '{{ join_col }}'
-                then try_cast(event_value as integer)
-                else null
-            end as {{ join_col }}
-            {%- endif -%}
-        {%- endfor -%}
-    {%- endif -%}
+  -- pivot columns for both integer joins (framework_id, folder_id, etc.) and text values (application_name, etc.)
+  {%- set all_pivot_columns = [] -%}
+  {%- set join_columns = dbt_utils.get_column_values(ref('seed_event_log_metadata'), 'event_value_joins_to') -%}
+  {%- set not_id_columns = dbt_utils.get_column_values(ref('seed_event_log_metadata'), 'event_value_not_id') -%}
+  
+  -- these columns are are special cases handled above
+  {%- set no_add_columns = ('program_id', 'resource_id', 'path_user_left') -%}
+  {%- if join_columns -%}
+      {%- for col in join_columns -%}
+          {%- if col and col not in no_add_columns -%}
+              {%- do all_pivot_columns.append(col) -%}
+          {%- endif -%}
+      {%- endfor -%}
+  {%- endif -%}
+
+  {%- if not_id_columns -%}
+      {%- for col in not_id_columns -%}
+          {%- if col and col not in no_add_columns -%}
+              {%- do all_pivot_columns.append(col) -%}
+          {%- endif -%}
+      {%- endfor -%}
+  {%- endif -%}
+    -- handle both integer joins and text values in one case statement
+  {%- if all_pivot_columns -%}
+      {%- for pivot_col in all_pivot_columns | unique %}
+      ,
+      case
+          when event_value_not_id = '{{ pivot_col }}'
+              then event_value
+          when event_value_joins_to = '{{ pivot_col }}'
+              then try_cast(event_value as integer)
+          else null
+      end as {{ pivot_col }}
+      {%- endfor -%}
+  {%- endif -%}
 
     -- dynamic boolean flags: Create is_[category]_event columns
     {%- set event_categories = dbt_utils.get_column_values(
