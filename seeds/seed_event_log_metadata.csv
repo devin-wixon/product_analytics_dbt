@@ -1,6 +1,6 @@
 ﻿event_name,event_category,notes,event_trigger,handled_as_exception_in_code,event_value_not_id,event_value_joins_to,example_values,event_capture_start_date,event_capture_end_date
-auth.login,login,,Use logged in successfully,,,user_id,147434,,
-auth.logout,logout,,?? Need to determine if closing the tab triggers this,,,user_id,147434,,
+auth.login,login,event_value is user_id; don't put in join_to so not add'l column added,Use logged in successfully,,,,147434,,
+auth.logout,logout,event_value is user_id; don't put in join_to so not add'l column added,?? Need to determine if closing the tab triggers this,,,,147434,,
 device.orientation,interface,? Determine event_value_not_id,TBD,,device_orientation,,portrait-secondary,,
 device.resolution,interface,,TBD,,screen_resolution,,962x601,,
 productLaunchOpen,app_launch,Note the event_value is the name not the application_id,User opened a third party application product,,application_name,,Cognitive ToyBox Web Portal,,
@@ -11,8 +11,8 @@ program.resource.accordion.open,resouce_accordion,? Event_value_joins_to,Opened 
 program.resource.filter.add,resource_filter,"Can join to folder_id, type, and be multi-select. Leave out of BI for now.",Adding a selection to the sidebar filter in resources,,,,"folder_id-17242,17243,17247,17234,17250,17240,17245,17246,17248,17235,17236,17237,17239,17244,17249,17238,17241; type-document",,
 program.resource.filter.remove,resource_filter,"Can join to folder_id, type, and be multi-select. Leave out of BI for now.",Removing a selection to the sidebar filter in resources,,,,"folder_id-4246, type-audio",,
 program.resource.search,resource_search,,User searched for resources,,search_string,,Fernando,,
-program.resource.sidebarFilter.close,resource_filter,"event_value is always ""false"", so not information content",Closed resource finder sidebar,,,,false,,
-program.resource.sidebarFilter.open,resource_filter,"event_value is always ""true"", so not information content",Opened resource finder sidebar,,,,true,,
+program.resource.sidebarFilter.close,resource_filter,"event_value is always ""false"", so not information content",Closed resource finder sidebar,,,,FALSE,,
+program.resource.sidebarFilter.open,resource_filter,"event_value is always ""true"", so not information content",Opened resource finder sidebar,,,,TRUE,,
 program.resource.sidebarFilter.parentFilter.close,resource_filter,event_value is mixed text and integers; unclear what integers would map to. Not using event_value in BI.,Closed an accordion filter on sidebar,,,,"176, type, estimated_time",,
 program.resource.sidebarFilter.parentFilter.open,resource_filter,event_value is mixed text and integers; unclear what integers would map to. Not using event_value in BI.,Opened an accordion filter on sidebar,,,,"type, 88, framework_item_id",,
 request.error,error,"All event_value as of 8/1/25 have the key ""message""",Request error,,error_data_object,,"{""message"":""Must have only one of district_id, school_id, class_id, or district_grade_id""}",,
@@ -56,7 +56,7 @@ weekly.planner.program.week.filter.deselect.all,planner_filter_focus_area,"? How
 Month 1-Week 1",Deselect all focus area types on weekly planner filter,,,program_id,10,,
 weekly.planner.program.week.filter.open,planner_filter,"? How is event_value_human_readable populated? It contains more information than the program_id that is in the event_value, ex: Month 2-Week 1 for the same program_id = 111
 Month 1-Week 1",Opened weekly planner filter,,,program_id,10,,
-weekly.planner.program.week.filter.select,planner_filter_focus_area,"event_value joins to the focuses_areas.value, NOT the focuses.areas.id; so it is text",Selected focus area type on weekly planner filter,x,focus_area_value,focus_area_id,"greeting_circle, inquiry_and_exploration",,
+weekly.planner.program.week.filter.select,planner_filter_focus_area,"event_value joins to the focuses_areas.value, NOT the focuses.areas.id; so it is text",Selected focus area type on weekly planner filter,x,focus_area_value,,"greeting_circle, inquiry_and_exploration",,
 weekly.planner.program.week.filter.select.all,planner_filter_focus_area,"? How is event_value_human_readable populated? It contains more information than the program_id that is in the event_value, ex: Month 2-Week 1 for the same program_id = 111
 Month 1-Week 1",Selected all focus area types on weekly planner filter. Note this has an different event_value from selecting one.,,,program_id,10,,
 weekly.planner.program.week.print,planner_print,"? How is event_value_human_readable populated? It contains more information than the program_id that is in the event_value, ex: Month 2-Week 1 for the same program_id = 111

@@ -58,7 +58,7 @@ events_add_column_info as (
         
         -- this event joins to the focuses_areas.value text rather than the integer ID
         case when events.event_name in ('weekly.planner.program.week.filter.deselect', 'weekly.planner.program.week.filter.select')
-            then event_value_human_readable else null end as focus_area,
+            then event_value_human_readable else null end as focus_area_label,
 
         -- extract theme_or_month_id and week_number from planner paths for specific events
         {%- set planner_path_events = "(
