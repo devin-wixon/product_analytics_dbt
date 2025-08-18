@@ -60,8 +60,11 @@ events_add_column_info as (
         case when events.event_name in ('weekly.planner.program.week.filter.deselect', 'weekly.planner.program.week.filter.select')
             then event_value_human_readable else null end as focus_area_label,
 
-        -- extract theme_or_month_id and week_number from planner paths for specific events
-        {%- set planner_path_events = "(
+        -- extract info such as week_number from planner paths for specific events
+        -- to extract the theme vs month_number, would need to join to resource_id when it's not a month number
+        -- code is regexp_substr(events.event_path, '^/planner/[^/]+/([^/]+)', 1, 1, 'e', 1)
+
+        {% set planner_path_events = "(
             'weekly.planner.program.week.filter.close',
             'weekly.planner.program.week.filter.deselect.all', 
             'weekly.planner.program.week.filter.open',
@@ -70,13 +73,7 @@ events_add_column_info as (
             'weekly.planner.program.week.report.close',
             'weekly.planner.program.week.report.highFive',
             'weekly.planner.program.week.report.open'
-        )" -%}
-        ,
-        case 
-            when events.event_name in {{ planner_path_events }}
-            then regexp_substr(events.event_path, '^/planner/[^/]+/([^/]+)', 1, 1, 'e', 1)
-            else null
-        end as theme_text_or_month_number,
+        )" %}
         
         case 
             when events.event_name in {{ planner_path_events }}
