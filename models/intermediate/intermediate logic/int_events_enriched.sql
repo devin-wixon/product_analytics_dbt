@@ -50,7 +50,11 @@ events_add_column_info as (
         -- router.left events: 
             -- path = route user navigating TO
             -- event_value = route user just LEFT
-        case when events.event_name in ('router.left', 'router.enter') then event_value else null end as path_entered,
+        case 
+            when events.event_name = 'router.left' then event_path 
+            when events.event_name = 'router.enter' then event_value 
+            else null 
+        end as path_entered,
         case when events.event_name = 'router.left' then event_value else null end as path_left,
 
 
