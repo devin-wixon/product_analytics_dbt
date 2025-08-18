@@ -22,6 +22,7 @@ joined as
 (select
     users.user_id,
     users.user_role,
+    users.district_id,
     -- district attributes
     -- districts.district_id,
     -- districts.district_name,

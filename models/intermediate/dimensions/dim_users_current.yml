@@ -11,6 +11,8 @@ models:
         description: "{{ doc('user_id') }}"
       - name: user_role
         description: "{{ doc('user_role') }}"
+      - name: district_id
+        description: "{{ doc('district_id') }}"
       - name: user_sourced_id
         description: "{{ doc('user_sourced_id') }}"
       - name: is_disable_auto_sync
