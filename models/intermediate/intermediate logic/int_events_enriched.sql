@@ -16,7 +16,8 @@ with events as (
         -- _loaded_at_utc
     from {{ ref('stg_lilypad__events_log') }}
     {%- if target.name == 'default' %}
-    limit 50000
+    -- 'resource.media.start'
+    limit 100
     {%- endif -%}
 ),
 
@@ -43,9 +44,7 @@ events_add_column_info as (
 
         iff(events.event_value = '' or events.event_value = '/', null, events.event_value)
             as event_value,
-        -- derive column with what event_value should join to, if anything
-
-        -- case when event_name = 'productLaunchOpen' then event_value else null end as launched_application_name,
+        -- add info for events with odd behaviors
 
         -- router.left events: 
             -- path = route user navigating TO
@@ -56,7 +55,34 @@ events_add_column_info as (
             else null 
         end as path_entered,
         case when events.event_name = 'router.left' then event_value else null end as path_left,
+        
+        -- this event joins to the focuses_areas.value text rather than the integer ID
+        case when events.event_name in ('weekly.planner.program.week.filter.deselect', 'weekly.planner.program.week.filter.select')
+            then event_value_human_readable else null end as focus_area,
 
+        -- extract theme_or_month_id and week_number from planner paths for specific events
+        {%- set planner_path_events = "(
+            'weekly.planner.program.week.filter.close',
+            'weekly.planner.program.week.filter.deselect.all', 
+            'weekly.planner.program.week.filter.open',
+            'weekly.planner.program.week.filter.select.all',
+            'weekly.planner.program.week.print',
+            'weekly.planner.program.week.report.close',
+            'weekly.planner.program.week.report.highFive',
+            'weekly.planner.program.week.report.open'
+        )" -%}
+        ,
+        case 
+            when events.event_name in {{ planner_path_events }}
+            then regexp_substr(events.event_path, '^/planner/[^/]+/([^/]+)', 1, 1, 'e', 1)
+            else null
+        end as theme_text_or_month_number,
+        
+        case 
+            when events.event_name in {{ planner_path_events }}
+            then try_cast(regexp_substr(events.event_path, '^/planner/[^/]+/[^/]+/([0-9]+)$', 1, 1, 'e', 1) as integer)
+            else null
+        end as week_number,
 
        -- program_id may be in path but not in event_value
         -- for router.left this will be the program TO, not the one left
@@ -97,8 +123,9 @@ events_add_pivots as
     events_add_column_info.*
     
   {%- set join_columns = dbt_utils.get_column_values(ref('seed_event_log_metadata'), 'event_value_joins_to') -%}
-  {%- set not_id_columns = dbt_utils.get_column_values(ref('seed_event_log_metadata'), 'event_value_not_id') -%}
-  {%- set no_add_columns = ('program_id', 'resource_id', 'path_left', 'path_entered') -%}
+  {%- set not_id_columns = dbt_utils.get_column_values(ref('seed_event_log_metadata'), 'event_value_not_id') %}
+
+  {%- set no_add_columns = ('program_id', 'resource_id', 'path_left', 'path_entered', 'focus_area_value') -%}
   {%- if join_columns -%}
       {%- for col in join_columns -%}
           {%- if col and col not in no_add_columns -%}
@@ -123,6 +150,10 @@ events_add_pivots as
           {%- endif -%}
       {%- endfor -%}
   {%- endif -%}
+
+  -- add boolean is_ columns for event categories
+  -- code works, not currently needed
+  {#
   {%- set event_categories = dbt_utils.get_column_values(
       table=ref('seed_event_log_metadata'),
       column='event_category',
@@ -135,6 +166,7 @@ events_add_pivots as
       case when event_category = '{{ category }}' then true else false end as is_{{ category }}_event
       {%- endfor %}
   {%- endif %}
+  #}
  from
     events_add_column_info
 ),
