@@ -50,7 +50,7 @@ events_add_column_info as (
         -- router.left events: 
             -- path = route user navigating TO
             -- event_value = route user just LEFT
-        case when events.event_name = 'router.left' then event_path else null end as path_entered,
+        case when events.event_name in ('router.left', 'router.enter') then event_value else null end as path_entered,
         case when events.event_name = 'router.left' then event_value else null end as path_left,
 
 
@@ -92,56 +92,45 @@ events_add_pivots as
     -- do not follow with a comma; conditional comma below
     events_add_column_info.*
     
-  -- pivot columns for both integer joins (framework_id, folder_id, etc.) and text values (application_name, etc.)
-  {%- set all_pivot_columns = [] -%}
   {%- set join_columns = dbt_utils.get_column_values(ref('seed_event_log_metadata'), 'event_value_joins_to') -%}
   {%- set not_id_columns = dbt_utils.get_column_values(ref('seed_event_log_metadata'), 'event_value_not_id') -%}
-  
-  -- these columns are are special cases handled above
-  {%- set no_add_columns = ('program_id', 'resource_id', 'path_user_left') -%}
+  {%- set no_add_columns = ('program_id', 'resource_id', 'path_left', 'path_entered') -%}
   {%- if join_columns -%}
       {%- for col in join_columns -%}
           {%- if col and col not in no_add_columns -%}
-              {%- do all_pivot_columns.append(col) -%}
+      ,
+      case
+          when event_value_joins_to = '{{ col }}'
+              then try_cast(event_value as integer)
+          else null
+      end as {{ col }}
           {%- endif -%}
       {%- endfor -%}
   {%- endif -%}
-
   {%- if not_id_columns -%}
       {%- for col in not_id_columns -%}
           {%- if col and col not in no_add_columns -%}
-              {%- do all_pivot_columns.append(col) -%}
+      ,
+      case
+          when event_value_not_id = '{{ col }}'
+              then event_value
+          else null
+      end as {{ col }}
           {%- endif -%}
       {%- endfor -%}
   {%- endif -%}
-    -- handle both integer joins and text values in one case statement
-  {%- if all_pivot_columns -%}
-      {%- for pivot_col in all_pivot_columns | unique %}
+  {%- set event_categories = dbt_utils.get_column_values(
+      table=ref('seed_event_log_metadata'),
+      column='event_category',
+      where="event_category is not null and event_category != ''",
+      order_by='event_category'
+      )-%}
+  {%- if event_categories -%}
+      {%- for category in event_categories -%}
       ,
-      case
-          when event_value_not_id = '{{ pivot_col }}'
-              then event_value
-          when event_value_joins_to = '{{ pivot_col }}'
-              then try_cast(event_value as integer)
-          else null
-      end as {{ pivot_col }}
-      {%- endfor -%}
-  {%- endif -%}
-
-    -- dynamic boolean flags: Create is_[category]_event columns
-    {%- set event_categories = dbt_utils.get_column_values(
-        table=ref('seed_event_log_metadata'),
-        column='event_category',
-        where="event_category is not null and event_category != ''",
-        order_by='event_category'
-        )-%}
-    -- only if an event category exists
-    {%- if event_categories -%}
-        {%- for category in event_categories -%}
-            --  only add commas between items, not after the final one
-            ,(event_category = '{{ category }}') as is_{{ category }}_event
-        {%- endfor %}
-    {%- endif %}
+      case when event_category = '{{ category }}' then true else false end as is_{{ category }}_event
+      {%- endfor %}
+  {%- endif %}
  from
     events_add_column_info
 ),

@@ -19,16 +19,15 @@ user_daily_activity as (
         users.user_role,
         users.user_grades,
         users.user_other_grades,
-        events.server_event_date,
         events.client_event_date,
         
         -- Program metrics
-        count(distinct events.program_id) as programs_accessed,
-        count(distinct case when events.is_planner_open_event then events.program_id end) as programs_with_planner,
-        count(distinct case when is_app_launch_event then event_value end) as n_apps_launched
+        count(distinct events.program_id) as n_programs_accessed,
+        count(distinct case when events.is_planner_open_event then events.program_id end) as n_programs_with_planner_launch,
+        count(distinct case when is_application_launch_event then event_value end) as n_applications_launched
 
         -- Resource metrics  
-        count(distinct events.resource_id) as resources_accessed,
+        count(distinct events.resource_id) as n_resources_accessed,
         {% for resource_type in dbt_utils.get_column_values(ref('dim_resources_current'), 'resource_type') %}
             count(distinct case when events.resource_type = '{{ resource_type }}' then events.resource_id end) as n_{{ resource_type }}_accessed,
         {% endfor %}
@@ -36,28 +35,28 @@ user_daily_activity as (
         
         -- Event metrics
         count(*) as n_total_events,
-        sum(events.is_login_event::int) as n_login_events,
-        sum(events.is_planner_open_event::int) as n_planner_events,
-        sum(events.is_weekly_planner_event::int) as n_weekly_planner_events,
-        sum(events.is_app_launch_event::int) as n_app_launch_events,
+
+        -- add logic later using the loops as in int_events_enriched for event_category values in int_events_enriched columns
 
         -- boolean metrics
-            max(is_login_event)::boolean as has_login_event,
-            max(is_planner_open_event)::boolean as has_planner_open_event,
-            max(is_weekly_planner_event)::boolean as has_weekly_planner_event,
-            max(is_app_launch_event)::boolean as has_app_launch_event,
+        -- add logic later using the loops as in int_events_enriched for event_category values in int_events_enriched columns
 
 
         -- Session metrics: later
         
-    from {{ ref('fct_events') }}
+    from 
+        events
+    -- only including users with events, and events with known users
+    -- TAG TO DO will need to backfill users; ~ 7.4K events.user_id without parent match in users.user_id
+    inner join
+        users
     where user_id is not null
-    group by 1,2,3,4,5,6
+    group by 1,2,3,4,5
 
-{% if target.name == 'dev' %}
+{%- if target.name == 'default' %}
     -- Limit number of rows in development environment
     limit 100000
-{% endif %}
+{%- endif -%}
 ),
 
 final as (
