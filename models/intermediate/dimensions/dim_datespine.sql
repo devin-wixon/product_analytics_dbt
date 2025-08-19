@@ -14,12 +14,10 @@ calendar_dates as (
 final as (
 
     select
-        -- Surrogate Key
         {{ dbt_utils.generate_surrogate_key(
             ['date(date_day)']
         )}} as calendar_date_sk,
- 
-        -- Descriptive Values
+
         date_day::date as date_day,
         dayofweek(date_day) + 1 as day_of_week_number,
         dayofmonth(date_day) as day_of_month_number,

@@ -13,12 +13,15 @@ semantic_models:
       - name: event
         type: primary
         expr: event_id
+
       - name: user
         type: foreign
         expr: user_id
+
       - name: resource
         type: foreign
         expr: resource_id
+        
       - name: program
         type: foreign
         expr: program_id
@@ -39,11 +42,11 @@ semantic_models:
         type: categorical
         description: "{{ doc('resource_id') }}"
       # date related
-      - name: server_event_date
-        type: time
-        description: "{{ doc('server_event_date') }}"
-        type_params:
-          time_granularity: day
+      # - name: server_event_date
+      #   type: time
+      #   description: "{{ doc('server_event_date') }}"
+      #   type_params:
+      #     time_granularity: day
       - name: client_event_date
         type: time
         description: "{{ doc('client_event_date') }}"
@@ -53,26 +56,18 @@ semantic_models:
       - name: event_name
         type: categorical
         description: "{{ doc('event_name') }}"
+
       - name: event_path
         type: categorical
         description: "{{ doc('event_path') }}"
+
       - name: launched_application_name
         type: categorical
         description: "{{ doc('launched_application_name') }}"
         expr: launched_application_name
+        
       # booleans
-      - name: is_login_event
-        type: categorical
-        description: "{{ doc('is_login_event') }}"
-      - name: is_app_launch_event
-        type: categorical
-        description: "{{ doc('is_app_launch_event') }}"
-      - name: is_planner_open_event
-        type: categorical
-        description: "{{ doc('is_planner_open_event') }}"
-      - name: is_weekly_planner_event
-        type: categorical
-        description: "{{ doc('is_weekly_planner_event') }}"
+
     
     measures:
       - name: n_events
