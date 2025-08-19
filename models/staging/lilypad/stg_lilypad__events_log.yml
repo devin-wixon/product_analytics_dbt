@@ -23,6 +23,11 @@ models:
         description: "{{ doc('session_uuid') }}"
       - name: event_name
         description: "{{ doc('event_name') }}"
+        tests:
+          - relationships:
+              to: ref('seed_event_log_metadata')
+              field: event_name
+              severity: warn
       - name: event_path
         description: "{{ doc('event_path') }}"
       - name: event_value
