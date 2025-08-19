@@ -108,6 +108,8 @@ events_add_column_info as (
         ) as resource_id
     from
         events
+    -- left join ensures completeness
+    -- note that: relationship test for event_name foreign key is a warn status in the events staging model
     left join 
         event_metadata 
     on 

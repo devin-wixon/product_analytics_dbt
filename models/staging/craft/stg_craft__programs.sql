@@ -14,14 +14,14 @@ final as (
 
         -- attributes
         description::string as program_description,
-        age_group::string as age_group,
-        supplemental::boolean as is_supplemental,
-        custom_banner::string as custom_banner,
-        clone_status::string as clone_status,
+        age_group::string as program_age_group,
+        supplemental::boolean as is_program_supplemental,
+        custom_banner::string as program_custom_banner,
+        clone_status::string as program_clone_status,
         type::string as program_type,
 
         -- dates and timestamps
-        deleted_at::date as deleted_date
+        deleted_at::date as program_deleted_date
 
     from source_table
 )

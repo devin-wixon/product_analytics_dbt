@@ -1,10 +1,10 @@
 semantic_models:
   - name: sem_districts
     description: |
-      Purpose: Provides district-level information for semantic analysis.
-      Granularity: One row per district.
-      Filters: None
-      Notes: 
+      Purpose: Provides district-level information for semantic analysis.  
+      Granularity: One row per district.  
+      Filters: None. 
+      Notes:   
     model: ref('dim_districts_current')
     
     entities:

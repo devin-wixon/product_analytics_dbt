@@ -39,9 +39,9 @@ districts as (
 programs as (
     select
         * exclude(
-            custom_banner,
-            clone_status,
-            deleted_date
+            program_custom_banner,
+            program_clone_status,
+            program_deleted_date
         )
     from
         {{ ref('dim_programs') }}
@@ -52,18 +52,18 @@ resources as (
         * exclude(
             -- resource_code,
             resource_description,
-            file_url,
-            section_title,
-            link,
-            order_number,
-            thumbnail_mobile_url,
-            thumbnail_web_url,
-            uuid,
-            physical_page_number,
-            fts_title,
+            resource_file_url,
+            resource_section_title,
+            resource_link,
+            resource_order_number,
+            resource_thumbnail_mobile_url,
+            resource_thumbnail_web_url,
+            resource_uuid,
+            resource_physical_page_number,
+            resource_fts_title,
             -- TAG TO DO determine how populated;
             -- focus_area is null when focus_area_id is not
-            focus_area
+            resource_focus_area
         )
     from
         {{ ref('dim_resources_current') }}
@@ -89,7 +89,7 @@ joined as (
     districts.* exclude (district_id),
     programs.* exclude (program_id),
     -- add focus_area table later as needed
-    resources.* exclude (resource_id, program_id, focus_area_id)
+    resources.* exclude (resource_id, resource_focus_area_id)
 from
   events 
   left join users on events.user_id = users.user_id

@@ -1,10 +1,10 @@
 semantic_models:
   - name: sem_resources
     description: |
-      Purpose: Provides resource-level information for semantic analysis.
-      Granularity: One row per resource.
-      Filters: None
-      Notes:
+      Purpose: Provides resource-level information for semantic analysis.  
+      Granularity: One row per resource.  
+      Filters: None  
+      Notes:  
     model: ref('dim_resources_current')
     
     entities:
@@ -16,12 +16,87 @@ semantic_models:
       - name: resource_id
         type: categorical
         description: "{{ doc('resource_id') }}"
-      - name: resource_name
+      - name: resource_folder_id
+        type: categorical
+        description: ""
+      - name: resource_program_id
+        type: categorical
+        description: ""
+      - name: resource_author_id
         type: categorical
         description: ""
       - name: resource_type
         type: categorical
         description: ""
-      # - name: resource_description
-      #   type: categorical
-      #   description: "Description of the resource"
+      - name: resource_code
+        type: categorical
+        description: ""
+      - name: resource_title
+        type: categorical
+        description: ""
+      - name: resource_description
+        type: categorical
+        description: ""
+      - name: resource_file_url
+        type: categorical
+        description: ""
+      - name: resource_section_title
+        type: categorical
+        description: ""
+      - name: resource_link
+        type: categorical
+        description: ""
+      - name: is_resource_legacy
+        type: categorical
+        description: ""
+      - name: resource_short_description
+        type: categorical
+        description: ""
+      - name: resource_order_number
+        type: categorical
+        description: ""
+      - name: resource_thumbnail_mobile_url
+        type: categorical
+        description: ""
+      - name: resource_thumbnail_web_url
+        type: categorical
+        description: ""
+      - name: is_resource_downloadable
+        type: categorical
+        description: ""
+      - name: resource_provider_id
+        type: categorical
+        description: ""
+      - name: is_resource_public
+        type: categorical
+        description: ""
+      - name: resource_uuid
+        type: categorical
+        description: ""
+      - name: resource_focus_area
+        type: categorical
+        description: ""
+      - name: resource_publication_status
+        type: categorical
+        description: ""
+      - name: resource_publication_origin_id
+        type: categorical
+        description: ""
+      - name: resource_focus_area_id
+        type: categorical
+        description: ""
+      - name: resource_sub_focus_area_id
+        type: categorical
+        description: ""
+      - name: resource_estimated_time
+        type: categorical
+        description: ""
+      - name: resource_physical_reference
+        type: categorical
+        description: ""
+      - name: resource_physical_page_number
+        type: categorical
+        description: ""
+      - name: resource_fts_title
+        type: categorical
+        description: ""

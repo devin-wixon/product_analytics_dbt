@@ -1,10 +1,10 @@
 semantic_models:
   - name: sem_users
     description: |
-      Purpose: Provides user-level information for semantic analysis.
-      Granularity: One row per user.
-      Filters: None
-      Notes: 
+      Purpose: Provides user-level information for semantic analysis.  
+      Granularity: One row per user.  
+      Filters: None. 
+      Notes:   
     model: ref('dim_users_current')
     
     entities:

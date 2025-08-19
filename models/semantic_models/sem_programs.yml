@@ -1,10 +1,10 @@
 semantic_models:
   - name: sem_programs
     description: |
-      Purpose: Provides program-level information for semantic analysis.
-      Granularity: One row per program.
-      Filters: None
-      Notes: 
+      Purpose: Provides program-level information for semantic analysis.  
+      Granularity: One row per program.  
+      Filters: None. 
+      Notes:   
     model: ref('dim_programs')
     
     entities:
@@ -19,3 +19,25 @@ semantic_models:
       - name: program_name
         type: categorical
         description: ""
+      - name: program_description
+        type: categorical
+        description: ""
+      - name: program_age_group
+        type: categorical
+        description: ""
+      - name: is_program_supplemental
+        type: categorical
+        description: ""
+      - name: program_custom_banner
+        type: categorical
+        description: ""
+      - name: program_clone_status
+        type: categorical
+        description: ""
+      - name: program_type
+        type: categorical
+        description: ""
+      - name: program_deleted_date
+        type: time
+        type_params:
+          time_granularity: day
