@@ -53,7 +53,7 @@ final as
   *
 from
   joined
-{%- if target.name == 'default' %}
+{%- if target.name == 'Development' %}
   -- Limit number of rows in development environment
   limit 100000
 {%- endif -%}

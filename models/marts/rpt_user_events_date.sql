@@ -58,7 +58,7 @@ user_daily_activity as (
     where user_id is not null
     group by 1,2,3,4,5
 
-{%- if target.name == 'default' %}
+{%- if target.name == 'Development' %}
     -- Limit number of rows in development environment
     limit 100000
 {%- endif -%}
