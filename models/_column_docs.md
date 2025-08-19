@@ -151,3 +151,8 @@ Boolean: True if event_name starts with 'weekly.planner' but does not start with
 
 {% docs focus_area_id %}
 {% enddocs %}
+
+{% docs day_of_week_number %}
+Day of week as integer using Snowflakes dayofweek() function, which returns:  
+SUNDAY=0, MONDAY=1, TUESDAY=2, WEDNESDAY=3, THURSDAY=4, FRIDAY=5, SATURDAY=6
+{% enddocs %}

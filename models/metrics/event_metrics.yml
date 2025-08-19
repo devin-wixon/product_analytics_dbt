@@ -7,48 +7,38 @@ metrics:
     label: "Active Users"
     meta:
       semantic_model: "sem_events"
-  
-  - name: n_users_with_login
-    description: "Count of unique users who had login events"
-    type: simple
-    type_params:
-      measure: n_users_with_any_event
-    filter: |
-      {{ Dimension('sem_events__is_login_event') }} = true
-    label: "Users with Login"
-    meta:
-      semantic_model: "sem_events"
 
-  - name: n_users_opened_planner
-    description: "Count of unique users who opened the planner"
-    type: simple
-    type_params:
-      measure: n_users_with_any_event
-    filter: |
-      {{ Dimension('sem_events__is_planner_open_event') }} = true
-    label: "Users Who Opened Planner"
-    meta:
-      semantic_model: "sem_events"
+  # TAG TO DO redo these using new category types
+  # - name: n_users_opened_planner
+  #   description: "Count of unique users who opened the planner"
+  #   type: simple
+  #   type_params:
+  #     measure: n_users_with_any_event
+  #   filter: |
+  #     {{ Dimension('sem_events__is_planner_open_event') }} = true
+  #   label: "Users Who Opened Planner"
+  #   meta:
+  #     semantic_model: "sem_events"
 
-  - name: n_users_used_weekly_planner
-    description: "Count of unique users who used the weekly planner"
-    type: simple
-    type_params:
-      measure: n_users_with_any_event
-    filter: |
-      {{ Dimension('sem_events__is_weekly_planner_event') }} = true
-    label: "Users Who Used Weekly Planner"
-    meta:
-      semantic_model: "sem_events"
+  # - name: n_users_used_weekly_planner
+  #   description: "Count of unique users who used the weekly planner"
+  #   type: simple
+  #   type_params:
+  #     measure: n_users_with_any_event
+  #   filter: |
+  #     {{ Dimension('sem_events__is_weekly_planner_event') }} = true
+  #   label: "Users Who Used Weekly Planner"
+  #   meta:
+  #     semantic_model: "sem_events"
 
-  - name: n_users_launched_app
-    description: "Count of unique users who launched an application"
-    type: simple
-    type_params:
-      measure: n_users_with_any_event
-    filter: |
-      {{ Dimension('sem_events__is_app_launch_event') }} = true
-    label: "Users Who Launched Apps"
-    meta:
-      semantic_model: "sem_events"
+  # - name: n_users_launched_app
+  #   description: "Count of unique users who launched an application"
+  #   type: simple
+  #   type_params:
+  #     measure: n_users_with_any_event
+  #   filter: |
+  #     {{ Dimension('sem_events__is_app_launch_event') }} = true
+  #   label: "Users Who Launched Apps"
+  #   meta:
+  #     semantic_model: "sem_events"
 

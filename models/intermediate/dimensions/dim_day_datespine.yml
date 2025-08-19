@@ -1,0 +1,52 @@
+version: 2
+
+models:
+  - name: dim_day_datespine
+    description: |
+      Purpose: Calendar dimension table with date attributes for analytics.
+      Granularity: One row per calendar date from 2024-01-01 to 2050-12-31.
+      Filters: None
+      Notes: Used for semantic modeling datespine and other date-based analyses.
+    # this associates it as a MetricFlow model
+    time_spine:
+      standard_granularity_column: date_day
+    columns:
+      - name: calendar_date_sk
+        description: Surrogate key for the calendar date dimension.
+      - name: date_day
+        description: The calendar date.
+        granularity: day
+      - name: day_of_week_number
+        description: "{{ doc('day_of_week_number') }}"
+      - name: day_of_month_number
+        description: Day of the month (1-31).
+      - name: day_of_year_number
+        description: Day of the year (1-366).
+      - name: week_of_year_number
+        description: Week number of the year.
+        granularity: week
+      - name: month_of_year_number
+        description: Month number of the year (1-12).
+        granularity: month
+      - name: quarter_of_year_number
+        description: Quarter number of the year (1-4).
+        granularity: quarter
+      - name: year_number
+        description: Four-digit year number.
+        granularity: year
+      - name: short_weekday_name
+        description: Abbreviated weekday name (e.g., Mon, Tue).
+      - name: full_weekday_name
+        description: Full weekday name (e.g., Monday, Tuesday).
+      - name: short_month_name
+        description: Abbreviated month name (e.g., Jan, Feb).
+        granularity: month
+      - name: full_month_name
+        description: Full month name (e.g., January, February).
+        granularity: month
+      - name: short_month_year
+        description: Abbreviated month and year (e.g., Jan 2024).
+        granularity: month
+      - name: full_month_year
+        description: Full month and year (e.g., January 2024).
+        granularity: month

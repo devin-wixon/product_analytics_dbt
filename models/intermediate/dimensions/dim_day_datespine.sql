@@ -19,7 +19,8 @@ final as (
         )}} as calendar_date_sk,
 
         date_day::date as date_day,
-        dayofweek(date_day) + 1 as day_of_week_number,
+        -- (Monday) 1 through 7 (Sunday) 
+        dayofweek(date_day) as day_of_week_number,
         dayofmonth(date_day) as day_of_month_number,
         dayofyear(date_day) as day_of_year_number,
 
