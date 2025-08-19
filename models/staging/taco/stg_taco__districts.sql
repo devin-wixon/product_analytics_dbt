@@ -43,7 +43,7 @@ final as (
         -- timestamps
         -- Convert string timestamps to proper timestamp format if needed
         last_sync::timestamp as district_last_sync_utc,
-        date_last_modified::timestamp as date_last_modified_utc,
+        date_last_modified::timestamp as district_last_modified_at_utc,
         roster_file_created_at::timestamp as roster_file_created_at_utc,
         auto_rostering_checked_at::timestamp as auto_rostering_checked_at_utc
     from source_table

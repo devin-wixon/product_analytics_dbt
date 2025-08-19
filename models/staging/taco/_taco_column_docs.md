@@ -59,7 +59,7 @@ Example: {'grades': 'IT,PR,PK,TK,Other,KG,02', 'rostering': {'method': 'classlin
 
 
 {% docs is_district_enabled %}
-<!-- TAG TO DO confirm values and flesh out with their meaning. -->
+All values are TRUE as of 8/25.
 {% enddocs %}
 
 
@@ -87,8 +87,8 @@ Example: 67890
 {% enddocs %}
 
 
-{% docs district_roster_file_created_at %}
-Timestamp when the district's roster file was created.  
+{% docs roster_file_created_at_utc %}
+Timestamp when the district's roster file was created in the UTC time zone.  
 Example: 2025-07-30 00:00:00.000
 {% enddocs %}
 
