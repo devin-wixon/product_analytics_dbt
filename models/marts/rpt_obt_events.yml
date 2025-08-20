@@ -1,0 +1,157 @@
+version: 2
+
+models:
+  - name: rpt_obt_events
+    description: |
+      Purpose: Comprehensive event reporting model combining user events with dimensional information for business intelligence and analytics.  
+      Granularity: One row per event, uniquely identified by `event_id`.  
+      Filters: Excludes sensitive user information, detailed resource metadata, and internal ETL columns.  
+      Notes: This is the primary reporting model for OBT (Operations Business Team) event analysis, joining events with user, district, program, and resource dimensions.  
+    columns:
+      # Event columns
+      - name: event_id
+        description: "{{ doc('event_id') }}"
+      - name: client_timestamp
+        description: "{{ doc('client_timestamp') }}"
+      - name: user_id
+        description: "{{ doc('user_id') }}"
+      - name: session_uuid
+        description: "{{ doc('session_uuid') }}"
+      - name: event_name
+        description: "{{ doc('event_name') }}"
+      - name: event_path
+        description: "{{ doc('event_path') }}"
+      - name: event_value_human_readable
+        description: "{{ doc('event_value_human_readable') }}"
+      - name: client_event_date
+        description: "{{ doc('client_event_date') }}"
+      - name: event_category
+        description: ""
+      - name: path_entered
+        description: "{{ doc('path_entered') }}"
+      - name: path_left
+        description: "{{ doc('path_left') }}"
+      - name: focus_area_label
+        description: ""
+      - name: week_number
+        description: ""
+      - name: program_id
+        description: "{{ doc('program_id') }}"
+      - name: resource_id
+        description: "{{ doc('resource_id') }}"
+      - name: launched_application_name
+        description: "{{ doc('launched_application_name') }}"
+      - name: is_app_launch_event
+        description: "{{ doc('is_app_launch_event') }}"
+      - name: is_login_event
+        description: "{{ doc('is_login_event') }}"
+      - name: is_planner_open_event
+        description: "{{ doc('is_planner_open_event') }}"
+      - name: is_weekly_planner_event
+        description: "{{ doc('is_weekly_planner_event') }}"
+      - name: folder_id
+        description: "{{ doc('folder_id') }}"
+      - name: framework_id
+        description: "{{ doc('framework_id') }}"
+      - name: focus_area_id
+        description: "{{ doc('focus_area_id') }}"
+
+      # User columns
+      - name: user_sk
+        description: "{{ doc('user_sk') }}"
+      - name: user_grades
+        description: "{{ doc('user_grades') }}"
+      - name: user_identifier
+        description: "{{ doc('user_identifier') }}"
+      - name: user_role
+        description: "{{ doc('user_role') }}"
+      - name: user_role_id
+        description: "{{ doc('user_role_id') }}"
+      - name: user_status
+        description: "{{ doc('user_status') }}"
+      - name: username
+        description: "{{ doc('username') }}"
+      - name: okta_user_id
+        description: "{{ doc('okta_user_id') }}"
+      - name: class_id
+        description: "{{ doc('class_id') }}"
+      - name: class_sourced_id
+        description: "{{ doc('class_sourced_id') }}"
+      - name: school_id
+        description: "{{ doc('school_id') }}"
+      - name: school_sourced_id
+        description: "{{ doc('school_sourced_id') }}"
+      - name: email_sent_utc
+        description: "{{ doc('email_sent_utc') }}"
+      - name: last_modified_at_utc
+        description: "{{ doc('last_modified_at_utc') }}"
+      - name: phone
+        description: "{{ doc('phone') }}"
+      - name: user_other_grades
+        description: "{{ doc('user_other_grades') }}"
+      - name: user_invite_status
+        description: "{{ doc('user_invite_status') }}"
+      - name: user_contact_email
+        description: "{{ doc('user_contact_email') }}"
+      - name: override_district_auth
+        description: "{{ doc('override_district_auth') }}"
+      - name: user_settings
+        description: "{{ doc('user_settings') }}"
+      - name: user_state_id
+        description: "{{ doc('user_state_id') }}"
+
+      # District columns
+      - name: district_id
+        description: "{{ doc('district_id') }}"
+      - name: district_name
+        description: "{{ doc('district_name') }}"
+      - name: district_state
+        description: "{{ doc('district_state') }}"
+      - name: district_type
+        description: "{{ doc('district_type') }}"
+
+      # Program columns
+      - name: program_name
+        description: ""
+      - name: program_description
+        description: ""
+      - name: program_age_group
+        description: ""
+      - name: is_program_supplemental
+        description: ""
+      - name: program_type
+        description: ""
+
+      # Resource columns
+      - name: resource_folder_id
+        description: ""
+      - name: resource_program_id
+        description: ""
+      - name: resource_author_id
+        description: ""
+      - name: resource_type
+        description: ""
+      - name: resource_code
+        description: ""
+      - name: resource_title
+        description: ""
+      - name: is_resource_legacy
+        description: ""
+      - name: resource_short_description
+        description: ""
+      - name: is_resource_downloadable
+        description: ""
+      - name: resource_provider_id
+        description: ""
+      - name: is_resource_public
+        description: ""
+      - name: resource_publication_status
+        description: ""
+      - name: resource_publication_origin_id
+        description: ""
+      - name: resource_sub_focus_area_id
+        description: ""
+      - name: resource_estimated_time
+        description: ""
+      - name: resource_physical_reference
+        description: ""

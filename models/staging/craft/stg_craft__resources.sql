@@ -12,7 +12,13 @@ final as (
         folder_id::int as resource_folder_id,
         program_id::int as resource_program_id,
         author_id::int as resource_author_id,
-        type::string as resource_type,
+        -- replace spaces and hypens in resource type and make lowercase
+        lower(
+            replace(
+                replace(type::string, ' ', '_'),
+                '-', '_'
+            )
+        ) as resource_type,
         code::string as resource_code,
         title::string as resource_title,
         description::string as resource_description,

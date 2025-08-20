@@ -1,12 +1,12 @@
-{{ config(
-    enabled = False
-    )
-}}
+
 
 with 
 users as
 (select
-    *
+    user_id,
+    user_role,
+    user_grades,
+    user_other_grades
 from
     {{ ref('dim_users_current') }}
 ),
@@ -18,33 +18,44 @@ events as (
         {{ ref('fct_events') }}
 ),
 
+resources as (
+    select
+        *
+    from
+        {{ ref('dim_resources_current') }}
+),
+
 user_daily_activity as (
     select
-        users.user_id,
-        users.user_role,
-        users.user_grades,
-        users.user_other_grades,
+        users.*,
         events.client_event_date,
         
         -- Program metrics
         count(distinct events.program_id) as n_programs_accessed,
-        count(distinct case when events.is_planner_open_event then events.program_id end) as n_programs_with_planner_launch,
-        count(distinct case when is_application_launch_event then event_value end) as n_applications_launched
 
         -- Resource metrics  
         count(distinct events.resource_id) as n_resources_accessed,
-        {% for resource_type in dbt_utils.get_column_values(ref('dim_resources_current'), 'resource_type') %}
-            count(distinct case when events.resource_type = '{{ resource_type }}' then events.resource_id end) as n_{{ resource_type }}_accessed,
-        {% endfor %}
+        -- TAG OPTIMIZE 
+        -- test performance vs dbt_utils.pivot() or Snowflake dynamic pivot 
+        {% set resource_types = dbt_utils.get_column_values(
+            table=ref('dim_resources_current'),
+            column='resource_type',
+            order_by='resource_type'
+            ) 
+        %}
 
+        {% for resource_type in resource_types  %}
+        count(distinct case when resources.resource_type = '{{ resource_type }}'
+            then events.resource_id end) as n_{{ resource_type }}_accessed,
+        {% endfor %}
         
         -- Event metrics
         count(*) as n_total_events,
 
-        -- add logic later using the loops as in int_events_enriched for event_category values in int_events_enriched columns
+        -- TAG TO DO add logic using the loops as in int_events_enriched for event_category values in int_events_enriched columns
 
         -- boolean metrics
-        -- add logic later using the loops as in int_events_enriched for event_category values in int_events_enriched columns
+        -- add logic  using the loops as in int_events_enriched for event_category values in int_events_enriched columns
 
 
         -- Session metrics: later
@@ -55,7 +66,12 @@ user_daily_activity as (
     -- TAG TO DO will need to backfill users; ~ 7.4K events.user_id without parent match in users.user_id
     inner join
         users
-    where user_id is not null
+    on
+        events.user_id = users.user_id
+    inner join
+        resources
+    on
+        events.resource_id = resources.resource_id
     group by 1,2,3,4,5
 
 {%- if target.name == 'Development' %}

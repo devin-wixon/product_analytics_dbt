@@ -3,9 +3,10 @@ version: 2
 models:
   - name: dim_users_current
     description: |
-      Purpose: Current information about users, excluding students.
-      Granularity: One row per user.
-      Filters: user_role is not `student`
+      Purpose: Current information about teacher and administrator users.  
+      Granularity: One row per user.  
+      Filters: user_role is not `student`. 
+      Notes: None. 
     columns:
       - name: user_id
         description: "{{ doc('user_id') }}"
