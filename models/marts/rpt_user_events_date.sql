@@ -2,7 +2,7 @@
 
 with 
 users as
-(select
+(select distinct
     user_id,
     user_role,
     user_grades,
@@ -46,7 +46,7 @@ user_daily_activity as (
 
         {% for resource_type in resource_types  %}
         count(distinct case when resources.resource_type = '{{ resource_type }}'
-            then events.resource_id end) as n_{{ resource_type }}_accessed,
+            then resources.resource_id end) as n_{{ resource_type }}_accessed,
         {% endfor %}
         
         -- Event metrics
