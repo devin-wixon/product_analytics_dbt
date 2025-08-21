@@ -38,7 +38,6 @@ resource.sidebar.pro.development.open.modal,sidebar,,Opened a modal on professio
 router.enter,router_enter,,User entered a page,x,path_entered,,,2/26/25,
 router.left,router_left,"event_value = route user just left, path = route user navigating TO",User leaves a page,x,path_left,,,2/26/25,
 support.and.feedback.menu.contact.district.admin.button.click,support_request,Empty event_value,Clicked on button 'Contact district admin' at support and feedback menu ,,,,,,
-support.and.feedback.menu.join.feedback.community.button.click,join_feedback_community,null event_value,"User clicks the button to launch the form to join Innovator's Pond, the feedback community",,,,,7/25/25,
 support.and.feedback.menu.join.feedback.community.button.click,join_feedback_community,Empty event_value,"Clicked on ""Join Feedback Community"" in support and feedback menu. Launches the form to join Innovator's Pond",,,,,7/25/25,
 support.and.feedback.menu.support.and.feedback.button.click,support_request,Empty event_value,Clicked on button 'Support & Feedback' at support and feedback menu,,,,,,
 weekly.planner.modal.close,planner_modal,,Closed weekly planner modal,,,program_id,10,4/11/25,
