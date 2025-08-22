@@ -50,6 +50,9 @@ snapshots:
       relation: true
       columns: true
 
-  product_analytics:
+  raw:
       +materialized: snapshot
       +schema: snapshots
+
+vars:
+  dbt_valid_to_current: "cast('9999-12-31' as timestamp)"
