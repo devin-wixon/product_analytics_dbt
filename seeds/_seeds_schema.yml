@@ -1,0 +1,10 @@
+version: 2
+
+seeds:
+  - name: seed_event_log_metadata
+    description: Event name and BI metadata
+    columns:
+      - name: event_name
+        data_tests:
+          - unique
+          - not_null
