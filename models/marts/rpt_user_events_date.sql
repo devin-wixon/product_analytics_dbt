@@ -1,4 +1,6 @@
-
+{{ config(
+    enabled=false
+)}}
 
 with 
 users as
