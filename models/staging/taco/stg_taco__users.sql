@@ -3,7 +3,10 @@ source_table as (
     select 
         * 
     from 
-        {{ source('taco', 'raw_taco__users') }}
+        {{ ref('snp_taco__users')}}
+        {%- if target.name == 'Development' %}
+            limit 100
+        {%- endif -%}
 ),
 
 final as (
@@ -58,7 +61,14 @@ final as (
         -- timestamps
         -- deleted_at::timestamp as deleted_at_utc -- null in all columns of source 080825
         email_sent::timestamp as email_sent_utc,
-        date_last_modified::timestamp as last_modified_at_utc
+        date_last_modified::timestamp as last_modified_at_utc,
+
+        -- snapshot columns
+        dbt_scd_id,
+        dbt_valid_from,
+        dbt_valid_to,
+        dbt_updated_at,
+        dbt_is_deleted
     from source_table
 )
 

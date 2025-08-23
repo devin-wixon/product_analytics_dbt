@@ -46,13 +46,13 @@ models:
       +schema: marts
 
 snapshots:
+  product_analytics:
+    +schema: snapshots
+  
   +persist_docs:
       relation: true
       columns: true
 
-  raw:
-      +materialized: snapshot
-      +schema: snapshots
 
 vars:
   dbt_valid_to_current: "cast('9999-12-31' as timestamp)"
