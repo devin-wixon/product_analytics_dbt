@@ -29,6 +29,21 @@ from
 
 ),
 
+joined as
+(select
+    events.*
+    event_metadata.*
+from
+    events
+left join 
+    event_metadata 
+on 
+    -- left join ensures completeness
+    -- relationship test: event_name FK is a warn status in the events staging model
+    events.event_name = event_metadata.event_name
+)
+
+-- cleaning and add info for events or values with unique behaviors
 events_add_column_info as (
     select
     events.* EXCLUDE (event_path, event_value),
@@ -37,83 +52,82 @@ events_add_column_info as (
     event_metadata.event_category as event_category,
     event_metadata.event_value_joins_to,
     event_metadata.event_value_not_id,
-        -- clean up
-        iff(events.event_path = '' or events.event_path = '/', null, events.event_path)
-            as event_path,
+    -- cleaning
+    iff(events.event_path = '' or events.event_path = '/', null, events.event_path)
+        as event_path,
+    iff(events.event_value = '' or events.event_value = '/', null, events.event_value)
+        as event_value,
 
-
-        iff(events.event_value = '' or events.event_value = '/', null, events.event_value)
-            as event_value,
-        -- add info for events with odd behaviors
-
+    -- events with unique behaviors
+    case 
         -- router.left events: 
-            -- path = route user navigating TO
-            -- event_value = route user just LEFT
-        case 
-            when events.event_name = 'router.left' then event_path 
-            when events.event_name = 'router.enter' then event_value 
-            else null 
-        end as path_entered,
-        case when events.event_name = 'router.left' then event_value else null end as path_left,
+        -- path = route user navigating TO
+        -- event_value = route user just LEFT
+        when events.event_name = 'router.left' then event_path 
+        when events.event_name = 'router.enter' then event_value 
+        else null 
+    end as path_entered,
+    case when events.event_name = 'router.left' then event_value else null end as path_left,
         
-        -- this event joins to the focuses_areas.value text rather than the integer ID
-        case when events.event_name in ('weekly.planner.program.week.filter.deselect', 'weekly.planner.program.week.filter.select')
-            then event_value_human_readable else null end as focus_area_label,
+    -- this event joins to the focuses_areas.value (source name) text rather than the integer ID
+    case when events.event_name in (
+        'weekly.planner.program.week.filter.deselect', 
+        'weekly.planner.program.week.filter.select')
+        then event_value_human_readable else null end as focus_area_label,
 
-        -- extract info such as week_number from planner paths for specific events
-        -- to extract the theme vs month_number, would need to join to resource_id when it's not a month number
-        -- code is regexp_substr(events.event_path, '^/planner/[^/]+/([^/]+)', 1, 1, 'e', 1)
+    -- extract info such as week_number from planner paths for specific events
+    -- TAG IMPROVEMENT
+    -- extract theme vs month_number: join to resource_id when it's not a month number
+    -- code is regexp_substr(events.event_path, '^/planner/[^/]+/([^/]+)', 1, 1, 'e', 1)
 
-        {% set planner_path_events = "(
-            'weekly.planner.program.week.filter.close',
-            'weekly.planner.program.week.filter.deselect.all', 
-            'weekly.planner.program.week.filter.open',
-            'weekly.planner.program.week.filter.select.all',
-            'weekly.planner.program.week.print',
-            'weekly.planner.program.week.report.close',
-            'weekly.planner.program.week.report.highFive',
-            'weekly.planner.program.week.report.open'
-        )" %}
+    {% set planner_path_events = "(
+        'weekly.planner.program.week.filter.close',
+        'weekly.planner.program.week.filter.deselect.all', 
+        'weekly.planner.program.week.filter.open',
+        'weekly.planner.program.week.filter.select.all',
+        'weekly.planner.program.week.print',
+        'weekly.planner.program.week.report.close',
+        'weekly.planner.program.week.report.highFive',
+        'weekly.planner.program.week.report.open'
+    )" %}
         
-        case 
-            when events.event_name in {{ planner_path_events }}
-            then try_cast(regexp_substr(events.event_path, '^/planner/[^/]+/[^/]+/([0-9]+)$', 1, 1, 'e', 1) as integer)
-            else null
-        end as week_number,
+    case 
+        when events.event_name in {{ planner_path_events }}
+        then try_cast(
+            regexp_substr(
+                events.event_path, '^/planner/[^/]+/[^/]+/([0-9]+)$', 1, 1, 'e', 1
+                ) as integer)
+        else null
+    end as week_number,
 
-       -- program_id may be in path but not in event_value
-        -- for router.left this will be the program TO, not the one left
-        -- if a user copy/pastes a path value that isn't numeric, it will null
-        try_cast(
-            coalesce(
-                case when event_metadata.event_value_joins_to = 'program_id' 
-                    and try_cast(events.event_value as integer) 
-                    then events.event_value else null end,
-                regexp_substr(events.event_path, 'resources/([^/]+)', 1, 1, 'e', 1),
-                regexp_substr(events.event_path, 'planner/([^/]+)', 1, 1, 'e', 1),
-                regexp_substr(events.event_value, 'resources/([^/]+)', 1, 1, 'e', 1)
-            ) as integer
-        ) as program_id,
-
-        -- resource_id may be in path but not in event_value
-        -- for router.left this will be the resource TO, not the one left
-        try_cast(
-            coalesce(
-                case when event_metadata.event_value_joins_to = 'resource_id' 
+    -- program_id may be in path but not in event_value
+    -- for router.left this will be the program TO, not the one left
+    -- if a user copy/pastes a path value that isn't numeric, it will null
+    try_cast(
+        coalesce(
+            case when event_metadata.event_value_joins_to = 'program_id' 
                 and try_cast(events.event_value as integer) 
                 then events.event_value else null end,
-                regexp_substr(events.event_path, 'detail/([0-9]+)', 1, 1, 'e', 1),
-                regexp_substr(events.event_value, 'detail/([0-9]+)', 1, 1, 'e', 1)
-            ) as integer
-        ) as resource_id
+            regexp_substr(events.event_path, 'resources/([^/]+)', 1, 1, 'e', 1),
+            regexp_substr(events.event_path, 'planner/([^/]+)', 1, 1, 'e', 1),
+            regexp_substr(events.event_value, 'resources/([^/]+)', 1, 1, 'e', 1)
+        ) as integer
+    ) as program_id,
+
+    -- resource_id may be in path but not in event_value
+    -- for router.left this will be the resource TO, not the one left
+    try_cast(
+        coalesce(
+            case when event_metadata.event_value_joins_to = 'resource_id' 
+            and try_cast(events.event_value as integer) 
+            then events.event_value else null end,
+            regexp_substr(events.event_path, 'detail/([0-9]+)', 1, 1, 'e', 1),
+            regexp_substr(events.event_value, 'detail/([0-9]+)', 1, 1, 'e', 1)
+        ) as integer
+    ) as resource_id
+
     from
-        events
-    -- left join ensures completeness
-    -- note that: relationship test for event_name foreign key is a warn status in the events staging model
-    left join 
-        event_metadata 
-    on 
-        events.event_name = event_metadata.event_name
+        joined
 ),
 
 events_add_pivots as 
@@ -121,12 +135,25 @@ events_add_pivots as
     -- do not follow with a comma; conditional comma below
     events_add_column_info.*
     
-  {%- set join_columns = dbt_utils.get_column_values(ref('seed_event_log_metadata'), 'event_value_joins_to') -%}
-  {%- set not_id_columns = dbt_utils.get_column_values(ref('seed_event_log_metadata'), 'event_value_not_id') %}
+    -- columns that should be an integer and are a foreign key
+  {%- set id_join_columns = dbt_utils.get_column_values(
+    ref('seed_event_log_metadata'), 'event_value_joins_to') -%}
 
-  {%- set no_add_columns = ('program_id', 'resource_id', 'path_left', 'path_entered', 'focus_area_value') -%}
-  {%- if join_columns -%}
-      {%- for col in join_columns -%}
+    -- columns that will be a string and don't join to a key
+  {%- set not_id_columns = dbt_utils.get_column_values(
+    ref('seed_event_log_metadata'), 'event_value_not_id') %}
+    
+    -- these have specific behaviors, added above
+  {%- set no_add_columns = (
+    'program_id', 
+    'resource_id', 
+    'path_left', 
+    'path_entered', 
+    'focus_area_value') -%}
+
+    -- cast as integer needed for foreign keys
+  {%- if id_join_columns -%}
+      {%- for col in id_join_columns -%}
           {%- if col and col not in no_add_columns -%}
       ,
       case
@@ -137,6 +164,10 @@ events_add_pivots as
           {%- endif -%}
       {%- endfor -%}
   {%- endif -%}
+
+  -- non-foreign key
+  -- TAG IMPROVEMENT: Union the column sets and apply try_cast to only id_join_columns
+  -- rest of loop is identical 
   {%- if not_id_columns -%}
       {%- for col in not_id_columns -%}
           {%- if col and col not in no_add_columns -%}
@@ -151,7 +182,7 @@ events_add_pivots as
   {%- endif -%}
 
   -- add boolean is_ columns for event categories
-  -- code works, not currently needed
+  -- code works, not currently used; commented out
   {#
   {%- set event_categories = dbt_utils.get_column_values(
       table=ref('seed_event_log_metadata'),
