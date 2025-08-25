@@ -43,9 +43,8 @@ final as (
         
         monthname(date_day) as short_month_name,
         to_char(date_day,'MMMM') as full_month_name,
-
+        to_char(date_day, 'YY-MM') as year_month_sort,
         concat(monthname(date_day), ' ', year(date_day)) as short_month_year,
-
         concat(to_char(date_day,'MMMM'), ' ', year(date_day)) as full_month_year
 
     from calendar_dates

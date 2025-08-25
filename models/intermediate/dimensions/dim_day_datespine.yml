@@ -44,6 +44,9 @@ models:
       - name: full_month_name
         description: Full month name (e.g., January, February).
         granularity: month
+      - name: year_month_sort
+        description: Year and month in YY-MM format for chronological sorting (e.g., 24-01, 24-12, 25-01).
+        granularity: month
       - name: short_month_year
         description: Abbreviated month and year (e.g., Jan 2024).
         granularity: month
