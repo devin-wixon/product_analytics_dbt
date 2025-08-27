@@ -28,39 +28,39 @@ semantic_models:
       - name: resource_type
         type: categorical
         description: ""
-      - name: resource_code
-        type: categorical
-        description: ""
+      # - name: resource_code
+      #   type: categorical
+      #   description: ""
       - name: resource_title
         type: categorical
         description: ""
-      - name: resource_description
-        type: categorical
-        description: ""
-      - name: resource_file_url
-        type: categorical
-        description: ""
+      # - name: resource_description
+      #   type: categorical
+      #   description: ""
+      # - name: resource_file_url
+      #   type: categorical
+      #   description: ""
       - name: resource_section_title
         type: categorical
         description: ""
-      - name: resource_link
-        type: categorical
-        description: ""
+      # - name: resource_link
+      #   type: categorical
+      #   description: ""
       - name: is_resource_legacy
         type: categorical
         description: ""
-      - name: resource_short_description
-        type: categorical
-        description: ""
-      - name: resource_order_number
-        type: categorical
-        description: ""
-      - name: resource_thumbnail_mobile_url
-        type: categorical
-        description: ""
-      - name: resource_thumbnail_web_url
-        type: categorical
-        description: ""
+      # - name: resource_short_description
+      #   type: categorical
+      #   description: ""
+      # - name: resource_order_number
+      #   type: categorical
+      #   description: ""
+      # - name: resource_thumbnail_mobile_url
+      #   type: categorical
+      #   description: ""
+      # - name: resource_thumbnail_web_url
+      #   type: categorical
+      #   description: ""
       - name: is_resource_downloadable
         type: categorical
         description: ""
