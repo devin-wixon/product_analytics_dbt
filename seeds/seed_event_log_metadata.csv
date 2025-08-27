@@ -1,16 +1,16 @@
 event_name,event_category,notes,event_trigger,handled_as_exception_in_code,event_value_not_id,event_value_joins_to,example_values,event_capture_start_date,event_capture_end_date
 auth.login,login,event_value is user_id; don't put in join_to so not add'l column added,Use logged in successfully,,,,147434,4/7/25,12/31/99
-auth.logout,logout,event_value is user_id; don't put in join_to so not add'l column added,?? Need to determine if closing the tab triggers this,,,,147434,2/27/25,12/31/99
+auth.logout,logout,event_value is user_id; don't put in join_to so not add'l column added,Only clicking log out will trigger this (not closing all browser tabs),,,,147434,2/27/25,12/31/99
 CTAPopUp.splash2025.ctaClickedAt,pop_up_interact,event_value is date; can get from other event log columns,Clicked the pop-up for Splash 2025,,,,,5/19/25,12/31/99
 CTAPopUp.splash2025.dismissedAt,pop_up_dismiss,event_value is date; can get from other event log columns,Dismissed the pop-up for Splash 2025,,,,,5/19/25,12/31/99
 CTAPopUp.splash2025.viewAt,pop_up_interact,event_value is date; can get from other event log columns,Viewed the pop-up for Splash 2025,,,,,5/19/25,12/31/99
-device.orientation,interface,? Determine event_value_not_id,TBD,,device_orientation,,portrait-secondary,2/26/25,12/31/99
-device.resolution,interface,,TBD,,screen_resolution,,962x601,2/26/25,12/31/99
+device.orientation,interface,,,,device_orientation,,portrait-secondary,2/26/25,12/31/99
+device.resolution,interface,,,,screen_resolution,,962x601,2/26/25,12/31/99
 productLaunchOpen,app_launch,Note the event_value is the name not the application_id,User opened a third party application product,,application_name,,Cognitive ToyBox Web Portal,2/26/25,12/31/99
-program.resource.accordion.close,resouce_accordion,"? Event_value_joins_to is not resource_id or folder_id. Metadata says ""resource filter id""? Values are like 70=""Theme"", 71 = ""Welcome to Pre-K"", 84 = ""Threes Program Resources"" ",Close an accordion filter,,,,84,4/11/25,12/31/99
-program.resource.accordion.list.close,resouce_accordion,"? Event_value_joins_to is not resource_id or folder_id. Metadata says ""resource filter id""? Values are like 18856=""Materials by Theme"", 5176 = ""Patterns""",Close an internal accordion filter,,,,"18856, 5176",4/11/25,12/31/99
-program.resource.accordion.list.open,resouce_accordion,? Event_value_joins_to,?TBD Opened an internal accordion filter,,,,"18856, 5176",4/11/25,12/31/99
-program.resource.accordion.open,resouce_accordion,? Event_value_joins_to,Opened an accordion filter,,,,"18856, 5176",4/11/25,12/31/99
+program.resource.accordion.close,resouce_accordion,,"Close a ""top level"" (blue bar) accordion",,,program_group_id,84,4/11/25,12/31/99
+program.resource.accordion.list.close,resouce_accordion,,"Close an internal accordion filter (a folder, not a grouping level)",,,folder_id,"18856, 5176",4/11/25,12/31/99
+program.resource.accordion.list.open,resouce_accordion,,"Open an internal accordion filter (a folder, not a grouping level)",,,folder_id,"18856, 5176",4/11/25,12/31/99
+program.resource.accordion.open,resouce_accordion,,"Open a ""top level"" (blue bar) accordion",,,program_group_id,"18856, 5176",4/11/25,12/31/99
 program.resource.filter.add,resource_filter,"Can join to folder_id, type, and be multi-select. Leave out of BI for now.",Adding a selection to the sidebar filter in resources,,,,"folder_id-17242,17243,17247,17234,17250,17240,17245,17246,17248,17235,17236,17237,17239,17244,17249,17238,17241; type-document",2/26/25,12/31/99
 program.resource.filter.remove,resource_filter,"Can join to folder_id, type, and be multi-select. Leave out of BI for now.",Removing a selection to the sidebar filter in resources,,,,"folder_id-4246, type-audio",2/26/25,12/31/99
 program.resource.search,resource_search,,User searched for resources,,search_string,,Fernando,2/26/25,12/31/99
@@ -19,61 +19,53 @@ program.resource.sidebarFilter.open,resource_filter,"event_value is always ""tru
 program.resource.sidebarFilter.parentFilter.close,resource_filter,event_value is mixed text and integers; unclear what integers would map to. Not using event_value in BI.,Closed an accordion filter on sidebar,,,,"176, type, estimated_time",4/11/25,12/31/99
 program.resource.sidebarFilter.parentFilter.open,resource_filter,event_value is mixed text and integers; unclear what integers would map to. Not using event_value in BI.,Opened an accordion filter on sidebar,,,,"type, 88, framework_item_id",4/11/25,12/31/99
 request.error,error,"All event_value as of 8/1/25 have the key ""message""",Request error,,error_data_object,,"{""message"":""Must have only one of district_id, school_id, class_id, or district_grade_id""}",2/26/25,12/31/99
-resource.download,resource_download,? Some resources do not trigger this event; need to clarify which type of downloads do trigger it,Clicked on file box or download button on header to download file resource,,,resource_id,105236,2/26/25,12/31/99
-resource.fullScreen,interface,,? Need to clarify,,,resource_id,56278,2/26/25,12/31/99
-resource.fullScreenExit,interface,,? Need to clarify,,,resource_id,18061,2/26/25,12/31/99
+resource.download,resource_download,Certain resources (documents type that are NOT PDFs) eventing was added 08/25 (in QA as of 082725),Clicked on file box or download button on header to download file resource,,,resource_id,105236,2/26/25,12/31/99
+resource.fullScreen,interface,,User clicked the full screen button available on some resources,,,resource_id,56278,2/26/25,12/31/99
+resource.fullScreenExit,interface,,User existed the full screen view,,,resource_id,18061,2/26/25,12/31/99
 resource.header.frameworks.open.modal,frameworks,May be empty,Clicked on a framework item or plus button to open frameworks modal ,,,framework_item_id,,8/25/25,12/31/99
 resource.media.changeVolume,music_interface,,"User changed media volume, such as by clicking the volume up or down buttons on a song",,,resource_id,48185,2/26/25,12/31/99
 resource.media.pause,music_interface,,User paused media,,,resource_id,37390,2/26/25,12/31/99
 resource.media.play,music_interface,,User played media,,,resource_id,37390,2/26/25,12/31/99
 resource.media.seek,music_interface,,User clicked a specific place within media (ahead or behind of current play spot),,,resource_id,37390,2/26/25,12/31/99
 resource.media.start,music_start,nd to determine specific triggers,User started media,,,resource_id,37390,2/26/25,12/31/99
-resource.openInNewTab,interface,,? CONFIRM THIS Resource opened in new tab,,,resource_id,109086,2/26/25,12/31/99
-resource.pdf.changePage,resource_pdf_ui,? Event_value_human_readable can differ for the same event_value; event_value = 18220 can be Toddler Patterns or a URL. Not using in BI for now.,User changed PDF page,,,,18220,2/26/25,12/31/99
+resource.openInNewTab,interface,,"When user clicked the ""Open in a new tab"" button on a resource, not the user duplicating a tab in the browser.",,,resource_id,109086,2/26/25,12/31/99
+resource.pdf.changePage,resource_pdf_ui,event_value_human_readable is a concatenation; not recreatable through data (elements will be in restructured events),User changed PDF page through choosing a page; not triggered by scrolling,,,,18220,2/26/25,12/31/99
 resource.pdf.changeZoom,resource_pdf_ui,,User changed PDF zoom,,,resource_id,18091,2/26/25,12/31/99
 resource.playlist.autoPlay,music_interface,,User enabled/disabled playlist auto play,,,resource_id,18091,2/26/25,12/31/99
 resource.playlist.changeSong,music_interface,,"User changed playlist song (clickedt he advance or next button, for example, when on another song)",,,resource_id,18091,2/26/25,12/31/99
-resource.print,resource_print,,?what kinds of Resource can print,,,resource_id,18091,3/10/25,12/31/99
-resource.sidebar.open.modal,sidebar,event_value_human_readable is not from a lookup table,Opened a modal on professional development sidebar from resource,,sidebar_section,,"related_resoucres, conscious_discipline, strategies_for_supporting_all_learners",8/25/25,12/31/99
+resource.print,resource_print,,Clicked on the in-platform print button (top right of the resource) which exists for two types: Document that is a PDF or an activity (native content). Will not be triggered if a user downloaded and then printed or if a user selects ctrl-P.,,,resource_id,18091,3/10/25,12/31/99
+resource.sidebar.open.modal,sidebar,event_value_human_readable is a concatenation; not recreatable through data (elements will be in restructured events),Opened a modal on professional development sidebar from resource,,sidebar_section,,"related_resoucres, conscious_discipline, strategies_for_supporting_all_learners",8/25/25,12/31/99
 router.enter,router_enter,,User entered a page,x,path_entered,,,2/26/25,12/31/99
 router.left,router_left,"event_value = route user just left, path = route user navigating TO",User leaves a page,x,path_left,,,2/26/25,12/31/99
 support.and.feedback.menu.contact.district.admin.button.click,support_request,Empty event_value,Clicked on button 'Contact district admin' at support and feedback menu ,,,,,8/25/25,12/31/99
 support.and.feedback.menu.join.feedback.community.button.click,join_feedback_community,Empty event_value,"Clicked on ""Join Feedback Community"" in support and feedback menu. Launches the form to join Innovator's Pond",,,,,7/25/25,12/31/99
 support.and.feedback.menu.support.button.click,support_request,Empty event_value,Clicked on button 'Support & Feedback' at support and feedback menu,,,,,8/25/25,12/31/99
 weekly.planner.modal.close,planner_modal,,Closed weekly planner modal,,,program_id,10,4/11/25,12/31/99
-weekly.planner.modal.lastWeeklyPlanner.open,planner_launch,confirm only these open planner,?TBD if then launch Opened last weekly planner opened,,,program_id,10,4/11/25,12/31/99
+weekly.planner.modal.lastWeeklyPlanner.open,planner_launch,,Opened last weekly planner opened,,,program_id,10,4/11/25,12/31/99
 weekly.planner.modal.open,planner_modal,event_value is null,Opened weekly planner modal,,,,null,4/11/25,12/31/99
 weekly.planner.modal.program.deselect,planner_modal,,Deselected program theme on weekly planner modal,,,program_id,10,4/11/25,12/31/99
 weekly.planner.modal.program.search,planner_modal,,Searched program on weekly planner modal,,,,Little hornet,4/11/25,12/31/99
 weekly.planner.modal.program.select,planner_modal,,Selected program on weekly planner modal,,,program_id,10,4/11/25,12/31/99
-weekly.planner.modal.program.theme.deselect,planner_modal,"? How is event_value_human_readable populated? It contains more information than the program_id that is in the event_value, ex: Month 2-Week 1 for the same program_id = 111. Event when the path is just /, the event_value_human_readable will be ""Month 2"". This is important bc we may be missing ""month"" values in the logic using the path only.",Deselected program theme on weekly planner modal,,,program_id,10,4/11/25,12/31/99
-weekly.planner.modal.program.theme.select,planner_modal,"? How is event_value_human_readable populated? It contains information not from the event_value event_value = 111, path = /planner/111/18990/1, event_value_human_readable = Theme 4: Color, Shape, and Size",Selected program theme on weekly planner modal,,,program_id,10,4/11/25,12/31/99
-weekly.planner.modal.program.week.select,planner_launch,? confirm only these open planner ? ? How is event_value_human_readable populated? It contains information not from the event_value or path.,Selected week on weekly planner modal,,,program_id,10,4/11/25,12/31/99
+weekly.planner.modal.program.theme.deselect,planner_modal,"event_value_human_readable is the full label that was selected; It contains more information than the program_id that is in the event_value, ex: Month 2-Week 1 for the same program_id = 111. Event when the path is just /, the event_value_human_readable will be ""Month 2"". This is important bc we may be missing ""month"" values in the logic using the path only.",Deselected program theme on weekly planner modal,,,program_id,10,4/11/25,12/31/99
+weekly.planner.modal.program.theme.select,planner_modal,"event_value_human_readable is the full label that was selected; It contains more information than the program_id that is in the event_value, ex: Month 2-Week 1 for the same program_id = 111. Event when the path is just /, the event_value_human_readable will be ""Month 2"". This is important bc we may be missing ""month"" values in the logic using the path only.",Selected program theme on weekly planner modal,,,program_id,10,4/11/25,12/31/99
+weekly.planner.modal.program.week.select,planner_launch,,Selected week on weekly planner modal,,,program_id,10,4/11/25,12/31/99
 weekly.planner.program.week.card.complete,planner_card_status,,Marked resource card as complete on weekly planner,,,resource_id,18091,4/11/25,12/31/99
 weekly.planner.program.week.card.needToRevisit,planner_card_status,,Marked resource card as need to revisit on weekly planner,,,resource_id,18091,4/11/25,12/31/99
 weekly.planner.program.week.card.open,planner_card_open,,Opened resource card on weekly planner,,,resource_id,18091,4/11/25,12/31/99
 weekly.planner.program.week.card.skip,planner_card_status,,Marked resource card as skip on weekly planner,,,resource_id,18091,4/11/25,12/31/99
 weekly.planner.program.week.card.toDo,planner_card_status,,Marked resource card as to do on weekly planner,,,resource_id,18091,4/11/25,12/31/99
-weekly.planner.program.week.complete,planner_week_complete,"? How is event_value_human_readable populated? It contains more information than the program_id that is in the event_value, ex: undefined-Week 1 or Theme 3: Safe and Healthy Me-Week 2  for the same program_id = 111
-Month 1-Week 1",Completed week on weekly planner,,,program_id,10,4/11/25,12/31/99
+weekly.planner.program.week.complete,planner_week_complete,event_value_human_readable is the full label that was selected; constructed using a resource path,Completed week on weekly planner,,,program_id,10,4/11/25,12/31/99
 weekly.planner.program.week.filter.change.framework,planner_filter_framework,,Changed framework on weekly planner filter,,,framework_id,1051,5/28/25,12/31/99
-weekly.planner.program.week.filter.close,planner_filter,"? How is event_value_human_readable populated? It contains more information than the program_id that is in the event_value, ex: Month 2-Week 1 for the same program_id = 111
-Month 1-Week 1",Closed weekly planner filter,,,program_id,10,4/11/25,12/31/99
-weekly.planner.program.week.filter.deselect,planner_filter_focus_area,"event_value joins to the focuses_areas.value, NOT the focuses.areas.id; so it is text",Deselect focus area type on weekly planner filter,x,focus_area_value,,"greeting_circle, inquiry_and_exploration",4/11/25,12/31/99
-weekly.planner.program.week.filter.deselect.all,planner_filter_focus_area,"? How is event_value_human_readable populated? It contains more information than the program_id that is in the event_value, ex: Month 2-Week 1 for the same program_id = 111
-Month 1-Week 1",Deselect all focus area types on weekly planner filter,,,program_id,10,4/11/25,12/31/99
-weekly.planner.program.week.filter.open,planner_filter,"? How is event_value_human_readable populated? It contains more information than the program_id that is in the event_value, ex: Month 2-Week 1 for the same program_id = 111
-Month 1-Week 1",Opened weekly planner filter,,,program_id,10,4/11/25,12/31/99
+weekly.planner.program.week.filter.close,planner_filter,event_value_human_readable is a concatenation; not recreatable through data (elements will be in restructured events),"Closed weekly planner filter (by focus area, standard)",,,program_id,10,4/11/25,12/31/99
+weekly.planner.program.week.filter.deselect,planner_filter_focus_area,event_value_human_readable is a concatenation; not recreatable through data (elements will be in restructured events),Deselect focus area type on weekly planner filter,x,focus_area_value,,"greeting_circle, inquiry_and_exploration",4/11/25,12/31/99
+weekly.planner.program.week.filter.deselect.all,planner_filter_focus_area,event_value_human_readable is a concatenation; not recreatable through data (elements will be in restructured events),Deselect all focus area types on weekly planner filter,,,program_id,10,4/11/25,12/31/99
+weekly.planner.program.week.filter.open,planner_filter,event_value_human_readable is a concatenation; not recreatable through data (elements will be in restructured events),Opened weekly planner filter,,,program_id,10,4/11/25,12/31/99
 weekly.planner.program.week.filter.select,planner_filter_focus_area,"event_value joins to the focuses_areas.value, NOT the focuses.areas.id; so it is text",Selected focus area type on weekly planner filter,x,focus_area_value,,"greeting_circle, inquiry_and_exploration",4/11/25,12/31/99
-weekly.planner.program.week.filter.select.all,planner_filter_focus_area,"? How is event_value_human_readable populated? It contains more information than the program_id that is in the event_value, ex: Month 2-Week 1 for the same program_id = 111
-Month 1-Week 1",Selected all focus area types on weekly planner filter. Note this has an different event_value from selecting one.,,,program_id,10,4/11/25,12/31/99
-weekly.planner.program.week.print,planner_print,"? How is event_value_human_readable populated? It contains more information than the program_id that is in the event_value, ex: Month 2-Week 1 for the same program_id = 111
-Month 1-Week 1",Print week on weekly planner,,,program_id,10,4/11/25,12/31/99
-weekly.planner.program.week.report.close,planner_report,"? How is event_value_human_readable populated? It contains more information than the program_id that is in the event_value, ex: Month 2-Week 1 for the same program_id = 111
-Month 1-Week 1",Closed the week report on weekly planner,,,program_id,10,4/11/25,12/31/99
+weekly.planner.program.week.filter.select.all,planner_filter_focus_area,event_value_human_readable is a concatenation; not recreatable through data (elements will be in restructured events),Selected all focus area types on weekly planner filter. Note this has an different event_value from selecting one.,,,program_id,10,4/11/25,12/31/99
+weekly.planner.program.week.print,planner_print,event_value_human_readable is a concatenation; not recreatable through data (elements will be in restructured events),Print week on weekly planner,,,program_id,10,4/11/25,12/31/99
+weekly.planner.program.week.report.close,planner_report,event_value_human_readable is a concatenation; not recreatable through data (elements will be in restructured events),Closed the week report on weekly planner,,,program_id,10,4/11/25,12/31/99
 weekly.planner.program.week.report.highFive,planner_report,,,,,,,4/11/25,12/31/99
-weekly.planner.program.week.report.open,planner_report,"? How is event_value_human_readable populated? It contains more information than the program_id that is in the event_value, ex: Month 2-Week 1 for the same program_id = 111
-Month 1-Week 1",Opened  the week report on weekly planner,,,program_id,10,4/11/25,12/31/99
+weekly.planner.program.week.report.open,planner_report,event_value_human_readable is a concatenation; not recreatable through data (elements will be in restructured events),Opened  the week report on weekly planner,,,program_id,10,4/11/25,12/31/99
 weekly.planner.program.week.report.skill.group.close,planner_report_skills,,Closed skill group on weekly planner report,,,framework_item_id,48155459,4/11/25,12/31/99
 weekly.planner.program.week.report.skill.group.open,planner_report_skills,,Opened skill group on weekly planner report,,,framework_item_id,48155459,4/11/25,12/31/99
 weekly.planner.resource.page.card.complete,planner_card_status,,Marked resource card as complete on resource details page,,,resource_id,10,4/11/25,12/31/99
