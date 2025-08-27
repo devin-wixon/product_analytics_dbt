@@ -5,14 +5,12 @@ with
 
 events as (
   select
-  -- use exclude; columns may be generated through pivots in int_ layer
-    * exclude(
-        server_timestamp,
-        event_value,
-        server_event_date,
-        event_value_joins_to,
-        event_value_not_id
-    )
+  -- use * and exclude, not explicit select; columns may be generated through pivots in int_ layer
+    * 
+    --   exclude(
+    --     server_timestamp,
+    --     server_event_date,
+    -- )
   from
     {{ ref('fct_events') }}
   {%- if target.name == 'Development' %}
