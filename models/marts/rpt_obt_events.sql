@@ -1,7 +1,26 @@
 
 -- using exclude rather than explicit columns
 -- to ensure new columns are included
-with users as (
+with 
+
+events as (
+  select
+  -- use exclude; columns may be generated through pivots in int_ layer
+    * exclude(
+        server_timestamp,
+        event_value,
+        server_event_date,
+        event_value_joins_to,
+        event_value_not_id
+    )
+  from
+    {{ ref('fct_events') }}
+  {%- if target.name == 'Development' %}
+    limit 1000
+  {%- endif -%}
+), 
+
+users as (
     select
         * exclude (
             user_sourced_id,
@@ -69,19 +88,23 @@ resources as (
         {{ ref('dim_resources_current') }}
 ),
 
--- columns may be generated through pivots in int_ layer
-events as (
+
+datespine as (
   select
-    * exclude(
-        server_timestamp,
-        event_value,
-        server_event_date,
-        event_value_joins_to,
-        event_value_not_id
-    )
-  from
-    {{ ref('fct_events') }}
-), 
+    date_day,
+    day_of_week_number,
+    day_of_month_number,
+    day_of_year_number,
+    week_of_year_number,
+    month_of_year_number,
+    quarter_of_year_number,
+    short_weekday_name,
+    short_month_name,
+    year_month_sort
+from
+    {{ ref('dim_day_datespine') }}
+),
+
 joined as (
   select
     events.*,
@@ -89,13 +112,15 @@ joined as (
     districts.* exclude (district_id),
     programs.* exclude (program_id),
     -- add focus_area table later as needed
-    resources.* exclude (resource_id, resource_focus_area_id)
+    resources.* exclude (resource_id, resource_focus_area_id),
+    datespine.* exclude (date_day)
 from
   events 
   left join users on events.user_id = users.user_id
   left join districts on users.district_id = districts.district_id
   left join programs on events.program_id = programs.program_id
   left join resources on events.resource_id = resources.resource_id
+  left join datespine on events.client_event_date = datespine.date_day
 ),
 
 final as
@@ -103,10 +128,6 @@ final as
   *
 from
   joined
-{%- if target.name == 'Development' %}
-  -- Limit number of rows in development environment
-  limit 100
-{%- endif -%}
 )
 
 select 
