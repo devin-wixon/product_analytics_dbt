@@ -1,6 +1,6 @@
 metrics:
   - name: n_active_users
-    description: "Count of unique users who performed any event"
+    description: "Count of unique users who performed any logged event"
     type: simple
     type_params:
       measure: n_users_with_any_event
