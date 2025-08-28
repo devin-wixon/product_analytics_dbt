@@ -4,8 +4,6 @@ snapshots:
   - name: snp_taco__users
     relation: source('taco', 'raw_taco__users')
     config:
-      target_database: product_analytics
-      target_schema: snapshots
       unique_key: id
       strategy: timestamp
       updated_at: date_last_modified
