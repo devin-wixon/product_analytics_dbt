@@ -3,7 +3,7 @@ source_table as (
     select 
         * 
     from 
-        {{ source('craft', 'raw_craft__resources') }}
+        {{ ref('snp_craft__resources')}}
 ),
 
 final as (
@@ -42,7 +42,14 @@ final as (
         estimated_time::int as resource_estimated_time,
         physical_reference::string as resource_physical_reference,
         physical_page_number::int as resource_physical_page_number,
-        fts_title::string as resource_fts_title
+        fts_title::string as resource_fts_title,
+
+        -- snapshot columns
+        dbt_scd_id,
+        dbt_valid_from,
+        dbt_valid_to,
+        dbt_updated_at,
+        dbt_is_deleted
     from source_table
 )
 

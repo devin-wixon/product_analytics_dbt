@@ -3,7 +3,7 @@ source_table as (
     select 
         * 
     from 
-        {{ source('craft', 'raw_craft__programs') }}
+        {{ ref('snp_craft__programs')}}
 ),
 
 final as (
@@ -21,7 +21,14 @@ final as (
         type::string as program_type,
 
         -- dates and timestamps
-        deleted_at::date as program_deleted_date
+        deleted_at::date as program_deleted_date,
+
+        -- snapshot columns
+        dbt_scd_id,
+        dbt_valid_from,
+        dbt_valid_to,
+        dbt_updated_at,
+        dbt_is_deleted
 
     from source_table
 )

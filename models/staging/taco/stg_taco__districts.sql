@@ -3,7 +3,7 @@ source_table as (
     select 
         * 
     from 
-        {{ source('taco', 'raw_taco__district') }}
+        {{ ref('snp_taco__districts')}}
 ),
 
 final as (
@@ -45,7 +45,14 @@ final as (
         last_sync::timestamp as district_last_sync_utc,
         date_last_modified::timestamp as district_last_modified_at_utc,
         roster_file_created_at::timestamp as roster_file_created_at_utc,
-        auto_rostering_checked_at::timestamp as auto_rostering_checked_at_utc
+        auto_rostering_checked_at::timestamp as auto_rostering_checked_at_utc,
+
+        -- snapshot columns
+        dbt_scd_id,
+        dbt_valid_from,
+        dbt_valid_to,
+        dbt_updated_at,
+        dbt_is_deleted
     from source_table
 )
 

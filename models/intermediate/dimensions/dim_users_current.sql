@@ -7,6 +7,8 @@ from
     {{ ref('stg_taco__users') }}
 where
     user_role != 'student'
+    and dbt_valid_from <= current_timestamp()
+    and dbt_valid_to >= current_timestamp()
 ),
 
 -- denormalize disrict, which is 1:1 with users

@@ -3,7 +3,7 @@ source_table as (
     select 
         * 
     from 
-        {{ source('taco', 'raw_taco__districts_programs') }}
+        {{ ref('snp_taco__district_programs')}}
 ),
 
 final as (
@@ -20,7 +20,14 @@ final as (
 
         -- timestamps or dates
         -- change unix timestamp (which is always 5pm) to date
-        date(expiration_date::int) as expiration_date
+        date(expiration_date::int) as expiration_date,
+
+        -- snapshot columns
+        dbt_scd_id,
+        dbt_valid_from,
+        dbt_valid_to,
+        dbt_updated_at,
+        dbt_is_deleted
     from source_table
 )
 

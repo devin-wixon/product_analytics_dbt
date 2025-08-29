@@ -3,7 +3,7 @@ source_table as (
     select 
         * 
     from 
-        {{ source('taco', 'raw_taco__district_applications') }}
+        {{ ref('snp_taco__district_applications')}}
 ),
 
 final as (
@@ -18,7 +18,14 @@ final as (
         abc_group_id::string as abc_group_id,
 
         -- timestamps
-        create_date::timestamp as created_at_utc
+        create_date::timestamp as created_at_utc,
+
+        -- snapshot columns
+        dbt_scd_id,
+        dbt_valid_from,
+        dbt_valid_to,
+        dbt_updated_at,
+        dbt_is_deleted
     from source_table
 )
 

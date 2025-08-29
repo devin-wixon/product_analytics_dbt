@@ -3,7 +3,7 @@ source_table as (
     select 
         * 
     from 
-        {{ source('taco', 'raw_taco__applications') }}
+        {{ ref('snp_taco__applications')}}
 ),
 
 final as (
@@ -19,7 +19,14 @@ final as (
         -- flags
         use_memberships::boolean as is_application_use_memberships,
         enabled::boolean as is_application_enabled,
-        teachers_only::boolean as is_application_teachers_only
+        teachers_only::boolean as is_application_teachers_only,
+
+        -- snapshot columns
+        dbt_scd_id,
+        dbt_valid_from,
+        dbt_valid_to,
+        dbt_updated_at,
+        dbt_is_deleted
     from source_table
 )
 

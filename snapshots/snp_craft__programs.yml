@@ -1,0 +1,11 @@
+version: 2
+
+snapshots:
+  - name: snp_craft__programs
+    relation: source('craft', 'raw_craft__programs')
+    config:
+      unique_key: id
+      strategy: check
+      check_cols: 'all'
+      hard_deletes: 'new_record'
+      dbt_valid_to_current:  "{{ var('dbt_valid_to_current') }}"
