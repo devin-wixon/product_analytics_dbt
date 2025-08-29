@@ -3,13 +3,13 @@ with
 districts as (
     select 
         *
-    from {{ ref('stg_taco__districts') }}
+    from {{ ref('dim_districts_current') }}
 ),
 
 district_settings as (
     select 
         *
-    from {{ ref('int_district_settings') }}
+    from {{ ref('int_district_settings_current') }}
 ),
 
 joined as (

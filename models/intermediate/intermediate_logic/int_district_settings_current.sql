@@ -6,7 +6,7 @@ source as (
     select 
         district_id,
         district_settings
-    from {{ ref('stg_taco__districts') }}
+    from {{ ref('dim_districts_current') }}
     where district_settings is not null
 ),
 

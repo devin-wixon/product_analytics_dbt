@@ -2,7 +2,7 @@
 version: 2
 
 models:
-  - name: int_district_settings
+  - name: int_district_settings_current
     description: >
       Purpose: Parse the JSON related to district settings.
       Granularity: One row per district.
