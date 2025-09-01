@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:docs.getdbt.com)"
+      "WebFetch(domain:docs.getdbt.com)",
+      "Bash(dbt run-operation:*)"
     ],
     "deny": [],
     "ask": []
