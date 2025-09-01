@@ -52,6 +52,10 @@ snapshots:
       relation: true
       columns: true
 
+seeds:
+  product_analytics:
+    +schema: seeds
 
-vars:
-  dbt_valid_to_current: "cast('9999-12-31' as timestamp)"
+
+# vars:
+#   dbt_valid_to_current: "cast('9999-12-31' as timestamp)"
