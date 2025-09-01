@@ -3,7 +3,7 @@ source_table as (
     select 
         * 
     from 
-        {{ source('taco', 'raw_taco__enrollments') }}
+        {{ ref('snp_taco__enrollments')}}
 ),
 
 final as (
@@ -34,8 +34,15 @@ final as (
         -- start & end dates are not meaningful; removed after staging layer
         start_date::date as enrollment_start_date,
         end_date::date as enrollment_end_date,
-        last_modified::timestamp as last_modified_at_utc
+        last_modified::timestamp as last_modified_at_utc,
+    
 
+        -- snapshot columns
+        dbt_scd_id,
+        dbt_valid_from,
+        dbt_valid_to,
+        dbt_updated_at,
+        dbt_is_deleted
 
     from source_table
 )

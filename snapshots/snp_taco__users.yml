@@ -8,4 +8,4 @@ snapshots:
       strategy: timestamp
       updated_at: date_last_modified
       hard_deletes: 'new_record'
-      dbt_valid_to_current:  "{{ var('dbt_valid_to_current') }}"
+      # dbt_valid_to_current:  "{{ var('dbt_valid_to_current') }}"

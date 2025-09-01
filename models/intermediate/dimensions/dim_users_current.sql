@@ -8,7 +8,7 @@ from
 where
     user_role != 'student'
     and dbt_valid_from <= current_timestamp()
-    and dbt_valid_to >= current_timestamp()
+    and dbt_valid_to is null
 ),
 
 -- denormalize disrict, which is 1:1 with users

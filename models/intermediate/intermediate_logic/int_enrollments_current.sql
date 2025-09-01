@@ -2,7 +2,7 @@ with
 
 enrollments as (
     select 
-        *
+        *  exclude( dbt_scd_id, dbt_valid_from, dbt_valid_to, dbt_updated_at, dbt_is_deleted )
     from 
         {{ ref('stg_taco__enrollments') }} 
     where 
@@ -15,6 +15,9 @@ enrollments as (
         and (
             enrollment_start_date is null or enrollment_start_date > current_date
         )
+        -- filter to current records from snapshot
+        and dbt_valid_from <= current_timestamp()
+        and dbt_valid_to >= current_timestamp()
 ),
 
 -- select one record per user x role x class x school, prioritizing most recent modification

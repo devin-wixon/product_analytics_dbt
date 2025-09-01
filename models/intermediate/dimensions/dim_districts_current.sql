@@ -6,7 +6,7 @@ districts as (
     from {{ ref('stg_taco__districts') }}
     where 
         dbt_valid_from <= current_timestamp()
-        and dbt_valid_to >= current_timestamp()
+        and dbt_valid_to is null
 ),
 
 final as (
