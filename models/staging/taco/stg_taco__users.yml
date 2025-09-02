@@ -7,7 +7,7 @@ models:
       Granularity: One row per user, defined by `user_id`.  
       Filters: None
     columns:
-      # unique and not null testing in source for user_id
+      # unique and not null testing in source for user_id; this will have dups due to snapshots
       - name: user_id
         description: "{{ doc('user_id') }}"
       - name: district_id

@@ -7,5 +7,5 @@ models:
       Granularity: One row per program, defined by `program_id`.  
       Filters: None
     columns:
-      # source tests uniqueness and not null for program_id
+      # source tests uniqueness and not null for program_id; this will have dups due to snapshots
       - name: program_id

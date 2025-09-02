@@ -7,7 +7,7 @@ models:
       Granularity: One row per district, defined by `district_id`.  
       Filters: None
     columns:
-      # unique and not null testing in source for district_id
+      # unique and not null testing in source for district_id; this will have dups due to snapshots
       - name: district_id
         description: "{{ doc('district_id') }}"
       - name: district_name

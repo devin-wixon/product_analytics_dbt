@@ -7,10 +7,9 @@ models:
       Granularity: One row per district-program pair, defined by `district_id` and `program_id`.  
       Filters: None
     columns:
-      # no unique identifier in source; create and test here
+      # this sk will have dups due to snapshots; will be unique in _current
       - name: district_program_id_sk
-        tests:
-          - unique
+        tests: 
           - not_null
       # source tests for non-null district_id, program_id
       # source tests for unique district_id x program_id combination

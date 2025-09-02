@@ -7,7 +7,7 @@ models:
       Granularity: One row per `enrollment_id`.  
       Filters: None
     columns:
-      # source tests uniqueness and not null for enrollment_id
+      # unique and not null testing in source for enrollment_id; this will have dups due to snapshots
       - name: enrollment_id
         description: "{{ doc('enrollment_id') }}"
       # source tests not null for user_id

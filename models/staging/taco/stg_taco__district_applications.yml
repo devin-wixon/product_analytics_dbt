@@ -7,7 +7,7 @@ models:
       Granularity: One row per district-application pair, defined by `district_application_id`.  
       Filters: None
     columns:
-      # source tests uniqueness of district_application_id
+      # source tests uniqueness of district_application_id; this will have dups due to snapshots
       - name: district_application_id
       # source tests for non-null district_id, application_id
       # source tests for unique district_id x application_id combination
