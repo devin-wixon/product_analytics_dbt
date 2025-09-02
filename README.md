@@ -1,5 +1,5 @@
 ## Naming and SQL conventions
-[Frog Street naming conventions and SQL conventions](https://frogstreetpress-my.sharepoint.com/:w:/g/personal/dwixon_frogstreet_com/EXm03D8fpfhGnTTbCtjoqckBc9QV-JOj4ZJM6HRMc5fXoA?e=3eKJXt)
+[Frog Street naming conventions and SQL conventions](https://frogstreetpress.sharepoint.com/:w:/s/DigitalProductInitiatives/EV-INo38NwBHgZcXYL1sL_sBRfTpPyxD-4D_kT9ojQVWNA?e=r7Xyen)
 
 
 ### Resources
