@@ -68,7 +68,7 @@ final as (
         dbt_valid_from,
         dbt_valid_to,
         dbt_updated_at,
-        dbt_is_deleted
+        dbt_is_deleted::boolean
     from source_table
 )
 
