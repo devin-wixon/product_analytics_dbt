@@ -1,12 +1,12 @@
 version: 2
 
 models:
-  - name: int_enrollments_current
+  - name: fct_enrollments_current
     description: |
       Purpose: Current active enrollments for users, as of today.
       Granularity: One row per combination of user, role, class, and school.
       Filters: 
-      - Only non-student roles.
+      - From its source: Only non-student roles.
     data_tests:
       - dbt_utils.unique_combination_of_columns:
           arguments:

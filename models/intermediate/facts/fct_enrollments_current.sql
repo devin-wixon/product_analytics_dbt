@@ -4,12 +4,11 @@ enrollments as (
     select 
         *  exclude( dbt_scd_id, dbt_valid_from, dbt_valid_to, dbt_updated_at, dbt_is_deleted )
     from 
-        {{ ref('stg_taco__enrollments') }} 
+        {{ ref('fct_enrollments_history') }} 
     where 
-        user_role != 'student'
         -- start and end dates are optional and often null
         -- but will be used where available
-        and (
+         (
             enrollment_start_date is null or enrollment_start_date > current_date
         )
         and (
@@ -17,7 +16,7 @@ enrollments as (
         )
         -- filter to current records from snapshot
         and dbt_valid_from <= current_timestamp()
-        and dbt_valid_to >= current_timestamp()
+        and dbt_valid_to is null
 ),
 
 -- select one record per user x role x class x school, prioritizing most recent modification
@@ -36,7 +35,6 @@ final as
     class_id,
     school_id,
     district_id,
-    is_primary,
     last_modified_at_utc
 from 
     user_current_enrollment
