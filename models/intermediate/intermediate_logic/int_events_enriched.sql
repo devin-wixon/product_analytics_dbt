@@ -21,9 +21,9 @@ with events as (
         -- _loaded_at_utc
     from {{ ref('stg_lilypad__events_log') }}
     {%- if target.name == 'Development' %}
-    -- 'resource.media.start'
-    limit 100
-    {%- endif -%}
+        limit 100
+    {%- endif %}
+
 ),
 
 event_metadata as
@@ -184,11 +184,11 @@ events_add_pivots as
       end as {{ col }}
           {%- endif -%}
       {%- endfor -%}
-  {%- endif -%}
+  {%- endif -%},
 
   -- add boolean is_ columns for event categories
   -- code works, not currently used; commented out
-  {#
+
   {%- set event_categories = dbt_utils.get_column_values(
       table=ref('seed_event_log_metadata'),
       column='event_category',
@@ -201,7 +201,7 @@ events_add_pivots as
       case when event_category = '{{ category }}' then true else false end as is_{{ category }}_event
       {%- endfor %}
   {%- endif %}
-  #}
+
  from
     events_add_column_info
 ),
