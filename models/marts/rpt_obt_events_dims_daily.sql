@@ -12,10 +12,12 @@ with
 final as
 (select
     count(event_id) as n_events,
+    min(event_id) as row_index,
     * exclude (
         event_id, 
         server_timestamp, 
-        notes, event_trigger, 
+        notes, 
+        event_trigger, 
         handled_as_exception_in_code, 
         example_values, 
         event_capture_end_date, 

@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: rpt_obt_events_dims_daily
+    description: |
+      Purpose: Comprehensive event dimensions at daily grain reporting model.  
+      Granularity: One row per the dimensions related to the event and the combination of server timestamp date and client timestamp date.  
+      Filters: Excludes sensitive user information, detailed resource metadata, and internal ETL columns.  
+    columns:
+      - name: row_index
+        tests:
+          - unique
+          - not_null
