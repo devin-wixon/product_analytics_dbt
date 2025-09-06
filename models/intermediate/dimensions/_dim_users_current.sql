@@ -1,3 +1,8 @@
+-- placeholder for future class dimension
+{{ config(
+    enabled = false
+)}}
+
 with 
 
 users as 

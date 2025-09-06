@@ -16,13 +16,8 @@ final as
     * exclude (
         event_id, 
         server_timestamp, 
-        notes, 
-        event_trigger, 
-        handled_as_exception_in_code, 
-        example_values, 
-        event_capture_end_date, 
-        event_capture_start_date, 
-        client_timestamp, event_name)
+        client_timestamp, 
+        event_name)
 from
     events
 group by all

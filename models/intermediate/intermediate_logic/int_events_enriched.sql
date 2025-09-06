@@ -208,7 +208,14 @@ events_add_pivots as
 
 final as 
 (select 
-   events_add_pivots.* exclude (event_path, event_value, event_value_joins_to, event_value_not_id)
+   events_add_pivots.* exclude (
+    event_path, event_value, event_value_joins_to, event_value_not_id,
+        notes, 
+        event_trigger, 
+        handled_as_exception_in_code, 
+        example_values, 
+        event_capture_end_date, 
+        event_capture_start_date)
     -- don't persist ETL
     -- _source_filename,
     -- _loaded_at_utc,
