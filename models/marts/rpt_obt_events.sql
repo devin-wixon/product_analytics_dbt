@@ -18,7 +18,7 @@ events as (
   {%- endif -%}
 ), 
 
-users as (
+users_history as (
     select
         * exclude (
             user_sourced_id,
@@ -103,10 +103,53 @@ from
     {{ ref('dim_day_datespine') }}
 ),
 
+-- User-Event matching with fallback logic for data cleanliness issues
+user_events_exact as (
+  select 
+    events.event_id,
+    events.user_id,
+    users_history.* exclude (user_id)
+  from events
+  left join users_history on events.user_id = users_history.user_id
+    and users_history.dbt_valid_from <= events.client_timestamp
+    and (users_history.dbt_valid_to is null or users_history.dbt_valid_to > events.client_timestamp)
+),
+
+user_events_fallback as (
+  select 
+    events.event_id,
+    events.user_id,
+    users_history.* exclude (user_id)
+  from events
+  left join user_events_exact on events.event_id = user_events_exact.event_id
+  inner join users_history on events.user_id = users_history.user_id
+  where 
+    user_events_exact.user_id is null  -- events without exact user match
+        -- closest in time to event date within user's valid date range
+  qualify row_number() over (
+      partition by events.event_id 
+      order by abs(
+                datediff(
+                  day, events.client_event_date::date, 
+                           coalesce(users_history.dbt_valid_to, '9999-12-31')::date))
+    ) = 1
+),
+
+user_events_combined as (
+  -- Exact SCD matches first (preferred)
+  select * exclude (user_id) from user_events_exact
+  where user_id is not null
+  
+  union all
+  
+  -- Closest temporal matches for orphaned events
+  select * exclude (user_id) from user_events_fallback
+),
+
 joined as (
   select
     events.*,
-    users.* exclude (user_id),
+    user_events_combined.* exclude (event_id),
     districts.* exclude (district_id),
     programs.* exclude (program_id),
     -- add focus_area table later as needed
@@ -114,11 +157,8 @@ joined as (
     datespine.* exclude (date_day)
 from
   events 
-    -- TAG TO DO refactor joins with WHERE earlier for performance
-  left join users on events.user_id = users.user_id
-    and  users.dbt_valid_from <= events.client_timestamp
-    and (users.dbt_valid_to is null or users.dbt_valid_to > events.client_timestamp)
-  left join districts on users.district_id = districts.district_id
+  left join user_events_combined on events.event_id = user_events_combined.event_id
+  left join districts on user_events_combined.district_id = districts.district_id
   left join programs on events.program_id = programs.program_id
   left join resources on events.resource_id = resources.resource_id
   left join datespine on events.client_event_date = datespine.date_day
