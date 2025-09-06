@@ -61,7 +61,7 @@ programs as (
             program_deleted_date
         )
     from
-        {{ ref('dim_programs') }}
+        {{ ref('dim_programs_current') }}
 ),
 
 resources as (

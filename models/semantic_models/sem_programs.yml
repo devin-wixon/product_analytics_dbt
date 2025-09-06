@@ -5,7 +5,7 @@ semantic_models:
       Granularity: One row per program.  
       Filters: None. 
       Notes:   
-    model: ref('dim_programs')
+    model: ref('dim_programs_current')
     
     entities:
       - name: program
