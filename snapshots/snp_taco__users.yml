@@ -5,7 +5,23 @@ snapshots:
     relation: source('taco', 'raw_taco__users')
     config:
       unique_key: id
-      strategy: timestamp
-      updated_at: date_last_modified::timestamp_ntz
+      strategy: check
+      # exclude date_last_modified
+      # because this is updated on every sync
+      # and we don't want to trigger a change every time
+      check_cols:
+        - id
+        - grades
+        - identifier
+        - status
+        - sourced_id
+        - deleted_at
+        - role
+        - email_sent
+        - district_id
+        - other_grades
+        - invite_status
+        - disable_auto_sync
+        - manually_added
       hard_deletes: 'new_record'
       # dbt_valid_to_current:  "{{ var('dbt_valid_to_current') }}"
