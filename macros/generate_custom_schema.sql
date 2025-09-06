@@ -24,9 +24,11 @@
 
     {%- set default_schema = target.schema -%}
     {%- if target.name == 'prod' -%}
-
-        {{ custom_schema_name | trim }} 
-
+        {%- if node.resource_type == 'seed' -%}
+            seeds
+        {%- else -%}
+            {{ custom_schema_name | trim }} 
+        {%- endif -%}
     {%- else -%}
 
         {{ default_schema }}
