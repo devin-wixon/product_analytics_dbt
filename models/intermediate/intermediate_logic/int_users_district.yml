@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: int_users_district
+    description: |
+      Purpose: A bridge table to map users to associated districts for modeling not requiring more detailed user attributes.
+      Each `user_id` can only ever have one `district_id`.  
+      Granularity: One row per user
+      Filters: Excludes users with student roles
+      Notes: The highest user role (administrator > teacher) is also provided
+    columns:
+      # staging tests for for unique and nonnull event_id
+      - name: user_id
+        description: "{{ doc('user_id') }}"
+        tests:
+          - not_null
+          - unique
+      - name: district_id
+        description: "{{ doc('district_id') }}"
+
+     
