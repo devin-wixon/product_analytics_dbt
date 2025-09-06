@@ -6,11 +6,13 @@ models:
       Purpose: Comprehensive event reporting model combining user events with dimensional information for business intelligence and analytics.  
       Granularity: One row per event, uniquely identified by `event_id`.  
       Filters: Excludes sensitive user information, detailed resource metadata, and internal ETL columns.  
-      Notes: This is the primary reporting model for OBT (Operations Business Team) event analysis, joining events with user, district, program, and resource dimensions.  
     columns:
       # Event columns
       - name: event_id
         description: "{{ doc('event_id') }}"
+        tests:
+          - unique
+          - not_null
       - name: client_timestamp
         description: "{{ doc('client_timestamp') }}"
       - name: user_id

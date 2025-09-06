@@ -26,7 +26,7 @@ users as (
             is_manually_added
         )
     from
-        {{ ref('dim_users_current') }}
+        {{ ref('dim_users_history') }}
 ),
 districts as (
     select
@@ -114,7 +114,10 @@ joined as (
     datespine.* exclude (date_day)
 from
   events 
+    -- TAG TO DO refactor joins with WHERE earlier for performance
   left join users on events.user_id = users.user_id
+    and  users.dbt_valid_from <= events.client_timestamp
+    and (users.dbt_valid_to is null or users.dbt_valid_to > events.client_timestamp)
   left join districts on users.district_id = districts.district_id
   left join programs on events.program_id = programs.program_id
   left join resources on events.resource_id = resources.resource_id
