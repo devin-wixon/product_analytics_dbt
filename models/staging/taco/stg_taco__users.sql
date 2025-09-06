@@ -4,9 +4,6 @@ source_table as (
         * 
     from 
         {{ ref('snp_taco__users')}}
-        {%- if target.name == 'Development' %}
-            limit 100
-        {%- endif -%}
 ),
 
 final as (
