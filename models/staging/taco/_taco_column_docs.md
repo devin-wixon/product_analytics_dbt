@@ -265,10 +265,12 @@ Indicates the onboarding status of the user.
 
 | Value        | Meaning                                                                 |
 |------------- |------------------------------------------------------------------------|
-| not_invited  | When auth_method is username_password and invite e-mail not sent        |
-| invited      | When auth_method is username_password and invite e-mail sent            |
-| sso          | When auth_method is one of (clever, classlink, SAML, openid)           |
-| registered   | When auth_method is username_password and user completed registration and setting up their password   |
+| not_invited  | auth_method is username_password and invite e-mail not sent        |
+| invited      | auth_method is username_password and invite e-mail sent            |
+| sso          | auth_method is one of (clever, classlink, SAML, openid)           |
+| registered   | auth_method is username_password and user completed registration and setting up their password   |
+| backfill   | User was manually backfilled after deletion, and may have limited data other than district   |
+
 {% enddocs %}
 
 
