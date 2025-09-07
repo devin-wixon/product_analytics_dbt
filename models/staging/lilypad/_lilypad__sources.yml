@@ -3,8 +3,8 @@ version: 2
 sources:
   - name: lilypad
     description: >
-     "Events extracted from the .log files written through Lilypad instrumentation.
-     Source is a Snowpipe in Snowflake receiving SNS upon S3 object reaction in AWS."
+      "Events extracted from the .log files written through Lilypad instrumentation.
+      Source is a Snowpipe in Snowflake receiving SNS upon S3 object reaction in AWS."
     database: raw
     schema: lilypad
     tables:

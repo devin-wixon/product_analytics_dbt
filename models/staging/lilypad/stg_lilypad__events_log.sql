@@ -1,11 +1,7 @@
-
-
-
 with source_table as (
-    select 
-        * 
-    from 
-    {{ source('lilypad', 'raw_lilypad__events_log') }}
+    select *
+    from
+        {{ source('lilypad', 'raw_lilypad__events_log') }}
 ),
 
 final as (
@@ -14,7 +10,7 @@ final as (
         event_pk as event_id,
         user_id::int as user_id,
         session_uuid::string as session_uuid,
-        
+
         -- attributes
         name::string as event_name,
         path::string as event_path,
@@ -25,15 +21,14 @@ final as (
         -- timestamps
         server_timestamp::timestamp as server_timestamp,
         client_timestamp::timestamp as client_timestamp,
-        
+
         -- load metadata
         _source_filename,
         _loaded_at_utc
-    from 
+    from
         source_table
 )
 
-select 
-    * 
-from 
+select *
+from
     final
