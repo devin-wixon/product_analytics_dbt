@@ -4,7 +4,7 @@ calendar_dates as (
 
     {{ dbt_utils.date_spine(
         datepart="day",
-        start_date="cast('2024-01-01' as date)",
+        start_date="cast('2025-02-01' as date)",
         end_date="cast('2050-12-31' as date)"
     )
     }}
@@ -19,18 +19,18 @@ final as (
         )}} as calendar_date_sk,
 
         date_day::date as date_day,
-        -- (Monday) 1 through 7 (Sunday) 
+        date_trunc('week', date_day) as week_monday_date,
+
+
         dayofweek(date_day) as day_of_week_number,
         dayofmonth(date_day) as day_of_month_number,
         dayofyear(date_day) as day_of_year_number,
-
         week(date_day) as week_of_year_number,
         month(date_day) as month_of_year_number,
         quarter(date_day) as quarter_of_year_number,
         year(date_day) as year_number,
 
-        dayname(date_day) as short_weekday_name,
-        
+        dayname(date_day) as short_weekday_name,        
         case dayofweek(date_day)
             when 0 then 'Sunday'
             when 1 then 'Monday'
@@ -44,6 +44,7 @@ final as (
         monthname(date_day) as short_month_name,
         to_char(date_day,'MMMM') as full_month_name,
         to_char(date_day, 'YY-MM') as year_month_sort,
+        to_char(date_day, 'YY') || '-' || quarter(date_day) as year_quarter_sort,
         concat(monthname(date_day), ' ', year(date_day)) as short_month_year,
         concat(to_char(date_day,'MMMM'), ' ', year(date_day)) as full_month_year
 

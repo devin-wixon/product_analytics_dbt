@@ -5,7 +5,9 @@
       "Bash(dbt run-operation:*)",
       "WebFetch(domain:hub.getdbt.com)",
       "Bash(dbt deps:*)",
-      "Bash(dbt test:*)"
+      "Bash(dbt test:*)",
+      "WebFetch(domain:docs.snowflake.com)",
+      "WebSearch"
     ],
     "deny": [],
     "ask": []
