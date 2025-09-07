@@ -89,6 +89,7 @@ resources as (
 datespine as (
   select
     date_day,
+    week_monday_date,
     day_of_week_number,
     day_of_month_number,
     day_of_year_number,
@@ -97,7 +98,8 @@ datespine as (
     quarter_of_year_number,
     short_weekday_name,
     short_month_name,
-    year_month_sort
+    year_month_sort,
+    year_quarter_sort
 from
     {{ ref('dim_day_datespine') }}
 ),
