@@ -5,8 +5,6 @@ users as
     *  exclude( dbt_scd_id,  dbt_updated_at, dbt_is_deleted )    
 from
     {{ ref('stg_taco__users') }}
-where
-    user_role != 'student'
 ),
 
 -- denormalize disrict, which is 1:1 with users

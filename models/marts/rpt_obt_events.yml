@@ -3,9 +3,9 @@ version: 2
 models:
   - name: rpt_obt_events
     description: |
-      Purpose: Comprehensive event reporting model combining user events with dimensional information for business intelligence and analytics.  
+      Purpose: Comprehensive event reporting model combining user events with context for analytics.  
       Granularity: One row per event, uniquely identified by `event_id`.  
-      Filters: Excludes sensitive user information, detailed resource metadata, and internal ETL columns.  
+      Filters: Excludes student events
     columns:
       # Event columns
       - name: event_id

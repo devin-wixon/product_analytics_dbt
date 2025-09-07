@@ -175,3 +175,5 @@ select
   *
 from
   final
+where
+  user_role != 'student' 
