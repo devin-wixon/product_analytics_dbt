@@ -19,13 +19,12 @@ final as (
         
         -- expiration date is a unix timestamp, but
         --  all times are 5pm; convert to date
-        date(expiration_date::int) as expiration_date
+        date(expiration_date::int) as expiration_date,
         
         -- timestamps
         created_at as created_at_utc,
         updated_at as updated_at_utc,
-        deleted_at as deleted_at_utc,
-
+        deleted_at as deleted_at_utc
 
     from source_table
 )
