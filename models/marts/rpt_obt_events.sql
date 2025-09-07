@@ -110,7 +110,7 @@ user_events_exact as (
     events.user_id,
     users_history.* exclude (user_id)
   from events
-  left join users_history on events.user_id = users_history.user_id
+  inner join users_history on events.user_id = users_history.user_id
     and users_history.dbt_valid_from <= events.client_timestamp
     and (users_history.dbt_valid_to is null or users_history.dbt_valid_to > events.client_timestamp)
 ),
