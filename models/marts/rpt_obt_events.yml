@@ -111,6 +111,8 @@ models:
         description: "{{ doc('district_state') }}"
       - name: district_type
         description: "{{ doc('district_type') }}"
+      - name: district_website_slug
+        description: "{{ doc('district_website_slug') }}"
 
       # Program columns
       - name: program_name

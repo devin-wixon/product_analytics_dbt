@@ -64,7 +64,7 @@ All values are TRUE as of 8/25.
 
 
 {% docs district_website_slug %}
-Website slug for the district. This is the subdomain for Lilypad.  
+Website slug for the district. This is the subdomain for Lilypad in the URL (https://district_website_slug.lilypad2.frogstreet.com will be the URL).  
 Example: dallas-isd
 {% enddocs %}
 
