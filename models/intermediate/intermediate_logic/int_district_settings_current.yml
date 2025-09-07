@@ -1,4 +1,3 @@
-
 version: 2
 
 models:
@@ -9,7 +8,7 @@ models:
       Filters include: `district_settings` is not null
     columns:
       - name: district_id
-        tests: 
+        tests:
           - not_null
           - unique
         description: "{{ doc('district_id') }}"

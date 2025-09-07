@@ -17,5 +17,3 @@ models:
           - unique
       - name: district_id
         description: "{{ doc('district_id') }}"
-
-     
