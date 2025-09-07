@@ -92,7 +92,7 @@ semantic_models:
         expr: event_id
 
       - name: n_users_with_any_event
-        description: "Count of unique users with any type of event"
+        description: "Count of unique users with any type of event, excluding students"
         agg: count_distinct
         expr: user_id
 
