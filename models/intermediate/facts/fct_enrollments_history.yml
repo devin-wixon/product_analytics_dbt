@@ -8,5 +8,5 @@ models:
       Filters: 
       -  Only non-student roles.
     columns:
-    # source tests for unique enrollment_id; won't be unique here due to snapshots
+      # source tests for unique enrollment_id; won't be unique here due to snapshots
       - name: enrollment_id

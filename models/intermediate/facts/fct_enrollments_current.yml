@@ -16,5 +16,5 @@ models:
               - class_id
               - school_id
     columns:
-    # source tests for unique enrollment_id
+      # source tests for unique enrollment_id
       - name: enrollment_id
