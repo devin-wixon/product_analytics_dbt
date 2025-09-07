@@ -35,7 +35,6 @@ districts as (
           district_city,
           district_state_international,
           is_district_enabled,
-          district_website_slug,
           district_settings,
           district_general_settings,
           is_district_auto_sync,
