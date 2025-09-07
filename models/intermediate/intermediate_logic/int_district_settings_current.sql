@@ -1,9 +1,8 @@
-
 -- TAG TO DO union with district_general_settings 
 -- {'end_date': '2025-06-30', 'start_date': '2025-06-18', 'classroom_schedule': {'friday': {}, 'monday': {}, 'sunday': {}, 'tuesday': {}, 'saturday': {}, 'thursday': {}, 'wednesday': {}}}
 with
 source as (
-    select 
+    select
         district_id,
         district_settings
     from {{ ref('dim_districts_current') }}
@@ -13,47 +12,55 @@ source as (
 extracted_settings as (
     select
         district_id,
-        
-        -- Extract grades
+        district_settings:onboarding_required::boolean
+            as is_onboarding_required,
+        district_settings:user_pool_client_id::string as user_pool_client_id,
         coalesce(district_settings:grades::string, '') as district_grades,
-        
-        -- Rostering settings
-        coalesce(district_settings:rostering:method::string, '') as rostering_method,
-        district_settings:rostering:classlink_id::string as rostering_classlink_id,
-        district_settings:rostering:clever_id::string as rostering_clever_id,
-        district_settings:rostering:upload_method::string as rostering_upload_method,
-        district_settings:rostering:rostering_type::string as rostering_rostering_type,
-        district_settings:rostering:state_id_field::string as rostering_state_id_field,
-        district_settings:rostering:is_active_send_invite::string as rostering_is_active_send_invite,
-        district_settings:rostering:allow_users_without_class_or_school::boolean as is_rostering_allow_users_without_class_or_school,
-        
-        -- Self-service settings
-        district_settings:selfservice:rostering:show_clever::boolean as is_selfservice_rostering_show_clever,
-        district_settings:selfservice:authentication:show_clever::boolean as is_selfservice_authentication_show_clever,
-        
-        -- Authentication settings
-        district_settings:authentication:provider::string as authentication_provider,
-        district_settings:authentication:login_field::string as authentication_login_field,
-        
-        -- Authentication ClassLink settings
-        district_settings:authentication:classlink_settings:classlink_id::string as authentication_classlink_settings_classlink_id,
-        
-        -- Authentication Clever settings
-        district_settings:authentication:clever_settings:clever_id::string as authentication_clever_settings_clever_id,
-        district_settings:authentication:clever_settings:provider_name::string as authentication_clever_settings_provider_name,
-        
-        -- Authentication SAML settings
-        district_settings:authentication:saml_settings:provider_name::string as authentication_saml_settings_provider_name,
-        district_settings:authentication:saml_settings:metadata_document_file::string as authentication_saml_settings_metadata_document_file,
-        district_settings:authentication:saml_settings:metadata_document_source::string as authentication_saml_settings_metadata_document_source,
-        
-    
-         -- don't product-related keys; use the applications tables
 
+        -- Rostering settings
+        coalesce(district_settings:rostering:method::string, '')
+            as rostering_method,    
+        district_settings:rostering:classlink_id::string
+            as rostering_classlink_id,
+        district_settings:rostering:clever_id::string as rostering_clever_id,
+        district_settings:rostering:upload_method::string
+            as rostering_upload_method,
+        district_settings:rostering:rostering_type::string
+            as rostering_rostering_type,
+        district_settings:rostering:state_id_field::string
+            as rostering_state_id_field,
+        district_settings:rostering:is_active_send_invite::string
+            as rostering_is_active_send_invite,
+        district_settings:rostering:allow_users_without_class_or_school::boolean
+            as is_rostering_allow_users_without_class_or_school,
         
-        -- Onboarding and user pool
-        district_settings:onboarding_required::boolean as is_onboarding_required,
-        district_settings:user_pool_client_id::string as user_pool_client_id
+        -- self service rostering settings
+        district_settings:selfservice:rostering:show_clever::boolean
+            as is_selfservice_rostering_show_clever,
+        district_settings:selfservice:authentication:show_clever::boolean
+            as is_selfservice_authentication_show_clever,
+
+        -- Authentication settings
+        district_settings:authentication:provider::string
+            as authentication_provider,
+        district_settings:authentication:login_field::string
+            as authentication_login_field,
+
+        -- Authentication classlink and clever settings
+        district_settings:authentication:classlink_settings:classlink_id::string
+            as authentication_classlink_settings_classlink_id,
+        district_settings:authentication:clever_settings:clever_id::string
+            as authentication_clever_settings_clever_id,
+        district_settings:authentication:clever_settings:provider_name::string
+            as authentication_clever_settings_provider_name,
+
+        -- Authentication SAML settings
+        district_settings:authentication:saml_settings:provider_name::string
+            as authentication_saml_settings_provider_name,
+        district_settings:authentication:saml_settings:metadata_document_file::string
+            as authentication_saml_settings_metadata_document_file,
+        district_settings:authentication:saml_settings:metadata_document_source::string
+            as authentication_saml_settings_metadata_document_source,
 
     from source
 ),
@@ -87,7 +94,6 @@ final as (
     from extracted_settings
 )
 
-select 
-    * 
-from 
+select *
+from
     final
