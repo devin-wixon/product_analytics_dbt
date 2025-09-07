@@ -23,5 +23,5 @@ snapshots:
         - invite_status
         - disable_auto_sync
         - manually_added
-      hard_deletes: 'new_record'
+      hard_deletes: "new_record"
       # dbt_valid_to_current:  "{{ var('dbt_valid_to_current') }}"

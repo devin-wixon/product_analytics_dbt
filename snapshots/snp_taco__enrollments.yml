@@ -27,5 +27,5 @@ snapshots:
         - sourced_id
         - school_id
         - role_id
-      hard_deletes: 'new_record'
+      hard_deletes: "new_record"
       # dbt_valid_to_current:  "{{ var('dbt_valid_to_current') }}"
