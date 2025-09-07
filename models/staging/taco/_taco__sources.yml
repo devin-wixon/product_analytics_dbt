@@ -3,9 +3,9 @@ version: 2
 sources:
   - name: taco
     description: >
-     "Tables extracted from the Taco Postgres database.
-     Tables are overwritten daily and may have changes and deletes.
-     For some sources, snapshots are used prior to staging to track changes at the extract cadence, daily."
+      "Tables extracted from the Taco Postgres database.
+      Tables are overwritten daily and may have changes and deletes.
+      For some sources, snapshots are used prior to staging to track changes at the extract cadence, daily."
     database: raw
     schema: postgres_extracts
     tables:
@@ -92,7 +92,27 @@ sources:
         tests:
           - dbt_expectations.expect_table_columns_to_match_set:
               arguments:
-                column_list: ["id", "usersourcedid", "classsourcedid", "schoolsourcedid", "usersourceid", "role", "user_id", "class_id", "primary", "status", "start_date", "end_date", "last_modified", "active", "district_id", "sourced_id", "school_id", "role_id"]
+                column_list:
+                  [
+                    "id",
+                    "usersourcedid",
+                    "classsourcedid",
+                    "schoolsourcedid",
+                    "usersourceid",
+                    "role",
+                    "user_id",
+                    "class_id",
+                    "primary",
+                    "status",
+                    "start_date",
+                    "end_date",
+                    "last_modified",
+                    "active",
+                    "district_id",
+                    "sourced_id",
+                    "school_id",
+                    "role_id",
+                  ]
       - name: raw_taco__users
         description: "Information on teacher, student and administrator users"
         columns:
@@ -100,9 +120,25 @@ sources:
             tests:
               - unique
               - not_null
-        # Schema change detection test - alerts if columns are added/removed  
+        # Schema change detection test - alerts if columns are added/removed
         # Required because snapshot uses hardcoded check_cols (timestamp strategy invalid)
         tests:
           - dbt_expectations.expect_table_columns_to_match_set:
               arguments:
-                column_list: ["id", "grades", "identifier", "status", "sourced_id", "deleted_at", "role", "email_sent", "district_id", "other_grades", "invite_status", "disable_auto_sync", "manually_added", "date_last_modified"]
+                column_list:
+                  [
+                    "id",
+                    "grades",
+                    "identifier",
+                    "status",
+                    "sourced_id",
+                    "deleted_at",
+                    "role",
+                    "email_sent",
+                    "district_id",
+                    "other_grades",
+                    "invite_status",
+                    "disable_auto_sync",
+                    "manually_added",
+                    "date_last_modified",
+                  ]

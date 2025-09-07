@@ -1,9 +1,8 @@
 with
 source_table as (
-    select 
-        * 
-    from 
-        {{ ref('snp_taco__districts')}}
+    select *
+    from
+        {{ ref('snp_taco__districts') }}
 ),
 
 final as (
@@ -56,7 +55,6 @@ final as (
     from source_table
 )
 
-select 
-    * 
-from 
+select *
+from
     final

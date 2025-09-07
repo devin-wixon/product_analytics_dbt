@@ -1,8 +1,7 @@
 with
 source_table as (
-    select 
-        * 
-    from 
+    select *
+    from
         {{ source('taco', 'raw_taco__district_program_licenses') }}
 ),
 
@@ -16,19 +15,21 @@ final as (
         -- attributes
         license::string as license,
         quantity_licenses::int as quantity_licenses,
-        -- expiration date is a unix timestamps, but
-        --  all times are 5pm; convert to date
-        date(expiration_date::int) as expiration_date_dt,
         -- sales_record::string as sales_record
-
+        
+        -- expiration date is a unix timestamp, but
+        --  all times are 5pm; convert to date
+        date(expiration_date::int) as expiration_date
+        
         -- timestamps
         created_at as created_at_utc,
         updated_at as updated_at_utc,
-        deleted_at as deleted_at_utc
+        deleted_at as deleted_at_utc,
+
+
     from source_table
 )
 
-select 
-    * 
-from 
+select *
+from
     final

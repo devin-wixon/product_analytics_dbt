@@ -1,8 +1,7 @@
 with
 source_table as (
-    select 
-        * 
-    from 
+    select *
+    from
         {{ source('taco', 'raw_taco__applications') }}
 ),
 
@@ -19,12 +18,11 @@ final as (
         -- flags
         use_memberships::boolean as is_application_use_memberships,
         enabled::boolean as is_application_enabled,
-        teachers_only::boolean as is_application_teachers_only,
+        teachers_only::boolean as is_application_teachers_only
 
     from source_table
 )
 
-select 
-    * 
-from 
+select *
+from
     final

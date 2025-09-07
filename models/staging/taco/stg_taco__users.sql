@@ -21,7 +21,7 @@ final as (
         -- identifiers
         manually_added::boolean as is_manually_added,
         invite_status::string as user_invite_status,
-        -- standardizing capitalization (it's mixed ACTIVE, active, Active)
+        -- status: standardizing capitalization (it's mixed ACTIVE, active, Active)
         lower(status::string) as user_status,
 
         case

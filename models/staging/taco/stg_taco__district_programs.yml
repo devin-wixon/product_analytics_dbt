@@ -9,7 +9,7 @@ models:
     columns:
       # this sk will have dups due to snapshots; will be unique in _current
       - name: district_program_id_sk
-        tests: 
+        tests:
           - not_null
       # source tests for non-null district_id, program_id
       # source tests for unique district_id x program_id combination
