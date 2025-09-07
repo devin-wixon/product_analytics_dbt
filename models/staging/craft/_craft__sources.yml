@@ -3,9 +3,9 @@ version: 2
 sources:
   - name: craft
     description: >
-     "Tables extracted from the Craft Postgres database.
-     Tables are overwritten daily and may have changes and deletes.
-     For some sources, snapshots are used prior to staging to track changes at the extract cadence, daily."
+      "Tables extracted from the Craft Postgres database.
+      Tables are overwritten daily and may have changes and deletes.
+      For some sources, snapshots are used prior to staging to track changes at the extract cadence, daily."
     database: raw
     schema: postgres_extracts
     tables:

@@ -1,9 +1,8 @@
 with
 source_table as (
-    select 
-        * 
-    from 
-        {{ ref('snp_craft__resources')}}
+    select *
+    from
+        {{ ref('snp_craft__resources') }}
 ),
 
 final as (
@@ -13,12 +12,6 @@ final as (
         program_id::int as resource_program_id,
         author_id::int as resource_author_id,
         -- replace spaces and hypens in resource type and make lowercase
-        lower(
-            replace(
-                replace(type::string, ' ', '_'),
-                '-', '_'
-            )
-        ) as resource_type,
         code::string as resource_code,
         title::string as resource_title,
         description::string as resource_description,
@@ -49,11 +42,16 @@ final as (
         dbt_valid_from,
         dbt_valid_to,
         dbt_updated_at,
-        dbt_is_deleted::boolean as dbt_is_deleted
+        dbt_is_deleted::boolean as dbt_is_deleted,
+        lower(
+            replace(
+                replace(type::string, ' ', '_'),
+                '-', '_'
+            )
+        ) as resource_type
     from source_table
 )
 
-select 
-    * 
-from 
+select *
+from
     final

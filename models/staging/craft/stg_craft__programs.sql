@@ -1,9 +1,8 @@
 with
 source_table as (
-    select 
-        * 
-    from 
-        {{ ref('snp_craft__programs')}}
+    select *
+    from
+        {{ ref('snp_craft__programs') }}
 ),
 
 final as (
@@ -33,7 +32,6 @@ final as (
     from source_table
 )
 
-select 
-    * 
-from 
+select *
+from
     final
