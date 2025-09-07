@@ -1,18 +1,15 @@
 with
 
 applications as (
-    select 
-        *
+    select *
     from {{ ref('stg_taco__applications') }}
 ),
 
 final as (
-    select 
-        *
+    select *
     from applications
 )
 
-select
-    *
+select *
 from
     final

@@ -6,7 +6,7 @@ models:
       Purpose: Current information about teacher and administrator users.  
       Granularity: One row per user.  
       Filters: user_role is not `student`. 
-      Notes: None. 
+      Notes: None.
     columns:
       - name: user_id
         description: "{{ doc('user_id') }}"
