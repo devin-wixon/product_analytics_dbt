@@ -107,7 +107,7 @@ user_events_exact as (
   select 
     events.event_id,
     events.user_id,
-    users_history.* exclude (user_id)
+    users_history.* exclude (user_id, dbt_valid_from, dbt_valid_to)
   from events
   inner join users_history on events.user_id = users_history.user_id
     and users_history.dbt_valid_from <= events.client_timestamp
@@ -118,7 +118,7 @@ user_events_fallback as (
   select 
     events.event_id,
     events.user_id,
-    users_history.* exclude (user_id)
+    users_history.* exclude (user_id, dbt_valid_from, dbt_valid_to)
   from events
   left join user_events_exact on events.event_id = user_events_exact.event_id
   inner join users_history on events.user_id = users_history.user_id
