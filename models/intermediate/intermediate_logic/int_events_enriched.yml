@@ -13,4 +13,3 @@ models:
         description: "{{ doc('event_id') }}"
       - name: user_id
         description: "{{ doc('user_id') }}"
-     
