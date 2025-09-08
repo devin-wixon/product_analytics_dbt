@@ -33,7 +33,8 @@ final as (
         -- start & end dates are not meaningful; removed after staging layer
         start_date::date as enrollment_start_date,
         end_date::date as enrollment_end_date,
-        last_modified::timestamp as last_modified_at_utc,
+        created_at::timestamp as created_at_utc,
+        updated_at::timestamp as updated_at_utc,
 
 
         -- snapshot columns
