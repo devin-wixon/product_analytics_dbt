@@ -37,6 +37,10 @@ final as (
         physical_page_number::int as resource_physical_page_number,
         fts_title::string as resource_fts_title,
 
+        -- timestamps
+        created_at::timestamp as resource_created_at,
+        updated_at::timestamp as resource_updated_at,
+
         -- snapshot columns
         dbt_scd_id,
         dbt_valid_from,

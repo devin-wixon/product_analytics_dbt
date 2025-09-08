@@ -18,9 +18,9 @@ final as (
         -- sales_record::string as sales_record
 
         -- timestamps
-        created_at as created_at_utc,
-        updated_at as updated_at_utc,
-        deleted_at as deleted_at_utc,
+        created_at::timestamp as created_at_utc,
+        updated_at::timestamp as updated_at_utc,
+        deleted_at::timestamp as deleted_at_utc,
         date(expiration_date::int) as expiration_date
     from source_table
 )
