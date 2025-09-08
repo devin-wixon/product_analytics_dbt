@@ -112,6 +112,8 @@ sources:
                     "sourced_id",
                     "school_id",
                     "role_id",
+                    "updated_at",
+                    "created_at"
                   ]
       - name: raw_taco__users
         description: "Information on teacher, student and administrator users"

@@ -26,7 +26,7 @@ final as (
         -- timestamps
         enrollment_start_date,
         enrollment_end_date,
-        last_modified_at_utc,
+        updated_at_utc,
 
         -- snapshot columns
         dbt_scd_id,

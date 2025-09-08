@@ -4,8 +4,8 @@ enrollments as (
     select
         * exclude (
             dbt_scd_id,
-            dbt_valid_from,
-            dbt_valid_to,
+            -- dbt_valid_from,
+            -- dbt_valid_to,
             dbt_updated_at,
             dbt_is_deleted
         )
@@ -35,7 +35,7 @@ user_current_enrollment as (
         row_number()
             over (
                 partition by user_id, user_role, class_id, school_id
-                order by last_modified_at_utc desc
+                order by updated_at_utc desc
             )
         = 1
 
@@ -48,7 +48,10 @@ final as (
         class_id,
         school_id,
         district_id,
-        last_modified_at_utc
+        enrollment_start_date,
+        enrollment_end_date,
+        dbt_valid_from,
+        dbt_valid_to
     from
         user_current_enrollment
 )

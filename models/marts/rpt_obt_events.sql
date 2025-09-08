@@ -44,7 +44,7 @@ districts as (
           -- district_mas_id,
           district_sage_id,
           district_last_sync_utc,
-          district_last_modified_at_utc,
+          district_updated_at_utc,
           roster_file_created_at_utc,
           auto_rostering_checked_at_utc
         )

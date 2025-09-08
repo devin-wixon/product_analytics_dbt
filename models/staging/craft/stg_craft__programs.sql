@@ -19,12 +19,12 @@ final as (
         clone_status::string as program_clone_status,
         type::string as program_type,
         tags::string as program_tags,
-        district_auto_add:boolean as is_program_district_auto_add,
+        district_auto_add::boolean as is_program_district_auto_add,
         language::string as program_language,
         license_type::string as program_license_type,
         release_date::integer as program_release_year,
         phase::string as program_phase,
-        market_specific:string as program_market_specific,
+        market_specific::string as program_market_specific,
         is_demo::boolean as is_program_demo,
 
 
