@@ -24,7 +24,7 @@ final as (
         -- curriculum is always null; don't persist
         -- curriculum::string as district_curriculum,
         enabled::boolean as is_district_enabled,
-        -- tags::string as district_tags,
+        tags::string as district_tags,
 
         -- settings and configuration
         website_slug::string as district_website_slug,
@@ -42,7 +42,7 @@ final as (
         -- timestamps
         -- Convert string timestamps to proper timestamp format if needed
         last_sync::timestamp as district_last_sync_utc,
-        date_last_modified::timestamp as district_last_modified_at_utc,
+        updated_at::timestamp as district_updated_at_utc,
         roster_file_created_at::timestamp as roster_file_created_at_utc,
         auto_rostering_checked_at::timestamp as auto_rostering_checked_at_utc,
 

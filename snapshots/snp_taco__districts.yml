@@ -6,6 +6,6 @@ snapshots:
     config:
       unique_key: id
       strategy: timestamp
-      updated_at: date_last_modified::timestamp_ntz
+      updated_at: updated_at::timestamp_ntz
       hard_deletes: 'new_record'
       # dbt_valid_to_current:  "{{ var('dbt_valid_to_current') }}"
