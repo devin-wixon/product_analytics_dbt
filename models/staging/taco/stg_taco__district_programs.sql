@@ -21,6 +21,8 @@ final as (
         -- timestamps or dates
         -- change unix timestamp (which is always 5pm) to date
         date(expiration_date::int) as expiration_date,
+        updated_at::timestamp as district_program_updated_at,
+        created_at::timestamp as district_program_created_at,
 
         -- snapshot columns
         dbt_scd_id,
