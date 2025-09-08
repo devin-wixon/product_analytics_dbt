@@ -5,9 +5,9 @@ snapshots:
     relation: source('craft', 'raw_craft__resources')
     config:
       unique_key: id
-      # strategy: check
-      strategy: timestamp
-      updated_at: updated_at::timestamp_ntz
-      # check_cols: "all"
+      strategy: check
+      check_cols: "all"
+      # strategy: timestamp
+      # updated_at: updated_at::timestamp_ntz
       hard_deletes: "new_record"
       # dbt_valid_to_current:  "{{ var('dbt_valid_to_current') }}"
