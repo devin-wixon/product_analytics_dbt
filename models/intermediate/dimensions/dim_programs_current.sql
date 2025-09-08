@@ -1,5 +1,6 @@
 with
 
+-- use * with exclude to allow for schema changes made in stg_
 programs as (
     select
         * exclude (

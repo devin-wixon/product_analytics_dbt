@@ -57,7 +57,8 @@ programs as (
         * exclude(
             program_custom_banner,
             program_clone_status,
-            program_deleted_date
+            program_deleted_date,
+            program_tags
         )
     from
         {{ ref('dim_programs_current') }}
