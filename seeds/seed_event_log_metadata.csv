@@ -23,18 +23,20 @@ resource.download,resource_download,Certain resources (documents type that are N
 resource.fullScreen,interface,,User clicked the full screen button available on some resources,,,resource_id,56278,2/26/25,12/31/99
 resource.fullScreenExit,interface,,User existed the full screen view,,,resource_id,18061,2/26/25,12/31/99
 resource.header.frameworks.open.modal,frameworks,May be empty,Clicked on a framework item or plus button to open frameworks modal ,,,framework_item_id,,8/25/25,12/31/99
-resource.media.changeVolume,music_interface,,"User changed media volume, such as by clicking the volume up or down buttons on a song",,,resource_id,48185,2/26/25,12/31/99
-resource.media.pause,music_interface,,User paused media,,,resource_id,37390,2/26/25,12/31/99
-resource.media.play,music_interface,,User played media,,,resource_id,37390,2/26/25,12/31/99
-resource.media.seek,music_interface,,User clicked a specific place within media (ahead or behind of current play spot),,,resource_id,37390,2/26/25,12/31/99
+resource.media.changeVolume,music_action,,"User changed media volume, such as by clicking the volume up or down buttons on a song",,,resource_id,48185,2/26/25,12/31/99
+resource.media.pause,music_action,,User paused media,,,resource_id,37390,2/26/25,12/31/99
+resource.media.play,music_action,,User played media,,,resource_id,37390,2/26/25,12/31/99
+resource.media.seek,music_action,,User clicked a specific place within media (ahead or behind of current play spot),,,resource_id,37390,2/26/25,12/31/99
 resource.media.start,music_start,nd to determine specific triggers,User started media,,,resource_id,37390,2/26/25,12/31/99
 resource.openInNewTab,interface,,"When user clicked the ""Open in a new tab"" button on a resource, not the user duplicating a tab in the browser.",,,resource_id,109086,2/26/25,12/31/99
 resource.pdf.changePage,resource_pdf_ui,event_value_human_readable is a concatenation; not recreatable through data (elements will be in restructured events),User changed PDF page through choosing a page; not triggered by scrolling,,,,18220,2/26/25,12/31/99
 resource.pdf.changeZoom,resource_pdf_ui,,User changed PDF zoom,,,resource_id,18091,2/26/25,12/31/99
 resource.playlist.autoPlay,music_interface,,User enabled/disabled playlist auto play,,,resource_id,18091,2/26/25,12/31/99
-resource.playlist.changeSong,music_interface,,"User changed playlist song (clickedt he advance or next button, for example, when on another song)",,,resource_id,18091,2/26/25,12/31/99
+resource.playlist.changeSong,music_interact,,"User changed playlist song (clickedt he advance or next button, for example, when on another song)",,,resource_id,18091,2/26/25,12/31/99
 resource.print,resource_print,,Clicked on the in-platform print button (top right of the resource) which exists for two types: Document that is a PDF or an activity (native content). Will not be triggered if a user downloaded and then printed or if a user selects ctrl-P.,,,resource_id,18091,3/10/25,12/31/99
 resource.sidebar.open.modal,sidebar,event_value_human_readable is a concatenation; not recreatable through data (elements will be in restructured events),Opened a modal on professional development sidebar from resource,,sidebar_section,,"related_resoucres, conscious_discipline, strategies_for_supporting_all_learners",8/25/25,12/31/99
+resource.video.pause,video_action,,"Paused a video; note that as of 091025 not all videos can have interactions captured, so some may be missing this event.",,,resource_id,,9/10/25,12/31/99
+resource.video.play,video_action,,"Clicked play on a video; note that as of 091025 not all videos can have interactions captured, so some may be missing this event.",,,resource_id,,9/10/25,12/31/99
 router.enter,router_enter,,User entered a page,x,path_entered,,,2/26/25,12/31/99
 router.left,router_left,"event_value = route user just left, path = route user navigating TO",User leaves a page,x,path_left,,,2/26/25,12/31/99
 support.and.feedback.menu.contact.district.admin.button.click,support_request,Empty event_value,Clicked on button 'Contact district admin' at support and feedback menu ,,,,,8/25/25,12/31/99
