@@ -32,7 +32,8 @@ joined as (
         users.user_grades,
         users.user_other_grades,
         users.email_sent_utc,
-        users.last_modified_at_utc as user_last_modified_at_utc,
+        users.updated_at_utc,
+        users.created_at_utc,
         users.dbt_valid_from,
         users.dbt_valid_to
 

@@ -15,7 +15,7 @@ users as (
             dbt_is_deleted
         )
     from
-        {{ ref('stg_taco__users') }}
+        {{ ref('dim_users_history') }}
     where
         user_role != 'student'
         and dbt_valid_from <= current_timestamp()
