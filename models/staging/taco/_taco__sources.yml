@@ -142,5 +142,6 @@ sources:
                     "invite_status",
                     "disable_auto_sync",
                     "manually_added",
-                    "date_last_modified",
+                    "updated_at",
+                    "created_at"
                   ]
