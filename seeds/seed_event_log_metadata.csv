@@ -31,8 +31,8 @@ resource.media.start,music_start,nd to determine specific triggers,User started 
 resource.openInNewTab,interface,,"When user clicked the ""Open in a new tab"" button on a resource, not the user duplicating a tab in the browser.",,,resource_id,109086,2/26/25,12/31/99
 resource.pdf.changePage,resource_pdf_ui,event_value_human_readable is a concatenation; not recreatable through data (elements will be in restructured events),User changed PDF page through choosing a page; not triggered by scrolling,,,,18220,2/26/25,12/31/99
 resource.pdf.changeZoom,resource_pdf_ui,,User changed PDF zoom,,,resource_id,18091,2/26/25,12/31/99
-resource.playlist.autoPlay,music_interface,,User enabled/disabled playlist auto play,,,resource_id,18091,2/26/25,12/31/99
-resource.playlist.changeSong,music_interact,,"User changed playlist song (clickedt he advance or next button, for example, when on another song)",,,resource_id,18091,2/26/25,12/31/99
+resource.playlist.autoPlay,music_action,,User enabled/disabled playlist auto play,,,resource_id,18091,2/26/25,12/31/99
+resource.playlist.changeSong,music_action,,"User changed playlist song (clickedt he advance or next button, for example, when on another song)",,,resource_id,18091,2/26/25,12/31/99
 resource.print,resource_print,,Clicked on the in-platform print button (top right of the resource) which exists for two types: Document that is a PDF or an activity (native content). Will not be triggered if a user downloaded and then printed or if a user selects ctrl-P.,,,resource_id,18091,3/10/25,12/31/99
 resource.sidebar.open.modal,sidebar,event_value_human_readable is a concatenation; not recreatable through data (elements will be in restructured events),Opened a modal on professional development sidebar from resource,,sidebar_section,,"related_resoucres, conscious_discipline, strategies_for_supporting_all_learners",8/25/25,12/31/99
 resource.video.pause,video_action,,"Paused a video; note that as of 091025 not all videos can have interactions captured, so some may be missing this event.",,,resource_id,,9/10/25,12/31/99
