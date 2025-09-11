@@ -31,6 +31,10 @@ sources:
             tests:
               - unique
               - not_null
+          # used for snapshot; ensure not null for SCD
+          - name: updated_at
+            tests:
+              - not_null
       - name: raw_taco__districts_programs
         description: "Programs associated with each district"
         # no primary key in postgres; combination of district and program should be unique
@@ -39,6 +43,10 @@ sources:
             tests:
               - not_null
           - name: program_id
+            tests:
+              - not_null
+          # used for snapshot; ensure not null for SCD
+          - name: updated_at
             tests:
               - not_null
         # ensure unique district x program combination; required for downstream models

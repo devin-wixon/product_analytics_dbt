@@ -24,3 +24,7 @@ sources:
             tests:
               - unique
               - not_null
+          # used for snapshot; ensure not null for SCD
+          - name: updated_at
+            tests:
+              - not_null
