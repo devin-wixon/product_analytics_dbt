@@ -43,8 +43,8 @@ models:
         description: "{{ doc('district_mas_id') }}"
       - name: district_sage_id
         description: "{{ doc('district_sage_id') }}"
-      - name: district_last_modified_at_utc
-        description: "{{ doc('last_modified_at_utc') }}"
+      - name: district_updated_at_utc
+        description: "{{ doc('updated_at_utc') }}"
       - name: district_last_sync_utc
         description: "{{ doc('district_last_sync_utc') }}"
       - name: roster_file_created_at_utc

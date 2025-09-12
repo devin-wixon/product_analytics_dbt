@@ -238,8 +238,11 @@ Example: 2025-07-30 00:00:00.000
 {% enddocs %}
 
 
-{% docs last_modified_at_utc %}
-Timestamp of the last modification to the record in UTC.
+{% docs updated_at_utc %}
+Timestamp of the last modification _or_ roster upload of the record in UTC.
+This value may change if
+* a record has a fresh roster upload that does or does not change anything, or
+* a record has a manual update that does or does not change a column's v alue
 Example: 2025-07-30 00:00:00.000
 {% enddocs %}
 

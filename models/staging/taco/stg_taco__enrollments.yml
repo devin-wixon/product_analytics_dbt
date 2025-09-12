@@ -41,5 +41,5 @@ models:
         description: "{{ doc('enrollment_start_date') }}"
       - name: enrollment_end_date
         description: "{{ doc('enrollment_end_date') }}"
-      - name: last_modified_at_utc
-        description: "{{ doc('last_modified_at_utc') }}"
+      - name: enrollment_updated_at_utc
+        description: "{{ doc('updated_at_utc') }}"

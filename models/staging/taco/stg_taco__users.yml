@@ -26,14 +26,14 @@ models:
         description: "{{ doc('user_identifier') }}"
       - name: is_disable_auto_sync
         description: "{{ doc('is_disable_auto_sync') }}"
-      - name: is_manually_added
+      - name: is_user_manually_added
         description: "{{ doc('is_manually_added') }}"
       - name: user_invite_status
         description: "{{ doc('user_invite_status') }}"
-      - name: email_sent_utc
+      - name: user_email_sent_utc
         description: "{{ doc('email_sent_utc') }}"
-      - name: last_modified_at_utc
-        description: "{{ doc('last_modified_at_utc') }}"
+      - name: user_updated_at_utc
+        description: "{{ doc('updated_at_utc') }}"
       # Commented out fields that aren't in the SQL
       # - name: user_settings
       #   description: "{{ doc('user_settings') }}"

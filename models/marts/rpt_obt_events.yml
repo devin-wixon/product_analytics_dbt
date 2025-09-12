@@ -83,10 +83,10 @@ models:
         description: "{{ doc('school_id') }}"
       - name: school_sourced_id
         description: "{{ doc('school_sourced_id') }}"
-      - name: email_sent_utc
+      - name: user_email_sent_utc
         description: "{{ doc('email_sent_utc') }}"
-      - name: last_modified_at_utc
-        description: "{{ doc('last_modified_at_utc') }}"
+      - name: user_updated_at_utc
+        description: "{{ doc('updated_at_utc') }}"
       - name: phone
         description: "{{ doc('phone') }}"
       - name: user_other_grades
