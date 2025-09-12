@@ -59,7 +59,7 @@ final as (
         -- deleted_at::timestamp as deleted_at_utc -- null in all columns of source 080825
         email_sent::timestamp as user_email_sent_utc,
         updated_at::timestamp as user_updated_at_utc,
-        created_at::timestamp as created_at_utc,
+        created_at::timestamp as user_created_at_utc,
 
         -- snapshot columns
         dbt_scd_id,
