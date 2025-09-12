@@ -113,6 +113,8 @@ models:
         description: "{{ doc('district_type') }}"
       - name: district_website_slug
         description: "{{ doc('district_website_slug') }}"
+      - name: is_distributed_demo_district
+        description: "{{ doc('is_distributed_demo_district') }}"
 
       # Program columns
       - name: program_name

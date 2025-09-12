@@ -156,3 +156,7 @@ Boolean: True if event_name starts with 'weekly.planner' but does not start with
 Day of week as integer using Snowflakes dayofweek() function, which returns:  
 SUNDAY=0, MONDAY=1, TUESDAY=2, WEDNESDAY=3, THURSDAY=4, FRIDAY=5, SATURDAY=6
 {% enddocs %}
+
+{% docs is_distributed_demo_district %}
+Boolean indicating whether the district is one of the distributed demo districts given to organizations for Back to School onboarding.
+{% enddocs %}

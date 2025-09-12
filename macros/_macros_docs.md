@@ -11,3 +11,16 @@ This is a built-in dbt macro that changes the dataset name based on `target` and
 More information can be found at the dbt docs site [here](https://docs.getdbt.com/docs/building-a-dbt-project/building-models/using-custom-schemas#how-does-dbt-generate-a-models-schema-name)
 
 {% enddocs %}
+
+{% docs is_distributed_demo_district_description %}
+This macro identifies demo districts distributed to over 1,000 organizations to use during Back to School 2025 onboarding.
+
+The macro takes a `district_id` as input and returns a boolean case statement that evaluates to `true` if the district is in a hardcoded list, such as:
+* 7871 - bts2025demo - Frog Street Back to School 2025 [expires 9/30/2025]
+* 7877 - bts2025tk - Back to School 2025 TK [expires 9/30/2025]  
+* 7870 - bts2025tx - Back to School 2025 Texas [expires 9/30/2025]
+
+```
+
+**Returns:** Boolean (true/false) indicating whether the district_id matches one of the distributed demo districts.
+{% enddocs %}

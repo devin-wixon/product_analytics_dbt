@@ -47,7 +47,8 @@ districts as (
           district_updated_at_utc,
           roster_file_created_at_utc,
           auto_rostering_checked_at_utc
-        )
+        ),
+        {{ is_distributed_demo_district('district_id') }} as is_distributed_demo_district
     from
         {{ ref('dim_districts_current') }}
 ),
