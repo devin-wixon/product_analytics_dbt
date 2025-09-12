@@ -35,7 +35,7 @@ user_current_enrollment as (
         row_number()
             over (
                 partition by user_id, user_role, class_id, school_id
-                order by updated_at_utc desc
+                order by enrollment_updated_at_utc desc
             )
         = 1
 
