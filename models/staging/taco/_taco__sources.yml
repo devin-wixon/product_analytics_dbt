@@ -19,6 +19,19 @@ sources:
               - not_null
       - name: raw_taco__applications
         description: "Third-party applications such as Cognitive Toy Box"
+        tests:
+          - dbt_expectations.expect_table_columns_to_match_set:
+              arguments:
+                column_list:
+                  ["id",
+                  "name",
+                  "url",
+                  "meta_code",
+                  "type",
+                  "use_memberships",
+                  "enabled",
+                  "teachers_only"
+                  ]
         columns:
           - name: id
             tests:
@@ -26,6 +39,37 @@ sources:
               - not_null
       - name: raw_taco__district
         description: "District information"
+        tests:
+          - dbt_expectations.expect_table_columns_to_match_set:
+              arguments:
+                column_list:
+                  ["id",
+                  "parent_district_id",
+                  "role_id",
+                  "name",
+                  "address",
+                  "state",
+                  "sales_force_id",
+                  "mas_id",
+                  "sage_id",
+                  "last_sync",
+                  "curriculum",
+                  "type",
+                  "settings",
+                  "enabled",
+                  "website_slug",
+                  "city",
+                  "sourced_id",
+                  "identifier",
+                  "roster_file_created_at",
+                  "auto_rostering_checked_at",
+                  "auto_sync",
+                  "state_international",
+                  "general_settings",
+                  "tags",
+                  "created_at",
+                  "updated_at"
+                  ]
         columns:
           - name: id
             tests:
@@ -37,6 +81,20 @@ sources:
               - not_null
       - name: raw_taco__districts_programs
         description: "Programs associated with each district"
+         # ensure unique district x program combination; required for downstream models
+        tests:
+          - unique:
+              column_name: "district_id || '-' || program_id"
+          - dbt_expectations.expect_table_columns_to_match_set:
+              arguments:
+                column_list:
+                  ["district_id",
+                   "program_id",
+                   "enabled",
+                   "expiration_date",
+                   "updated_at",
+                   "created_at"
+                  ]
         # no primary key in postgres; combination of district and program should be unique
         columns:
           - name: district_id
@@ -49,12 +107,29 @@ sources:
           - name: updated_at
             tests:
               - not_null
-        # ensure unique district x program combination; required for downstream models
-        tests:
-          - unique:
-              column_name: "district_id || '-' || program_id"
+       
       - name: raw_taco__district_applications
         description: "Applications (third-party products) associated with each district"
+                # ensure unique district x application combination; required for downstream models
+        tests:
+          - unique:
+              column_name: "district_id || '-' || application_id"
+          - dbt_expectations.expect_table_columns_to_match_set:
+              arguments:
+                column_list:
+                  ["id",
+                    "district_id",
+                    "application_id",
+                    "create_date",
+                    "enabled",
+                    "abc_group_id",
+                    "url",
+                    "public_key",
+                    "secret_key",
+                    "api_prefix",
+                    "created_at",
+                    "updated_at"
+                    ]
         columns:
           - name: id
             tests:
@@ -66,12 +141,24 @@ sources:
           - name: application_id
             tests:
               - not_null
-        # ensure unique district x application combination; required for downstream models
-        tests:
-          - unique:
-              column_name: "district_id || '-' || application_id"
+
       - name: raw_taco__district_application_licenses
         description: "Quantity and expiration dates for districts' applications (third-party products) licenses"
+        tests:
+          - dbt_expectations.expect_table_columns_to_match_set:
+              arguments:
+                column_list:
+                  ["id",
+                  "district_id",
+                  "application_id",
+                  "license",
+                  "quantity_licenses",
+                  "expiration_date",
+                  "created_at",
+                  "updated_at",
+                  "deleted_at",
+                  "sales_record"
+                  ]
         columns:
           - name: id
             tests:
@@ -79,6 +166,21 @@ sources:
               - not_null
       - name: raw_taco__district_program_licenses
         description: "Quantities and expiration dates of districts' program licenses"
+        tests:
+          - dbt_expectations.expect_table_columns_to_match_set:
+              arguments:
+                column_list:
+                  ["id",
+                  "district_id",
+                  "program_id",
+                  "license",
+                  "quantity_licenses",
+                  "expiration_date",
+                  "created_at",
+                  "updated_at",
+                  "deleted_at",
+                  "sales_record"
+                  ]
         columns:
           - name: id
             tests:
@@ -87,14 +189,6 @@ sources:
 
       - name: raw_taco__enrollments
         description: "Enrollments of users in schools or classes"
-        columns:
-          - name: id
-            tests:
-              - unique
-              - not_null
-          - name: user_id
-            tests:
-              - not_null
         # Schema change detection test - alerts if columns are added/removed
         # Required because snapshot uses hardcoded check_cols (timestamp strategy invalid)
         tests:
@@ -123,6 +217,14 @@ sources:
                     "updated_at",
                     "created_at"
                   ]
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+          - name: user_id
+            tests:
+              - not_null
       - name: raw_taco__users
         description: "Information on teacher, student and administrator users"
         columns:

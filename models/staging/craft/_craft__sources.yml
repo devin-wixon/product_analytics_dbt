@@ -11,6 +11,28 @@ sources:
     tables:
       - name: raw_craft__programs
         description: "Programs within Lilypad such as Toddler Joyful Discoveries"
+        tests:
+          - dbt_expectations.expect_table_columns_to_match_set:
+              arguments:
+                column_list:
+                  ["id",
+                   "name",
+                   "description",
+                   "age_group",
+                   "supplemental",
+                   "custom_banner",
+                   "deleted_at",
+                   "clone_status",
+                   "type",
+                   "tags",
+                   "district_auto_add",
+                   "language",
+                   "license_type",
+                   "release_date",
+                   "phase",
+                   "market_specific",
+                   "is_demo"
+                  ]
         columns:
           - name: id
             tests:
@@ -19,6 +41,43 @@ sources:
 
       - name: raw_craft__resources
         description: "Resources such as activities, documents, audio and video"
+        tests:
+          - dbt_expectations.expect_table_columns_to_match_set:
+              arguments:
+                column_list:
+                  ["id",
+                   "folder_id",
+                   "program_id",
+                   "author_id",
+                   "type",
+                   "code",
+                   "title",
+                   "description",
+                   "file_url",
+                   "section_title",
+                   "link",
+                   "is_legacy",
+                   "short_description",
+                   "order_number",
+                   "thumbnail_mobile_url",
+                   "thumbnail_web_url",
+                   "downloadable",
+                   "provider_id",
+                   "is_public",
+                   "uuid",
+                   "focus_area",
+                   "publication_status",
+                   "publication_origin_id",
+                   "focus_area_id",
+                   "sub_focus_area_id",
+                   "estimated_time",
+                   "physical_reference",
+                   "physical_page_number",
+                   "fts_title",
+                   "editor_id",
+                   "updated_at",
+                   "created_at"
+                  ]
         columns:
           - name: id
             tests:
