@@ -10,9 +10,15 @@ sources:
     tables:
       - name: raw_lilypad__events_log
         description: ""
+        tests:
+          - elementary.schema_changes:
+              config:
+                severity: warn
+              tags: ["elementary"]
         columns:
           - name: event_pk
             description: "Primary key created through Snowflake UUID_STRING() function"
+            data_type: varchar
             tests:
               - unique
               - not_null

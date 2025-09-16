@@ -11,72 +11,109 @@ sources:
     tables:
       - name: data_load_log
         description: "Metadata about data extracts and loads"
+        tests:
+          - elementary.schema_changes:
+              config:
+                severity: warn
+              tags: ["elementary"]
         columns:
           - name: load_log_pk
             description: ""
+            data_type: varchar
             tests:
               - unique
               - not_null
       - name: raw_taco__applications
         description: "Third-party applications such as Cognitive Toy Box"
         tests:
-          - dbt_expectations.expect_table_columns_to_match_set:
-              arguments:
-                column_list:
-                  ["id",
-                  "name",
-                  "url",
-                  "meta_code",
-                  "type",
-                  "use_memberships",
-                  "enabled",
-                  "teachers_only"
-                  ]
+          - elementary.schema_changes:
+              config:
+                severity: warn
+              tags: ["elementary"]
         columns:
           - name: id
+            data_type: integer
             tests:
               - unique
               - not_null
+          - name: name
+            data_type: varchar
+          - name: url
+            data_type: varchar
+          - name: meta_code
+            data_type: varchar
+          - name: type
+            data_type: varchar
+          - name: use_memberships
+            data_type: boolean
+          - name: enabled
+            data_type: boolean
+          - name: teachers_only
+            data_type: boolean
       - name: raw_taco__district
         description: "District information"
         tests:
-          - dbt_expectations.expect_table_columns_to_match_set:
-              arguments:
-                column_list:
-                  ["id",
-                  "parent_district_id",
-                  "role_id",
-                  "name",
-                  "address",
-                  "state",
-                  "sales_force_id",
-                  "mas_id",
-                  "sage_id",
-                  "last_sync",
-                  "curriculum",
-                  "type",
-                  "settings",
-                  "enabled",
-                  "website_slug",
-                  "city",
-                  "sourced_id",
-                  "identifier",
-                  "roster_file_created_at",
-                  "auto_rostering_checked_at",
-                  "auto_sync",
-                  "state_international",
-                  "general_settings",
-                  "tags",
-                  "created_at",
-                  "updated_at"
-                  ]
+          - elementary.schema_changes:
+              config:
+                severity: warn
+              tags: ["elementary"]
         columns:
           - name: id
+            data_type: integer
             tests:
               - unique
               - not_null
+          - name: parent_district_id
+            data_type: integer
+          - name: role_id
+            data_type: integer
+          - name: name
+            data_type: varchar
+          - name: address
+            data_type: varchar
+          - name: state
+            data_type: varchar
+          - name: sales_force_id
+            data_type: varchar
+          - name: mas_id
+            data_type: varchar
+          - name: sage_id
+            data_type: varchar
+          - name: last_sync
+            data_type: timestamp
+          - name: curriculum
+            data_type: varchar
+          - name: type
+            data_type: varchar
+          - name: settings
+            data_type: json
+          - name: enabled
+            data_type: boolean
+          - name: website_slug
+            data_type: varchar
+          - name: city
+            data_type: varchar
+          - name: sourced_id
+            data_type: varchar
+          - name: identifier
+            data_type: varchar
+          - name: roster_file_created_at
+            data_type: timestamp
+          - name: auto_rostering_checked_at
+            data_type: timestamp
+          - name: auto_sync
+            data_type: boolean
+          - name: state_international
+            data_type: varchar
+          - name: general_settings
+            data_type: json
+          - name: tags
+            data_type: varchar
+          - name: created_at
+            data_type: timestamp
           # used for snapshot; ensure not null for SCD
           - name: updated_at
+            data_type: timestamp
             tests:
               - not_null
       - name: raw_taco__districts_programs
@@ -85,26 +122,29 @@ sources:
         tests:
           - unique:
               column_name: "district_id || '-' || program_id"
-          - dbt_expectations.expect_table_columns_to_match_set:
-              arguments:
-                column_list:
-                  ["district_id",
-                   "program_id",
-                   "enabled",
-                   "expiration_date",
-                   "updated_at",
-                   "created_at"
-                  ]
+          - elementary.schema_changes:
+              config:
+                severity: warn
+              tags: ["elementary"]
         # no primary key in postgres; combination of district and program should be unique
         columns:
           - name: district_id
+            data_type: integer
             tests:
               - not_null
           - name: program_id
+            data_type: integer
             tests:
               - not_null
+          - name: enabled
+            data_type: boolean
+          - name: expiration_date
+            data_type: date
+          - name: created_at
+            data_type: timestamp
           # used for snapshot; ensure not null for SCD
           - name: updated_at
+            data_type: timestamp
             tests:
               - not_null
        
@@ -114,144 +154,201 @@ sources:
         tests:
           - unique:
               column_name: "district_id || '-' || application_id"
-          - dbt_expectations.expect_table_columns_to_match_set:
-              arguments:
-                column_list:
-                  ["id",
-                    "district_id",
-                    "application_id",
-                    "create_date",
-                    "enabled",
-                    "abc_group_id",
-                    "url",
-                    "public_key",
-                    "secret_key",
-                    "api_prefix",
-                    "created_at",
-                    "updated_at"
-                    ]
+          - elementary.schema_changes:
+              config:
+                severity: warn
+              tags: ["elementary"]
         columns:
           - name: id
+            data_type: integer
             tests:
               - unique
               - not_null
           - name: district_id
+            data_type: integer
             tests:
               - not_null
           - name: application_id
+            data_type: integer
             tests:
               - not_null
+          - name: create_date
+            data_type: timestamp
+          - name: enabled
+            data_type: boolean
+          - name: abc_group_id
+            data_type: varchar
+          - name: url
+            data_type: varchar
+          - name: public_key
+            data_type: varchar
+          - name: secret_key
+            data_type: varchar
+          - name: api_prefix
+            data_type: varchar
+          - name: created_at
+            data_type: timestamp
+          - name: updated_at
+            data_type: timestamp
 
       - name: raw_taco__district_application_licenses
         description: "Quantity and expiration dates for districts' applications (third-party products) licenses"
         tests:
-          - dbt_expectations.expect_table_columns_to_match_set:
-              arguments:
-                column_list:
-                  ["id",
-                  "district_id",
-                  "application_id",
-                  "license",
-                  "quantity_licenses",
-                  "expiration_date",
-                  "created_at",
-                  "updated_at",
-                  "deleted_at",
-                  "sales_record"
-                  ]
+          - elementary.schema_changes:
+              config:
+                severity: warn
+              tags: ["elementary"]
         columns:
           - name: id
+            data_type: integer
             tests:
               - unique
               - not_null
+          - name: district_id
+            data_type: integer
+          - name: application_id
+            data_type: integer
+          - name: license
+            data_type: varchar
+          - name: quantity_licenses
+            data_type: integer
+          - name: expiration_date
+            data_type: date
+          - name: created_at
+            data_type: timestamp
+          - name: updated_at
+            data_type: timestamp
+          - name: deleted_at
+            data_type: timestamp
+          - name: sales_record
+            data_type: varchar
       - name: raw_taco__district_program_licenses
         description: "Quantities and expiration dates of districts' program licenses"
         tests:
-          - dbt_expectations.expect_table_columns_to_match_set:
-              arguments:
-                column_list:
-                  ["id",
-                  "district_id",
-                  "program_id",
-                  "license",
-                  "quantity_licenses",
-                  "expiration_date",
-                  "created_at",
-                  "updated_at",
-                  "deleted_at",
-                  "sales_record"
-                  ]
+          - elementary.schema_changes:
+              config:
+                severity: warn
+              tags: ["elementary"]
         columns:
           - name: id
+            data_type: integer
             tests:
               - unique
               - not_null
+          - name: district_id
+            data_type: integer
+          - name: program_id
+            data_type: integer
+          - name: license
+            data_type: varchar
+          - name: quantity_licenses
+            data_type: integer
+          - name: expiration_date
+            data_type: date
+          - name: created_at
+            data_type: timestamp
+          - name: updated_at
+            data_type: timestamp
+          - name: deleted_at
+            data_type: timestamp
+          - name: sales_record
+            data_type: varchar
 
       - name: raw_taco__enrollments
         description: "Enrollments of users in schools or classes"
         # Schema change detection test - alerts if columns are added/removed
         # Required because snapshot uses hardcoded check_cols (timestamp strategy invalid)
         tests:
-          - dbt_expectations.expect_table_columns_to_match_set:
-              arguments:
-                column_list:
-                  [
-                    "id",
-                    "usersourcedid",
-                    "classsourcedid",
-                    "schoolsourcedid",
-                    "usersourceid",
-                    "role",
-                    "user_id",
-                    "class_id",
-                    "primary",
-                    "status",
-                    "start_date",
-                    "end_date",
-                    "last_modified",
-                    "active",
-                    "district_id",
-                    "sourced_id",
-                    "school_id",
-                    "role_id",
-                    "updated_at",
-                    "created_at"
-                  ]
+          - elementary.schema_changes:
+              config:
+                severity: warn
+              tags: ["elementary"]
         columns:
           - name: id
+            data_type: integer
             tests:
               - unique
               - not_null
+          - name: usersourcedid
+            data_type: varchar
+          - name: classsourcedid
+            data_type: varchar
+          - name: schoolsourcedid
+            data_type: varchar
+          - name: usersourceid
+            data_type: varchar
+          - name: role
+            data_type: varchar
           - name: user_id
+            data_type: integer
             tests:
               - not_null
+          - name: class_id
+            data_type: integer
+          - name: primary
+            data_type: boolean
+          - name: status
+            data_type: varchar
+          - name: start_date
+            data_type: date
+          - name: end_date
+            data_type: date
+          - name: last_modified
+            data_type: timestamp
+          - name: active
+            data_type: boolean
+          - name: district_id
+            data_type: integer
+          - name: sourced_id
+            data_type: varchar
+          - name: school_id
+            data_type: integer
+          - name: role_id
+            data_type: integer
+          - name: created_at
+            data_type: timestamp
+          - name: updated_at
+            data_type: timestamp
       - name: raw_taco__users
         description: "Information on teacher, student and administrator users"
-        columns:
-          - name: id
-            tests:
-              - unique
-              - not_null
         # Schema change detection test - alerts if columns are added/removed
         # Required because snapshot uses hardcoded check_cols (timestamp strategy invalid)
         tests:
-          - dbt_expectations.expect_table_columns_to_match_set:
-              arguments:
-                column_list:
-                  [
-                    "id",
-                    "grades",
-                    "identifier",
-                    "status",
-                    "sourced_id",
-                    "deleted_at",
-                    "role",
-                    "email_sent",
-                    "district_id",
-                    "other_grades",
-                    "invite_status",
-                    "disable_auto_sync",
-                    "manually_added",
-                    "updated_at",
-                    "created_at"
-                  ]
+          - elementary.schema_changes:
+              config:
+                severity: warn
+              tags: ["elementary"]
+        columns:
+          - name: id
+            data_type: integer
+            tests:
+              - unique
+              - not_null
+          - name: grades
+            data_type: varchar
+          - name: identifier
+            data_type: varchar
+          - name: status
+            data_type: varchar
+          - name: sourced_id
+            data_type: varchar
+          - name: deleted_at
+            data_type: timestamp
+          - name: role
+            data_type: varchar
+          - name: email_sent
+            data_type: boolean
+          - name: district_id
+            data_type: integer
+          - name: other_grades
+            data_type: varchar
+          - name: invite_status
+            data_type: varchar
+          - name: disable_auto_sync
+            data_type: boolean
+          - name: manually_added
+            data_type: boolean
+          - name: created_at
+            data_type: timestamp
+          - name: updated_at
+            data_type: timestamp

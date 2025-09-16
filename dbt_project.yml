@@ -32,7 +32,12 @@ models:
   +persist_docs:
       relation: true
       columns: true
-      
+
+  elementary:
+    +schema: "elementary"
+    ## To disable elementary for dev, uncomment this:
+    # enabled: "{{ target.name in ['prod','analytics'] }}"
+
   product_analytics:
     staging:
       +materialized: view
@@ -56,6 +61,13 @@ seeds:
   product_analytics:
     +schema: seeds
 
+
+flags:
+  require_explicit_package_overrides_for_builtin_materializations: false
+  source_freshness_run_project_hooks: true
+  warn_error_options:
+    silence:
+      - PackageMaterializationOverrideDeprecation
 
 # vars:
 #   dbt_valid_to_current: "cast('9999-12-31' as timestamp)"

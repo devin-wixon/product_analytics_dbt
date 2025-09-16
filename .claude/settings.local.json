@@ -10,7 +10,8 @@
       "WebSearch",
       "Bash(dbt run:*)",
       "Bash(dbt compile:*)",
-      "Bash(dbt clean:*)"
+      "Bash(dbt clean:*)",
+      "WebFetch(domain:docs.elementary-data.com)"
     ],
     "deny": [],
     "ask": []
