@@ -10,7 +10,7 @@ enrollments as (
             dbt_is_deleted
         )
     from
-        {{ ref('fct_enrollments_history') }}
+        {{ ref('fct_enrollments_nonstudent_history') }}
     where
         -- start and end dates are optional and often null
         -- but will be used where available

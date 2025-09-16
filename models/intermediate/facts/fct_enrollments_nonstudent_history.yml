@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: fct_enrollments_history
+  - name: fct_enrollments_nonstudent_history
     description: |
       Purpose: Historical record of all enrollments.
       Granularity: One row per dbt snapshot id on the enrollments source model

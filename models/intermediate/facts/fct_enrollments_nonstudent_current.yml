@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: fct_enrollments_current
+  - name: fct_enrollments_nonstudent_current
     description: |
       Purpose: Current active enrollments for users, as of today.
       Granularity: One row per combination of user, role, class, and school.
