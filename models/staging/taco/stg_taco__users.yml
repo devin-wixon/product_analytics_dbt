@@ -10,8 +10,12 @@ models:
       # unique and not null testing in source for user_id; this will have dups due to snapshots
       - name: user_id
         description: "{{ doc('user_id') }}"
+        data_tests:
+          - not_null
       - name: district_id
         description: "{{ doc('district_id') }}"
+        data_tests:
+          - not_null
       - name: user_role
         description: "{{ doc('user_role') }}"
       - name: user_sourced_id

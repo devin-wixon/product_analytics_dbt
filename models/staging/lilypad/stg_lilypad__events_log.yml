@@ -10,7 +10,7 @@ models:
     columns:
       - name: event_id
         description: "{{ doc('event_id') }}"
-        tests:
+        data_tests:
           - not_null
           - unique
       - name: server_timestamp
@@ -23,11 +23,10 @@ models:
         description: "{{ doc('session_uuid') }}"
       - name: event_name
         description: "{{ doc('event_name') }}"
-        tests:
+        data_tests:
           - relationships:
-              arguments:
-                to: ref('seed_event_log_metadata')
-                field: event_name
+              to: ref('seed_event_log_metadata')
+              field: event_name
               severity: warn
       - name: event_path
         description: "{{ doc('event_path') }}"

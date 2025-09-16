@@ -11,7 +11,7 @@ sources:
     tables:
       - name: data_load_log
         description: "Metadata about data extracts and loads"
-        tests:
+        data_tests:
           - elementary.schema_changes:
               arguments:
                 config:
@@ -21,12 +21,12 @@ sources:
           - name: load_log_pk
             description: ""
             data_type: varchar
-            tests:
+            data_tests:
               - unique
               - not_null
       - name: raw_taco__applications
         description: "Third-party applications such as Cognitive Toy Box"
-        tests:
+        data_tests:
           - elementary.schema_changes:
               arguments:
                 config:
@@ -35,7 +35,7 @@ sources:
         columns:
           - name: id
             data_type: integer
-            tests:
+            data_tests:
               - unique
               - not_null
           - name: name
@@ -54,7 +54,7 @@ sources:
             data_type: boolean
       - name: raw_taco__district
         description: "District information"
-        tests:
+        data_tests:
           - elementary.schema_changes:
               arguments:
                 config:
@@ -63,7 +63,7 @@ sources:
         columns:
           - name: id
             data_type: integer
-            tests:
+            data_tests:
               - unique
               - not_null
           - name: parent_district_id
@@ -117,12 +117,12 @@ sources:
           # used for snapshot; ensure not null for SCD
           - name: updated_at
             data_type: timestamp
-            tests:
+            data_tests:
               - not_null
       - name: raw_taco__districts_programs
         description: "Programs associated with each district"
          # ensure unique district x program combination; required for downstream models
-        tests:
+        data_tests:
           - unique:
               column_name: "district_id || '-' || program_id"
           - elementary.schema_changes:
@@ -133,11 +133,11 @@ sources:
         columns:
           - name: district_id
             data_type: integer
-            tests:
+            data_tests:
               - not_null
           - name: program_id
             data_type: integer
-            tests:
+            data_tests:
               - not_null
           - name: enabled
             data_type: boolean
@@ -148,13 +148,13 @@ sources:
           # used for snapshot; ensure not null for SCD
           - name: updated_at
             data_type: timestamp
-            tests:
+            data_tests:
               - not_null
        
       - name: raw_taco__district_applications
         description: "Applications (third-party products) associated with each district"
                 # ensure unique district x application combination; required for downstream models
-        tests:
+        data_tests:
           - unique:
               column_name: "district_id || '-' || application_id"
           - elementary.schema_changes:
@@ -164,16 +164,16 @@ sources:
         columns:
           - name: id
             data_type: integer
-            tests:
+            data_tests:
               - unique
               - not_null
           - name: district_id
             data_type: integer
-            tests:
+            data_tests:
               - not_null
           - name: application_id
             data_type: integer
-            tests:
+            data_tests:
               - not_null
           - name: create_date
             data_type: timestamp
@@ -196,7 +196,7 @@ sources:
 
       - name: raw_taco__district_application_licenses
         description: "Quantity and expiration dates for districts' applications (third-party products) licenses"
-        tests:
+        data_tests:
           - elementary.schema_changes:
               arguments:
                 config:
@@ -205,7 +205,7 @@ sources:
         columns:
           - name: id
             data_type: integer
-            tests:
+            data_tests:
               - unique
               - not_null
           - name: district_id
@@ -228,7 +228,7 @@ sources:
             data_type: varchar
       - name: raw_taco__district_program_licenses
         description: "Quantities and expiration dates of districts' program licenses"
-        tests:
+        data_tests:
           - elementary.schema_changes:
               arguments:
                 config:
@@ -237,7 +237,7 @@ sources:
         columns:
           - name: id
             data_type: integer
-            tests:
+            data_tests:
               - unique
               - not_null
           - name: district_id
@@ -263,7 +263,7 @@ sources:
         description: "Enrollments of users in schools or classes"
         # Schema change detection test - alerts if columns are added/removed
         # Required because snapshot uses hardcoded check_cols (timestamp strategy invalid)
-        tests:
+        data_tests:
           - elementary.schema_changes:
               arguments:
                 config:
@@ -272,7 +272,7 @@ sources:
         columns:
           - name: id
             data_type: integer
-            tests:
+            data_tests:
               - unique
               - not_null
           - name: usersourcedid
@@ -287,7 +287,7 @@ sources:
             data_type: varchar
           - name: user_id
             data_type: integer
-            tests:
+            data_tests:
               - not_null
           - name: class_id
             data_type: integer
@@ -319,7 +319,7 @@ sources:
         description: "Information on teacher, student and administrator users"
         # Schema change detection test - alerts if columns are added/removed
         # Required because snapshot uses hardcoded check_cols (timestamp strategy invalid)
-        tests:
+        data_tests:
           - elementary.schema_changes:
               arguments:
                 config:
@@ -328,7 +328,7 @@ sources:
         columns:
           - name: id
             data_type: integer
-            tests:
+            data_tests:
               - unique
               - not_null
           - name: grades
