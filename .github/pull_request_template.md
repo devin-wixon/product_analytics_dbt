@@ -34,10 +34,13 @@ Classify the type of change you're working on to help the reviewer know what the
 ## To-do before merge
 <!---
 (Optional -- remove this section if not needed)
-Include any notes about things that need to happen before this PR is merged, e.g.:
-- [ ] Change the base branch
-- [ ] Update dbt Cloud jobs
-- [ ] Ensure PR #56 is merged
+Include any notes about things that need to happen before this PR is merged
+-->
+
+## To-do after merge
+<!---
+(Optional -- remove this section if not needed)
+Include any notes about things that need to happen after this PR is merged
 -->
 
 ## Lineage DAG Diff
@@ -92,7 +95,7 @@ addressed, and remove any items that are not relevant to this PR.
 - [ ] My pull request represents one logical piece of work.
 - [ ] My commits are related to the pull request and look clean.
 - [ ] My SQL follows the _Frog Street Style Guide_ (link to be added)
-- [ ] `dbt build` completes successfuly and dbt tests pass (if not, detail why)
+- [ ] `dbt build` completes successfully and dbt tests pass (if not, detail why)
 - [ ] I have materialized my models appropriately.
 - [ ] I have added appropriate tests and documentation to any new models.
 - [ ] I have updated the README file.
