@@ -87,20 +87,11 @@ models:
         description: "{{ doc('email_sent_utc') }}"
       - name: user_updated_at_utc
         description: "{{ doc('updated_at_utc') }}"
-      - name: phone
-        description: "{{ doc('phone') }}"
       - name: user_other_grades
         description: "{{ doc('user_other_grades') }}"
       - name: user_invite_status
         description: "{{ doc('user_invite_status') }}"
-      - name: user_contact_email
-        description: "{{ doc('user_contact_email') }}"
       - name: override_district_auth
-        description: "{{ doc('override_district_auth') }}"
-      - name: user_settings
-        description: "{{ doc('user_settings') }}"
-      - name: user_state_id
-        description: "{{ doc('user_state_id') }}"
 
       # District columns
       - name: district_id

@@ -241,13 +241,9 @@ Example: 2025-07-30 00:00:00.000
 {% docs updated_at_utc %}
 Timestamp of the last modification _or_ roster upload of the record in UTC.
 This value may change if
-* a record has a fresh roster upload that does or does not change anything, or
-* a record has a manual update that does or does not change a column's v alue
+* a record has a fresh roster upload that does _or_ does not change anything, or
+* a record has a manual update that does _or_ does not change a column's value
 Example: 2025-07-30 00:00:00.000
-{% enddocs %}
-
-
-{% docs phone %}
 {% enddocs %}
 
 
@@ -274,26 +270,6 @@ Indicates the onboarding status of the user.
 | registered   | auth_method is username_password and user completed registration and setting up their password   |
 | backfill   | User was manually backfilled after deletion, and may have limited data other than district   |
 
-{% enddocs %}
-
-
-{% docs is_manually_added %}
-{% enddocs %}
-
-
-{% docs user_contact_email %}
-{% enddocs %}
-
-
-{% docs override_district_auth %}
-{% enddocs %}
-
-
-{% docs user_settings %}
-{% enddocs %}
-
-
-{% docs user_state_id %}
 {% enddocs %}
 
 
