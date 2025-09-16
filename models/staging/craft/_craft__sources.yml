@@ -13,9 +13,10 @@ sources:
         description: "Programs within Lilypad such as Toddler Joyful Discoveries"
         tests:
           - elementary.schema_changes:
-              config:
-                severity: warn
-              tags: ["elementary"]
+              arguments:
+                config:
+                  severity: warn
+                tags: ["elementary"]
         columns:
           - name: id
             data_type: integer
@@ -59,9 +60,10 @@ sources:
         description: "Resources such as activities, documents, audio and video"
         tests:
           - elementary.schema_changes:
-              config:
-                severity: warn
-              tags: ["elementary"]
+              arguments:
+                config:
+                  severity: warn
+                tags: ["elementary"]
         columns:
           - name: id
             data_type: integer

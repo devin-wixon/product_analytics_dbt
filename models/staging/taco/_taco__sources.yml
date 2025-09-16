@@ -13,9 +13,10 @@ sources:
         description: "Metadata about data extracts and loads"
         tests:
           - elementary.schema_changes:
-              config:
-                severity: warn
-              tags: ["elementary"]
+              arguments:
+                config:
+                  severity: warn
+                tags: ["elementary"]
         columns:
           - name: load_log_pk
             description: ""
@@ -27,9 +28,10 @@ sources:
         description: "Third-party applications such as Cognitive Toy Box"
         tests:
           - elementary.schema_changes:
-              config:
-                severity: warn
-              tags: ["elementary"]
+              arguments:
+                config:
+                  severity: warn
+                tags: ["elementary"]
         columns:
           - name: id
             data_type: integer
@@ -54,9 +56,10 @@ sources:
         description: "District information"
         tests:
           - elementary.schema_changes:
-              config:
-                severity: warn
-              tags: ["elementary"]
+              arguments:
+                config:
+                  severity: warn
+                tags: ["elementary"]
         columns:
           - name: id
             data_type: integer
@@ -195,9 +198,10 @@ sources:
         description: "Quantity and expiration dates for districts' applications (third-party products) licenses"
         tests:
           - elementary.schema_changes:
-              config:
-                severity: warn
-              tags: ["elementary"]
+              arguments:
+                config:
+                  severity: warn
+                tags: ["elementary"]
         columns:
           - name: id
             data_type: integer
@@ -226,9 +230,10 @@ sources:
         description: "Quantities and expiration dates of districts' program licenses"
         tests:
           - elementary.schema_changes:
-              config:
-                severity: warn
-              tags: ["elementary"]
+              arguments:
+                config:
+                  severity: warn
+                tags: ["elementary"]
         columns:
           - name: id
             data_type: integer
@@ -260,9 +265,10 @@ sources:
         # Required because snapshot uses hardcoded check_cols (timestamp strategy invalid)
         tests:
           - elementary.schema_changes:
-              config:
-                severity: warn
-              tags: ["elementary"]
+              arguments:
+                config:
+                  severity: warn
+                tags: ["elementary"]
         columns:
           - name: id
             data_type: integer
@@ -315,9 +321,10 @@ sources:
         # Required because snapshot uses hardcoded check_cols (timestamp strategy invalid)
         tests:
           - elementary.schema_changes:
-              config:
-                severity: warn
-              tags: ["elementary"]
+              arguments:
+                config:
+                  severity: warn
+                tags: ["elementary"]
         columns:
           - name: id
             data_type: integer
