@@ -5,8 +5,6 @@ models:
     description: |
       Purpose: Third-party applications from the taco database with column typing and renaming.
       Granularity: One row per application, defined by `application_id`.
-      Filters: None.
-      Notes: None.
     columns:
       # source tests uniqueness and not null for application_id
       - name: application_id

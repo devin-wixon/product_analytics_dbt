@@ -1,0 +1,15 @@
+version: 2
+
+models:
+  - name: dim_district_programs_current
+    description: |
+      Purpose: Provides current district-program relationships showing which programs are available to each district.  
+      Granularity: One row per district-program combination that is currently active.  
+      Filters: Only includes records where `dbt_valid_to` is null (current records).  
+    columns:
+      - name: district_id
+        description: "{{ doc('district_id') }}"
+      - name: program_id
+        description: "{{ doc('program_id') }}"
+      - name: updated_at_utc
+        description: "{{ doc('updated_at_utc') }}"

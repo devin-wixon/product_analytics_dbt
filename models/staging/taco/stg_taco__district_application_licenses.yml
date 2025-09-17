@@ -5,8 +5,6 @@ models:
     description: |
       Purpose: Tracks quantity and expiration dates for districts' third-party application licenses.
       Granularity: One row per district application license.
-      Filters: None.
-      Notes: None.
     columns:
       # source tests for unique district_application_license_id
       - name: district_application_license_id

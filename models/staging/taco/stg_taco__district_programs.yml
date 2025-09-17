@@ -4,10 +4,8 @@ models:
   - name: stg_taco__district_programs
     description: |
       Purpose: Snapshot of district-program mappings from the taco database with column typing and renaming.  
-      Granularity: Full snapshot history. one row per record id per snapshot, defined by `dbt_scd_id`.  
+      Granularity: Full SCD2 history. one row per record id per snapshot, defined by `dbt_scd_id`.  
       Source tests for uniqueness of `district_id` x `program_id` combination.
-      Filters: None.
-      Notes: None.
     columns:
       # this sk will have dups due to snapshots; will be unique in _current
       - name: district_program_id_sk

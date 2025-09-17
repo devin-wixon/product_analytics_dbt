@@ -4,8 +4,7 @@ models:
   - name: stg_taco__users
     description: |
       Purpose: Snapshot of user data from the taco database with column typing and renaming.  
-      Granularity: Full snapshot history per user. one row per user per snapshot, defined by `dbt_scd_id`.
-      Filters: None
+      Granularity: Full SCD2 history per user. one row per user per snapshot, defined by `dbt_scd_id`.
     columns:
       # unique and not null testing in source for user_id; this will have dups due to snapshots
       - name: user_id

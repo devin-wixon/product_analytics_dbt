@@ -5,7 +5,6 @@ models:
     description: |
       Purpose: Events log from Lilypad raw events, with column typing and renaming as needed.
       Granularity: One row per event, uniquely identified by `event_pk`.
-      Filters: None
       Notes: Includes Snowflake event ingestion metadata columns.
     columns:
       - name: event_id

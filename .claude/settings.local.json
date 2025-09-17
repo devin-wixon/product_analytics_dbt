@@ -13,7 +13,8 @@
       "Bash(dbt clean:*)",
       "WebFetch(domain:docs.elementary-data.com)",
       "Bash(dbt --show-all-deprecations compile --models stg_lilypad__events_log)",
-      "Bash(dbt --show-all-deprecations --no-partial-parse compile --select config.materialized:view)"
+      "Bash(dbt --show-all-deprecations --no-partial-parse compile --select config.materialized:view)",
+      "Bash(echo:*)"
     ],
     "deny": [],
     "ask": []

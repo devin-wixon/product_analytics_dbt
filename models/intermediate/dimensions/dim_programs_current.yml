@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: dim_programs_current
+    description: |
+      Purpose: Provides current program information on Lilypad programs.
+      Granularity: One row per program.
+      Filters: Current records only (`dbt_valid_to` is null).
+    columns:
+      - name: program_id
+        description: "{{ doc('program_id') }}"

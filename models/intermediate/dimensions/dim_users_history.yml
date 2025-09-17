@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: dim_users_history
+    description: |
+      Purpose: Provides historical tracking of user attribute changes over time.
+      Granularity: One row per user per time period when attributes changed.
+    columns:
+      - name: user_id
+        description: "{{ doc('user_id') }}"
+
+      - name: user_role
+        description: "{{ doc('user_role') }}"
+
+      - name: district_id
+        description: "{{ doc('district_id') }}"
+
+      - name: user_sourced_id
+        description: "{{ doc('user_sourced_id') }}"
+
+      - name: is_disable_auto_sync
+        description: "{{ doc('is_disable_auto_sync') }}"
+
+      - name: user_invite_status
+        description: "{{ doc('user_invite_status') }}"
+
+      - name: user_grades
+        description: "{{ doc('user_grades') }}"
+
+      - name: user_other_grades
+        description: "{{ doc('user_other_grades') }}"
+
+      - name: dbt_valid_from
+        description: "{{ doc('dbt_valid_from') }}"
+
+      - name: dbt_valid_to
+        description: "{{ doc('dbt_valid_to') }}"

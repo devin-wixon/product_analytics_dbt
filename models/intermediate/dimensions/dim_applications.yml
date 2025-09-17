@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: dim_applications
+    description: |
+      Purpose: Third-party applications data.
+      Granularity: One row per application, defined by `application_id`.
+    columns: []
+      # No columns included as no doc blocks exist for application-specific columns
+      # Available columns: application_id, application_name, application_meta_code,
+      # application_type, is_application_use_memberships, is_application_enabled, is_application_teachers_only

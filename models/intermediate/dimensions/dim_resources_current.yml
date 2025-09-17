@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: dim_resources_current
+    description: |
+      Purpose: Current resources such as documents, videos, and other materials from Craft system.
+      Granularity: One row per current resource, defined by `resource_id`.
+      Filters: Only current records where `dbt_valid_to` is null (active resources).
+    columns:
+      - name: resource_id
+        description: "{{ doc('resource_id') }}"
+      - name: resource_folder_id
+        description: "{{ doc('folder_id') }}"
+      - name: resource_program_id
+        description: "{{ doc('program_id') }}"
+      - name: resource_focus_area_id
+        description: "{{ doc('focus_area_id') }}"

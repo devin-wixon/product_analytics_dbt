@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: dim_district_applications_current
+    description: |
+      Purpose: Current state of district and third-party application associations.
+      Granularity: One row per active district and application association, defined by `district_application_id`.
+      Filters: Records where `dbt_valid_to` is null (current records only).
+    columns:
+      - name: district_id
+        description: "{{ doc('district_id') }}"

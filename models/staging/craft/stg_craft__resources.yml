@@ -5,7 +5,6 @@ models:
     description: |
       Purpose: Resource data from the craft database with column typing and renaming.  
       Granularity: One row per resource, defined by `resource_id`.  
-      Filters: None
     columns:
       # source tests uniqueness and not null for resource_id; this will have dups due to snapshots
       - name: resource_id

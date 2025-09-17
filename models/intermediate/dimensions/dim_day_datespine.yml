@@ -4,8 +4,7 @@ models:
   - name: dim_day_datespine
     description: |
       Purpose: Calendar dimension table with date attributes for analytics.
-      Granularity: One row per calendar date from 2024-01-01 to 2050-12-31.
-      Filters: None
+      Granularity: One row per calendar date from 2025-02-01 to 2050-12-31.
       Notes: Used for semantic modeling datespine and other date-based analyses.
     # this associates it as a MetricFlow model
     time_spine:
@@ -16,6 +15,8 @@ models:
       - name: date_day
         description: The calendar date.
         granularity: day
+      - name: week_monday_date
+        description: Date of the Monday for the week containing the calendar date.
       - name: day_of_week_number
         description: "{{ doc('day_of_week_number') }}"
       - name: day_of_month_number
@@ -45,11 +46,14 @@ models:
         description: Full month name (e.g., January, February).
         granularity: month
       - name: year_month_sort
-        description: Year and month in YY-MM format for chronological sorting (e.g., 24-01, 24-12, 25-01).
+        description: Year and month in YY-MM format for chronological sorting (e.g., 25-01, 25-12, 26-01).
         granularity: month
+      - name: year_quarter_sort
+        description: Year and quarter in YY-Q format for chronological sorting (e.g., 25-1, 25-4, 26-1).
+        granularity: quarter
       - name: short_month_year
-        description: Abbreviated month and year (e.g., Jan 2024).
+        description: Abbreviated month and year (e.g., Jan 2025).
         granularity: month
       - name: full_month_year
-        description: Full month and year (e.g., January 2024).
+        description: Full month and year (e.g., January 2025).
         granularity: month

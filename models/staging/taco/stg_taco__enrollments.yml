@@ -4,8 +4,7 @@ models:
   - name: stg_taco__enrollments
     description: |
       Purpose: Snapshot of enrollment data from the taco database with column typing and renaming.  
-      Granularity: Full snapshot history per enrollment record. one row per user per snapshot, defined by `dbt_scd_id`.
-      Filters: None
+      Granularity: Full SCD2 history per enrollment record. one row per user per snapshot, defined by `dbt_scd_id`.
     columns:
       # unique and not null testing in source for enrollment_id; this will have dups due to snapshots
       # source tests not null for user_id

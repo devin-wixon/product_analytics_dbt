@@ -5,8 +5,6 @@ models:
     description: |
       Purpose: Tracks quantity and expiration dates for Lilypad program licenses.
       Granularity: One row per district program license. 
-      Filters: None.
-      Notes: None.
     columns:
       # source tests for unique district_program_license_id
       - name: district_program_license_id
