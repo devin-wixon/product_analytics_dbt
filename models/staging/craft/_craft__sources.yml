@@ -11,15 +11,16 @@ sources:
     tables:
       - name: raw_craft__programs
         description: "Programs within Lilypad such as Toddler Joyful Discoveries"
-        tests:
+        data_tests:
           - elementary.schema_changes:
-              config:
-                severity: warn
-              tags: ["elementary"]
+              arguments:
+                config:
+                  severity: warn
+                tags: ["elementary"]
         columns:
           - name: id
             data_type: integer
-            tests:
+            data_tests:
               - unique
               - not_null
           - name: name
@@ -57,15 +58,16 @@ sources:
 
       - name: raw_craft__resources
         description: "Resources such as activities, documents, audio and video"
-        tests:
+        data_tests:
           - elementary.schema_changes:
-              config:
-                severity: warn
-              tags: ["elementary"]
+              arguments:
+                config:
+                  severity: warn
+                tags: ["elementary"]
         columns:
           - name: id
             data_type: integer
-            tests:
+            data_tests:
               - unique
               - not_null
           - name: folder_id
@@ -131,5 +133,5 @@ sources:
           # used for snapshot; ensure not null for SCD
           - name: updated_at
             data_type: timestamp
-            tests:
+            data_tests:
               - not_null

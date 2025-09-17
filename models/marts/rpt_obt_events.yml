@@ -10,7 +10,7 @@ models:
       # Event columns
       - name: event_id
         description: "{{ doc('event_id') }}"
-        tests:
+        data_tests:
           - unique
           - not_null
       - name: client_timestamp

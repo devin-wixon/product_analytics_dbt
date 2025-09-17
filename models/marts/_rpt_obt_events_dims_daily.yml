@@ -8,6 +8,6 @@ models:
       Filters: Excludes sensitive user information, detailed resource metadata, and internal ETL columns.  
     columns:
       - name: row_index
-        tests:
+        data_tests:
           - unique
           - not_null

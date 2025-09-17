@@ -12,7 +12,7 @@ models:
       # staging tests for for unique and nonnull event_id
       - name: user_id
         description: "{{ doc('user_id') }}"
-        tests:
+        data_tests:
           - not_null
           - unique
       - name: district_id

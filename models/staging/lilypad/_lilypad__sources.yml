@@ -10,16 +10,17 @@ sources:
     tables:
       - name: raw_lilypad__events_log
         description: ""
-        tests:
+        data_tests:
           - elementary.schema_changes:
-              config:
-                severity: warn
-              tags: ["elementary"]
+              arguments:
+                config:
+                  severity: warn
+                tags: ["elementary"]
         columns:
           - name: event_pk
             description: "Primary key created through Snowflake UUID_STRING() function"
             data_type: varchar
-            tests:
+            data_tests:
               - unique
               - not_null
               # complete this once pipe is running

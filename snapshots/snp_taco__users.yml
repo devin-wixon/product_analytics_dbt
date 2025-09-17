@@ -25,3 +25,20 @@ snapshots:
         - manually_added
       hard_deletes: "new_record"
       # dbt_valid_to_current:  "{{ var('dbt_valid_to_current') }}"
+
+    data_tests:
+      # Monitor snapshot volume changes (1 standard deviation)
+      - elementary.volume_anomalies:
+          config:
+            severity: warn
+          arguments:
+            anomaly_sensitivity: 1
+          tags: ["elementary", "volume"]
+
+      # Monitor deletion rate threshold (1%)
+      - assert_snapshot_deletion_rate:
+          config:
+            severity: warn
+          arguments:
+            max_deletion_percentage: 1
+          tags: ["elementary", "deletion-rate"]
