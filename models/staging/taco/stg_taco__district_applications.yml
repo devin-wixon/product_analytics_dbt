@@ -15,10 +15,6 @@ models:
       # source tests for unique district_id x application_id combination
       - name: district_id
         description: "{{ doc('district_id') }}"
-      - name: application_id
-      - name: is_enabled
-      - name: abc_group_id
-      - name: created_at_utc
       - name: dbt_scd_id
         description: "{{ doc('dbt_scd_id') }}"
       - name: dbt_valid_from

@@ -10,9 +10,3 @@ models:
     columns:
       # source tests uniqueness and not null for application_id
       - name: application_id
-      - name: application_name
-      - name: application_meta_code
-      - name: application_type
-      - name: is_application_use_memberships
-      - name: is_application_enabled
-      - name: is_application_teachers_only

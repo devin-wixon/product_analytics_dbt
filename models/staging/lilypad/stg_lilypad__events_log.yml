@@ -13,10 +13,6 @@ models:
         data_tests:
           - not_null
           - unique
-      - name: server_timestamp
-        description: "{{ doc('server_timestamp') }}"
-      - name: client_timestamp
-        description: "{{ doc('client_timestamp') }}"
       - name: user_id
         description: "{{ doc('user_id') }}"
       - name: session_uuid
@@ -35,6 +31,10 @@ models:
         description: "{{ doc('event_value') }}"
       - name: event_value_human_readable
         description: "{{ doc('event_value_human_readable') }}"
+      - name: server_timestamp
+        description: "{{ doc('server_timestamp') }}"
+      - name: client_timestamp
+        description: "{{ doc('client_timestamp') }}"
       - name: _source_filename
         description: "{{ doc('_source_filename') }}"
       - name: _loaded_at_utc

@@ -3,7 +3,7 @@ version: 2
 models:
   - name: stg_craft__resources
     description: |
-      Purpose: Raw resource data from the craft database with column typing and renaming.  
+      Purpose: Resource data from the craft database with column typing and renaming.  
       Granularity: One row per resource, defined by `resource_id`.  
       Filters: None
     columns:

@@ -25,7 +25,6 @@ models:
         description: "{{ doc('district_type') }}"
       - name: is_district_enabled
         description: "{{ doc('is_district_enabled') }}"
-      - name: district_tags
       - name: district_website_slug
         description: "{{ doc('district_website_slug') }}"
       - name: district_settings
