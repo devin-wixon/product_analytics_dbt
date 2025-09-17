@@ -3,9 +3,11 @@ version: 2
 models:
   - name: stg_taco__district_programs
     description: |
-      Purpose: Raw district-program mapping data from the taco database with column typing and renaming.  
-      Granularity: One row per district-program pair, defined by `district_id` and `program_id`.  
-      Filters: None
+      Purpose: Snapshot of district-program mappings from the taco database with column typing and renaming.  
+      Granularity: Full snapshot history. one row per record id per snapshot, defined by `dbt_scd_id`.  
+      Source tests for uniqueness of `district_id` x `program_id` combination.
+      Filters: None.
+      Notes: None.
     columns:
       # this sk will have dups due to snapshots; will be unique in _current
       - name: district_program_id_sk
@@ -14,4 +16,20 @@ models:
       # source tests for non-null district_id, program_id
       # source tests for unique district_id x program_id combination
       - name: district_id
+        description: "{{ doc('district_id') }}"
       - name: program_id
+      - name: is_enabled
+      - name: expiration_date
+      - name: updated_at_utc
+        description: "{{ doc('updated_at_utc') }}"
+      - name: created_at_utc
+      - name: dbt_scd_id
+        description: "{{ doc('dbt_scd_id') }}"
+      - name: dbt_valid_from
+        description: "{{ doc('dbt_valid_from') }}"
+      - name: dbt_valid_to
+        description: "{{ doc('dbt_valid_to') }}"
+      - name: dbt_updated_at
+        description: "{{ doc('dbt_updated_at') }}"
+      - name: dbt_is_deleted
+        description: "{{ doc('dbt_is_deleted') }}"

@@ -125,11 +125,6 @@ Row-level identifier of the enrollment record in the external system. Used by ou
 Optional column that is often null.
 {% enddocs %}
 
-
-{% docs enrollment_id %}
-{% enddocs %}
-
-
 {% docs enrollment_start_date %}
 Optional column that is often null.
 {% enddocs %}
@@ -235,6 +230,7 @@ Example: 2025-07-30 00:00:00.000
 
 
 {% docs district_id %}
+Internal district identifier. May join to Salesforce district identifier data.
 {% enddocs %}
 
 
