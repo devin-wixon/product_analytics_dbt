@@ -35,6 +35,7 @@ snapshots:
             severity: warn
           arguments:
             anomaly_sensitivity: 1
+            timestamp_column: "dbt_updated_at"
           tags: ["elementary", "volume"]
 
       # Monitor deletion rate threshold (1%)
