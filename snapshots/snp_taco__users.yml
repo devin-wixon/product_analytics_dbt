@@ -28,6 +28,8 @@ snapshots:
 
     data_tests:
       # Monitor snapshot volume changes (1 standard deviation)
+      # defaults are appropriate for daily batch monitoring
+      #   daily bucket, 14d training, 2d detection, both directions, min 5 day training)
       - elementary.volume_anomalies:
           config:
             severity: warn
