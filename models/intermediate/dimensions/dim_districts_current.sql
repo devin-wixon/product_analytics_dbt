@@ -8,7 +8,8 @@ districts as (
             dbt_valid_to,
             dbt_updated_at,
             dbt_is_deleted
-        )
+        ),
+        {{ is_distributed_demo_district('district_id') }} as is_distributed_demo_district
     from {{ ref('stg_taco__districts') }}
     where
         dbt_valid_to is null
