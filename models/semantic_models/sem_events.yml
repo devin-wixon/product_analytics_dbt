@@ -3,7 +3,6 @@ semantic_models:
     description: |
       Purpose: Event-level data for flexible metric calculation with full dimensional access.  
       Granularity: One row per event.  
-      Filters: None. 
       Notes: Provides maximum flexibility for cross-dimensional analysis (users x districts x resources x programs).  
     model: ref('fct_events')
     # client_event_date is going to be the date base for the date spine
