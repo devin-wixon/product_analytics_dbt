@@ -1,14 +1,13 @@
 version: 2
 
 models:
-  - name: int_events_enriched
+  - name: fct_events
     description: |
-      Purpose: Enriched events log with additional join keys and event flags derived from Lilypad events.
-      Granularity: One row per event, uniquely identified by `event_id`.
-      Filters: Limited to 100 rows in Development environment.
-      Notes: Includes derived columns for program/resource joins, event type flags, and parsed path information.
+      Purpose: Tracks user interactions and behaviors within the Lilypad application for analytics and reporting.
+      Granularity: One row per event occurrence.
+      Filters: Excludes raw `event_path` and `event_value` columns; includes enriched and parsed event data.
+      Notes: Events are enriched with dimensional information, parsed IDs, and boolean flags for event categorization.
     columns:
-      # staging tests for for unique and nonnull event_id
       - name: event_id
         description: "{{ doc('event_id') }}"
       - name: server_timestamp
@@ -19,10 +18,6 @@ models:
         description: "{{ doc('user_id') }}"
       - name: event_name
         description: "{{ doc('event_name') }}"
-      - name: event_path
-        description: "{{ doc('event_path') }}"
-      - name: event_value
-        description: "{{ doc('event_value') }}"
       - name: event_value_human_readable
         description: "{{ doc('event_value_human_readable') }}"
       - name: server_event_date
@@ -37,11 +32,11 @@ models:
         description: "{{ doc('program_id') }}"
       - name: resource_id
         description: "{{ doc('resource_id') }}"
-      - name: is_app_launch_event
-        description: "{{ doc('is_app_launch_event') }}"
-      - name: is_login_event
-        description: "{{ doc('is_login_event') }}"
       - name: folder_id
         description: "{{ doc('folder_id') }}"
       - name: framework_id
         description: "{{ doc('framework_id') }}"
+      - name: is_app_launch_event
+        description: "{{ doc('is_app_launch_event') }}"
+      - name: is_login_event
+        description: "{{ doc('is_login_event') }}"

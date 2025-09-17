@@ -2,10 +2,10 @@ version: 2
 
 models:
   - name: int_district_settings_current
-    description: >
+    description: |
       Purpose: Parse the JSON related to district settings.
       Granularity: One row per district.
-      Filters include: `district_settings` is not null
+      Filters: `district_settings` is not null.
     columns:
       - name: district_id
         data_tests:
@@ -20,6 +20,8 @@ models:
         description: "{{ doc('rostering_classlink_id') }}"
       - name: rostering_clever_id
         description: "{{ doc('rostering_clever_id') }}"
+      - name: is_onboarding_required
+        description: "{{ doc('is_onboarding_required') }}"
       - name: rostering_upload_method
         description: "{{ doc('rostering_upload_method') }}"
       - name: rostering_rostering_type
@@ -50,7 +52,5 @@ models:
         description: "{{ doc('authentication_saml_settings_metadata_document_file') }}"
       - name: authentication_saml_settings_metadata_document_source
         description: "{{ doc('authentication_saml_settings_metadata_document_source') }}"
-      - name: is_onboarding_required
-        description: "{{ doc('is_onboarding_required') }}"
       - name: user_pool_client_id
         description: "{{ doc('user_pool_client_id') }}"

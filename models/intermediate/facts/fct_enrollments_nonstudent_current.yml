@@ -3,10 +3,10 @@ version: 2
 models:
   - name: fct_enrollments_nonstudent_current
     description: |
-      Purpose: Current active enrollments for users, as of today.
-      Granularity: One row per combination of user, role, class, and school.
-      Filters: 
-      - From its source: Only non-student roles.
+      Purpose: Current active enrollments for non-student users.
+      Granularity: One row per combination of `user_id`, `user_role`, `class_id`, and `school_id`.
+      Filters: Only non-student roles and current records from snapshot history.
+      Notes: Prioritizes most recent modification when multiple enrollments exist for the same combination if `user_id`, `user_role`, `class_id`, and `school_id`.
     data_tests:
       - dbt_utils.unique_combination_of_columns:
           arguments:
@@ -16,5 +16,21 @@ models:
               - class_id
               - school_id
     columns:
-      # source tests for unique enrollment_id
-      - name: enrollment_id
+      - name: user_id
+        description: "{{ doc('user_id') }}"
+      - name: user_role
+        description: "{{ doc('user_role') }}"
+      - name: class_id
+        description: "{{ doc('class_id') }}"
+      - name: school_id
+        description: "{{ doc('school_id') }}"
+      - name: district_id
+        description: "{{ doc('district_id') }}"
+      - name: enrollment_start_date
+        description: "{{ doc('enrollment_start_date') }}"
+      - name: enrollment_end_date
+        description: "{{ doc('enrollment_end_date') }}"
+      - name: dbt_valid_from
+        description: "{{ doc('dbt_valid_from') }}"
+      - name: dbt_valid_to
+        description: "{{ doc('dbt_valid_to') }}"

@@ -5,7 +5,9 @@ models:
     description: |
       Purpose: Comprehensive event reporting model combining user events with context for analytics.  
       Granularity: One row per event, uniquely identified by `event_id`.  
-      Filters: Excludes student events
+      Filters: Excludes student events.
+      Notes: Uses the current version of program, resource, and district information rather than the version at the time of the event.  
+      User attributes are as of the time of the event.
     columns:
       # Event columns
       - name: event_id
