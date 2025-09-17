@@ -126,9 +126,10 @@ sources:
           - unique:
               column_name: "district_id || '-' || program_id"
           - elementary.schema_changes:
-              config:
-                severity: warn
-              tags: ["elementary"]
+              arguments:
+                config:
+                  severity: warn
+                tags: ["elementary"]
         # no primary key in postgres; combination of district and program should be unique
         columns:
           - name: district_id
@@ -158,9 +159,10 @@ sources:
           - unique:
               column_name: "district_id || '-' || application_id"
           - elementary.schema_changes:
-              config:
-                severity: warn
-              tags: ["elementary"]
+              arguments:
+                config:
+                  severity: warn
+                tags: ["elementary"]
         columns:
           - name: id
             data_type: integer

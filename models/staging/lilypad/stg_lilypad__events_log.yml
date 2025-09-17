@@ -25,8 +25,9 @@ models:
         description: "{{ doc('event_name') }}"
         data_tests:
           - relationships:
-              to: ref('seed_event_log_metadata')
-              field: event_name
+              arguments:
+                to: ref('seed_event_log_metadata')
+                field: event_name
               severity: warn
       - name: event_path
         description: "{{ doc('event_path') }}"
