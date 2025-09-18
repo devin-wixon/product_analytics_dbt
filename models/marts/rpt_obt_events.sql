@@ -30,58 +30,55 @@ users_history as (
 ),
 districts as (
     select
-        * exclude (
-          district_address,
-          district_city,
-          district_state_international,
-          is_district_enabled,
-          district_settings,
-          district_general_settings,
-          is_district_auto_sync,
-          district_sourced_id,
-          district_identifier,
-          -- district_sales_force_id,
-          -- district_mas_id,
-          district_sage_id,
-          district_last_sync_utc,
-          district_updated_at_utc,
-          roster_file_created_at_utc,
-          auto_rostering_checked_at_utc
-        )
+      district_id,
+      district_name,
+      district_type,
+      district_state,
+      district_website_slug,
+      is_distributed_demo_district
     from
         {{ ref('dim_districts_current') }}
 ),
 
 programs as (
     select
-        * exclude(
-            program_custom_banner,
-            program_clone_status,
-            program_deleted_date,
-            program_tags
-        )
+      program_id,
+      program_name,
+      program_age_group,
+      is_program_supplemental,
+      program_type,
+      is_program_district_auto_add,
+      program_language,
+      program_license_type,
+      program_release_year,
+      program_phase,
+      program_market_specific,
+      is_program_demo
+
     from
         {{ ref('dim_programs_current') }}
 ),
 
 resources as (
     select
-        * exclude(
-            -- resource_code,
-            resource_description,
-            resource_file_url,
-            resource_section_title,
-            resource_link,
-            resource_order_number,
-            resource_thumbnail_mobile_url,
-            resource_thumbnail_web_url,
-            resource_uuid,
-            resource_physical_page_number,
-            resource_fts_title,
-            -- TAG TO DO determine how populated;
-            -- focus_area is null when focus_area_id is not
-            resource_focus_area
-        )
+      resource_id,
+      resource_program_id,
+      resource_author_id,
+      resource_code,
+      resource_title,
+      resource_order_number,
+      is_resource_legacy,
+      is_resource_downloadable,
+      resource_provider_id,
+      is_resource_public,
+      resource_publication_status,
+      resource_publication_origin_id,
+      resource_focus_area,
+      -- resource_focus_area_id, -- add dimension tables later for focus areas
+      -- resource_sub_focus_area_id,
+      resource_estimated_time,
+      resource_physical_reference,
+      resource_type
     from
         {{ ref('dim_resources_current') }}
 ),
@@ -110,7 +107,14 @@ user_events_exact as (
   select 
     events.event_id,
     events.user_id,
-    users_history.* exclude (user_id, dbt_valid_from, dbt_valid_to)
+    users_history.district_id,
+    users_history.user_invite_status,
+    users_history.user_role
+    -- users_history.user_grades,
+    -- users_history.user_other_grades,
+    -- users_history.user_email_sent_utc,
+    -- users_history.user_updated_at_utc,
+    -- users_history.user_created_at_utc,
   from events
   inner join users_history on events.user_id = users_history.user_id
     and users_history.dbt_valid_from <= events.client_timestamp
@@ -121,7 +125,9 @@ user_events_fallback as (
   select 
     events.event_id,
     events.user_id,
-    users_history.* exclude (user_id, dbt_valid_from, dbt_valid_to)
+    users_history.district_id,
+    users_history.user_invite_status,
+    users_history.user_role
   from events
   left join user_events_exact on events.event_id = user_events_exact.event_id
   inner join users_history on events.user_id = users_history.user_id
@@ -155,7 +161,7 @@ joined as (
     districts.* exclude (district_id),
     programs.* exclude (program_id),
     -- add focus_area table later as needed
-    resources.* exclude (resource_id, resource_focus_area_id),
+    resources.* exclude (resource_id),
     datespine.* exclude (date_day)
 from
   events 
