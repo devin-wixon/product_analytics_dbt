@@ -76,7 +76,41 @@ semantic_models:
         description: "{{ doc('client_event_date') }}"
         type_params:
           time_granularity: day
+
+      - name: metric_time_day
+        type: time
+        description: "{{ doc('client_event_date') }}"
+        expr: client_event_date
+        type_params:
+          time_granularity: day
           
+      - name: metric_time_week
+        type: time
+        description: "Event client date aggregated to week level"
+        expr: client_event_date
+        type_params:
+          time_granularity: week
+
+      - name: metric_time_month
+        type: time
+        description: "Event client date aggregated to month level"
+        expr: client_event_date
+        type_params:
+          time_granularity: month
+
+      - name: metric_time_quarter
+        type: time
+        description: "Event client date aggregated to quarter level"
+        expr: client_event_date
+        type_params:
+          time_granularity: quarter
+
+      - name: metric_time_year
+        type: time
+        description: "Event client date aggregated to year level"
+        expr: client_event_date
+        type_params:
+          time_granularity: year
 
       # - name: server_event_date
       #   type: time
@@ -89,11 +123,13 @@ semantic_models:
         description: ""
         agg: count
         expr: event_id
+        create_metric: True
 
       - name: n_users_with_any_event
         description: "Count of unique users with any type of event, excluding students"
         agg: count_distinct
         expr: user_id
+        create_metric: True
 
       # - name: n_sessions
       #   description: "Count of unique sessions"
@@ -105,16 +141,19 @@ semantic_models:
         description: "Count of unique resources accessed"
         agg: count_distinct
         expr: resource_id
+        create_metric: True
 
       - name: n_programs_accessed
         description: "Count of unique programs accessed"
         agg: count_distinct
         expr: program_id
+        create_metric: True
 
       - name: n_applications_launched
         description: "Count of unique applications (third party products such as Cognitive Toy Box) launched"
         agg: count_distinct
         expr: application_name
+        create_metric: True
 
       
       # counts of events
