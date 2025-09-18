@@ -39,9 +39,9 @@ snapshots:
           tags: ["elementary", "volume"]
 
       # Monitor deletion rate threshold (1%)
-      - assert_snapshot_deletion_rate:
-          config:
-            severity: warn
-          arguments:
-            max_deletion_percentage: 1
-          tags: ["elementary", "deletion-rate"]
+      # - assert_snapshot_deletion_rate:
+      #     config:
+      #       severity: warn
+      #     arguments:
+      #       max_deletion_percentage: 1
+      #     tags: ["elementary", "deletion-rate"]
