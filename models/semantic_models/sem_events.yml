@@ -120,14 +120,14 @@ semantic_models:
     
     measures:
       - name: n_events
-        description: "Count of logged events. Note that the count may change due to event logging changes, rather than due to user volume or user behavior."
+        description: "Count of events that we capture. Note that the count may change due to event logging changes, rather than due to user volume or user behavior."
         agg: count
         expr: event_id
         create_metric: True
         label: "Count of Events"
 
       - name: n_active_users
-        description: "Count of unique users with any type of event, excluding students"
+        description: "Count of unique users with any type of event that we capture, excluding students"
         agg: count_distinct
         expr: user_id
         create_metric: True
