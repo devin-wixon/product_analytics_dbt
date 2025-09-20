@@ -1,0 +1,57 @@
+version: 2
+
+# purpose: Save and export queries at different time granularities and dimensions to test performance
+# will export these then union to be a Tableau data source
+
+saved_queries:
+  # ---- Month × Program ----------------------------------------------
+  - name: sq_month_program
+    description: "Metrics by month and program"
+    query_params:
+      metrics:
+        - n_active_users
+        - n_events
+      group_by:
+        - TimeDimension('event__metric_time_month', 'month')
+        - Dimension('program__program_name')
+    exports:
+      - name: qexptbl_month_program
+        config:
+          export_as: table
+          schema: "{{ 'exports' if target.name == 'prod' else target.schema }}"
+          alias: qexptbl_month_program
+
+  # ---- Month × Resource Type ----------------------------------------
+  - name: sq_month_resource_type
+    description: "Metrics by month and resource type"
+    query_params:
+      metrics:
+        - n_active_users
+        - n_events
+      group_by:
+        - TimeDimension('event__metric_time_month', 'month')
+        - Dimension('resource__resource_type')
+    exports:
+      - name: qexptbl_month_resource_type
+        config:
+          export_as: table
+          schema: "{{ 'exports' if target.name == 'prod' else target.schema }}"
+          alias: qexptbl_month_resource_type
+
+  # ---- Month × Program × Resource Type (cross-cut) ------------------
+  - name: sq_month_program_resource_type
+    description: "Metrics by month × program × resource type"
+    query_params:
+      metrics:
+        - n_active_users
+        - n_events
+      group_by:
+        - TimeDimension('event__metric_time_month', 'month')
+        - Dimension('program__program_name')
+        - Dimension('resource__resource_type')
+    exports:
+      - name: qexptbl_month_program_resource_type
+        config:
+          export_as: table
+          schema: "{{ 'exports' if target.name == 'prod' else target.schema }}"
+          alias: qexptbl_month_program_resource_type

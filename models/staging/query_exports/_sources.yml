@@ -1,0 +1,10 @@
+  version: 2
+
+sources:
+  - name: exports
+    schema: "{{ 'exports' if target.name == 'prod' else target.schema }}"
+    description: "Tables exported from dbt semantic layer saved queries, used as a source for unioning to create performant BI models."
+    tables:
+      - name: qexptbl_month_program
+      - name: qexptbl_month_resource_type
+      - name: qexptbl_month_program_resource_type
