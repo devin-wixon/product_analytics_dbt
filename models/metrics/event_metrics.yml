@@ -1,12 +1,13 @@
-metrics:
-  - name: n_active_users
-    description: "Count of unique users who performed any logged event"
-    type: simple
-    type_params:
-      measure: n_users_with_any_event
-    label: "Active Users"
-    meta:
-      semantic_model: "sem_events"
+# metrics:
+  # created as create_metric = True in sem_events
+  # - name: n_active_users
+  #   description: "Count of unique users who performed any logged event"
+  #   type: simple
+  #   type_params:
+  #     measure: n_users_with_any_event
+  #   label: "Active Users"
+  #   meta:
+  #     semantic_model: "sem_events"
 
   # TAG TO DO redo these using new category types
   # - name: n_users_opened_planner
@@ -42,3 +43,29 @@ metrics:
   #   meta:
   #     semantic_model: "sem_events"
 
+# saved_queries:
+#   - name: order_metrics
+#     description: Relevant order metrics
+#     config:
+#       tags:
+#         - order_metrics
+#     query_params:
+#       metrics:
+#         - orders
+#         - large_order
+#         - food_orders
+#         - order_total
+#       group_by:
+#         - Entity('order_id')
+#         - TimeDimension('metric_time', 'day')
+#         - Dimension('customer__customer_name')
+#         - ... # Additional group_by
+#       where:
+#         - "{{TimeDimension('metric_time')}} > current_timestamp - interval '1 week'"
+#         - ... # Additional where clauses
+#     exports:
+#       - name: order_metrics
+#         config:
+#           export_as: table # Options available: table, view
+#           alias: my_export_alias # Optional - defaults to Export name
+#           schema: my_export_schema_name # Optional - defaults to deployment schema

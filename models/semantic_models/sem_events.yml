@@ -70,7 +70,7 @@ semantic_models:
         
       # booleans
 
-      # date related
+      # date related; need to add metric_time dimensions for Tableau parameters
       - name: client_event_date
         type: time
         description: "{{ doc('client_event_date') }}"
@@ -120,16 +120,18 @@ semantic_models:
     
     measures:
       - name: n_events
-        description: ""
+        description: "Count of logged events. Note that the count may change due to event logging changes, rather than due to user volume or user behavior."
         agg: count
         expr: event_id
         create_metric: True
+        label: "Count of Events"
 
-      - name: n_users_with_any_event
+      - name: n_active_users
         description: "Count of unique users with any type of event, excluding students"
         agg: count_distinct
         expr: user_id
         create_metric: True
+        label: "Active Users"
 
       # - name: n_sessions
       #   description: "Count of unique sessions"
@@ -137,23 +139,23 @@ semantic_models:
       #   expr: session_uuid
 
       # counts of resources, programs, apps
-      - name: n_resources_accessed
-        description: "Count of unique resources accessed"
-        agg: count_distinct
-        expr: resource_id
-        create_metric: True
+      # - name: n_resources_accessed
+      #   description: "Count of unique resources accessed"
+      #   agg: count_distinct
+      #   expr: resource_id
+      #   create_metric: True
 
-      - name: n_programs_accessed
-        description: "Count of unique programs accessed"
-        agg: count_distinct
-        expr: program_id
-        create_metric: True
+      # - name: n_programs_accessed
+      #   description: "Count of unique programs accessed"
+      #   agg: count_distinct
+      #   expr: program_id
+      #   create_metric: True
 
-      - name: n_applications_launched
-        description: "Count of unique applications (third party products such as Cognitive Toy Box) launched"
-        agg: count_distinct
-        expr: application_name
-        create_metric: True
+      # - name: n_applications_launched
+      #   description: "Count of unique applications (third party products such as Cognitive Toy Box) launched"
+      #   agg: count_distinct
+      #   expr: application_name
+      #   create_metric: True
 
       
       # counts of events
