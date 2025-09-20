@@ -21,7 +21,7 @@ final as (
         created_at::timestamp as created_at_utc,
         updated_at::timestamp as updated_at_utc,
         deleted_at::timestamp as deleted_at_utc,
-        date(expiration_date::int) as expiration_date
+        expiration_date::timestamp as expiration_at_utc
     from source_table
 )
 
