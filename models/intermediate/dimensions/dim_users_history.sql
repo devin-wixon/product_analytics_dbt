@@ -1,7 +1,7 @@
 with
 
 users as (
-    select * exclude (dbt_scd_id, dbt_updated_at, dbt_is_deleted)
+    select * exclude (dbt_updated_at, dbt_is_deleted)
     from
         {{ ref('stg_taco__users') }}
 ),
@@ -34,6 +34,7 @@ joined as (
         users.user_email_sent_utc,
         users.user_updated_at_utc,
         users.user_created_at_utc,
+        users.dbt_scd_id,
         users.dbt_valid_from,
         users.dbt_valid_to
 

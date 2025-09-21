@@ -8,9 +8,11 @@ models:
       Filters: Limited to 100 rows in Development environment.
       Notes: Includes derived columns for program/resource joins, event type flags, and parsed path information.
     columns:
-      # staging tests for for unique and nonnull event_id
       - name: event_id
         description: "{{ doc('event_id') }}"
+        tests:
+          - unique
+          - not_null
       - name: server_timestamp
         description: "{{ doc('server_timestamp') }}"
       - name: client_timestamp

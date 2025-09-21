@@ -9,3 +9,6 @@ models:
     columns:
       - name: program_id
         description: "{{ doc('program_id') }}"
+        tests:
+          - unique
+          - not_null

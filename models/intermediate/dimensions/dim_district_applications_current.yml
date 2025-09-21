@@ -7,5 +7,10 @@ models:
       Granularity: One row per active district and application association, defined by `district_application_id`.
       Filters: Records where `dbt_valid_to` is null (current records only).
     columns:
+      # source tests for unique district_id x application_id combination
+      - name: district_application_id
+        tests:
+          - unique
+          - not_null
       - name: district_id
         description: "{{ doc('district_id') }}"

@@ -9,6 +9,9 @@ models:
     columns:
       - name: resource_id
         description: "{{ doc('resource_id') }}"
+        tests:
+          - unique
+          - not_null
       - name: resource_folder_id
         description: "{{ doc('folder_id') }}"
       - name: resource_program_id

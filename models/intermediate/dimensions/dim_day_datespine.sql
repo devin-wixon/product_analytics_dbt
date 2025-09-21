@@ -14,10 +14,7 @@ calendar_dates as (
 final as (
 
     select
-        {{ dbt_utils.generate_surrogate_key(
-            ['date(date_day)']
-        )}} as calendar_date_sk,
-
+        -- date_day will serve as the natural key
         date_day::date as date_day,
         date_trunc('week', date_day) as week_monday_date,
 

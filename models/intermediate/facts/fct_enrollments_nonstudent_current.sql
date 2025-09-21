@@ -43,6 +43,7 @@ user_current_enrollment as (
 
 final as (
     select
+        enrollment_id,
         user_id,
         user_role,
         class_id,

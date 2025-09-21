@@ -29,6 +29,12 @@ models:
 
       - name: user_other_grades
         description: "{{ doc('user_other_grades') }}"
+      
+      - name: dbt_scd_id
+        description: "{{ doc('dbt_scd_id') }}"
+        tests:
+          - unique
+          - not_null
 
       - name: dbt_valid_from
         description: "{{ doc('dbt_valid_from') }}"

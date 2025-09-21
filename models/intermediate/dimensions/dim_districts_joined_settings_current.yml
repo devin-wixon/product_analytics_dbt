@@ -9,6 +9,9 @@ models:
     columns:
       - name: district_id
         description: "{{ doc('district_id') }}"
+        tests:
+          - unique
+          - not_null
       - name: district_name
         description: "{{ doc('district_name') }}"
       - name: district_address

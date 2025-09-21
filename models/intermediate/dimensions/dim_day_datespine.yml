@@ -6,14 +6,19 @@ models:
       Purpose: Calendar dimension table with date attributes for analytics.
       Granularity: One row per calendar date from 2025-02-01 to 2050-12-31.
       Notes: Used for semantic modeling datespine and other date-based analyses.
+    
     # this associates it as a MetricFlow model
     time_spine:
       standard_granularity_column: date_day
+    
     columns:
-      - name: calendar_date_sk
-        description: Surrogate key for the calendar date dimension.
+      # - name: calendar_date_sk
+      #   description: Surrogate key for the calendar date dimension.
       - name: date_day
         description: The calendar date.
+        tests:
+          - unique
+          - not_null
         granularity: day
       - name: week_monday_date
         description: Date of the Monday for the week containing the calendar date.

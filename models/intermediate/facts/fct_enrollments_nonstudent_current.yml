@@ -16,6 +16,10 @@ models:
               - class_id
               - school_id
     columns:
+      - name: enrollment_id
+        tests:
+          - not_null
+          - unique
       - name: user_id
         description: "{{ doc('user_id') }}"
       - name: user_role

@@ -7,6 +7,10 @@ models:
       Granularity: One row per district-program combination that is currently active.  
       Filters: Only includes records where `dbt_valid_to` is null (current records).  
     columns:
+      - name: district_program_id_sk
+        tests:
+          - unique
+          - not_null
       - name: district_id
         description: "{{ doc('district_id') }}"
       - name: program_id
