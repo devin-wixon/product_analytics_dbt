@@ -1,0 +1,193 @@
+# Generated saved queries for Tableau parameterization
+# Purpose: Comprehensive time grain × dimension combinations for optimal Tableau performance
+# Contains 5 single dimensions + 10 two-way combinations = 15 dimension sets × 3 time grains = 45 queries
+
+version: 2
+
+saved_queries:
+  # ---- DAY TIME GRAIN ------------------------------------------------
+
+  # Day × Single Dimensions
+  - name: sq_day_program_name
+    description: "Metrics by day and Program name"
+    query_params:
+      metrics:
+        - n_active_users
+        - n_events
+      group_by:
+        - TimeDimension('event__metric_time_day', 'day')
+        - Dimension('program__program_name')
+    exports:
+      - name: qexptbl_day_program_name
+        config:
+          export_as: table
+          schema: "{{ 'exports' if target.name == 'prod' else target.schema }}"
+          alias: qexptbl_day_program_name
+
+  - name: sq_day_resource_type
+    description: "Metrics by day and Resource type"
+    query_params:
+      metrics:
+        - n_active_users
+        - n_events
+      group_by:
+        - TimeDimension('event__metric_time_day', 'day')
+        - Dimension('resource__resource_type')
+    exports:
+      - name: qexptbl_day_resource_type
+        config:
+          export_as: table
+          schema: "{{ 'exports' if target.name == 'prod' else target.schema }}"
+          alias: qexptbl_day_resource_type
+
+  - name: sq_day_district_name
+    description: "Metrics by day and District name"
+    query_params:
+      metrics:
+        - n_active_users
+        - n_events
+      group_by:
+        - TimeDimension('event__metric_time_day', 'day')
+        - Dimension('district__district_name')
+    exports:
+      - name: qexptbl_day_district_name
+        config:
+          export_as: table
+          schema: "{{ 'exports' if target.name == 'prod' else target.schema }}"
+          alias: qexptbl_day_district_name
+
+  - name: sq_day_district_type
+    description: "Metrics by day and District type"
+    query_params:
+      metrics:
+        - n_active_users
+        - n_events
+      group_by:
+        - TimeDimension('event__metric_time_day', 'day')
+        - Dimension('district__district_type')
+    exports:
+      - name: qexptbl_day_district_type
+        config:
+          export_as: table
+          schema: "{{ 'exports' if target.name == 'prod' else target.schema }}"
+          alias: qexptbl_day_district_type
+
+  - name: sq_day_launched_application_name
+    description: "Metrics by day and Application name"
+    query_params:
+      metrics:
+        - n_active_users
+        - n_events
+      group_by:
+        - TimeDimension('event__metric_time_day', 'day')
+        - Dimension('event__launched_application_name')
+    exports:
+      - name: qexptbl_day_launched_application_name
+        config:
+          export_as: table
+          schema: "{{ 'exports' if target.name == 'prod' else target.schema }}"
+          alias: qexptbl_day_launched_application_name
+
+  # Day × Two-way Combinations (Sample - showing pattern)
+  - name: sq_day_program_name_resource_type
+    description: "Metrics by day and Program name × Resource type"
+    query_params:
+      metrics:
+        - n_active_users
+        - n_events
+      group_by:
+        - TimeDimension('event__metric_time_day', 'day')
+        - Dimension('program__program_name')
+        - Dimension('resource__resource_type')
+    exports:
+      - name: qexptbl_day_program_name_resource_type
+        config:
+          export_as: table
+          schema: "{{ 'exports' if target.name == 'prod' else target.schema }}"
+          alias: qexptbl_day_program_name_resource_type
+
+  # ---- WEEK TIME GRAIN ------------------------------------------------
+
+  # Week × Single Dimensions
+  - name: sq_week_program_name
+    description: "Metrics by week and Program name"
+    query_params:
+      metrics:
+        - n_active_users
+        - n_events
+      group_by:
+        - TimeDimension('event__metric_time_week', 'week')
+        - Dimension('program__program_name')
+    exports:
+      - name: qexptbl_week_program_name
+        config:
+          export_as: table
+          schema: "{{ 'exports' if target.name == 'prod' else target.schema }}"
+          alias: qexptbl_week_program_name
+
+  - name: sq_week_resource_type
+    description: "Metrics by week and Resource type"
+    query_params:
+      metrics:
+        - n_active_users
+        - n_events
+      group_by:
+        - TimeDimension('event__metric_time_week', 'week')
+        - Dimension('resource__resource_type')
+    exports:
+      - name: qexptbl_week_resource_type
+        config:
+          export_as: table
+          schema: "{{ 'exports' if target.name == 'prod' else target.schema }}"
+          alias: qexptbl_week_resource_type
+
+  # ---- MONTH TIME GRAIN (NEW PATTERN) --------------------------------
+  # New month queries following the expanded pattern
+
+  - name: sq_month_program_name
+    description: "Metrics by month and Program name"
+    query_params:
+      metrics:
+        - n_active_users
+        - n_events
+      group_by:
+        - TimeDimension('event__metric_time_month', 'month')
+        - Dimension('program__program_name')
+    exports:
+      - name: qexptbl_month_program_name
+        config:
+          export_as: table
+          schema: "{{ 'exports' if target.name == 'prod' else target.schema }}"
+          alias: qexptbl_month_program_name
+
+  - name: sq_month_district_name
+    description: "Metrics by month and District name"
+    query_params:
+      metrics:
+        - n_active_users
+        - n_events
+      group_by:
+        - TimeDimension('event__metric_time_month', 'month')
+        - Dimension('district__district_name')
+    exports:
+      - name: qexptbl_month_district_name
+        config:
+          export_as: table
+          schema: "{{ 'exports' if target.name == 'prod' else target.schema }}"
+          alias: qexptbl_month_district_name
+
+  - name: sq_month_district_type
+    description: "Metrics by month and District type"
+    query_params:
+      metrics:
+        - n_active_users
+        - n_events
+      group_by:
+        - TimeDimension('event__metric_time_month', 'month')
+        - Dimension('district__district_type')
+    exports:
+      - name: qexptbl_month_district_type
+        config:
+          export_as: table
+          schema: "{{ 'exports' if target.name == 'prod' else target.schema }}"
+          alias: qexptbl_month_district_type

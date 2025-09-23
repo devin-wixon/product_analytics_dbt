@@ -76,52 +76,52 @@ semantic_models:
 
     measures:
       # User-level activity measures (for distribution analysis)
-      - name: active_days_per_user
+      - name: n_active_days_per_user
         description: "Number of unique active days per user in the time period (for median/distribution analysis)"
         agg: count_distinct
         expr: client_event_date
         create_metric: True
         label: "Active Days per User"
 
-      - name: events_per_user
-        description: "Number of events per user in the time period"
+      - name: sum_events_per_user
+        description: "Total number of events per user in the time period"
         agg: sum
         expr: n_events_per_user_day
         create_metric: True
         label: "Events per User"
 
       # User counting measures (for percentage calculations)
-      - name: total_active_users
+      - name: n_active_users
         description: "Count of users who were active in the time period and dimensional context"
         agg: count_distinct
         expr: user_id
         create_metric: True
-        label: "Total Active Users"
+        label: "Active Users"
 
       # Per-user event activity measures (for distribution analysis)
-      - name: planner_launch_days_per_user
-        description: "Number of days with planner launch activity per user in the time period"
+      - name: sum_planner_launch_days_per_user
+        description: "Total days with planner launch activity per user in the time period"
         agg: sum
         expr: had_planner_launch_activity_per_user_day
         create_metric: True
         label: "Planner Launch Days per User"
 
-      - name: app_launch_days_per_user
-        description: "Number of days with app launch activity per user in the time period"
+      - name: sum_app_launch_days_per_user
+        description: "Total days with app launch activity per user in the time period"
         agg: sum
         expr: had_app_launch_activity_per_user_day
         create_metric: True
         label: "App Launch Days per User"
 
-      - name: resource_download_days_per_user
-        description: "Number of days with resource download activity per user in the time period"
+      - name: sum_resource_download_days_per_user
+        description: "Total days with resource download activity per user in the time period"
         agg: sum
         expr: had_resource_download_activity_per_user_day
         create_metric: True
         label: "Resource Download Days per User"
 
-      - name: login_days_per_user
-        description: "Number of days with login activity per user in the time period"
+      - name: sum_login_days_per_user
+        description: "Total days with login activity per user in the time period"
         agg: sum
         expr: had_login_activity_per_user_day
         create_metric: True
