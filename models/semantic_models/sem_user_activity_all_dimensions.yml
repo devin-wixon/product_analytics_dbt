@@ -110,9 +110,8 @@ semantic_models:
         create_metric: True
         label: "Users in Analysis"
 
-      # Per-user event activity measures (for distribution analysis)
+      # Per-user DAYS count activity measures (for distribution analysis)
       # NOTE: These are manually maintained - add new event categories as they appear in seed_event_log_metadata
-
       - name: n_planner_launch_days_per_user
         description: "Number of unique days with planner launch activity per user, within any selected dimensional context (ex: district, program, resource, application)"
         agg: count_distinct
@@ -127,12 +126,19 @@ semantic_models:
         create_metric: True
         label: "App Launch Days per User"
 
-      - name: n_login_days_per_user
-        description: "Number of unique days with login activity per user, within any selected dimensional context (ex: district, program, resource, application)"
+      - name: n_music_action_days_per_user
+        description: "Number of unique days with music action activity per user, within any selected dimensional context (ex: district, program, resource, application)"
         agg: count_distinct
-        expr: case when had_login_activity_per_user_day_context = 1 then client_event_date end
+        expr: case when had_music_action_activity_per_user_day_context = 1 then client_event_date end
         create_metric: True
-        label: "Login Days per User"
+        label: "Music Action Days per User"
+
+      # - name: n_login_days_per_user
+      #   description: "Number of unique days with login activity per user, within any selected dimensional context (ex: district, program, resource, application)"
+      #   agg: count_distinct
+      #   expr: case when had_login_activity_per_user_day_context = 1 then client_event_date end
+      #   create_metric: True
+      #   label: "Login Days per User"
 
       - name: n_resource_download_days_per_user
         description: "Number of unique days with resource download activity per user, within any selected dimensional context (ex: district, program, resource, application)"
@@ -141,31 +147,24 @@ semantic_models:
         create_metric: True
         label: "Resource Download Days per User"
 
-      # Percentage metrics - users with event activity in dimensional context
-      - name: pct_users_with_planner_launch_activity
-        description: "Percentage of users with planner launch activity within the selected dimensional context and time grain"
+      # Numerator metrics for percentage calculations - users with event activity
+      - name: n_users_with_planner_launch_activity
+        description: "Count of users with planner launch activity within the selected dimensional context and time grain (numerator for percentage)"
         agg: count_distinct
         expr: case when had_planner_launch_activity_per_user_day_context = 1 then user_id end
         create_metric: True
-        label: "% Users with Planner Launch Activity"
+        label: "Users with Planner Launch Activity"
 
-      - name: pct_users_with_app_launch_activity
-        description: "Percentage of users with app launch activity within the selected dimensional context and time grain"
+      - name: n_users_with_app_launch_activity
+        description: "Count of users with app launch activity within the selected dimensional context and time grain (numerator for percentage)"
         agg: count_distinct
         expr: case when had_app_launch_activity_per_user_day_context = 1 then user_id end
         create_metric: True
-        label: "% Users with App Launch Activity"
+        label: "Users with App Launch Activity"
 
-      - name: pct_users_with_login_activity
-        description: "Percentage of users with login activity within the selected dimensional context and time grain"
-        agg: count_distinct
-        expr: case when had_login_activity_per_user_day_context = 1 then user_id end
-        create_metric: True
-        label: "% Users with Login Activity"
-
-      - name: pct_users_with_resource_download_activity
-        description: "Percentage of users with resource download activity within the selected dimensional context and time grain"
+      - name: n_users_with_resource_download_activity
+        description: "Count of users with resource download activity within the selected dimensional context and time grain (numerator for percentage)"
         agg: count_distinct
         expr: case when had_resource_download_activity_per_user_day_context = 1 then user_id end
         create_metric: True
-        label: "% Users with Resource Download Activity"
+        label: "Users with Resource Download Activity"
