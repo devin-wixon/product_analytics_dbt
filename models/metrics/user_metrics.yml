@@ -12,7 +12,6 @@ metrics:
     label: "% Users with Planner Launch Activity"
     meta:
       semantic_model: "sem_user_activity_all_dimensions"
-      format: "percent"
 
   - name: pct_users_with_app_launch_activity
     description: "Percentage of users with app launch activity within the selected dimensional context and time grain"
@@ -23,7 +22,6 @@ metrics:
     label: "% Users with App Launch Activity"
     meta:
       semantic_model: "sem_user_activity_all_dimensions"
-      format: "percent"
 
   - name: pct_users_with_resource_download_activity
     description: "Percentage of users with resource download activity within the selected dimensional context and time grain"
@@ -34,7 +32,6 @@ metrics:
     label: "% Users with Resource Download Activity"
     meta:
       semantic_model: "sem_user_activity_all_dimensions"
-      format: "percent"
 
   - name: pct_users_with_music_action_activity
     description: "Percentage of users with music action activity within the selected dimensional context and time grain"
@@ -45,7 +42,7 @@ metrics:
     label: "% Users with Music Action Activity"
     meta:
       semantic_model: "sem_user_activity_all_dimensions"
-      format: "percent"
+      
 
   # Example usage metrics for different time grains
   # - name: weekly_pct_users_with_planner_launch

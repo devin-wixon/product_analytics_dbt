@@ -8,7 +8,7 @@ sources:
 {%- set time_grains = get_time_grains() %}
 {%- set dimension_combos = get_all_dimension_combinations() %}
 
-      # Dynamically generated tableau exports
+      # Dynamically generated BI (ex: Tableau) exports
 {%- for time_grain in time_grains %}
 {%- for dimension_combo in dimension_combos %}
       - name: qexptbl_{{ time_grain.name }}_{{ dimension_combo.id }}

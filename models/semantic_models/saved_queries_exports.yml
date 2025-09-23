@@ -1,6 +1,6 @@
 version: 2
 
-# Purpose: Dynamically generated saved queries for Tableau parameterization
+# Purpose: Dynamically generated saved queries for exports used for BI (ex: Tableau) parameterization
 # Generates queries for all time grains (day, week, month) × all dimension combinations
 # Supports 5 single dimensions + 10 two-way combinations = 15 dimension sets × 3 time grains = 45 queries
 

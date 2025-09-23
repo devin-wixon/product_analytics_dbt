@@ -2,11 +2,11 @@
     Semantic Layer Helper Macros
 
     Purpose: Generate dimension combinations and saved queries dynamically
-    for scalable Tableau parameterization across time grains and dimensions.
+    for scalable query exports (ex: for Tableau) parameterization across time grains and dimensions.
 #}
 
 {# Configuration for dimensions and time grains #}
-{% macro get_tableau_dimensions() %}
+{% macro get_export_dimensions() %}
     {% set dimensions = [
         {'name': 'program_name', 'label': 'Program name', 'semantic_ref': 'program__program_name'},
         {'name': 'resource_type', 'label': 'Resource type', 'semantic_ref': 'resource__resource_type'},
@@ -26,14 +26,14 @@
     {{ return(time_grains) }}
 {% endmacro %}
 
-{% macro get_tableau_metrics() %}
+{% macro get_export_metrics() %}
     {% set metrics = ['n_active_users', 'n_events'] %}
     {{ return(metrics) }}
 {% endmacro %}
 
 {# Generate all single dimension combinations #}
 {% macro get_single_dimension_combinations() %}
-    {% set dimensions = get_tableau_dimensions() %}
+    {% set dimensions = get_export_dimensions() %}
     {% set combinations = [] %}
 
     {% for dim in dimensions %}
@@ -50,7 +50,7 @@
 
 {# Generate all 2x dimension combinations #}
 {% macro get_two_dimension_combinations() %}
-    {% set dimensions = get_tableau_dimensions() %}
+    {% set dimensions = get_export_dimensions() %}
     {% set combinations = [] %}
 
     {% for i in range(dimensions|length) %}
@@ -90,7 +90,7 @@
 
 {# Generate saved query configuration for a specific time grain and dimension combination #}
 {% macro generate_saved_query_config(time_grain, dimension_combo) %}
-    {% set metrics = get_tableau_metrics() %}
+    {% set metrics = get_export_metrics() %}
     {% set query_name = 'sq_' ~ time_grain.name ~ '_' ~ dimension_combo.id %}
     {% set export_name = 'qexptbl_' ~ time_grain.name ~ '_' ~ dimension_combo.id %}
 
@@ -141,7 +141,7 @@
 {% endmacro %}
 
 {# Generate CTE for tableau_time_grains_dims model #}
-{% macro generate_tableau_cte(time_grain, dimension_combo) %}
+{% macro generate_export_cte(time_grain, dimension_combo) %}
     {% set cte_name = time_grain.name ~ '_' ~ dimension_combo.id %}
     {% set source_name = 'qexptbl_' ~ time_grain.name ~ '_' ~ dimension_combo.id %}
     {% set time_column = 'event__metric_time_' ~ time_grain.name ~ '__' ~ time_grain.name %}
@@ -186,14 +186,14 @@
 {% endmacro %}
 
 {# Generate all CTEs for tableau_time_grains_dims model #}
-{% macro generate_all_tableau_ctes() %}
+{% macro generate_all_export_ctes() %}
     {% set time_grains = get_time_grains() %}
     {% set dimension_combos = get_all_dimension_combinations() %}
     {% set all_ctes = [] %}
 
     {% for time_grain in time_grains %}
         {% for dimension_combo in dimension_combos %}
-            {% set cte_sql = generate_tableau_cte(time_grain, dimension_combo) %}
+            {% set cte_sql = generate_export_cte(time_grain, dimension_combo) %}
             {% set _ = all_ctes.append(cte_sql) %}
         {% endfor %}
     {% endfor %}
@@ -202,7 +202,7 @@
 {% endmacro %}
 
 {# Generate UNION ALL for tableau_time_grains_dims final CTE #}
-{% macro generate_tableau_union() %}
+{% macro generate_export_union() %}
     {% set time_grains = get_time_grains() %}
     {% set dimension_combos = get_all_dimension_combinations() %}
     {% set union_parts = [] %}
