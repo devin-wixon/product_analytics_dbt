@@ -22,6 +22,11 @@ sources:
             data_tests:
               - unique
               - not_null
+          - name: user_id
+            data_tests:
+              - not_null
+            config:
+              severity: warn
               # complete this once pipe is running
             # freshness:
             #   warn_after: { count: 1, period: day }
