@@ -153,20 +153,20 @@
           '{{ time_grain.name }}' as time_grain,
           '{{ dimension_combo.id }}' as dim_set,
           {%- if dimension_combo.dimensions|length == 0 %}
-          'All' as dim_a_label,
-          null as dim_b_label,
-          'All' as dim_a_value,
-          cast(null as varchar) as dim_b_value,
+                'All' as dim_a_label,
+                null as dim_b_label,
+                'All' as dim_a_value,
+                cast(null as varchar) as dim_b_value,
           {%- elif dimension_combo.dimensions|length == 1 %}
-          '{{ dimension_combo.dimensions[0].label }}' as dim_a_label,
-          null as dim_b_label,
-          {{ dimension_combo.dimensions[0].semantic_ref }} as dim_a_value,
-          cast(null as varchar) as dim_b_value,
+                '{{ dimension_combo.dimensions[0].label }}' as dim_a_label,
+                null as dim_b_label,
+                {{ dimension_combo.dimensions[0].semantic_ref }} as dim_a_value,
+                cast(null as varchar) as dim_b_value,
           {%- else %}
-          '{{ dimension_combo.dimensions[0].label }}' as dim_a_label,
-          '{{ dimension_combo.dimensions[1].label }}' as dim_b_label,
-          {{ dimension_combo.dimensions[0].semantic_ref }} as dim_a_value,
-          {{ dimension_combo.dimensions[1].semantic_ref }} as dim_b_value,
+                '{{ dimension_combo.dimensions[0].label }}' as dim_a_label,
+                '{{ dimension_combo.dimensions[1].label }}' as dim_b_label,
+                {{ dimension_combo.dimensions[0].semantic_ref }} as dim_a_value,
+                {{ dimension_combo.dimensions[1].semantic_ref }} as dim_b_value,
           {%- endif %}
           n_active_users,
           n_events

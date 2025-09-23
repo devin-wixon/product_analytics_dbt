@@ -1,0 +1,31 @@
+version: 2
+
+# Purpose: Dynamically generated saved queries for Tableau parameterization
+# Generates queries for all time grains (day, week, month) × all dimension combinations
+# Supports 5 single dimensions + 10 two-way combinations = 15 dimension sets × 3 time grains = 45 queries
+
+saved_queries:
+{%- set all_queries = generate_all_saved_queries() %}
+{%- for query in all_queries %}
+
+  # {{ query.description }}
+  - name: {{ query.name }}
+    description: "{{ query.description }}"
+    query_params:
+      metrics:
+{%- for metric in query.query_params.metrics %}
+        - {{ metric }}
+{%- endfor %}
+      group_by:
+{%- for group_by_item in query.query_params.group_by %}
+        - {{ group_by_item }}
+{%- endfor %}
+    exports:
+{%- for export in query.exports %}
+      - name: {{ export.name }}
+        config:
+          export_as: {{ export.config.export_as }}
+          schema: {{ export.config.schema }}
+          alias: {{ export.config.alias }}
+{%- endfor %}
+{%- endfor %}

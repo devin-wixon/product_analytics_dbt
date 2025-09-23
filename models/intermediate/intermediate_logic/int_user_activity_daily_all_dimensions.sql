@@ -1,8 +1,7 @@
 with events as (
     select *
-    from {{ ref('fct_events') }}
-    where user_id is not null
-        and client_event_date is not null
+    from 
+        {{ ref('fct_events') }}
 ),
 
 -- Get all boolean event columns dynamically
@@ -28,28 +27,32 @@ user_daily_activity as (
             "coalesce(application_name, 'none')"
         ]) }} as user_daily_context_pk,
 
-        count(event_id) as n_events_per_user_day,
-        1 as had_events_per_user_day,
+        count(event_id) as n_events_per_user_day_context,
+        1 as had_events_per_user_day_context,
 
         -- Dynamically create activity flags for all event types
         {% for col in boolean_event_columns %}
-        max({{ col }}) as had_{{ col.replace('is_', '').replace('_event', '') }}_activity_per_user_day,
+            max({{ col }}) as had_{{ col.replace('is_', '').replace('_event', '') }}_activity_per_user_day_context,
         {% endfor %}
 
-        -- Include key dimensional columns explicitly to avoid exclusion issues
+        -- Include key dimensional context columns
         user_id,
         client_event_date,
         district_id,
         program_id,
         resource_id,
         application_name
-    from events
+    from 
+        events
     group by all
 ),
 
 final as (
     select *
-    from user_daily_activity
+    from 
+        user_daily_activity
 )
 
-select * from final
+select * 
+from 
+    final

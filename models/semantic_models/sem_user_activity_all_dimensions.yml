@@ -1,7 +1,7 @@
 semantic_models:
   - name: sem_user_activity_all_dimensions
     description: |
-      Purpose: User daily activity patterns across all event types and dimensions for statistical analysis.
+      Purpose: User daily activity patterns across all event types and dimensions for flexible aggregation.
       Granularity: One row per user per day per dimensional context.
       Notes: Dynamically adapts to new event categories and supports flexible time grain aggregation.
     model: ref('int_user_activity_daily_all_dimensions')
@@ -12,15 +12,19 @@ semantic_models:
       - name: user_daily_context
         type: primary
         expr: user_daily_context_pk
+
       - name: user
         type: foreign
         expr: user_id
+
       - name: district
         type: foreign
         expr: district_id
+
       - name: program
         type: foreign
         expr: program_id
+
       - name: resource
         type: foreign
         expr: resource_id
@@ -30,18 +34,22 @@ semantic_models:
       - name: user_id
         type: categorical
         description: "{{ doc('user_id') }}"
+
       - name: district_id
         type: categorical
         description: "{{ doc('district_id') }}"
+
       - name: program_id
         type: categorical
         description: "{{ doc('program_id') }}"
+
       - name: resource_id
         type: categorical
         description: "{{ doc('resource_id') }}"
+
       - name: application_name
         type: categorical
-        description: "Application name for third-party product launches"
+        description: "{ doc('application_name') }"
 
       # Flexible time dimensions
       - name: client_event_date
@@ -49,24 +57,28 @@ semantic_models:
         description: "{{ doc('client_event_date') }}"
         type_params:
           time_granularity: day
+
       - name: metric_time_day
         type: time
         description: "Daily time dimension for user activity"
         expr: client_event_date
         type_params:
           time_granularity: day
+
       - name: metric_time_week
         type: time
         description: "Weekly time dimension for user activity"
         expr: client_event_date
         type_params:
           time_granularity: week
+
       - name: metric_time_month
         type: time
         description: "Monthly time dimension for user activity"
         expr: client_event_date
         type_params:
           time_granularity: month
+          
       - name: metric_time_quarter
         type: time
         description: "Quarterly time dimension for user activity"
@@ -77,52 +89,83 @@ semantic_models:
     measures:
       # User-level activity measures (for distribution analysis)
       - name: n_active_days_per_user
-        description: "Number of unique active days per user in the time period (for median/distribution analysis)"
+        description: "Number of unique active days per user, within any selected dimensional context (ex: district, program, resource, application)"
         agg: count_distinct
         expr: client_event_date
         create_metric: True
         label: "Active Days per User"
 
       - name: sum_events_per_user
-        description: "Total number of events per user in the time period"
+        description: "Total number of events per user, within any selected dimensional context (ex: district, program, resource, application)"
         agg: sum
-        expr: n_events_per_user_day
+        expr: n_events_per_user_day_context
         create_metric: True
         label: "Events per User"
 
-      # User counting measures (for percentage calculations)
-      - name: n_active_users
-        description: "Count of users who were active in the time period and dimensional context"
+      # User counting measures (for percentage calculations and statistical analysis)
+      - name: n_users_in_analysis
+        description: "Count of unique users, within any selected dimensional context (ex: district, program, resource, application)"
         agg: count_distinct
         expr: user_id
         create_metric: True
-        label: "Active Users"
+        label: "Users in Analysis"
 
       # Per-user event activity measures (for distribution analysis)
-      - name: sum_planner_launch_days_per_user
-        description: "Total days with planner launch activity per user in the time period"
-        agg: sum
-        expr: had_planner_launch_activity_per_user_day
+      # NOTE: These are manually maintained - add new event categories as they appear in seed_event_log_metadata
+
+      - name: n_planner_launch_days_per_user
+        description: "Number of unique days with planner launch activity per user, within any selected dimensional context (ex: district, program, resource, application)"
+        agg: count_distinct
+        expr: case when had_planner_launch_activity_per_user_day_context = 1 then client_event_date end
         create_metric: True
         label: "Planner Launch Days per User"
 
-      - name: sum_app_launch_days_per_user
-        description: "Total days with app launch activity per user in the time period"
-        agg: sum
-        expr: had_app_launch_activity_per_user_day
+      - name: n_app_launch_days_per_user
+        description: "Number of unique days with app launch activity per user, within any selected dimensional context (ex: district, program, resource, application)"
+        agg: count_distinct
+        expr: case when had_app_launch_activity_per_user_day_context = 1 then client_event_date end
         create_metric: True
         label: "App Launch Days per User"
 
-      - name: sum_resource_download_days_per_user
-        description: "Total days with resource download activity per user in the time period"
-        agg: sum
-        expr: had_resource_download_activity_per_user_day
+      - name: n_login_days_per_user
+        description: "Number of unique days with login activity per user, within any selected dimensional context (ex: district, program, resource, application)"
+        agg: count_distinct
+        expr: case when had_login_activity_per_user_day_context = 1 then client_event_date end
+        create_metric: True
+        label: "Login Days per User"
+
+      - name: n_resource_download_days_per_user
+        description: "Number of unique days with resource download activity per user, within any selected dimensional context (ex: district, program, resource, application)"
+        agg: count_distinct
+        expr: case when had_resource_download_activity_per_user_day_context = 1 then client_event_date end
         create_metric: True
         label: "Resource Download Days per User"
 
-      - name: sum_login_days_per_user
-        description: "Total days with login activity per user in the time period"
-        agg: sum
-        expr: had_login_activity_per_user_day
+      # Percentage metrics - users with event activity in dimensional context
+      - name: pct_users_with_planner_launch_activity
+        description: "Percentage of users with planner launch activity within the selected dimensional context and time grain"
+        agg: count_distinct
+        expr: case when had_planner_launch_activity_per_user_day_context = 1 then user_id end
         create_metric: True
-        label: "Login Days per User"
+        label: "% Users with Planner Launch Activity"
+
+      - name: pct_users_with_app_launch_activity
+        description: "Percentage of users with app launch activity within the selected dimensional context and time grain"
+        agg: count_distinct
+        expr: case when had_app_launch_activity_per_user_day_context = 1 then user_id end
+        create_metric: True
+        label: "% Users with App Launch Activity"
+
+      - name: pct_users_with_login_activity
+        description: "Percentage of users with login activity within the selected dimensional context and time grain"
+        agg: count_distinct
+        expr: case when had_login_activity_per_user_day_context = 1 then user_id end
+        create_metric: True
+        label: "% Users with Login Activity"
+
+      - name: pct_users_with_resource_download_activity
+        description: "Percentage of users with resource download activity within the selected dimensional context and time grain"
+        agg: count_distinct
+        expr: case when had_resource_download_activity_per_user_day_context = 1 then user_id end
+        create_metric: True
+        label: "% Users with Resource Download Activity"
