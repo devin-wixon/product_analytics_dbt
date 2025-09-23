@@ -1,0 +1,52 @@
+metrics:
+  # Count metric for users with planner launches (using filter)
+  - name: n_users_with_planner_launches
+    description: "Count of unique users who had planner launch events in the time period"
+    type: simple
+    type_params:
+      measure: n_users_with_context
+    filter: |
+      {{ Dimension('user_activity_all_dimensions__had_planner_launch_activity_per_user_day') }} = 1
+    label: "Users with Planner Launches"
+
+  # Ratio metrics for user behavior analysis
+  - name: planner_launch_adoption_rate
+    description: "Percentage of users with context who also had planner launch events"
+    type: ratio
+    type_params:
+      numerator: n_users_with_planner_launches
+      denominator: n_users_with_context
+    label: "Planner Launch Adoption Rate (%)"
+
+  - name: avg_active_days_per_user
+    description: "Average number of active days per user with context"
+    type: ratio
+    type_params:
+      numerator: sum_active_days
+      denominator: n_users_with_context
+    label: "Average Active Days per User"
+
+  - name: avg_planner_launch_days_per_user
+    description: "Average number of days with planner launches per user (among users who had planner launches)"
+    type: ratio
+    type_params:
+      numerator: sum_days_with_planner_launch_activity
+      denominator: n_users_with_planner_launches
+    label: "Average Planner Launch Days per User"
+
+# Future metrics framework for percentiles and distributions
+# Note: Highly active users metric would require custom SQL or derived metrics
+# - name: highly_active_users
+#   description: "Count of users with more than 5 active days in the time period"
+#   type: simple
+#   filter: requires complex grouping logic
+# These would require custom SQL or additional intermediate models
+# - name: median_active_days_per_user
+#   description: "Median number of active days across all active users"
+#   type: derived
+#   ...
+
+# - name: users_in_top_quartile_activity
+#   description: "Count of users in top 25% of activity"
+#   type: derived
+#   ...
