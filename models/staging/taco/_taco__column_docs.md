@@ -1,4 +1,9 @@
 
+{% docs application_name %}
+Application name for third-party products such as Cognitive Toy Box.
+{% enddocs %}
+
+
 {% docs district_name %}
 Example: Dallas ISD
 {% enddocs %}

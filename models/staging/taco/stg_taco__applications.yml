@@ -8,3 +8,5 @@ models:
     columns:
       # source tests uniqueness and not null for application_id
       - name: application_id
+      - name: application_name
+        description: "{{ doc('application_name') }}"
