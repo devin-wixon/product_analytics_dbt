@@ -45,3 +45,5 @@ models:
         description: "{{ doc('is_app_launch_event') }}"
       - name: is_login_event
         description: "{{ doc('is_login_event') }}"
+      - name: application_name
+        description: "{{ doc('application_name') }}"

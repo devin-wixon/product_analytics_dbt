@@ -104,11 +104,6 @@ Indicates which type of entity (e.g., program_id, resource_id) the event_value s
 {% enddocs %}
 
 
-{% docs launched_application_name %}
-The application name (string) launched by the user, populated only for events where event_name = 'productLaunchOpen'.
-{% enddocs %}
-
-
 {% docs path_entered %}
 For 'router.left' events, the route/path the user navigated to (event_path value).
 {% enddocs %}

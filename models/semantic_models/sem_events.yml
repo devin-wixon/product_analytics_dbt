@@ -63,10 +63,10 @@ semantic_models:
         type: categorical
         description: "{{ doc('event_category') }}"
 
-      - name: launched_application_name
+      - name: application_name
         type: categorical
-        description: "{{ doc('launched_application_name') }}"
-        expr: launched_application_name
+        description: "{{ doc('application_name') }}"
+        expr: application_name
         
       # booleans
 

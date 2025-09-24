@@ -43,8 +43,8 @@ models:
         description: "{{ doc('program_id') }}"
       - name: resource_id
         description: "{{ doc('resource_id') }}"
-      - name: launched_application_name
-        description: "{{ doc('launched_application_name') }}"
+      - name: application_name
+        description: "{{ doc('application_name') }}"
       - name: is_app_launch_event
         description: "{{ doc('is_app_launch_event') }}"
       - name: is_login_event

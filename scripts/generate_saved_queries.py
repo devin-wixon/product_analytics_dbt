@@ -34,9 +34,9 @@ def get_dimensions():
             "semantic_ref": "district__district_type",
         },
         {
-            "name": "launched_application_name",
+            "name": "application_name",
             "label": "Application name",
-            "semantic_ref": "event__launched_application_name",
+            "semantic_ref": "event__application_name",
         },
     ]
 
@@ -61,7 +61,11 @@ def generate_dimension_combinations():
     all_combos = []
 
     # "All" combination (no dimensions)
-    all_combo = {"id": "all", "label": "All (no dimensional breakdown)", "dimensions": []}
+    all_combo = {
+        "id": "all",
+        "label": "All (no dimensional breakdown)",
+        "dimensions": [],
+    }
     all_combos.append(all_combo)
 
     # Single dimensions
