@@ -916,4 +916,3 @@ with
   select * from qexptbl_month_district_name_application_name
   union all
   select * from qexptbl_month_district_type_application_name
-;

@@ -7,7 +7,6 @@ for comprehensive BI exports (ex: Tableau) parameterization while maintaining DR
 """
 
 import yaml
-from itertools import combinations
 
 
 def get_dimensions():
@@ -223,7 +222,6 @@ def generate_exports_time_grains_dims_sql():
             sql_lines.append("  union all")
             sql_lines.append(union_line)
 
-    sql_lines.append(";")
     sql_lines.append("")
     return "\n".join(sql_lines)
 
