@@ -26,7 +26,7 @@ with
       'day' as time_grain,
       'program_name' as dim_set,
 
-      'program__program_name' as dim_a_label,
+      'Program name' as dim_a_label,
       program__program_name as dim_a_value,
       null as dim_b_label,
       cast(null as varchar) as dim_b_value,
@@ -43,7 +43,7 @@ with
       'day' as time_grain,
       'resource_type' as dim_set,
 
-      'resource__resource_type' as dim_a_label,
+      'Resource type' as dim_a_label,
       resource__resource_type as dim_a_value,
       null as dim_b_label,
       cast(null as varchar) as dim_b_value,
@@ -60,7 +60,7 @@ with
       'day' as time_grain,
       'district_name' as dim_set,
 
-      'district__district_name' as dim_a_label,
+      'District name' as dim_a_label,
       district__district_name as dim_a_value,
       null as dim_b_label,
       cast(null as varchar) as dim_b_value,
@@ -77,7 +77,7 @@ with
       'day' as time_grain,
       'district_type' as dim_set,
 
-      'district__district_type' as dim_a_label,
+      'District type' as dim_a_label,
       district__district_type as dim_a_value,
       null as dim_b_label,
       cast(null as varchar) as dim_b_value,
@@ -94,7 +94,7 @@ with
       'day' as time_grain,
       'application_name' as dim_set,
 
-      'event__application_name' as dim_a_label,
+      'Application name' as dim_a_label,
       event__application_name as dim_a_value,
       null as dim_b_label,
       cast(null as varchar) as dim_b_value,
@@ -111,9 +111,9 @@ with
       'day' as time_grain,
       'program_name_resource_type' as dim_set,
 
-      'program__program_name' as dim_a_label,
+      'Program name' as dim_a_label,
       program__program_name as dim_a_value,
-      'resource__resource_type' as dim_b_label,
+      'Resource type' as dim_b_label,
       resource__resource_type as dim_b_value,
 
       n_active_users
@@ -128,9 +128,9 @@ with
       'day' as time_grain,
       'program_name_district_name' as dim_set,
 
-      'program__program_name' as dim_a_label,
+      'Program name' as dim_a_label,
       program__program_name as dim_a_value,
-      'district__district_name' as dim_b_label,
+      'District name' as dim_b_label,
       district__district_name as dim_b_value,
 
       n_active_users
@@ -145,9 +145,9 @@ with
       'day' as time_grain,
       'program_name_district_type' as dim_set,
 
-      'program__program_name' as dim_a_label,
+      'Program name' as dim_a_label,
       program__program_name as dim_a_value,
-      'district__district_type' as dim_b_label,
+      'District type' as dim_b_label,
       district__district_type as dim_b_value,
 
       n_active_users
@@ -162,9 +162,9 @@ with
       'day' as time_grain,
       'program_name_application_name' as dim_set,
 
-      'program__program_name' as dim_a_label,
+      'Program name' as dim_a_label,
       program__program_name as dim_a_value,
-      'event__application_name' as dim_b_label,
+      'Application name' as dim_b_label,
       event__application_name as dim_b_value,
 
       n_active_users
@@ -179,9 +179,9 @@ with
       'day' as time_grain,
       'resource_type_district_name' as dim_set,
 
-      'resource__resource_type' as dim_a_label,
+      'Resource type' as dim_a_label,
       resource__resource_type as dim_a_value,
-      'district__district_name' as dim_b_label,
+      'District name' as dim_b_label,
       district__district_name as dim_b_value,
 
       n_active_users
@@ -196,9 +196,9 @@ with
       'day' as time_grain,
       'resource_type_district_type' as dim_set,
 
-      'resource__resource_type' as dim_a_label,
+      'Resource type' as dim_a_label,
       resource__resource_type as dim_a_value,
-      'district__district_type' as dim_b_label,
+      'District type' as dim_b_label,
       district__district_type as dim_b_value,
 
       n_active_users
@@ -213,9 +213,9 @@ with
       'day' as time_grain,
       'resource_type_application_name' as dim_set,
 
-      'resource__resource_type' as dim_a_label,
+      'Resource type' as dim_a_label,
       resource__resource_type as dim_a_value,
-      'event__application_name' as dim_b_label,
+      'Application name' as dim_b_label,
       event__application_name as dim_b_value,
 
       n_active_users
@@ -230,9 +230,9 @@ with
       'day' as time_grain,
       'district_name_district_type' as dim_set,
 
-      'district__district_name' as dim_a_label,
+      'District name' as dim_a_label,
       district__district_name as dim_a_value,
-      'district__district_type' as dim_b_label,
+      'District type' as dim_b_label,
       district__district_type as dim_b_value,
 
       n_active_users
@@ -247,9 +247,9 @@ with
       'day' as time_grain,
       'district_name_application_name' as dim_set,
 
-      'district__district_name' as dim_a_label,
+      'District name' as dim_a_label,
       district__district_name as dim_a_value,
-      'event__application_name' as dim_b_label,
+      'Application name' as dim_b_label,
       event__application_name as dim_b_value,
 
       n_active_users
@@ -264,9 +264,9 @@ with
       'day' as time_grain,
       'district_type_application_name' as dim_set,
 
-      'district__district_type' as dim_a_label,
+      'District type' as dim_a_label,
       district__district_type as dim_a_value,
-      'event__application_name' as dim_b_label,
+      'Application name' as dim_b_label,
       event__application_name as dim_b_value,
 
       n_active_users
@@ -298,7 +298,7 @@ with
       'week' as time_grain,
       'program_name' as dim_set,
 
-      'program__program_name' as dim_a_label,
+      'Program name' as dim_a_label,
       program__program_name as dim_a_value,
       null as dim_b_label,
       cast(null as varchar) as dim_b_value,
@@ -315,7 +315,7 @@ with
       'week' as time_grain,
       'resource_type' as dim_set,
 
-      'resource__resource_type' as dim_a_label,
+      'Resource type' as dim_a_label,
       resource__resource_type as dim_a_value,
       null as dim_b_label,
       cast(null as varchar) as dim_b_value,
@@ -332,7 +332,7 @@ with
       'week' as time_grain,
       'district_name' as dim_set,
 
-      'district__district_name' as dim_a_label,
+      'District name' as dim_a_label,
       district__district_name as dim_a_value,
       null as dim_b_label,
       cast(null as varchar) as dim_b_value,
@@ -349,7 +349,7 @@ with
       'week' as time_grain,
       'district_type' as dim_set,
 
-      'district__district_type' as dim_a_label,
+      'District type' as dim_a_label,
       district__district_type as dim_a_value,
       null as dim_b_label,
       cast(null as varchar) as dim_b_value,
@@ -366,7 +366,7 @@ with
       'week' as time_grain,
       'application_name' as dim_set,
 
-      'event__application_name' as dim_a_label,
+      'Application name' as dim_a_label,
       event__application_name as dim_a_value,
       null as dim_b_label,
       cast(null as varchar) as dim_b_value,
@@ -383,9 +383,9 @@ with
       'week' as time_grain,
       'program_name_resource_type' as dim_set,
 
-      'program__program_name' as dim_a_label,
+      'Program name' as dim_a_label,
       program__program_name as dim_a_value,
-      'resource__resource_type' as dim_b_label,
+      'Resource type' as dim_b_label,
       resource__resource_type as dim_b_value,
 
       n_active_users
@@ -400,9 +400,9 @@ with
       'week' as time_grain,
       'program_name_district_name' as dim_set,
 
-      'program__program_name' as dim_a_label,
+      'Program name' as dim_a_label,
       program__program_name as dim_a_value,
-      'district__district_name' as dim_b_label,
+      'District name' as dim_b_label,
       district__district_name as dim_b_value,
 
       n_active_users
@@ -417,9 +417,9 @@ with
       'week' as time_grain,
       'program_name_district_type' as dim_set,
 
-      'program__program_name' as dim_a_label,
+      'Program name' as dim_a_label,
       program__program_name as dim_a_value,
-      'district__district_type' as dim_b_label,
+      'District type' as dim_b_label,
       district__district_type as dim_b_value,
 
       n_active_users
@@ -434,9 +434,9 @@ with
       'week' as time_grain,
       'program_name_application_name' as dim_set,
 
-      'program__program_name' as dim_a_label,
+      'Program name' as dim_a_label,
       program__program_name as dim_a_value,
-      'event__application_name' as dim_b_label,
+      'Application name' as dim_b_label,
       event__application_name as dim_b_value,
 
       n_active_users
@@ -451,9 +451,9 @@ with
       'week' as time_grain,
       'resource_type_district_name' as dim_set,
 
-      'resource__resource_type' as dim_a_label,
+      'Resource type' as dim_a_label,
       resource__resource_type as dim_a_value,
-      'district__district_name' as dim_b_label,
+      'District name' as dim_b_label,
       district__district_name as dim_b_value,
 
       n_active_users
@@ -468,9 +468,9 @@ with
       'week' as time_grain,
       'resource_type_district_type' as dim_set,
 
-      'resource__resource_type' as dim_a_label,
+      'Resource type' as dim_a_label,
       resource__resource_type as dim_a_value,
-      'district__district_type' as dim_b_label,
+      'District type' as dim_b_label,
       district__district_type as dim_b_value,
 
       n_active_users
@@ -485,9 +485,9 @@ with
       'week' as time_grain,
       'resource_type_application_name' as dim_set,
 
-      'resource__resource_type' as dim_a_label,
+      'Resource type' as dim_a_label,
       resource__resource_type as dim_a_value,
-      'event__application_name' as dim_b_label,
+      'Application name' as dim_b_label,
       event__application_name as dim_b_value,
 
       n_active_users
@@ -502,9 +502,9 @@ with
       'week' as time_grain,
       'district_name_district_type' as dim_set,
 
-      'district__district_name' as dim_a_label,
+      'District name' as dim_a_label,
       district__district_name as dim_a_value,
-      'district__district_type' as dim_b_label,
+      'District type' as dim_b_label,
       district__district_type as dim_b_value,
 
       n_active_users
@@ -519,9 +519,9 @@ with
       'week' as time_grain,
       'district_name_application_name' as dim_set,
 
-      'district__district_name' as dim_a_label,
+      'District name' as dim_a_label,
       district__district_name as dim_a_value,
-      'event__application_name' as dim_b_label,
+      'Application name' as dim_b_label,
       event__application_name as dim_b_value,
 
       n_active_users
@@ -536,9 +536,9 @@ with
       'week' as time_grain,
       'district_type_application_name' as dim_set,
 
-      'district__district_type' as dim_a_label,
+      'District type' as dim_a_label,
       district__district_type as dim_a_value,
-      'event__application_name' as dim_b_label,
+      'Application name' as dim_b_label,
       event__application_name as dim_b_value,
 
       n_active_users
@@ -570,7 +570,7 @@ with
       'month' as time_grain,
       'program_name' as dim_set,
 
-      'program__program_name' as dim_a_label,
+      'Program name' as dim_a_label,
       program__program_name as dim_a_value,
       null as dim_b_label,
       cast(null as varchar) as dim_b_value,
@@ -587,7 +587,7 @@ with
       'month' as time_grain,
       'resource_type' as dim_set,
 
-      'resource__resource_type' as dim_a_label,
+      'Resource type' as dim_a_label,
       resource__resource_type as dim_a_value,
       null as dim_b_label,
       cast(null as varchar) as dim_b_value,
@@ -604,7 +604,7 @@ with
       'month' as time_grain,
       'district_name' as dim_set,
 
-      'district__district_name' as dim_a_label,
+      'District name' as dim_a_label,
       district__district_name as dim_a_value,
       null as dim_b_label,
       cast(null as varchar) as dim_b_value,
@@ -621,7 +621,7 @@ with
       'month' as time_grain,
       'district_type' as dim_set,
 
-      'district__district_type' as dim_a_label,
+      'District type' as dim_a_label,
       district__district_type as dim_a_value,
       null as dim_b_label,
       cast(null as varchar) as dim_b_value,
@@ -638,7 +638,7 @@ with
       'month' as time_grain,
       'application_name' as dim_set,
 
-      'event__application_name' as dim_a_label,
+      'Application name' as dim_a_label,
       event__application_name as dim_a_value,
       null as dim_b_label,
       cast(null as varchar) as dim_b_value,
@@ -655,9 +655,9 @@ with
       'month' as time_grain,
       'program_name_resource_type' as dim_set,
 
-      'program__program_name' as dim_a_label,
+      'Program name' as dim_a_label,
       program__program_name as dim_a_value,
-      'resource__resource_type' as dim_b_label,
+      'Resource type' as dim_b_label,
       resource__resource_type as dim_b_value,
 
       n_active_users
@@ -672,9 +672,9 @@ with
       'month' as time_grain,
       'program_name_district_name' as dim_set,
 
-      'program__program_name' as dim_a_label,
+      'Program name' as dim_a_label,
       program__program_name as dim_a_value,
-      'district__district_name' as dim_b_label,
+      'District name' as dim_b_label,
       district__district_name as dim_b_value,
 
       n_active_users
@@ -689,9 +689,9 @@ with
       'month' as time_grain,
       'program_name_district_type' as dim_set,
 
-      'program__program_name' as dim_a_label,
+      'Program name' as dim_a_label,
       program__program_name as dim_a_value,
-      'district__district_type' as dim_b_label,
+      'District type' as dim_b_label,
       district__district_type as dim_b_value,
 
       n_active_users
@@ -706,9 +706,9 @@ with
       'month' as time_grain,
       'program_name_application_name' as dim_set,
 
-      'program__program_name' as dim_a_label,
+      'Program name' as dim_a_label,
       program__program_name as dim_a_value,
-      'event__application_name' as dim_b_label,
+      'Application name' as dim_b_label,
       event__application_name as dim_b_value,
 
       n_active_users
@@ -723,9 +723,9 @@ with
       'month' as time_grain,
       'resource_type_district_name' as dim_set,
 
-      'resource__resource_type' as dim_a_label,
+      'Resource type' as dim_a_label,
       resource__resource_type as dim_a_value,
-      'district__district_name' as dim_b_label,
+      'District name' as dim_b_label,
       district__district_name as dim_b_value,
 
       n_active_users
@@ -740,9 +740,9 @@ with
       'month' as time_grain,
       'resource_type_district_type' as dim_set,
 
-      'resource__resource_type' as dim_a_label,
+      'Resource type' as dim_a_label,
       resource__resource_type as dim_a_value,
-      'district__district_type' as dim_b_label,
+      'District type' as dim_b_label,
       district__district_type as dim_b_value,
 
       n_active_users
@@ -757,9 +757,9 @@ with
       'month' as time_grain,
       'resource_type_application_name' as dim_set,
 
-      'resource__resource_type' as dim_a_label,
+      'Resource type' as dim_a_label,
       resource__resource_type as dim_a_value,
-      'event__application_name' as dim_b_label,
+      'Application name' as dim_b_label,
       event__application_name as dim_b_value,
 
       n_active_users
@@ -774,9 +774,9 @@ with
       'month' as time_grain,
       'district_name_district_type' as dim_set,
 
-      'district__district_name' as dim_a_label,
+      'District name' as dim_a_label,
       district__district_name as dim_a_value,
-      'district__district_type' as dim_b_label,
+      'District type' as dim_b_label,
       district__district_type as dim_b_value,
 
       n_active_users
@@ -791,9 +791,9 @@ with
       'month' as time_grain,
       'district_name_application_name' as dim_set,
 
-      'district__district_name' as dim_a_label,
+      'District name' as dim_a_label,
       district__district_name as dim_a_value,
-      'event__application_name' as dim_b_label,
+      'Application name' as dim_b_label,
       event__application_name as dim_b_value,
 
       n_active_users
@@ -808,9 +808,9 @@ with
       'month' as time_grain,
       'district_type_application_name' as dim_set,
 
-      'district__district_type' as dim_a_label,
+      'District type' as dim_a_label,
       district__district_type as dim_a_value,
-      'event__application_name' as dim_b_label,
+      'Application name' as dim_b_label,
       event__application_name as dim_b_value,
 
       n_active_users

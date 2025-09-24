@@ -76,7 +76,7 @@ def generate_dimension_combinations():
     for i, dim_a in enumerate(dimensions):
         for dim_b in dimensions[i + 1 :]:
             combo = {
-                "id": f"{dim_a['name']}_{dim_b['name']}",  # Single underscore
+                "id": f"{dim_a['name']}_{dim_b['name']}",  # Single underscore due to naming constraints in saved queries
                 "label": f"{dim_a['label']} × {dim_b['label']}",
                 "dimensions": [dim_a, dim_b],
             }
@@ -175,7 +175,7 @@ def generate_exports_time_grains_dims_sql():
             elif len(dimension_combo["dimensions"]) == 1:
                 # Single dimension
                 dim = dimension_combo["dimensions"][0]
-                cte_lines.append(f"      '{dim['semantic_ref']}' as dim_a_label,")
+                cte_lines.append(f"      '{dim['label']}' as dim_a_label,")
                 cte_lines.append(f"      {dim['semantic_ref']} as dim_a_value,")
                 cte_lines.append("      null as dim_b_label,")
                 cte_lines.append("      cast(null as varchar) as dim_b_value,")
@@ -183,9 +183,9 @@ def generate_exports_time_grains_dims_sql():
                 # Two dimensions
                 dim_a = dimension_combo["dimensions"][0]
                 dim_b = dimension_combo["dimensions"][1]
-                cte_lines.append(f"      '{dim_a['semantic_ref']}' as dim_a_label,")
+                cte_lines.append(f"      '{dim_a['label']}' as dim_a_label,")
                 cte_lines.append(f"      {dim_a['semantic_ref']} as dim_a_value,")
-                cte_lines.append(f"      '{dim_b['semantic_ref']}' as dim_b_label,")
+                cte_lines.append(f"      '{dim_b['label']}' as dim_b_label,")
                 cte_lines.append(f"      {dim_b['semantic_ref']} as dim_b_value,")
 
             cte_lines.append("")
