@@ -7,7 +7,7 @@ models:
       Granularity: One row per user per day per unique dimensional context (district, program, resource, application).
       Filters: Limited to 100 rows in Development environment.
       Notes: Dynamically generates boolean activity flags for all event categories. Supports flexible time grain aggregation through semantic modeling.
-    tests:
+    # tests:
       # - dbt_utils.unique_combination_of_columns:
       #     combination_of_columns:
       #       - user_id

@@ -33,15 +33,15 @@ metrics:
     meta:
       semantic_model: "sem_user_activity_all_dimensions"
 
-  - name: pct_users_with_music_action_activity
-    description: "Percentage of users with music action activity within the selected dimensional context and time grain"
-    type: ratio
-    type_params:
-      numerator: n_users_with_music_action_activity
-      denominator: n_users_in_analysis
-    label: "% Users with Music Action Activity"
-    meta:
-      semantic_model: "sem_user_activity_all_dimensions"
+  # - name: pct_users_with_music_action_activity
+  #   description: "Percentage of users with music action activity within the selected dimensional context and time grain"
+  #   type: ratio
+  #   type_params:
+  #     numerator: n_users_with_music_action_activity
+  #     denominator: n_users_in_analysis
+  #   label: "% Users with Music Action Activity"
+  #   meta:
+  #     semantic_model: "sem_user_activity_all_dimensions"
       
 
   # Example usage metrics for different time grains
