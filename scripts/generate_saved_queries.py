@@ -91,6 +91,11 @@ def generate_saved_query(time_grain, dimension_combo):
     query_name = f"sq_{time_grain['name']}_{dimension_combo['id']}"
     export_name = f"qexptbl_{time_grain['name']}_{dimension_combo['id']}"
 
+    # Build unique_key based on time dimension and other dimensions
+    unique_key = [f"{time_grain['semantic_ref']}__{time_grain['name']}"]
+    for dim in dimension_combo["dimensions"]:
+        unique_key.append(dim["semantic_ref"])
+
     # Build group_by list
     group_by = [
         f"TimeDimension('{time_grain['semantic_ref']}', '{time_grain['name']}')"
@@ -107,6 +112,10 @@ def generate_saved_query(time_grain, dimension_combo):
                 "name": export_name,
                 "config": {
                     "export_as": "table",
+                    "materialized": "incremental",
+                    "unique_key": unique_key,
+                    "incremental_strategy": "merge",
+                    "on_schema_change": "sync_all_columns",
                     "schema": "{{ 'exports' if target.name == 'prod' else target.schema }}",
                     "alias": export_name,
                 },
@@ -130,7 +139,7 @@ def generate_all_saved_queries():
 
 
 def generate_exports_time_grains_dims_sql():
-    """Generate the exports_time_grains_dims.sql model."""
+    """Generate the rpt_exports_time_grains_dims.sql model."""
     time_grains = get_time_grains()
     dimension_combos = generate_dimension_combinations()
     metrics = get_metrics()
@@ -288,7 +297,7 @@ def main():
     # Generate exports_time_grains_dims.sql
     exports_sql = generate_exports_time_grains_dims_sql()
     exports_sql_path = (
-        "../models/marts/bi_sl_exports_as_sources/exports_time_grains_dims.sql"
+        "../models/marts/bi_sl_exports_as_sources/rpt_exports_time_grains_dims.sql"
     )
 
     with open(exports_sql_path, "w") as f:

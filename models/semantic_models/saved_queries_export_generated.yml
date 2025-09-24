@@ -16,6 +16,11 @@ saved_queries:
   - name: qexptbl_day_all
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_day__day
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_all
 - name: sq_day_program_name
@@ -31,6 +36,12 @@ saved_queries:
   - name: qexptbl_day_program_name
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_day__day
+      - program__program_name
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_program_name
 - name: sq_day_resource_type
@@ -46,6 +57,12 @@ saved_queries:
   - name: qexptbl_day_resource_type
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_day__day
+      - resource__resource_type
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_resource_type
 - name: sq_day_district_name
@@ -61,6 +78,12 @@ saved_queries:
   - name: qexptbl_day_district_name
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_day__day
+      - district__district_name
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_district_name
 - name: sq_day_district_type
@@ -76,6 +99,12 @@ saved_queries:
   - name: qexptbl_day_district_type
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_day__day
+      - district__district_type
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_district_type
 - name: sq_day_application_name
@@ -91,6 +120,12 @@ saved_queries:
   - name: qexptbl_day_application_name
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_day__day
+      - event__application_name
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_application_name
 - name: sq_day_program_name_resource_type
@@ -107,6 +142,13 @@ saved_queries:
   - name: qexptbl_day_program_name_resource_type
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_day__day
+      - program__program_name
+      - resource__resource_type
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_program_name_resource_type
 - name: sq_day_program_name_district_name
@@ -123,6 +165,13 @@ saved_queries:
   - name: qexptbl_day_program_name_district_name
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_day__day
+      - program__program_name
+      - district__district_name
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_program_name_district_name
 - name: sq_day_program_name_district_type
@@ -139,6 +188,13 @@ saved_queries:
   - name: qexptbl_day_program_name_district_type
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_day__day
+      - program__program_name
+      - district__district_type
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_program_name_district_type
 - name: sq_day_program_name_application_name
@@ -155,6 +211,13 @@ saved_queries:
   - name: qexptbl_day_program_name_application_name
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_day__day
+      - program__program_name
+      - event__application_name
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_program_name_application_name
 - name: sq_day_resource_type_district_name
@@ -171,6 +234,13 @@ saved_queries:
   - name: qexptbl_day_resource_type_district_name
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_day__day
+      - resource__resource_type
+      - district__district_name
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_resource_type_district_name
 - name: sq_day_resource_type_district_type
@@ -187,6 +257,13 @@ saved_queries:
   - name: qexptbl_day_resource_type_district_type
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_day__day
+      - resource__resource_type
+      - district__district_type
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_resource_type_district_type
 - name: sq_day_resource_type_application_name
@@ -203,6 +280,13 @@ saved_queries:
   - name: qexptbl_day_resource_type_application_name
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_day__day
+      - resource__resource_type
+      - event__application_name
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_resource_type_application_name
 - name: sq_day_district_name_district_type
@@ -219,6 +303,13 @@ saved_queries:
   - name: qexptbl_day_district_name_district_type
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_day__day
+      - district__district_name
+      - district__district_type
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_district_name_district_type
 - name: sq_day_district_name_application_name
@@ -235,6 +326,13 @@ saved_queries:
   - name: qexptbl_day_district_name_application_name
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_day__day
+      - district__district_name
+      - event__application_name
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_district_name_application_name
 - name: sq_day_district_type_application_name
@@ -251,6 +349,13 @@ saved_queries:
   - name: qexptbl_day_district_type_application_name
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_day__day
+      - district__district_type
+      - event__application_name
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_district_type_application_name
 - name: sq_week_all
@@ -265,6 +370,11 @@ saved_queries:
   - name: qexptbl_week_all
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_week__week
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_all
 - name: sq_week_program_name
@@ -280,6 +390,12 @@ saved_queries:
   - name: qexptbl_week_program_name
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_week__week
+      - program__program_name
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_program_name
 - name: sq_week_resource_type
@@ -295,6 +411,12 @@ saved_queries:
   - name: qexptbl_week_resource_type
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_week__week
+      - resource__resource_type
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_resource_type
 - name: sq_week_district_name
@@ -310,6 +432,12 @@ saved_queries:
   - name: qexptbl_week_district_name
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_week__week
+      - district__district_name
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_district_name
 - name: sq_week_district_type
@@ -325,6 +453,12 @@ saved_queries:
   - name: qexptbl_week_district_type
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_week__week
+      - district__district_type
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_district_type
 - name: sq_week_application_name
@@ -340,6 +474,12 @@ saved_queries:
   - name: qexptbl_week_application_name
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_week__week
+      - event__application_name
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_application_name
 - name: sq_week_program_name_resource_type
@@ -356,6 +496,13 @@ saved_queries:
   - name: qexptbl_week_program_name_resource_type
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_week__week
+      - program__program_name
+      - resource__resource_type
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_program_name_resource_type
 - name: sq_week_program_name_district_name
@@ -372,6 +519,13 @@ saved_queries:
   - name: qexptbl_week_program_name_district_name
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_week__week
+      - program__program_name
+      - district__district_name
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_program_name_district_name
 - name: sq_week_program_name_district_type
@@ -388,6 +542,13 @@ saved_queries:
   - name: qexptbl_week_program_name_district_type
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_week__week
+      - program__program_name
+      - district__district_type
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_program_name_district_type
 - name: sq_week_program_name_application_name
@@ -404,6 +565,13 @@ saved_queries:
   - name: qexptbl_week_program_name_application_name
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_week__week
+      - program__program_name
+      - event__application_name
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_program_name_application_name
 - name: sq_week_resource_type_district_name
@@ -420,6 +588,13 @@ saved_queries:
   - name: qexptbl_week_resource_type_district_name
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_week__week
+      - resource__resource_type
+      - district__district_name
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_resource_type_district_name
 - name: sq_week_resource_type_district_type
@@ -436,6 +611,13 @@ saved_queries:
   - name: qexptbl_week_resource_type_district_type
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_week__week
+      - resource__resource_type
+      - district__district_type
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_resource_type_district_type
 - name: sq_week_resource_type_application_name
@@ -452,6 +634,13 @@ saved_queries:
   - name: qexptbl_week_resource_type_application_name
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_week__week
+      - resource__resource_type
+      - event__application_name
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_resource_type_application_name
 - name: sq_week_district_name_district_type
@@ -468,6 +657,13 @@ saved_queries:
   - name: qexptbl_week_district_name_district_type
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_week__week
+      - district__district_name
+      - district__district_type
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_district_name_district_type
 - name: sq_week_district_name_application_name
@@ -484,6 +680,13 @@ saved_queries:
   - name: qexptbl_week_district_name_application_name
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_week__week
+      - district__district_name
+      - event__application_name
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_district_name_application_name
 - name: sq_week_district_type_application_name
@@ -500,6 +703,13 @@ saved_queries:
   - name: qexptbl_week_district_type_application_name
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_week__week
+      - district__district_type
+      - event__application_name
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_district_type_application_name
 - name: sq_month_all
@@ -514,6 +724,11 @@ saved_queries:
   - name: qexptbl_month_all
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_month__month
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_all
 - name: sq_month_program_name
@@ -529,6 +744,12 @@ saved_queries:
   - name: qexptbl_month_program_name
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_month__month
+      - program__program_name
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_program_name
 - name: sq_month_resource_type
@@ -544,6 +765,12 @@ saved_queries:
   - name: qexptbl_month_resource_type
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_month__month
+      - resource__resource_type
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_resource_type
 - name: sq_month_district_name
@@ -559,6 +786,12 @@ saved_queries:
   - name: qexptbl_month_district_name
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_month__month
+      - district__district_name
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_district_name
 - name: sq_month_district_type
@@ -574,6 +807,12 @@ saved_queries:
   - name: qexptbl_month_district_type
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_month__month
+      - district__district_type
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_district_type
 - name: sq_month_application_name
@@ -589,6 +828,12 @@ saved_queries:
   - name: qexptbl_month_application_name
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_month__month
+      - event__application_name
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_application_name
 - name: sq_month_program_name_resource_type
@@ -605,6 +850,13 @@ saved_queries:
   - name: qexptbl_month_program_name_resource_type
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_month__month
+      - program__program_name
+      - resource__resource_type
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_program_name_resource_type
 - name: sq_month_program_name_district_name
@@ -621,6 +873,13 @@ saved_queries:
   - name: qexptbl_month_program_name_district_name
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_month__month
+      - program__program_name
+      - district__district_name
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_program_name_district_name
 - name: sq_month_program_name_district_type
@@ -637,6 +896,13 @@ saved_queries:
   - name: qexptbl_month_program_name_district_type
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_month__month
+      - program__program_name
+      - district__district_type
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_program_name_district_type
 - name: sq_month_program_name_application_name
@@ -653,6 +919,13 @@ saved_queries:
   - name: qexptbl_month_program_name_application_name
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_month__month
+      - program__program_name
+      - event__application_name
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_program_name_application_name
 - name: sq_month_resource_type_district_name
@@ -669,6 +942,13 @@ saved_queries:
   - name: qexptbl_month_resource_type_district_name
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_month__month
+      - resource__resource_type
+      - district__district_name
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_resource_type_district_name
 - name: sq_month_resource_type_district_type
@@ -685,6 +965,13 @@ saved_queries:
   - name: qexptbl_month_resource_type_district_type
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_month__month
+      - resource__resource_type
+      - district__district_type
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_resource_type_district_type
 - name: sq_month_resource_type_application_name
@@ -701,6 +988,13 @@ saved_queries:
   - name: qexptbl_month_resource_type_application_name
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_month__month
+      - resource__resource_type
+      - event__application_name
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_resource_type_application_name
 - name: sq_month_district_name_district_type
@@ -717,6 +1011,13 @@ saved_queries:
   - name: qexptbl_month_district_name_district_type
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_month__month
+      - district__district_name
+      - district__district_type
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_district_name_district_type
 - name: sq_month_district_name_application_name
@@ -733,6 +1034,13 @@ saved_queries:
   - name: qexptbl_month_district_name_application_name
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_month__month
+      - district__district_name
+      - event__application_name
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_district_name_application_name
 - name: sq_month_district_type_application_name
@@ -749,5 +1057,12 @@ saved_queries:
   - name: qexptbl_month_district_type_application_name
     config:
       export_as: table
+      materialized: incremental
+      unique_key:
+      - event__metric_time_month__month
+      - district__district_type
+      - event__application_name
+      incremental_strategy: merge
+      on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_district_type_application_name
