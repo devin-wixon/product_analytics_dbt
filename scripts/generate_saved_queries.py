@@ -159,7 +159,7 @@ def generate_exports_time_grains_dims_sql():
 
             # Use the actual column name pattern with repeated time grain
             cte_lines.append(
-                f"      {time_grain['semantic_ref']}_{time_grain['name']} as date_at_time_grain,"
+                f"      {time_grain['semantic_ref']}__{time_grain['name']} as date_at_time_grain,"
             )
 
             cte_lines.append(f"      '{time_grain['name']}' as time_grain,")
@@ -225,7 +225,6 @@ def generate_exports_time_grains_dims_sql():
 
     sql_lines.append(";")
     sql_lines.append("")
-
     return "\n".join(sql_lines)
 
 

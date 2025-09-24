@@ -5,7 +5,7 @@ with
 
   qexptbl_day_all as (
     select
-      event__metric_time_day_day as date_at_time_grain,
+      event__metric_time_day__day as date_at_time_grain,
       'day' as time_grain,
       'all' as dim_set,
 
@@ -22,7 +22,7 @@ with
 
   qexptbl_day_program_name as (
     select
-      event__metric_time_day_day as date_at_time_grain,
+      event__metric_time_day__day as date_at_time_grain,
       'day' as time_grain,
       'program_name' as dim_set,
 
@@ -39,7 +39,7 @@ with
 
   qexptbl_day_resource_type as (
     select
-      event__metric_time_day_day as date_at_time_grain,
+      event__metric_time_day__day as date_at_time_grain,
       'day' as time_grain,
       'resource_type' as dim_set,
 
@@ -56,7 +56,7 @@ with
 
   qexptbl_day_district_name as (
     select
-      event__metric_time_day_day as date_at_time_grain,
+      event__metric_time_day__day as date_at_time_grain,
       'day' as time_grain,
       'district_name' as dim_set,
 
@@ -73,7 +73,7 @@ with
 
   qexptbl_day_district_type as (
     select
-      event__metric_time_day_day as date_at_time_grain,
+      event__metric_time_day__day as date_at_time_grain,
       'day' as time_grain,
       'district_type' as dim_set,
 
@@ -90,7 +90,7 @@ with
 
   qexptbl_day_application_name as (
     select
-      event__metric_time_day_day as date_at_time_grain,
+      event__metric_time_day__day as date_at_time_grain,
       'day' as time_grain,
       'application_name' as dim_set,
 
@@ -107,7 +107,7 @@ with
 
   qexptbl_day_program_name_resource_type as (
     select
-      event__metric_time_day_day as date_at_time_grain,
+      event__metric_time_day__day as date_at_time_grain,
       'day' as time_grain,
       'program_name_resource_type' as dim_set,
 
@@ -124,7 +124,7 @@ with
 
   qexptbl_day_program_name_district_name as (
     select
-      event__metric_time_day_day as date_at_time_grain,
+      event__metric_time_day__day as date_at_time_grain,
       'day' as time_grain,
       'program_name_district_name' as dim_set,
 
@@ -141,7 +141,7 @@ with
 
   qexptbl_day_program_name_district_type as (
     select
-      event__metric_time_day_day as date_at_time_grain,
+      event__metric_time_day__day as date_at_time_grain,
       'day' as time_grain,
       'program_name_district_type' as dim_set,
 
@@ -158,7 +158,7 @@ with
 
   qexptbl_day_program_name_application_name as (
     select
-      event__metric_time_day_day as date_at_time_grain,
+      event__metric_time_day__day as date_at_time_grain,
       'day' as time_grain,
       'program_name_application_name' as dim_set,
 
@@ -175,7 +175,7 @@ with
 
   qexptbl_day_resource_type_district_name as (
     select
-      event__metric_time_day_day as date_at_time_grain,
+      event__metric_time_day__day as date_at_time_grain,
       'day' as time_grain,
       'resource_type_district_name' as dim_set,
 
@@ -192,7 +192,7 @@ with
 
   qexptbl_day_resource_type_district_type as (
     select
-      event__metric_time_day_day as date_at_time_grain,
+      event__metric_time_day__day as date_at_time_grain,
       'day' as time_grain,
       'resource_type_district_type' as dim_set,
 
@@ -209,7 +209,7 @@ with
 
   qexptbl_day_resource_type_application_name as (
     select
-      event__metric_time_day_day as date_at_time_grain,
+      event__metric_time_day__day as date_at_time_grain,
       'day' as time_grain,
       'resource_type_application_name' as dim_set,
 
@@ -226,7 +226,7 @@ with
 
   qexptbl_day_district_name_district_type as (
     select
-      event__metric_time_day_day as date_at_time_grain,
+      event__metric_time_day__day as date_at_time_grain,
       'day' as time_grain,
       'district_name_district_type' as dim_set,
 
@@ -243,7 +243,7 @@ with
 
   qexptbl_day_district_name_application_name as (
     select
-      event__metric_time_day_day as date_at_time_grain,
+      event__metric_time_day__day as date_at_time_grain,
       'day' as time_grain,
       'district_name_application_name' as dim_set,
 
@@ -260,7 +260,7 @@ with
 
   qexptbl_day_district_type_application_name as (
     select
-      event__metric_time_day_day as date_at_time_grain,
+      event__metric_time_day__day as date_at_time_grain,
       'day' as time_grain,
       'district_type_application_name' as dim_set,
 
@@ -277,7 +277,7 @@ with
 
   qexptbl_week_all as (
     select
-      event__metric_time_week_week as date_at_time_grain,
+      event__metric_time_week__week as date_at_time_grain,
       'week' as time_grain,
       'all' as dim_set,
 
@@ -294,7 +294,7 @@ with
 
   qexptbl_week_program_name as (
     select
-      event__metric_time_week_week as date_at_time_grain,
+      event__metric_time_week__week as date_at_time_grain,
       'week' as time_grain,
       'program_name' as dim_set,
 
@@ -311,7 +311,7 @@ with
 
   qexptbl_week_resource_type as (
     select
-      event__metric_time_week_week as date_at_time_grain,
+      event__metric_time_week__week as date_at_time_grain,
       'week' as time_grain,
       'resource_type' as dim_set,
 
@@ -328,7 +328,7 @@ with
 
   qexptbl_week_district_name as (
     select
-      event__metric_time_week_week as date_at_time_grain,
+      event__metric_time_week__week as date_at_time_grain,
       'week' as time_grain,
       'district_name' as dim_set,
 
@@ -345,7 +345,7 @@ with
 
   qexptbl_week_district_type as (
     select
-      event__metric_time_week_week as date_at_time_grain,
+      event__metric_time_week__week as date_at_time_grain,
       'week' as time_grain,
       'district_type' as dim_set,
 
@@ -362,7 +362,7 @@ with
 
   qexptbl_week_application_name as (
     select
-      event__metric_time_week_week as date_at_time_grain,
+      event__metric_time_week__week as date_at_time_grain,
       'week' as time_grain,
       'application_name' as dim_set,
 
@@ -379,7 +379,7 @@ with
 
   qexptbl_week_program_name_resource_type as (
     select
-      event__metric_time_week_week as date_at_time_grain,
+      event__metric_time_week__week as date_at_time_grain,
       'week' as time_grain,
       'program_name_resource_type' as dim_set,
 
@@ -396,7 +396,7 @@ with
 
   qexptbl_week_program_name_district_name as (
     select
-      event__metric_time_week_week as date_at_time_grain,
+      event__metric_time_week__week as date_at_time_grain,
       'week' as time_grain,
       'program_name_district_name' as dim_set,
 
@@ -413,7 +413,7 @@ with
 
   qexptbl_week_program_name_district_type as (
     select
-      event__metric_time_week_week as date_at_time_grain,
+      event__metric_time_week__week as date_at_time_grain,
       'week' as time_grain,
       'program_name_district_type' as dim_set,
 
@@ -430,7 +430,7 @@ with
 
   qexptbl_week_program_name_application_name as (
     select
-      event__metric_time_week_week as date_at_time_grain,
+      event__metric_time_week__week as date_at_time_grain,
       'week' as time_grain,
       'program_name_application_name' as dim_set,
 
@@ -447,7 +447,7 @@ with
 
   qexptbl_week_resource_type_district_name as (
     select
-      event__metric_time_week_week as date_at_time_grain,
+      event__metric_time_week__week as date_at_time_grain,
       'week' as time_grain,
       'resource_type_district_name' as dim_set,
 
@@ -464,7 +464,7 @@ with
 
   qexptbl_week_resource_type_district_type as (
     select
-      event__metric_time_week_week as date_at_time_grain,
+      event__metric_time_week__week as date_at_time_grain,
       'week' as time_grain,
       'resource_type_district_type' as dim_set,
 
@@ -481,7 +481,7 @@ with
 
   qexptbl_week_resource_type_application_name as (
     select
-      event__metric_time_week_week as date_at_time_grain,
+      event__metric_time_week__week as date_at_time_grain,
       'week' as time_grain,
       'resource_type_application_name' as dim_set,
 
@@ -498,7 +498,7 @@ with
 
   qexptbl_week_district_name_district_type as (
     select
-      event__metric_time_week_week as date_at_time_grain,
+      event__metric_time_week__week as date_at_time_grain,
       'week' as time_grain,
       'district_name_district_type' as dim_set,
 
@@ -515,7 +515,7 @@ with
 
   qexptbl_week_district_name_application_name as (
     select
-      event__metric_time_week_week as date_at_time_grain,
+      event__metric_time_week__week as date_at_time_grain,
       'week' as time_grain,
       'district_name_application_name' as dim_set,
 
@@ -532,7 +532,7 @@ with
 
   qexptbl_week_district_type_application_name as (
     select
-      event__metric_time_week_week as date_at_time_grain,
+      event__metric_time_week__week as date_at_time_grain,
       'week' as time_grain,
       'district_type_application_name' as dim_set,
 
@@ -549,7 +549,7 @@ with
 
   qexptbl_month_all as (
     select
-      event__metric_time_month_month as date_at_time_grain,
+      event__metric_time_month__month as date_at_time_grain,
       'month' as time_grain,
       'all' as dim_set,
 
@@ -566,7 +566,7 @@ with
 
   qexptbl_month_program_name as (
     select
-      event__metric_time_month_month as date_at_time_grain,
+      event__metric_time_month__month as date_at_time_grain,
       'month' as time_grain,
       'program_name' as dim_set,
 
@@ -583,7 +583,7 @@ with
 
   qexptbl_month_resource_type as (
     select
-      event__metric_time_month_month as date_at_time_grain,
+      event__metric_time_month__month as date_at_time_grain,
       'month' as time_grain,
       'resource_type' as dim_set,
 
@@ -600,7 +600,7 @@ with
 
   qexptbl_month_district_name as (
     select
-      event__metric_time_month_month as date_at_time_grain,
+      event__metric_time_month__month as date_at_time_grain,
       'month' as time_grain,
       'district_name' as dim_set,
 
@@ -617,7 +617,7 @@ with
 
   qexptbl_month_district_type as (
     select
-      event__metric_time_month_month as date_at_time_grain,
+      event__metric_time_month__month as date_at_time_grain,
       'month' as time_grain,
       'district_type' as dim_set,
 
@@ -634,7 +634,7 @@ with
 
   qexptbl_month_application_name as (
     select
-      event__metric_time_month_month as date_at_time_grain,
+      event__metric_time_month__month as date_at_time_grain,
       'month' as time_grain,
       'application_name' as dim_set,
 
@@ -651,7 +651,7 @@ with
 
   qexptbl_month_program_name_resource_type as (
     select
-      event__metric_time_month_month as date_at_time_grain,
+      event__metric_time_month__month as date_at_time_grain,
       'month' as time_grain,
       'program_name_resource_type' as dim_set,
 
@@ -668,7 +668,7 @@ with
 
   qexptbl_month_program_name_district_name as (
     select
-      event__metric_time_month_month as date_at_time_grain,
+      event__metric_time_month__month as date_at_time_grain,
       'month' as time_grain,
       'program_name_district_name' as dim_set,
 
@@ -685,7 +685,7 @@ with
 
   qexptbl_month_program_name_district_type as (
     select
-      event__metric_time_month_month as date_at_time_grain,
+      event__metric_time_month__month as date_at_time_grain,
       'month' as time_grain,
       'program_name_district_type' as dim_set,
 
@@ -702,7 +702,7 @@ with
 
   qexptbl_month_program_name_application_name as (
     select
-      event__metric_time_month_month as date_at_time_grain,
+      event__metric_time_month__month as date_at_time_grain,
       'month' as time_grain,
       'program_name_application_name' as dim_set,
 
@@ -719,7 +719,7 @@ with
 
   qexptbl_month_resource_type_district_name as (
     select
-      event__metric_time_month_month as date_at_time_grain,
+      event__metric_time_month__month as date_at_time_grain,
       'month' as time_grain,
       'resource_type_district_name' as dim_set,
 
@@ -736,7 +736,7 @@ with
 
   qexptbl_month_resource_type_district_type as (
     select
-      event__metric_time_month_month as date_at_time_grain,
+      event__metric_time_month__month as date_at_time_grain,
       'month' as time_grain,
       'resource_type_district_type' as dim_set,
 
@@ -753,7 +753,7 @@ with
 
   qexptbl_month_resource_type_application_name as (
     select
-      event__metric_time_month_month as date_at_time_grain,
+      event__metric_time_month__month as date_at_time_grain,
       'month' as time_grain,
       'resource_type_application_name' as dim_set,
 
@@ -770,7 +770,7 @@ with
 
   qexptbl_month_district_name_district_type as (
     select
-      event__metric_time_month_month as date_at_time_grain,
+      event__metric_time_month__month as date_at_time_grain,
       'month' as time_grain,
       'district_name_district_type' as dim_set,
 
@@ -787,7 +787,7 @@ with
 
   qexptbl_month_district_name_application_name as (
     select
-      event__metric_time_month_month as date_at_time_grain,
+      event__metric_time_month__month as date_at_time_grain,
       'month' as time_grain,
       'district_name_application_name' as dim_set,
 
@@ -804,7 +804,7 @@ with
 
   qexptbl_month_district_type_application_name as (
     select
-      event__metric_time_month_month as date_at_time_grain,
+      event__metric_time_month__month as date_at_time_grain,
       'month' as time_grain,
       'district_type_application_name' as dim_set,
 
