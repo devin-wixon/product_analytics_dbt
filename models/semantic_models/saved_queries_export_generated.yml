@@ -5,7 +5,7 @@
 version: 2
 saved_queries:
 - name: sq_day_all
-  description: Metrics by day and All (no dimensional breakdown)
+  description: Metrics by day and All (no dimensional breakdown) (excluding incomplete periods)
   query_params:
     metrics:
     - n_active_users
@@ -24,7 +24,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_all
 - name: sq_day_program_name
-  description: Metrics by day and Program name
+  description: Metrics by day and Program name (excluding incomplete periods)
   query_params:
     metrics:
     - n_active_users
@@ -45,7 +45,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_program_name
 - name: sq_day_resource_type
-  description: Metrics by day and Resource type
+  description: Metrics by day and Resource type (excluding incomplete periods)
   query_params:
     metrics:
     - n_active_users
@@ -66,7 +66,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_resource_type
 - name: sq_day_district_name
-  description: Metrics by day and District name
+  description: Metrics by day and District name (excluding incomplete periods)
   query_params:
     metrics:
     - n_active_users
@@ -87,7 +87,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_district_name
 - name: sq_day_district_type
-  description: Metrics by day and District type
+  description: Metrics by day and District type (excluding incomplete periods)
   query_params:
     metrics:
     - n_active_users
@@ -108,7 +108,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_district_type
 - name: sq_day_application_name
-  description: Metrics by day and Application name
+  description: Metrics by day and Application name (excluding incomplete periods)
   query_params:
     metrics:
     - n_active_users
@@ -129,7 +129,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_application_name
 - name: sq_day_program_name_resource_type
-  description: "Metrics by day and Program name \xD7 Resource type"
+  description: "Metrics by day and Program name \xD7 Resource type (excluding incomplete periods)"
   query_params:
     metrics:
     - n_active_users
@@ -152,7 +152,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_program_name_resource_type
 - name: sq_day_program_name_district_name
-  description: "Metrics by day and Program name \xD7 District name"
+  description: "Metrics by day and Program name \xD7 District name (excluding incomplete periods)"
   query_params:
     metrics:
     - n_active_users
@@ -175,7 +175,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_program_name_district_name
 - name: sq_day_program_name_district_type
-  description: "Metrics by day and Program name \xD7 District type"
+  description: "Metrics by day and Program name \xD7 District type (excluding incomplete periods)"
   query_params:
     metrics:
     - n_active_users
@@ -198,7 +198,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_program_name_district_type
 - name: sq_day_program_name_application_name
-  description: "Metrics by day and Program name \xD7 Application name"
+  description: "Metrics by day and Program name \xD7 Application name (excluding incomplete periods)"
   query_params:
     metrics:
     - n_active_users
@@ -221,7 +221,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_program_name_application_name
 - name: sq_day_resource_type_district_name
-  description: "Metrics by day and Resource type \xD7 District name"
+  description: "Metrics by day and Resource type \xD7 District name (excluding incomplete periods)"
   query_params:
     metrics:
     - n_active_users
@@ -244,7 +244,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_resource_type_district_name
 - name: sq_day_resource_type_district_type
-  description: "Metrics by day and Resource type \xD7 District type"
+  description: "Metrics by day and Resource type \xD7 District type (excluding incomplete periods)"
   query_params:
     metrics:
     - n_active_users
@@ -267,7 +267,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_resource_type_district_type
 - name: sq_day_resource_type_application_name
-  description: "Metrics by day and Resource type \xD7 Application name"
+  description: "Metrics by day and Resource type \xD7 Application name (excluding incomplete periods)"
   query_params:
     metrics:
     - n_active_users
@@ -290,7 +290,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_resource_type_application_name
 - name: sq_day_district_name_district_type
-  description: "Metrics by day and District name \xD7 District type"
+  description: "Metrics by day and District name \xD7 District type (excluding incomplete periods)"
   query_params:
     metrics:
     - n_active_users
@@ -313,7 +313,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_district_name_district_type
 - name: sq_day_district_name_application_name
-  description: "Metrics by day and District name \xD7 Application name"
+  description: "Metrics by day and District name \xD7 Application name (excluding incomplete periods)"
   query_params:
     metrics:
     - n_active_users
@@ -336,7 +336,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_district_name_application_name
 - name: sq_day_district_type_application_name
-  description: "Metrics by day and District type \xD7 Application name"
+  description: "Metrics by day and District type \xD7 Application name (excluding incomplete periods)"
   query_params:
     metrics:
     - n_active_users
@@ -359,13 +359,14 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_day_district_type_application_name
 - name: sq_week_all
-  description: Metrics by week and All (no dimensional breakdown)
+  description: Metrics by week and All (no dimensional breakdown) (excluding incomplete periods)
   query_params:
     metrics:
     - n_active_users
     - n_events
     group_by:
     - TimeDimension('event__metric_time_week', 'week')
+    where: '{{ TimeDimension(''event__metric_time_week'', ''week'') }} < ''2025-09-22'''
   exports:
   - name: qexptbl_week_all
     config:
@@ -378,7 +379,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_all
 - name: sq_week_program_name
-  description: Metrics by week and Program name
+  description: Metrics by week and Program name (excluding incomplete periods)
   query_params:
     metrics:
     - n_active_users
@@ -386,6 +387,7 @@ saved_queries:
     group_by:
     - TimeDimension('event__metric_time_week', 'week')
     - Dimension('program__program_name')
+    where: '{{ TimeDimension(''event__metric_time_week'', ''week'') }} < ''2025-09-22'''
   exports:
   - name: qexptbl_week_program_name
     config:
@@ -399,7 +401,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_program_name
 - name: sq_week_resource_type
-  description: Metrics by week and Resource type
+  description: Metrics by week and Resource type (excluding incomplete periods)
   query_params:
     metrics:
     - n_active_users
@@ -407,6 +409,7 @@ saved_queries:
     group_by:
     - TimeDimension('event__metric_time_week', 'week')
     - Dimension('resource__resource_type')
+    where: '{{ TimeDimension(''event__metric_time_week'', ''week'') }} < ''2025-09-22'''
   exports:
   - name: qexptbl_week_resource_type
     config:
@@ -420,7 +423,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_resource_type
 - name: sq_week_district_name
-  description: Metrics by week and District name
+  description: Metrics by week and District name (excluding incomplete periods)
   query_params:
     metrics:
     - n_active_users
@@ -428,6 +431,7 @@ saved_queries:
     group_by:
     - TimeDimension('event__metric_time_week', 'week')
     - Dimension('district__district_name')
+    where: '{{ TimeDimension(''event__metric_time_week'', ''week'') }} < ''2025-09-22'''
   exports:
   - name: qexptbl_week_district_name
     config:
@@ -441,7 +445,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_district_name
 - name: sq_week_district_type
-  description: Metrics by week and District type
+  description: Metrics by week and District type (excluding incomplete periods)
   query_params:
     metrics:
     - n_active_users
@@ -449,6 +453,7 @@ saved_queries:
     group_by:
     - TimeDimension('event__metric_time_week', 'week')
     - Dimension('district__district_type')
+    where: '{{ TimeDimension(''event__metric_time_week'', ''week'') }} < ''2025-09-22'''
   exports:
   - name: qexptbl_week_district_type
     config:
@@ -462,7 +467,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_district_type
 - name: sq_week_application_name
-  description: Metrics by week and Application name
+  description: Metrics by week and Application name (excluding incomplete periods)
   query_params:
     metrics:
     - n_active_users
@@ -470,6 +475,7 @@ saved_queries:
     group_by:
     - TimeDimension('event__metric_time_week', 'week')
     - Dimension('event__application_name')
+    where: '{{ TimeDimension(''event__metric_time_week'', ''week'') }} < ''2025-09-22'''
   exports:
   - name: qexptbl_week_application_name
     config:
@@ -483,7 +489,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_application_name
 - name: sq_week_program_name_resource_type
-  description: "Metrics by week and Program name \xD7 Resource type"
+  description: "Metrics by week and Program name \xD7 Resource type (excluding incomplete periods)"
   query_params:
     metrics:
     - n_active_users
@@ -492,6 +498,7 @@ saved_queries:
     - TimeDimension('event__metric_time_week', 'week')
     - Dimension('program__program_name')
     - Dimension('resource__resource_type')
+    where: '{{ TimeDimension(''event__metric_time_week'', ''week'') }} < ''2025-09-22'''
   exports:
   - name: qexptbl_week_program_name_resource_type
     config:
@@ -506,7 +513,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_program_name_resource_type
 - name: sq_week_program_name_district_name
-  description: "Metrics by week and Program name \xD7 District name"
+  description: "Metrics by week and Program name \xD7 District name (excluding incomplete periods)"
   query_params:
     metrics:
     - n_active_users
@@ -515,6 +522,7 @@ saved_queries:
     - TimeDimension('event__metric_time_week', 'week')
     - Dimension('program__program_name')
     - Dimension('district__district_name')
+    where: '{{ TimeDimension(''event__metric_time_week'', ''week'') }} < ''2025-09-22'''
   exports:
   - name: qexptbl_week_program_name_district_name
     config:
@@ -529,7 +537,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_program_name_district_name
 - name: sq_week_program_name_district_type
-  description: "Metrics by week and Program name \xD7 District type"
+  description: "Metrics by week and Program name \xD7 District type (excluding incomplete periods)"
   query_params:
     metrics:
     - n_active_users
@@ -538,6 +546,7 @@ saved_queries:
     - TimeDimension('event__metric_time_week', 'week')
     - Dimension('program__program_name')
     - Dimension('district__district_type')
+    where: '{{ TimeDimension(''event__metric_time_week'', ''week'') }} < ''2025-09-22'''
   exports:
   - name: qexptbl_week_program_name_district_type
     config:
@@ -552,7 +561,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_program_name_district_type
 - name: sq_week_program_name_application_name
-  description: "Metrics by week and Program name \xD7 Application name"
+  description: "Metrics by week and Program name \xD7 Application name (excluding incomplete periods)"
   query_params:
     metrics:
     - n_active_users
@@ -561,6 +570,7 @@ saved_queries:
     - TimeDimension('event__metric_time_week', 'week')
     - Dimension('program__program_name')
     - Dimension('event__application_name')
+    where: '{{ TimeDimension(''event__metric_time_week'', ''week'') }} < ''2025-09-22'''
   exports:
   - name: qexptbl_week_program_name_application_name
     config:
@@ -575,7 +585,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_program_name_application_name
 - name: sq_week_resource_type_district_name
-  description: "Metrics by week and Resource type \xD7 District name"
+  description: "Metrics by week and Resource type \xD7 District name (excluding incomplete periods)"
   query_params:
     metrics:
     - n_active_users
@@ -584,6 +594,7 @@ saved_queries:
     - TimeDimension('event__metric_time_week', 'week')
     - Dimension('resource__resource_type')
     - Dimension('district__district_name')
+    where: '{{ TimeDimension(''event__metric_time_week'', ''week'') }} < ''2025-09-22'''
   exports:
   - name: qexptbl_week_resource_type_district_name
     config:
@@ -598,7 +609,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_resource_type_district_name
 - name: sq_week_resource_type_district_type
-  description: "Metrics by week and Resource type \xD7 District type"
+  description: "Metrics by week and Resource type \xD7 District type (excluding incomplete periods)"
   query_params:
     metrics:
     - n_active_users
@@ -607,6 +618,7 @@ saved_queries:
     - TimeDimension('event__metric_time_week', 'week')
     - Dimension('resource__resource_type')
     - Dimension('district__district_type')
+    where: '{{ TimeDimension(''event__metric_time_week'', ''week'') }} < ''2025-09-22'''
   exports:
   - name: qexptbl_week_resource_type_district_type
     config:
@@ -621,7 +633,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_resource_type_district_type
 - name: sq_week_resource_type_application_name
-  description: "Metrics by week and Resource type \xD7 Application name"
+  description: "Metrics by week and Resource type \xD7 Application name (excluding incomplete periods)"
   query_params:
     metrics:
     - n_active_users
@@ -630,6 +642,7 @@ saved_queries:
     - TimeDimension('event__metric_time_week', 'week')
     - Dimension('resource__resource_type')
     - Dimension('event__application_name')
+    where: '{{ TimeDimension(''event__metric_time_week'', ''week'') }} < ''2025-09-22'''
   exports:
   - name: qexptbl_week_resource_type_application_name
     config:
@@ -644,7 +657,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_resource_type_application_name
 - name: sq_week_district_name_district_type
-  description: "Metrics by week and District name \xD7 District type"
+  description: "Metrics by week and District name \xD7 District type (excluding incomplete periods)"
   query_params:
     metrics:
     - n_active_users
@@ -653,6 +666,7 @@ saved_queries:
     - TimeDimension('event__metric_time_week', 'week')
     - Dimension('district__district_name')
     - Dimension('district__district_type')
+    where: '{{ TimeDimension(''event__metric_time_week'', ''week'') }} < ''2025-09-22'''
   exports:
   - name: qexptbl_week_district_name_district_type
     config:
@@ -667,7 +681,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_district_name_district_type
 - name: sq_week_district_name_application_name
-  description: "Metrics by week and District name \xD7 Application name"
+  description: "Metrics by week and District name \xD7 Application name (excluding incomplete periods)"
   query_params:
     metrics:
     - n_active_users
@@ -676,6 +690,7 @@ saved_queries:
     - TimeDimension('event__metric_time_week', 'week')
     - Dimension('district__district_name')
     - Dimension('event__application_name')
+    where: '{{ TimeDimension(''event__metric_time_week'', ''week'') }} < ''2025-09-22'''
   exports:
   - name: qexptbl_week_district_name_application_name
     config:
@@ -690,7 +705,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_district_name_application_name
 - name: sq_week_district_type_application_name
-  description: "Metrics by week and District type \xD7 Application name"
+  description: "Metrics by week and District type \xD7 Application name (excluding incomplete periods)"
   query_params:
     metrics:
     - n_active_users
@@ -699,6 +714,7 @@ saved_queries:
     - TimeDimension('event__metric_time_week', 'week')
     - Dimension('district__district_type')
     - Dimension('event__application_name')
+    where: '{{ TimeDimension(''event__metric_time_week'', ''week'') }} < ''2025-09-22'''
   exports:
   - name: qexptbl_week_district_type_application_name
     config:
@@ -713,13 +729,14 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_week_district_type_application_name
 - name: sq_month_all
-  description: Metrics by month and All (no dimensional breakdown)
+  description: Metrics by month and All (no dimensional breakdown) (excluding incomplete periods)
   query_params:
     metrics:
     - n_active_users
     - n_events
     group_by:
     - TimeDimension('event__metric_time_month', 'month')
+    where: '{{ TimeDimension(''event__metric_time_month'', ''month'') }} < ''2025-09-01'''
   exports:
   - name: qexptbl_month_all
     config:
@@ -732,7 +749,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_all
 - name: sq_month_program_name
-  description: Metrics by month and Program name
+  description: Metrics by month and Program name (excluding incomplete periods)
   query_params:
     metrics:
     - n_active_users
@@ -740,6 +757,7 @@ saved_queries:
     group_by:
     - TimeDimension('event__metric_time_month', 'month')
     - Dimension('program__program_name')
+    where: '{{ TimeDimension(''event__metric_time_month'', ''month'') }} < ''2025-09-01'''
   exports:
   - name: qexptbl_month_program_name
     config:
@@ -753,7 +771,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_program_name
 - name: sq_month_resource_type
-  description: Metrics by month and Resource type
+  description: Metrics by month and Resource type (excluding incomplete periods)
   query_params:
     metrics:
     - n_active_users
@@ -761,6 +779,7 @@ saved_queries:
     group_by:
     - TimeDimension('event__metric_time_month', 'month')
     - Dimension('resource__resource_type')
+    where: '{{ TimeDimension(''event__metric_time_month'', ''month'') }} < ''2025-09-01'''
   exports:
   - name: qexptbl_month_resource_type
     config:
@@ -774,7 +793,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_resource_type
 - name: sq_month_district_name
-  description: Metrics by month and District name
+  description: Metrics by month and District name (excluding incomplete periods)
   query_params:
     metrics:
     - n_active_users
@@ -782,6 +801,7 @@ saved_queries:
     group_by:
     - TimeDimension('event__metric_time_month', 'month')
     - Dimension('district__district_name')
+    where: '{{ TimeDimension(''event__metric_time_month'', ''month'') }} < ''2025-09-01'''
   exports:
   - name: qexptbl_month_district_name
     config:
@@ -795,7 +815,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_district_name
 - name: sq_month_district_type
-  description: Metrics by month and District type
+  description: Metrics by month and District type (excluding incomplete periods)
   query_params:
     metrics:
     - n_active_users
@@ -803,6 +823,7 @@ saved_queries:
     group_by:
     - TimeDimension('event__metric_time_month', 'month')
     - Dimension('district__district_type')
+    where: '{{ TimeDimension(''event__metric_time_month'', ''month'') }} < ''2025-09-01'''
   exports:
   - name: qexptbl_month_district_type
     config:
@@ -816,7 +837,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_district_type
 - name: sq_month_application_name
-  description: Metrics by month and Application name
+  description: Metrics by month and Application name (excluding incomplete periods)
   query_params:
     metrics:
     - n_active_users
@@ -824,6 +845,7 @@ saved_queries:
     group_by:
     - TimeDimension('event__metric_time_month', 'month')
     - Dimension('event__application_name')
+    where: '{{ TimeDimension(''event__metric_time_month'', ''month'') }} < ''2025-09-01'''
   exports:
   - name: qexptbl_month_application_name
     config:
@@ -837,7 +859,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_application_name
 - name: sq_month_program_name_resource_type
-  description: "Metrics by month and Program name \xD7 Resource type"
+  description: "Metrics by month and Program name \xD7 Resource type (excluding incomplete periods)"
   query_params:
     metrics:
     - n_active_users
@@ -846,6 +868,7 @@ saved_queries:
     - TimeDimension('event__metric_time_month', 'month')
     - Dimension('program__program_name')
     - Dimension('resource__resource_type')
+    where: '{{ TimeDimension(''event__metric_time_month'', ''month'') }} < ''2025-09-01'''
   exports:
   - name: qexptbl_month_program_name_resource_type
     config:
@@ -860,7 +883,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_program_name_resource_type
 - name: sq_month_program_name_district_name
-  description: "Metrics by month and Program name \xD7 District name"
+  description: "Metrics by month and Program name \xD7 District name (excluding incomplete periods)"
   query_params:
     metrics:
     - n_active_users
@@ -869,6 +892,7 @@ saved_queries:
     - TimeDimension('event__metric_time_month', 'month')
     - Dimension('program__program_name')
     - Dimension('district__district_name')
+    where: '{{ TimeDimension(''event__metric_time_month'', ''month'') }} < ''2025-09-01'''
   exports:
   - name: qexptbl_month_program_name_district_name
     config:
@@ -883,7 +907,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_program_name_district_name
 - name: sq_month_program_name_district_type
-  description: "Metrics by month and Program name \xD7 District type"
+  description: "Metrics by month and Program name \xD7 District type (excluding incomplete periods)"
   query_params:
     metrics:
     - n_active_users
@@ -892,6 +916,7 @@ saved_queries:
     - TimeDimension('event__metric_time_month', 'month')
     - Dimension('program__program_name')
     - Dimension('district__district_type')
+    where: '{{ TimeDimension(''event__metric_time_month'', ''month'') }} < ''2025-09-01'''
   exports:
   - name: qexptbl_month_program_name_district_type
     config:
@@ -906,7 +931,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_program_name_district_type
 - name: sq_month_program_name_application_name
-  description: "Metrics by month and Program name \xD7 Application name"
+  description: "Metrics by month and Program name \xD7 Application name (excluding incomplete periods)"
   query_params:
     metrics:
     - n_active_users
@@ -915,6 +940,7 @@ saved_queries:
     - TimeDimension('event__metric_time_month', 'month')
     - Dimension('program__program_name')
     - Dimension('event__application_name')
+    where: '{{ TimeDimension(''event__metric_time_month'', ''month'') }} < ''2025-09-01'''
   exports:
   - name: qexptbl_month_program_name_application_name
     config:
@@ -929,7 +955,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_program_name_application_name
 - name: sq_month_resource_type_district_name
-  description: "Metrics by month and Resource type \xD7 District name"
+  description: "Metrics by month and Resource type \xD7 District name (excluding incomplete periods)"
   query_params:
     metrics:
     - n_active_users
@@ -938,6 +964,7 @@ saved_queries:
     - TimeDimension('event__metric_time_month', 'month')
     - Dimension('resource__resource_type')
     - Dimension('district__district_name')
+    where: '{{ TimeDimension(''event__metric_time_month'', ''month'') }} < ''2025-09-01'''
   exports:
   - name: qexptbl_month_resource_type_district_name
     config:
@@ -952,7 +979,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_resource_type_district_name
 - name: sq_month_resource_type_district_type
-  description: "Metrics by month and Resource type \xD7 District type"
+  description: "Metrics by month and Resource type \xD7 District type (excluding incomplete periods)"
   query_params:
     metrics:
     - n_active_users
@@ -961,6 +988,7 @@ saved_queries:
     - TimeDimension('event__metric_time_month', 'month')
     - Dimension('resource__resource_type')
     - Dimension('district__district_type')
+    where: '{{ TimeDimension(''event__metric_time_month'', ''month'') }} < ''2025-09-01'''
   exports:
   - name: qexptbl_month_resource_type_district_type
     config:
@@ -975,7 +1003,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_resource_type_district_type
 - name: sq_month_resource_type_application_name
-  description: "Metrics by month and Resource type \xD7 Application name"
+  description: "Metrics by month and Resource type \xD7 Application name (excluding incomplete periods)"
   query_params:
     metrics:
     - n_active_users
@@ -984,6 +1012,7 @@ saved_queries:
     - TimeDimension('event__metric_time_month', 'month')
     - Dimension('resource__resource_type')
     - Dimension('event__application_name')
+    where: '{{ TimeDimension(''event__metric_time_month'', ''month'') }} < ''2025-09-01'''
   exports:
   - name: qexptbl_month_resource_type_application_name
     config:
@@ -998,7 +1027,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_resource_type_application_name
 - name: sq_month_district_name_district_type
-  description: "Metrics by month and District name \xD7 District type"
+  description: "Metrics by month and District name \xD7 District type (excluding incomplete periods)"
   query_params:
     metrics:
     - n_active_users
@@ -1007,6 +1036,7 @@ saved_queries:
     - TimeDimension('event__metric_time_month', 'month')
     - Dimension('district__district_name')
     - Dimension('district__district_type')
+    where: '{{ TimeDimension(''event__metric_time_month'', ''month'') }} < ''2025-09-01'''
   exports:
   - name: qexptbl_month_district_name_district_type
     config:
@@ -1021,7 +1051,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_district_name_district_type
 - name: sq_month_district_name_application_name
-  description: "Metrics by month and District name \xD7 Application name"
+  description: "Metrics by month and District name \xD7 Application name (excluding incomplete periods)"
   query_params:
     metrics:
     - n_active_users
@@ -1030,6 +1060,7 @@ saved_queries:
     - TimeDimension('event__metric_time_month', 'month')
     - Dimension('district__district_name')
     - Dimension('event__application_name')
+    where: '{{ TimeDimension(''event__metric_time_month'', ''month'') }} < ''2025-09-01'''
   exports:
   - name: qexptbl_month_district_name_application_name
     config:
@@ -1044,7 +1075,7 @@ saved_queries:
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
       alias: qexptbl_month_district_name_application_name
 - name: sq_month_district_type_application_name
-  description: "Metrics by month and District type \xD7 Application name"
+  description: "Metrics by month and District type \xD7 Application name (excluding incomplete periods)"
   query_params:
     metrics:
     - n_active_users
@@ -1053,6 +1084,7 @@ saved_queries:
     - TimeDimension('event__metric_time_month', 'month')
     - Dimension('district__district_type')
     - Dimension('event__application_name')
+    where: '{{ TimeDimension(''event__metric_time_month'', ''month'') }} < ''2025-09-01'''
   exports:
   - name: qexptbl_month_district_type_application_name
     config:

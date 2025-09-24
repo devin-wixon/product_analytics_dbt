@@ -7,6 +7,8 @@ for comprehensive BI exports (ex: Tableau) parameterization while maintaining DR
 """
 
 import yaml
+from datetime import datetime, timezone, timedelta
+import calendar
 
 
 def get_dimensions():
@@ -103,10 +105,29 @@ def generate_saved_query(time_grain, dimension_combo):
     for dim in dimension_combo["dimensions"]:
         group_by.append(f"Dimension('{dim['semantic_ref']}')")
 
+    # Build where clause to exclude current incomplete periods
+    where_clause = None
+
+    now_utc = datetime.now(timezone.utc)
+    if time_grain["name"] == "week":
+        # Exclude current week
+        start_of_this_week = now_utc.date() - timedelta(days=now_utc.weekday())
+        where_clause = f"{{{{ TimeDimension('{time_grain['semantic_ref']}', '{time_grain['name']}') }}}} < '{start_of_this_week}'"
+
+    elif time_grain["name"] == "month":
+        # Exclude current month
+        start_of_this_month = now_utc.replace(day=1).date()
+        where_clause = f"{{{{ TimeDimension('{time_grain['semantic_ref']}', '{time_grain['name']}') }}}} < '{start_of_this_month}'"
+
+    # Build query_params
+    query_params = {"metrics": metrics, "group_by": group_by}
+    if where_clause:
+        query_params["where"] = where_clause
+
     return {
         "name": query_name,
-        "description": f"Metrics by {time_grain['name']} and {dimension_combo['label']}",
-        "query_params": {"metrics": metrics, "group_by": group_by},
+        "description": f"Metrics by {time_grain['name']} and {dimension_combo['label']} (excluding incomplete periods)",
+        "query_params": query_params,
         "exports": [
             {
                 "name": export_name,
