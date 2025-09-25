@@ -94,6 +94,10 @@ AWS Cognito User Pool client identifier for authentication services.
 {% enddocs %}
 
 
+{% docs event_category %}
+Manually created category associated with the event in a seed file by event name.
+{% enddocs %}
+
 {% docs event_value_integer_join_column %}
 Indicates which type of entity (e.g., program_id, resource_id) the event_value should join to, based on event_name and only if event_value is numeric. Used to determine how to join event_value to other tables.
 {% enddocs %}

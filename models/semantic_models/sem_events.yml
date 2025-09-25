@@ -59,9 +59,9 @@ semantic_models:
         type: categorical
         description: "{{ doc('event_name') }}"
 
-      # - name: event_path
-      #   type: categorical
-      #   description: "{{ doc('event_path') }}"
+      - name: event_category
+        type: categorical
+        description: "{{ doc('event_category') }}"
 
       - name: launched_application_name
         type: categorical
