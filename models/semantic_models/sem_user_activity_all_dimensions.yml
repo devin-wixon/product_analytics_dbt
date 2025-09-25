@@ -133,13 +133,6 @@ semantic_models:
         create_metric: True
         label: "Music Action Days per User"
 
-      # - name: n_login_days_per_user
-      #   description: "Number of unique days with login activity per user, within any selected dimensional context (ex: district, program, resource, application)"
-      #   agg: count_distinct
-      #   expr: case when had_login_activity_per_user_day_context = 1 then client_event_date end
-      #   create_metric: True
-      #   label: "Login Days per User"
-
       - name: n_resource_download_days_per_user
         description: "Number of unique days with resource download activity per user, within any selected dimensional context (ex: district, program, resource, application)"
         agg: count_distinct
