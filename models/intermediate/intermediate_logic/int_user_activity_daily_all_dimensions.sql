@@ -1,19 +1,19 @@
+
+-- TAG TO DO: Configure this to build as incremental table by client_event_date; expensive to run and build
+
 with events as (
     select *
     from 
         {{ ref('fct_events') }}
 ),
 
--- Get all boolean event columns dynamically
-{% set boolean_event_columns = [] %}
-{% set results = run_query("select * from " ~ ref('fct_events') ~ " limit 0") %}
-{% if execute %}
-    {% for column in results.columns %}
-        {% if column.name.startswith('is_') and column.name.endswith('_event') %}
-            {% do boolean_event_columns.append(column.name) %}
-        {% endif %}
-    {% endfor %}
-{% endif %}
+-- Get all event categories and build boolean column names
+{%- set event_categories = dbt_utils.get_column_values(
+    table=ref('seed_event_log_metadata'),
+    column='event_category',
+    where="event_category is not null and event_category != ''",
+    order_by='event_category'
+    )%}
 
 user_daily_activity as (
     select
@@ -31,9 +31,11 @@ user_daily_activity as (
         1 as had_events_per_user_day_context,
 
         -- Dynamically create activity flags for all event types
-        {% for col in boolean_event_columns %}
-            max({{ col }}) as had_{{ col.replace('is_', '').replace('_event', '') }}_activity_per_user_day_context,
-        {% endfor %}
+        {%- if event_categories %}
+            {%- for category in event_categories %}
+        max(is_{{ category }}_event) as had_{{ category }}_activity_per_user_day_context,
+            {%- endfor %}
+        {%- endif %}
 
         -- Include key dimensional context columns
         user_id,
