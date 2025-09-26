@@ -1,5 +1,4 @@
-
--- TAG TO DO Placeholder code with logic; needs debugging and finalizing
+-- set list of events that will be counted as planner path; excludes modal and launch events
 {% set planner_path_events = "(
     'weekly.planner.program.week.filter.close',
     'weekly.planner.program.week.filter.deselect.all', 
@@ -194,23 +193,23 @@ events_add_pivots as
       {%- endfor -%}
   {%- endif -%},
 
-  -- add boolean is_ columns for event categories
-  -- code works, not currently used; commented out
-
-  {%- set event_categories = dbt_utils.get_column_values(
-      table=ref('seed_event_log_metadata'),
-      column='event_category',
-      where="event_category is not null and event_category != ''",
-      order_by='event_category'
-      )-%}
-  {%- if event_categories -%}
-      {%- for category in event_categories -%}
-            ,
-            case when event_category = '{{ category }}' then true else false 
-            end as is_{{ category }}_event
-      {%- endfor %}
-  {%- endif %}
-
+    -- add boolean is_ columns for event categories
+    -- code works, not currently used; commented out
+    {#
+    --   {%- set event_categories = dbt_utils.get_column_values(
+    --       table=ref('seed_event_log_metadata'),
+    --       column='event_category',
+    --       where="event_category is not null and event_category != ''",
+    --       order_by='event_category'
+    --       )-%}
+    --   {%- if event_categories -%}
+    --       {%- for category in event_categories -%}
+    --             ,
+    --             case when event_category = '{{ category }}' then true else false 
+    --             end as is_{{ category }}_event
+    --       {%- endfor %}
+    --   {%- endif %}
+    #}
  from
     events_add_column_info
 ),
