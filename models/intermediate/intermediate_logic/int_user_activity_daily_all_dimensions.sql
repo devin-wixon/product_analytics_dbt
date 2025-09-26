@@ -7,14 +7,15 @@ with events as (
         {{ ref('fct_events') }}
 ),
 
--- Get all event categories and build boolean column names
-{%- set event_categories = dbt_utils.get_column_values(
-    table=ref('seed_event_log_metadata'),
-    column='event_category',
-    where="event_category is not null and event_category != ''",
-    order_by='event_category'
-    )%}
-
+-- if event categories are pivoted to boolean data
+    -- {#
+    -- {%- set event_categories = dbt_utils.get_column_values(
+    --     table=ref('seed_event_log_metadata'),
+    --     column='event_category',
+    --     where="event_category is not null and event_category != ''",
+    --     order_by='event_category'
+    --     )%}
+    -- #}
 user_daily_activity as (
     select
         -- Explicit primary key
@@ -24,18 +25,21 @@ user_daily_activity as (
             'coalesce(district_id, -1)',
             'coalesce(program_id, -1)',
             'coalesce(resource_id, -1)',
-            "coalesce(application_name, 'none')"
-        ]) }} as user_daily_context_pk,
+            "coalesce(application_name, 'none')",
+            "coalesce(event_category, 'none')"
+        ]) }} as user_daily_context_sk,
 
         count(event_id) as n_events_per_user_day_context,
         1 as had_events_per_user_day_context,
 
-        -- Dynamically create activity flags for all event types
-        {%- if event_categories %}
-            {%- for category in event_categories %}
-        max(is_{{ category }}_event) as had_{{ category }}_activity_per_user_day_context,
-            {%- endfor %}
-        {%- endif %}
+        -- If event categories are pivoted to boolean data create activity flags for all event types
+        -- {# 
+        -- {%- if event_categories %}
+        --     {%- for category in event_categories %}
+        -- max(is_{{ category }}_event) as had_{{ category }}_activity_per_user_day_context,
+        --     {%- endfor %}
+        -- {%- endif %}
+        -- #}
 
         -- Include key dimensional context columns
         user_id,
@@ -43,7 +47,8 @@ user_daily_activity as (
         district_id,
         program_id,
         resource_id,
-        application_name
+        application_name,
+        event_category
     from 
         events
     group by all

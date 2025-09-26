@@ -8,16 +8,9 @@ models:
       Filters: Limited to 100 rows in Development environment.
       Notes: Dynamically generates boolean activity flags for all event categories. Supports flexible time grain aggregation through semantic modeling.
     # tests:
-      # - dbt_utils.unique_combination_of_columns:
-      #     combination_of_columns:
-      #       - user_id
-      #       - client_event_date
-      #       - district_id
-      #       - program_id
-      #       - resource_id
-      #       - application_name
+
     columns:
-      - name: user_daily_context_pk
+      - name: user_daily_context_sk
         description: Surrogate key uniquely identifying each user-day-context combination
         tests:
           - unique
@@ -57,6 +50,9 @@ models:
 
       - name: application_name
         description: "{ doc('application_name') }"
+
+      - name: event_category
+        description: "{{ doc('event_category') }}"
 
       # Dynamically generated activity flag columns
       # Note: These columns are generated dynamically based on event categories in the seed data
