@@ -92,15 +92,15 @@ semantic_models:
 
       - name: metric_time_school_year
         type: time
-        description: "School year time dimension for user activity (July 1 - June 30)"
+        description: "Event client date aggregated to school year level (July 1 - June 30). Will produce the last day of the school year."
         expr: |
           case
             when month(client_event_date) >= {{ var('school_year_start_month') }}
-            then date_from_parts(year(client_event_date), {{ var('school_year_start_month') }}, {{ var('school_year_start_day') }})
-            else date_from_parts(year(client_event_date) - 1, {{ var('school_year_start_month') }}, {{ var('school_year_start_day') }})
+            then date_from_parts(year(client_event_date) + 1, {{ var('school_year_end_month') }}, {{ var('school_year_end_day') }})
+            else date_from_parts(year(client_event_date), {{ var('school_year_end_month') }}, {{ var('school_year_end_day') }})
           end
         type_params:
-          time_granularity: year
+          time_granularity: day
 
     # measures:
         # - name: n_user_days_in_context

@@ -821,7 +821,7 @@ with
 
   qexptbl_school_year_all as (
     select
-      event__metric_time_school_year__year as date_at_time_grain,
+      event__metric_time_school_year__day as date_at_time_grain,
       'school_year' as time_grain,
       'all' as dim_set,
 
@@ -838,7 +838,7 @@ with
 
   qexptbl_school_year_program_name as (
     select
-      event__metric_time_school_year__year as date_at_time_grain,
+      event__metric_time_school_year__day as date_at_time_grain,
       'school_year' as time_grain,
       'program_name' as dim_set,
 
@@ -855,7 +855,7 @@ with
 
   qexptbl_school_year_resource_type as (
     select
-      event__metric_time_school_year__year as date_at_time_grain,
+      event__metric_time_school_year__day as date_at_time_grain,
       'school_year' as time_grain,
       'resource_type' as dim_set,
 
@@ -872,7 +872,7 @@ with
 
   qexptbl_school_year_district_name as (
     select
-      event__metric_time_school_year__year as date_at_time_grain,
+      event__metric_time_school_year__day as date_at_time_grain,
       'school_year' as time_grain,
       'district_name' as dim_set,
 
@@ -889,7 +889,7 @@ with
 
   qexptbl_school_year_district_type as (
     select
-      event__metric_time_school_year__year as date_at_time_grain,
+      event__metric_time_school_year__day as date_at_time_grain,
       'school_year' as time_grain,
       'district_type' as dim_set,
 
@@ -906,7 +906,7 @@ with
 
   qexptbl_school_year_application_name as (
     select
-      event__metric_time_school_year__year as date_at_time_grain,
+      event__metric_time_school_year__day as date_at_time_grain,
       'school_year' as time_grain,
       'application_name' as dim_set,
 
@@ -923,7 +923,7 @@ with
 
   qexptbl_school_year_program_name_resource_type as (
     select
-      event__metric_time_school_year__year as date_at_time_grain,
+      event__metric_time_school_year__day as date_at_time_grain,
       'school_year' as time_grain,
       'program_name_resource_type' as dim_set,
 
@@ -940,7 +940,7 @@ with
 
   qexptbl_school_year_program_name_district_name as (
     select
-      event__metric_time_school_year__year as date_at_time_grain,
+      event__metric_time_school_year__day as date_at_time_grain,
       'school_year' as time_grain,
       'program_name_district_name' as dim_set,
 
@@ -957,7 +957,7 @@ with
 
   qexptbl_school_year_program_name_district_type as (
     select
-      event__metric_time_school_year__year as date_at_time_grain,
+      event__metric_time_school_year__day as date_at_time_grain,
       'school_year' as time_grain,
       'program_name_district_type' as dim_set,
 
@@ -974,7 +974,7 @@ with
 
   qexptbl_school_year_program_name_application_name as (
     select
-      event__metric_time_school_year__year as date_at_time_grain,
+      event__metric_time_school_year__day as date_at_time_grain,
       'school_year' as time_grain,
       'program_name_application_name' as dim_set,
 
@@ -991,7 +991,7 @@ with
 
   qexptbl_school_year_resource_type_district_name as (
     select
-      event__metric_time_school_year__year as date_at_time_grain,
+      event__metric_time_school_year__day as date_at_time_grain,
       'school_year' as time_grain,
       'resource_type_district_name' as dim_set,
 
@@ -1008,7 +1008,7 @@ with
 
   qexptbl_school_year_resource_type_district_type as (
     select
-      event__metric_time_school_year__year as date_at_time_grain,
+      event__metric_time_school_year__day as date_at_time_grain,
       'school_year' as time_grain,
       'resource_type_district_type' as dim_set,
 
@@ -1025,7 +1025,7 @@ with
 
   qexptbl_school_year_resource_type_application_name as (
     select
-      event__metric_time_school_year__year as date_at_time_grain,
+      event__metric_time_school_year__day as date_at_time_grain,
       'school_year' as time_grain,
       'resource_type_application_name' as dim_set,
 
@@ -1042,7 +1042,7 @@ with
 
   qexptbl_school_year_district_name_district_type as (
     select
-      event__metric_time_school_year__year as date_at_time_grain,
+      event__metric_time_school_year__day as date_at_time_grain,
       'school_year' as time_grain,
       'district_name_district_type' as dim_set,
 
@@ -1059,7 +1059,7 @@ with
 
   qexptbl_school_year_district_name_application_name as (
     select
-      event__metric_time_school_year__year as date_at_time_grain,
+      event__metric_time_school_year__day as date_at_time_grain,
       'school_year' as time_grain,
       'district_name_application_name' as dim_set,
 
@@ -1076,7 +1076,7 @@ with
 
   qexptbl_school_year_district_type_application_name as (
     select
-      event__metric_time_school_year__year as date_at_time_grain,
+      event__metric_time_school_year__day as date_at_time_grain,
       'school_year' as time_grain,
       'district_type_application_name' as dim_set,
 

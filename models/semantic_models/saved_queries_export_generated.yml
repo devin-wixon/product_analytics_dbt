@@ -1105,14 +1105,14 @@ saved_queries:
     - n_active_users
     - n_events
     group_by:
-    - TimeDimension('event__metric_time_school_year', 'year')
+    - TimeDimension('event__metric_time_school_year', 'day')
   exports:
   - name: qexptbl_school_year_all
     config:
       export_as: table
       materialized: incremental
       unique_key:
-      - event__metric_time_school_year__year
+      - event__metric_time_school_year__day
       incremental_strategy: merge
       on_schema_change: sync_all_columns
       schema: '{{ ''exports'' if target.name == ''prod'' else target.schema }}'
@@ -1124,7 +1124,7 @@ saved_queries:
     - n_active_users
     - n_events
     group_by:
-    - TimeDimension('event__metric_time_school_year', 'year')
+    - TimeDimension('event__metric_time_school_year', 'day')
     - Dimension('program__program_name')
   exports:
   - name: qexptbl_school_year_program_name
@@ -1132,7 +1132,7 @@ saved_queries:
       export_as: table
       materialized: incremental
       unique_key:
-      - event__metric_time_school_year__year
+      - event__metric_time_school_year__day
       - program__program_name
       incremental_strategy: merge
       on_schema_change: sync_all_columns
@@ -1145,7 +1145,7 @@ saved_queries:
     - n_active_users
     - n_events
     group_by:
-    - TimeDimension('event__metric_time_school_year', 'year')
+    - TimeDimension('event__metric_time_school_year', 'day')
     - Dimension('resource__resource_type')
   exports:
   - name: qexptbl_school_year_resource_type
@@ -1153,7 +1153,7 @@ saved_queries:
       export_as: table
       materialized: incremental
       unique_key:
-      - event__metric_time_school_year__year
+      - event__metric_time_school_year__day
       - resource__resource_type
       incremental_strategy: merge
       on_schema_change: sync_all_columns
@@ -1166,7 +1166,7 @@ saved_queries:
     - n_active_users
     - n_events
     group_by:
-    - TimeDimension('event__metric_time_school_year', 'year')
+    - TimeDimension('event__metric_time_school_year', 'day')
     - Dimension('district__district_name')
   exports:
   - name: qexptbl_school_year_district_name
@@ -1174,7 +1174,7 @@ saved_queries:
       export_as: table
       materialized: incremental
       unique_key:
-      - event__metric_time_school_year__year
+      - event__metric_time_school_year__day
       - district__district_name
       incremental_strategy: merge
       on_schema_change: sync_all_columns
@@ -1187,7 +1187,7 @@ saved_queries:
     - n_active_users
     - n_events
     group_by:
-    - TimeDimension('event__metric_time_school_year', 'year')
+    - TimeDimension('event__metric_time_school_year', 'day')
     - Dimension('district__district_type')
   exports:
   - name: qexptbl_school_year_district_type
@@ -1195,7 +1195,7 @@ saved_queries:
       export_as: table
       materialized: incremental
       unique_key:
-      - event__metric_time_school_year__year
+      - event__metric_time_school_year__day
       - district__district_type
       incremental_strategy: merge
       on_schema_change: sync_all_columns
@@ -1208,7 +1208,7 @@ saved_queries:
     - n_active_users
     - n_events
     group_by:
-    - TimeDimension('event__metric_time_school_year', 'year')
+    - TimeDimension('event__metric_time_school_year', 'day')
     - Dimension('event__application_name')
   exports:
   - name: qexptbl_school_year_application_name
@@ -1216,7 +1216,7 @@ saved_queries:
       export_as: table
       materialized: incremental
       unique_key:
-      - event__metric_time_school_year__year
+      - event__metric_time_school_year__day
       - event__application_name
       incremental_strategy: merge
       on_schema_change: sync_all_columns
@@ -1229,7 +1229,7 @@ saved_queries:
     - n_active_users
     - n_events
     group_by:
-    - TimeDimension('event__metric_time_school_year', 'year')
+    - TimeDimension('event__metric_time_school_year', 'day')
     - Dimension('program__program_name')
     - Dimension('resource__resource_type')
   exports:
@@ -1238,7 +1238,7 @@ saved_queries:
       export_as: table
       materialized: incremental
       unique_key:
-      - event__metric_time_school_year__year
+      - event__metric_time_school_year__day
       - program__program_name
       - resource__resource_type
       incremental_strategy: merge
@@ -1252,7 +1252,7 @@ saved_queries:
     - n_active_users
     - n_events
     group_by:
-    - TimeDimension('event__metric_time_school_year', 'year')
+    - TimeDimension('event__metric_time_school_year', 'day')
     - Dimension('program__program_name')
     - Dimension('district__district_name')
   exports:
@@ -1261,7 +1261,7 @@ saved_queries:
       export_as: table
       materialized: incremental
       unique_key:
-      - event__metric_time_school_year__year
+      - event__metric_time_school_year__day
       - program__program_name
       - district__district_name
       incremental_strategy: merge
@@ -1275,7 +1275,7 @@ saved_queries:
     - n_active_users
     - n_events
     group_by:
-    - TimeDimension('event__metric_time_school_year', 'year')
+    - TimeDimension('event__metric_time_school_year', 'day')
     - Dimension('program__program_name')
     - Dimension('district__district_type')
   exports:
@@ -1284,7 +1284,7 @@ saved_queries:
       export_as: table
       materialized: incremental
       unique_key:
-      - event__metric_time_school_year__year
+      - event__metric_time_school_year__day
       - program__program_name
       - district__district_type
       incremental_strategy: merge
@@ -1298,7 +1298,7 @@ saved_queries:
     - n_active_users
     - n_events
     group_by:
-    - TimeDimension('event__metric_time_school_year', 'year')
+    - TimeDimension('event__metric_time_school_year', 'day')
     - Dimension('program__program_name')
     - Dimension('event__application_name')
   exports:
@@ -1307,7 +1307,7 @@ saved_queries:
       export_as: table
       materialized: incremental
       unique_key:
-      - event__metric_time_school_year__year
+      - event__metric_time_school_year__day
       - program__program_name
       - event__application_name
       incremental_strategy: merge
@@ -1321,7 +1321,7 @@ saved_queries:
     - n_active_users
     - n_events
     group_by:
-    - TimeDimension('event__metric_time_school_year', 'year')
+    - TimeDimension('event__metric_time_school_year', 'day')
     - Dimension('resource__resource_type')
     - Dimension('district__district_name')
   exports:
@@ -1330,7 +1330,7 @@ saved_queries:
       export_as: table
       materialized: incremental
       unique_key:
-      - event__metric_time_school_year__year
+      - event__metric_time_school_year__day
       - resource__resource_type
       - district__district_name
       incremental_strategy: merge
@@ -1344,7 +1344,7 @@ saved_queries:
     - n_active_users
     - n_events
     group_by:
-    - TimeDimension('event__metric_time_school_year', 'year')
+    - TimeDimension('event__metric_time_school_year', 'day')
     - Dimension('resource__resource_type')
     - Dimension('district__district_type')
   exports:
@@ -1353,7 +1353,7 @@ saved_queries:
       export_as: table
       materialized: incremental
       unique_key:
-      - event__metric_time_school_year__year
+      - event__metric_time_school_year__day
       - resource__resource_type
       - district__district_type
       incremental_strategy: merge
@@ -1367,7 +1367,7 @@ saved_queries:
     - n_active_users
     - n_events
     group_by:
-    - TimeDimension('event__metric_time_school_year', 'year')
+    - TimeDimension('event__metric_time_school_year', 'day')
     - Dimension('resource__resource_type')
     - Dimension('event__application_name')
   exports:
@@ -1376,7 +1376,7 @@ saved_queries:
       export_as: table
       materialized: incremental
       unique_key:
-      - event__metric_time_school_year__year
+      - event__metric_time_school_year__day
       - resource__resource_type
       - event__application_name
       incremental_strategy: merge
@@ -1390,7 +1390,7 @@ saved_queries:
     - n_active_users
     - n_events
     group_by:
-    - TimeDimension('event__metric_time_school_year', 'year')
+    - TimeDimension('event__metric_time_school_year', 'day')
     - Dimension('district__district_name')
     - Dimension('district__district_type')
   exports:
@@ -1399,7 +1399,7 @@ saved_queries:
       export_as: table
       materialized: incremental
       unique_key:
-      - event__metric_time_school_year__year
+      - event__metric_time_school_year__day
       - district__district_name
       - district__district_type
       incremental_strategy: merge
@@ -1413,7 +1413,7 @@ saved_queries:
     - n_active_users
     - n_events
     group_by:
-    - TimeDimension('event__metric_time_school_year', 'year')
+    - TimeDimension('event__metric_time_school_year', 'day')
     - Dimension('district__district_name')
     - Dimension('event__application_name')
   exports:
@@ -1422,7 +1422,7 @@ saved_queries:
       export_as: table
       materialized: incremental
       unique_key:
-      - event__metric_time_school_year__year
+      - event__metric_time_school_year__day
       - district__district_name
       - event__application_name
       incremental_strategy: merge
@@ -1436,7 +1436,7 @@ saved_queries:
     - n_active_users
     - n_events
     group_by:
-    - TimeDimension('event__metric_time_school_year', 'year')
+    - TimeDimension('event__metric_time_school_year', 'day')
     - Dimension('district__district_type')
     - Dimension('event__application_name')
   exports:
@@ -1445,7 +1445,7 @@ saved_queries:
       export_as: table
       materialized: incremental
       unique_key:
-      - event__metric_time_school_year__year
+      - event__metric_time_school_year__day
       - district__district_type
       - event__application_name
       incremental_strategy: merge

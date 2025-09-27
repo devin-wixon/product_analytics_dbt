@@ -51,7 +51,7 @@ def get_time_grains():
         {
             "name": "school_year",
             "semantic_ref": "event__metric_time_school_year",
-            "granularity": "year",
+            "granularity": "day",
         },
     ]
 
