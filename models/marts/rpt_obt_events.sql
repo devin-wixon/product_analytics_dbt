@@ -97,7 +97,9 @@ datespine as (
     short_weekday_name,
     short_month_name,
     year_month_sort,
-    year_quarter_sort
+    year_quarter_sort,
+    school_year_label,
+    school_year_end_date
 from
     {{ ref('dim_day_datespine') }}
 ),

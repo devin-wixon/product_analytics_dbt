@@ -114,7 +114,7 @@ semantic_models:
 
       - name: metric_time_school_year
         type: time
-        description: "Event client date aggregated to school year level (July 1 - June 30). Will produce the last day of the school year."
+        description: "Event client date aggregated to the last day of the school year level, such as 2025-06-30 for 24-25."
         expr: |
           case
             when month(client_event_date) >= {{ var('school_year_start_month') }}

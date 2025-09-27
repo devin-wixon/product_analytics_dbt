@@ -59,12 +59,12 @@ models:
       - name: short_month_year
         description: Abbreviated month and year (e.g., Jan 2025).
         granularity: month
-      - name: full_month_year
-        description: Full month and year (e.g., January 2025).
-        granularity: month
-      - name: school_year_number
-        description: School year as a number (e.g., 2025 for 2024-25 school year).
-        granularity: year
+      # - name: full_month_year
+      #   description: Full month and year (e.g., January 2025).
+      #   granularity: month
       - name: school_year_label
         description: School year as a label (e.g., "2024-25").
         granularity: year
+      - name: school_year_end_date
+        description: End date of the school year as a date, such as 2025-06-30.
+        granularity: day
