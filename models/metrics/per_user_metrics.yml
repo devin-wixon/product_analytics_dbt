@@ -1,18 +1,18 @@
-metrics:
-  - name: median_days_active_per_user_week
-    type: simple
-    type_params:
-      measure: days_active_per_user_week
-    meta:
-      semantic_model: "sem_user_activity_daily_all_dimensions"
+# metrics:
+#   - name: median_days_active_per_user_week
+#     type: simple
+#     type_params:
+#       measure: days_active_per_user_week
+#     meta:
+#       semantic_model: "sem_user_activity_daily_all_dimensions"
     
-  - name: pct_users_gt1_active_day_per_week
-    type: ratio
-    type_params:
-      numerator:
-        name: n_users
-        filter: |
-          {{ Metric('days_active_per_user_week', group_by=['user']) }} > 1
-      denominator: n_users
-      meta:
-        semantic_model: "sem_user_activity_daily_all_dimensions"
+#   - name: pct_users_gt1_active_day_per_week
+#     type: ratio
+#     type_params:
+#       numerator:
+#         name: n_users
+#         filter: |
+#           {{ Metric('days_active_per_user_week', group_by=['user']) }} > 1
+#       denominator: n_users
+#       meta:
+#         semantic_model: "sem_user_activity_daily_all_dimensions"
