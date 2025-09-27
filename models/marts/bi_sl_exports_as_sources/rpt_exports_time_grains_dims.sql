@@ -817,6 +817,278 @@ with
       , n_events
 
     from {{ source('exports', 'qexptbl_month_district_type_application_name') }}
+  ),
+
+  qexptbl_school_year_all as (
+    select
+      event__metric_time_school_year__day as date_at_time_grain,
+      'school_year' as time_grain,
+      'all' as dim_set,
+
+      'All' as dim_a_label,
+      'All' as dim_a_value,
+      null as dim_b_label,
+      cast(null as varchar) as dim_b_value,
+
+      n_active_users
+      , n_events
+
+    from {{ source('exports', 'qexptbl_school_year_all') }}
+  ),
+
+  qexptbl_school_year_program_name as (
+    select
+      event__metric_time_school_year__day as date_at_time_grain,
+      'school_year' as time_grain,
+      'program_name' as dim_set,
+
+      'Program name' as dim_a_label,
+      program__program_name as dim_a_value,
+      null as dim_b_label,
+      cast(null as varchar) as dim_b_value,
+
+      n_active_users
+      , n_events
+
+    from {{ source('exports', 'qexptbl_school_year_program_name') }}
+  ),
+
+  qexptbl_school_year_resource_type as (
+    select
+      event__metric_time_school_year__day as date_at_time_grain,
+      'school_year' as time_grain,
+      'resource_type' as dim_set,
+
+      'Resource type' as dim_a_label,
+      resource__resource_type as dim_a_value,
+      null as dim_b_label,
+      cast(null as varchar) as dim_b_value,
+
+      n_active_users
+      , n_events
+
+    from {{ source('exports', 'qexptbl_school_year_resource_type') }}
+  ),
+
+  qexptbl_school_year_district_name as (
+    select
+      event__metric_time_school_year__day as date_at_time_grain,
+      'school_year' as time_grain,
+      'district_name' as dim_set,
+
+      'District name' as dim_a_label,
+      district__district_name as dim_a_value,
+      null as dim_b_label,
+      cast(null as varchar) as dim_b_value,
+
+      n_active_users
+      , n_events
+
+    from {{ source('exports', 'qexptbl_school_year_district_name') }}
+  ),
+
+  qexptbl_school_year_district_type as (
+    select
+      event__metric_time_school_year__day as date_at_time_grain,
+      'school_year' as time_grain,
+      'district_type' as dim_set,
+
+      'District type' as dim_a_label,
+      district__district_type as dim_a_value,
+      null as dim_b_label,
+      cast(null as varchar) as dim_b_value,
+
+      n_active_users
+      , n_events
+
+    from {{ source('exports', 'qexptbl_school_year_district_type') }}
+  ),
+
+  qexptbl_school_year_application_name as (
+    select
+      event__metric_time_school_year__day as date_at_time_grain,
+      'school_year' as time_grain,
+      'application_name' as dim_set,
+
+      'Application name' as dim_a_label,
+      event__application_name as dim_a_value,
+      null as dim_b_label,
+      cast(null as varchar) as dim_b_value,
+
+      n_active_users
+      , n_events
+
+    from {{ source('exports', 'qexptbl_school_year_application_name') }}
+  ),
+
+  qexptbl_school_year_program_name_resource_type as (
+    select
+      event__metric_time_school_year__day as date_at_time_grain,
+      'school_year' as time_grain,
+      'program_name_resource_type' as dim_set,
+
+      'Program name' as dim_a_label,
+      program__program_name as dim_a_value,
+      'Resource type' as dim_b_label,
+      resource__resource_type as dim_b_value,
+
+      n_active_users
+      , n_events
+
+    from {{ source('exports', 'qexptbl_school_year_program_name_resource_type') }}
+  ),
+
+  qexptbl_school_year_program_name_district_name as (
+    select
+      event__metric_time_school_year__day as date_at_time_grain,
+      'school_year' as time_grain,
+      'program_name_district_name' as dim_set,
+
+      'Program name' as dim_a_label,
+      program__program_name as dim_a_value,
+      'District name' as dim_b_label,
+      district__district_name as dim_b_value,
+
+      n_active_users
+      , n_events
+
+    from {{ source('exports', 'qexptbl_school_year_program_name_district_name') }}
+  ),
+
+  qexptbl_school_year_program_name_district_type as (
+    select
+      event__metric_time_school_year__day as date_at_time_grain,
+      'school_year' as time_grain,
+      'program_name_district_type' as dim_set,
+
+      'Program name' as dim_a_label,
+      program__program_name as dim_a_value,
+      'District type' as dim_b_label,
+      district__district_type as dim_b_value,
+
+      n_active_users
+      , n_events
+
+    from {{ source('exports', 'qexptbl_school_year_program_name_district_type') }}
+  ),
+
+  qexptbl_school_year_program_name_application_name as (
+    select
+      event__metric_time_school_year__day as date_at_time_grain,
+      'school_year' as time_grain,
+      'program_name_application_name' as dim_set,
+
+      'Program name' as dim_a_label,
+      program__program_name as dim_a_value,
+      'Application name' as dim_b_label,
+      event__application_name as dim_b_value,
+
+      n_active_users
+      , n_events
+
+    from {{ source('exports', 'qexptbl_school_year_program_name_application_name') }}
+  ),
+
+  qexptbl_school_year_resource_type_district_name as (
+    select
+      event__metric_time_school_year__day as date_at_time_grain,
+      'school_year' as time_grain,
+      'resource_type_district_name' as dim_set,
+
+      'Resource type' as dim_a_label,
+      resource__resource_type as dim_a_value,
+      'District name' as dim_b_label,
+      district__district_name as dim_b_value,
+
+      n_active_users
+      , n_events
+
+    from {{ source('exports', 'qexptbl_school_year_resource_type_district_name') }}
+  ),
+
+  qexptbl_school_year_resource_type_district_type as (
+    select
+      event__metric_time_school_year__day as date_at_time_grain,
+      'school_year' as time_grain,
+      'resource_type_district_type' as dim_set,
+
+      'Resource type' as dim_a_label,
+      resource__resource_type as dim_a_value,
+      'District type' as dim_b_label,
+      district__district_type as dim_b_value,
+
+      n_active_users
+      , n_events
+
+    from {{ source('exports', 'qexptbl_school_year_resource_type_district_type') }}
+  ),
+
+  qexptbl_school_year_resource_type_application_name as (
+    select
+      event__metric_time_school_year__day as date_at_time_grain,
+      'school_year' as time_grain,
+      'resource_type_application_name' as dim_set,
+
+      'Resource type' as dim_a_label,
+      resource__resource_type as dim_a_value,
+      'Application name' as dim_b_label,
+      event__application_name as dim_b_value,
+
+      n_active_users
+      , n_events
+
+    from {{ source('exports', 'qexptbl_school_year_resource_type_application_name') }}
+  ),
+
+  qexptbl_school_year_district_name_district_type as (
+    select
+      event__metric_time_school_year__day as date_at_time_grain,
+      'school_year' as time_grain,
+      'district_name_district_type' as dim_set,
+
+      'District name' as dim_a_label,
+      district__district_name as dim_a_value,
+      'District type' as dim_b_label,
+      district__district_type as dim_b_value,
+
+      n_active_users
+      , n_events
+
+    from {{ source('exports', 'qexptbl_school_year_district_name_district_type') }}
+  ),
+
+  qexptbl_school_year_district_name_application_name as (
+    select
+      event__metric_time_school_year__day as date_at_time_grain,
+      'school_year' as time_grain,
+      'district_name_application_name' as dim_set,
+
+      'District name' as dim_a_label,
+      district__district_name as dim_a_value,
+      'Application name' as dim_b_label,
+      event__application_name as dim_b_value,
+
+      n_active_users
+      , n_events
+
+    from {{ source('exports', 'qexptbl_school_year_district_name_application_name') }}
+  ),
+
+  qexptbl_school_year_district_type_application_name as (
+    select
+      event__metric_time_school_year__day as date_at_time_grain,
+      'school_year' as time_grain,
+      'district_type_application_name' as dim_set,
+
+      'District type' as dim_a_label,
+      district__district_type as dim_a_value,
+      'Application name' as dim_b_label,
+      event__application_name as dim_b_value,
+
+      n_active_users
+      , n_events
+
+    from {{ source('exports', 'qexptbl_school_year_district_type_application_name') }}
   )
 
 
@@ -916,3 +1188,35 @@ with
   select * from qexptbl_month_district_name_application_name
   union all
   select * from qexptbl_month_district_type_application_name
+  union all
+  select * from qexptbl_school_year_all
+  union all
+  select * from qexptbl_school_year_program_name
+  union all
+  select * from qexptbl_school_year_resource_type
+  union all
+  select * from qexptbl_school_year_district_name
+  union all
+  select * from qexptbl_school_year_district_type
+  union all
+  select * from qexptbl_school_year_application_name
+  union all
+  select * from qexptbl_school_year_program_name_resource_type
+  union all
+  select * from qexptbl_school_year_program_name_district_name
+  union all
+  select * from qexptbl_school_year_program_name_district_type
+  union all
+  select * from qexptbl_school_year_program_name_application_name
+  union all
+  select * from qexptbl_school_year_resource_type_district_name
+  union all
+  select * from qexptbl_school_year_resource_type_district_type
+  union all
+  select * from qexptbl_school_year_resource_type_application_name
+  union all
+  select * from qexptbl_school_year_district_name_district_type
+  union all
+  select * from qexptbl_school_year_district_name_application_name
+  union all
+  select * from qexptbl_school_year_district_type_application_name

@@ -90,4 +90,32 @@ semantic_models:
         type_params:
           time_granularity: quarter
 
-      
+      - name: metric_time_school_year
+        type: time
+        description: "Event client date aggregated to school year level (July 1 - June 30). Will produce the last day of the school year."
+        expr: |
+          case
+            when month(client_event_date) >= {{ var('school_year_start_month') }}
+            then date_from_parts(year(client_event_date) + 1, {{ var('school_year_end_month') }}, {{ var('school_year_end_day') }})
+            else date_from_parts(year(client_event_date), {{ var('school_year_end_month') }}, {{ var('school_year_end_day') }})
+          end
+        type_params:
+          time_granularity: day
+
+    # measures:
+        # - name: n_user_days_in_context
+        #   agg: count_distinct
+        #   expr: CONCAT(user_id, '|', client_event_date)
+        #   create_metric: true
+
+        # - name: days_active_per_user_week_in_context
+        #   description: "Days active per user per week - for window calcs"
+        #   agg: count_distinct
+        #   expr: n_user_days_in_context
+        #   agg_time_dimension: metric_time_week
+
+        # - name: n_events_in_context
+        #   description: "Sum of all events (clicks or other user behavior) that we capture, within the context (such as program and week) selected"
+        #   agg: sum
+        #   expr: n_events_per_user_day_context
+        #   create_metric: true

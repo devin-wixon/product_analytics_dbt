@@ -18,7 +18,8 @@
       "Bash(find:*)",
       "Bash(python3:*)",
       "Bash(dbt parse:*)",
-      "Bash(source:*)"
+      "Bash(source:*)",
+      "Bash(dbt sl query:*)"
     ],
     "deny": [],
     "ask": []
