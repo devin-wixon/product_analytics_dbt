@@ -43,7 +43,21 @@ final as (
         to_char(date_day, 'YY-MM') as year_month_sort,
         to_char(date_day, 'YY') || '-' || quarter(date_day) as year_quarter_sort,
         concat(monthname(date_day), ' ', year(date_day)) as short_month_year,
-        concat(to_char(date_day,'MMMM'), ' ', year(date_day)) as full_month_year
+        concat(to_char(date_day,'MMMM'), ' ', year(date_day)) as full_month_year,
+
+        -- School year calculations (July 1 - June 30)
+        -- Not using a macro; do once here for joining everywhere
+        case
+            when month(date_day) >= {{ var('school_year_start_month') }}
+            then year(date_day) + 1
+            else year(date_day)
+        end as school_year_number,
+
+        case
+            when month(date_day) >= {{ var('school_year_start_month') }}
+            then concat(year(date_day), '-', right((year(date_day) + 1)::string, 2))
+            else concat(year(date_day) - 1, '-', right(year(date_day)::string, 2))
+        end as school_year_label
 
     from calendar_dates
 

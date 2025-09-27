@@ -69,5 +69,11 @@ flags:
     silence:
       - PackageMaterializationOverrideDeprecation
 
-# vars:
-#   dbt_valid_to_current: "cast('9999-12-31' as timestamp)"
+vars:
+  # School year configuration
+  school_year_start_month: 7    # July 1st
+  school_year_start_day: 1
+  school_year_end_month: 6      # June 30th
+  school_year_end_day: 30
+
+  # dbt_valid_to_current: "cast('9999-12-31' as timestamp)"

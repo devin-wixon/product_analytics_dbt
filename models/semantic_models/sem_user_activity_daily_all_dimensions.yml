@@ -90,6 +90,18 @@ semantic_models:
         type_params:
           time_granularity: quarter
 
+      - name: metric_time_school_year
+        type: time
+        description: "School year time dimension for user activity (July 1 - June 30)"
+        expr: |
+          case
+            when month(client_event_date) >= {{ var('school_year_start_month') }}
+            then date_from_parts(year(client_event_date), {{ var('school_year_start_month') }}, {{ var('school_year_start_day') }})
+            else date_from_parts(year(client_event_date) - 1, {{ var('school_year_start_month') }}, {{ var('school_year_start_day') }})
+          end
+        type_params:
+          time_granularity: year
+
     # measures:
         # - name: n_user_days_in_context
         #   agg: count_distinct

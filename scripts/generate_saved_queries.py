@@ -48,6 +48,11 @@ def get_time_grains():
         {"name": "day", "semantic_ref": "event__metric_time_day"},
         {"name": "week", "semantic_ref": "event__metric_time_week"},
         {"name": "month", "semantic_ref": "event__metric_time_month"},
+        {
+            "name": "school_year",
+            "semantic_ref": "event__metric_time_school_year",
+            "granularity": "year",
+        },
     ]
 
 
@@ -94,14 +99,13 @@ def generate_saved_query(time_grain, dimension_combo):
     export_name = f"qexptbl_{time_grain['name']}_{dimension_combo['id']}"
 
     # Build unique_key based on time dimension and other dimensions
-    unique_key = [f"{time_grain['semantic_ref']}__{time_grain['name']}"]
+    granularity = time_grain.get("granularity", time_grain["name"])
+    unique_key = [f"{time_grain['semantic_ref']}__{granularity}"]
     for dim in dimension_combo["dimensions"]:
         unique_key.append(dim["semantic_ref"])
 
     # Build group_by list
-    group_by = [
-        f"TimeDimension('{time_grain['semantic_ref']}', '{time_grain['name']}')"
-    ]
+    group_by = [f"TimeDimension('{time_grain['semantic_ref']}', '{granularity}')"]
     for dim in dimension_combo["dimensions"]:
         group_by.append(f"Dimension('{dim['semantic_ref']}')")
 
@@ -112,12 +116,14 @@ def generate_saved_query(time_grain, dimension_combo):
     if time_grain["name"] == "week":
         # Exclude current week
         start_of_this_week = now_utc.date() - timedelta(days=now_utc.weekday())
-        where_clause = f"{{{{ TimeDimension('{time_grain['semantic_ref']}', '{time_grain['name']}') }}}} < '{start_of_this_week}'"
+        where_clause = f"{{{{ TimeDimension('{time_grain['semantic_ref']}', '{granularity}') }}}} < '{start_of_this_week}'"
 
     elif time_grain["name"] == "month":
         # Exclude current month
         start_of_this_month = now_utc.replace(day=1).date()
-        where_clause = f"{{{{ TimeDimension('{time_grain['semantic_ref']}', '{time_grain['name']}') }}}} < '{start_of_this_month}'"
+        where_clause = f"{{{{ TimeDimension('{time_grain['semantic_ref']}', '{granularity}') }}}} < '{start_of_this_month}'"
+
+    # don't exclude current school year as is always school year to date
 
     # Build query_params
     query_params = {"metrics": metrics, "group_by": group_by}
@@ -187,8 +193,9 @@ def generate_exports_time_grains_dims_sql():
             cte_lines.append("    select")
 
             # Use the actual column name pattern with repeated time grain
+            granularity = time_grain.get("granularity", time_grain["name"])
             cte_lines.append(
-                f"      {time_grain['semantic_ref']}__{time_grain['name']} as date_at_time_grain,"
+                f"      {time_grain['semantic_ref']}__{granularity} as date_at_time_grain,"
             )
 
             cte_lines.append(f"      '{time_grain['name']}' as time_grain,")

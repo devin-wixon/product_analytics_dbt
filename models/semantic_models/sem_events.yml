@@ -112,6 +112,18 @@ semantic_models:
         type_params:
           time_granularity: year
 
+      - name: metric_time_school_year
+        type: time
+        description: "Event client date aggregated to school year level (July 1 - June 30)"
+        expr: |
+          case
+            when month(client_event_date) >= {{ var('school_year_start_month') }}
+            then date_from_parts(year(client_event_date), {{ var('school_year_start_month') }}, {{ var('school_year_start_day') }})
+            else date_from_parts(year(client_event_date) - 1, {{ var('school_year_start_month') }}, {{ var('school_year_start_day') }})
+          end
+        type_params:
+          time_granularity: year
+
       # - name: server_event_date
       #   type: time
       #   description: "{{ doc('server_event_date') }}"

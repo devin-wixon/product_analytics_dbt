@@ -54,3 +54,19 @@ sources:
   - name: qexptbl_month_district_name_district_type
   - name: qexptbl_month_district_name_application_name
   - name: qexptbl_month_district_type_application_name
+  - name: qexptbl_school_year_all
+  - name: qexptbl_school_year_program_name
+  - name: qexptbl_school_year_resource_type
+  - name: qexptbl_school_year_district_name
+  - name: qexptbl_school_year_district_type
+  - name: qexptbl_school_year_application_name
+  - name: qexptbl_school_year_program_name_resource_type
+  - name: qexptbl_school_year_program_name_district_name
+  - name: qexptbl_school_year_program_name_district_type
+  - name: qexptbl_school_year_program_name_application_name
+  - name: qexptbl_school_year_resource_type_district_name
+  - name: qexptbl_school_year_resource_type_district_type
+  - name: qexptbl_school_year_resource_type_application_name
+  - name: qexptbl_school_year_district_name_district_type
+  - name: qexptbl_school_year_district_name_application_name
+  - name: qexptbl_school_year_district_type_application_name

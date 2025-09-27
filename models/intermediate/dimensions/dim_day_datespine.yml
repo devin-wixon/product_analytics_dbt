@@ -62,3 +62,9 @@ models:
       - name: full_month_year
         description: Full month and year (e.g., January 2025).
         granularity: month
+      - name: school_year_number
+        description: School year as a number (e.g., 2025 for 2024-25 school year).
+        granularity: year
+      - name: school_year_label
+        description: School year as a label (e.g., "2024-25").
+        granularity: year
