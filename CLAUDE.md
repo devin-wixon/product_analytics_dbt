@@ -86,11 +86,10 @@ The project integrates three primary data sources:
 
 ### Data Quality
 - All staging models have primary key tests
+- All models in the intermediate layer have at least one column with a unique and null test
 - Source relationships are documented in `_sources.yml` files
-- Models exclude students (`user_role != 'student'`) from user dimensions
 - Development environment uses row limits to manage data volume
 
 ### Event Analytics
 - Event enrichment logic in `int_events_enriched.sql` requires ongoing maintenance as new event types are added
-- Many join relationships are marked as "TAG TO DO" and need investigation
 - Event path parsing uses regex to extract program_id and resource_id from URLs
