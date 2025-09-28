@@ -139,7 +139,7 @@ semantic_models:
         label: "Count of Events"
 
       - name: n_active_users
-        description: "Count of unique users with any type of event that we capture, excluding students"
+        description: "Count of unique users with any type of event that we capture within the filters."
         agg: count_distinct
         expr: user_id
         create_metric: True

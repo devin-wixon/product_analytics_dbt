@@ -21,7 +21,12 @@ final as
         server_timestamp,
         client_timestamp,
         event_name,
-        event_value_human_readable
+        event_value_human_readable,
+        error_data_object,
+        device_orientation,
+        screen_resolution,
+        visibility_status,
+        user_invite_status
 )
 from
     events
@@ -31,3 +36,6 @@ select
     *
 from
     final
+where
+    user_role != 'student'
+    or user_role is null

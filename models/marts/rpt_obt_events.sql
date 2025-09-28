@@ -182,6 +182,7 @@ select
   *
 from
   final
-where
-  user_role != 'student' 
-  or user_role is null
+-- include students for null district issues; filter in BI or SL as needed
+-- where
+--   user_role != 'student' 
+--   or user_role is null
