@@ -17,7 +17,7 @@ final as (
         -- date_day will serve as the natural key
         date_day::date as date_day,
         date_trunc('week', date_day) as week_monday_date,
-
+        date_trunc('month', date_day) as month_start_date,
 
         dayofweek(date_day) as day_of_week_number,
         dayofmonth(date_day) as day_of_month_number,
@@ -57,12 +57,12 @@ final as (
                 )
         end as school_year_label,
 
-        -- school_year_end_date: Use the project-level var combined with the last two of the school year label
+        -- school_year_start_date: Use the project-level var combined with the last two of the school year label
         concat(
-                '20' || right(school_year_label, 2), '-',
-                {{ var('school_year_end_month') }}::string, '-',
-                {{ var('school_year_end_day') }}::string
-              )::date as school_year_end_date
+                '20' || left(school_year_label, 2), '-',
+                {{ var('school_year_start_month') }}::string, '-',
+                {{ var('school_year_start_day') }}::string
+              )::date as school_year_start_date
 
     from calendar_dates
 

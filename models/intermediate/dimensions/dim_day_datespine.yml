@@ -15,56 +15,59 @@ models:
       # - name: calendar_date_sk
       #   description: Surrogate key for the calendar date dimension.
       - name: date_day
-        description: The calendar date.
+        description: "{{ doc('date_day') }}"
         tests:
           - unique
           - not_null
         granularity: day
       - name: week_monday_date
-        description: Date of the Monday for the week containing the calendar date.
+        description: "{{ doc('week_monday_date') }}"
+      - name: month_start_date
+        description: "{{ doc('month_start_date') }}"
+        granularity: month
       - name: day_of_week_number
         description: "{{ doc('day_of_week_number') }}"
       - name: day_of_month_number
-        description: Day of the month (1-31).
+        description: "{{ doc('day_of_month_number') }}"
       - name: day_of_year_number
-        description: Day of the year (1-366).
+        description: "{{ doc('day_of_year_number') }}"
       - name: week_of_year_number
-        description: Week number of the year.
+        description: "{{ doc('week_of_year_number') }}"
         granularity: week
       - name: month_of_year_number
-        description: Month number of the year (1-12).
+        description: "{{ doc('month_of_year_number') }}"
         granularity: month
       - name: quarter_of_year_number
-        description: Quarter number of the year (1-4).
+        description: "{{ doc('quarter_of_year_number') }}"
         granularity: quarter
       - name: year_number
-        description: Four-digit year number.
+        description: "{{ doc('year_number') }}"
         granularity: year
       - name: short_weekday_name
-        description: Abbreviated weekday name (e.g., Mon, Tue).
+        description: "{{ doc('short_weekday_name') }}"
       - name: full_weekday_name
-        description: Full weekday name (e.g., Monday, Tuesday).
+        description: "{{ doc('full_weekday_name') }}"
       - name: short_month_name
-        description: Abbreviated month name (e.g., Jan, Feb).
+        description: "{{ doc('short_month_name') }}"
         granularity: month
       - name: full_month_name
-        description: Full month name (e.g., January, February).
+        description: "{{ doc('full_month_name') }}"
         granularity: month
       - name: year_month_sort
-        description: Year and month in YY-MM format for chronological sorting (e.g., 25-01, 25-12, 26-01).
+        description: "{{ doc('year_month_sort') }}"
         granularity: month
       - name: year_quarter_sort
-        description: Year and quarter in YY-Q format for chronological sorting (e.g., 25-1, 25-4, 26-1).
+        description: "{{ doc('year_quarter_sort') }}"
         granularity: quarter
       - name: short_month_year
-        description: Abbreviated month and year (e.g., Jan 2025).
+        description: "{{ doc('short_month_year') }}"
         granularity: month
       # - name: full_month_year
       #   description: Full month and year (e.g., January 2025).
       #   granularity: month
       - name: school_year_label
-        description: School year as a label (e.g., "2024-25").
+        description: "{{ doc('school_year_label') }}"
         granularity: year
-      - name: school_year_end_date
-        description: End date of the school year as a date, such as 2025-06-30.
+      - name: school_year_start_date
+        description: "{{ doc('school_year_start_date') }}"
         granularity: day

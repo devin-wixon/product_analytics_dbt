@@ -14,10 +14,6 @@ models:
         description: "{{ doc('user_role') }}"
       - name: user_role_id
         description: "{{ doc('user_role_id') }}"
-      - name: class_id
-        description: "{{ doc('class_id') }}"
-      - name: school_id
-        description: "{{ doc('school_id') }}"
       - name: district_id
         description: "{{ doc('district_id') }}"
       - name: is_primary

@@ -84,6 +84,7 @@ datespine as (
   select
     date_day,
     week_monday_date,
+    month_start_date,
     day_of_week_number,
     day_of_month_number,
     day_of_year_number,
@@ -95,7 +96,7 @@ datespine as (
     year_month_sort,
     year_quarter_sort,
     school_year_label,
-    school_year_end_date
+    school_year_start_date
 from
     {{ ref('dim_day_datespine') }}
 ),

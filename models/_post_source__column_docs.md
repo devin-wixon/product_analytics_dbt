@@ -13,18 +13,8 @@ Human-readable name of the Clever provider/district.
 {% enddocs %}
 
 
-{% docs authentication_login_field %}
-Field used for user login identification.
-{% enddocs %}
-
-
 {% docs authentication_provider %}
 Primary authentication provider for the district.
-{% enddocs %}
-
-
-{% docs authentication_saml_settings_metadata_document_file %}
-File path or name of the SAML metadata document.
 {% enddocs %}
 
 
@@ -154,4 +144,94 @@ Boolean indicating whether the district is one of the distributed demo districts
 
 {% docs week_number %}
 Week number extracted from planner event paths for weekly planner events.
+{% enddocs %}
+
+
+{% docs date_day %}
+The calendar date serving as the natural key for the date dimension.
+{% enddocs %}
+
+
+{% docs week_monday_date %}
+Date of the Monday for the week containing the calendar date, calculated using date_trunc('week', date_day).
+{% enddocs %}
+
+
+{% docs month_start_date %}
+First date of the month containing the calendar date, calculated using date_trunc('month', date_day).
+{% enddocs %}
+
+
+{% docs day_of_month_number %}
+Day of the month as an integer (1-31), extracted using dayofmonth() function.
+{% enddocs %}
+
+
+{% docs day_of_year_number %}
+Day of the year as an integer (1-366), extracted using dayofyear() function.
+{% enddocs %}
+
+
+{% docs week_of_year_number %}
+Week number of the year as an integer, extracted using week() function.
+{% enddocs %}
+
+
+{% docs month_of_year_number %}
+Month number of the year as an integer (1-12), extracted using month() function.
+{% enddocs %}
+
+
+{% docs quarter_of_year_number %}
+Quarter number of the year as an integer (1-4), extracted using quarter() function.
+{% enddocs %}
+
+
+{% docs year_number %}
+Four-digit year number as an integer, extracted using year() function.
+{% enddocs %}
+
+
+{% docs short_weekday_name %}
+Abbreviated weekday name (e.g., Mon, Tue, Wed), extracted using dayname() function.
+{% enddocs %}
+
+
+{% docs full_weekday_name %}
+Full weekday name (e.g., Monday, Tuesday, Wednesday), derived from day of week number using case statement.
+{% enddocs %}
+
+
+{% docs short_month_name %}
+Abbreviated month name (e.g., Jan, Feb, Mar), extracted using monthname() function.
+{% enddocs %}
+
+
+{% docs full_month_name %}
+Full month name (e.g., January, February, March), extracted using to_char(date_day,'MMMM') function.
+{% enddocs %}
+
+
+{% docs year_month_sort %}
+Year and month in YY-MM format for chronological sorting (e.g., 25-01, 25-12, 26-01), formatted using to_char() function.
+{% enddocs %}
+
+
+{% docs year_quarter_sort %}
+Year and quarter in YY-Q format for chronological sorting (e.g., 25-1, 25-4, 26-1), combining year and quarter values.
+{% enddocs %}
+
+
+{% docs short_month_year %}
+Abbreviated month and year display (e.g., Jan 2025), concatenating month name and year.
+{% enddocs %}
+
+
+{% docs school_year_label %}
+School year as a two-digit label (e.g., "24-25") based on July 1 - June 30 academic calendar, where the school year starts in July.
+{% enddocs %}
+
+
+{% docs school_year_start_date %}
+Start date of the school year (e.g., 2025-07-01), calculated from school year label and project variables for start month/day.
 {% enddocs %}

@@ -24,10 +24,6 @@ models:
         description: "{{ doc('user_id') }}"
       - name: user_role
         description: "{{ doc('user_role') }}"
-      - name: class_id
-        description: "{{ doc('class_id') }}"
-      - name: school_id
-        description: "{{ doc('school_id') }}"
       - name: district_id
         description: "{{ doc('district_id') }}"
       - name: enrollment_start_date

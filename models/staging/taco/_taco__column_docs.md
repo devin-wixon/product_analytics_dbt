@@ -201,9 +201,6 @@ As of 2025-08, all values are "active" and the column is not useful.
 {% enddocs %}
 
 
-{% docs username %}
-{% enddocs %}
-
 
 {% docs okta_user_id %}
 Identifier for the user in Okta (SSO provider).  
@@ -218,9 +215,6 @@ Example: (empty)
 External class id, typically the class_id on the district SIS.
 {% enddocs %}
 
-
-{% docs school_id %}
-{% enddocs %}
 
 {% docs school_sourced_id %}
 External school id, typically the school_id on the district SIS.
