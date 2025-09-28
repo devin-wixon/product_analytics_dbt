@@ -5,6 +5,7 @@ models:
     description: |
       Purpose: Aggregated event analytics by dimensions at daily grain for comprehensive reporting and analysis.
       Granularity: One row per unique combination of event dimensions and `client_event_date`.
+      Filters: Excludes student user roles.
       Notes: Events are grouped by all dimensions to create a summarized view suitable for dashboard reporting. Includes enriched dimensional data from users, districts, programs, resources, and date spine.
     columns:
       - name: user_day_dims_events_sk
