@@ -11,8 +11,6 @@ users_district_role as (
         max(user_email_sent_utc) as user_email_sent_utc
     from
         {{ ref('stg_taco__users') }}
-    where
-        user_role != 'student'
     group by
         user_id,
         district_id
