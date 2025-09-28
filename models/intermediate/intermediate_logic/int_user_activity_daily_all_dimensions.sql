@@ -7,6 +7,16 @@ with events as (
         {{ ref('fct_events') }}
 ),
 
+user_district_role as
+(select
+    user_id,
+    district_id,
+    user_role,
+    user_email_sent_utc
+from
+    {{ ref('int_users_district_role') }}
+),
+
 -- if event categories are pivoted to boolean data
     -- {#
     -- {%- set event_categories = dbt_utils.get_column_values(
@@ -16,12 +26,28 @@ with events as (
     --     order_by='event_category'
     --     )%}
     -- #}
+
+event_user_joined as
+(select 
+    events.*,
+    user_district_role.district_id,
+    user_district_role.user_role,
+    user_district_role.user_email_sent_utc
+from 
+    events
+left join
+    user_district_role
+on
+    events.user_id = user_district_role.user_id
+),
+
 user_daily_activity as (
     select
         -- Explicit primary key
         {{ dbt_utils.generate_surrogate_key([
             'user_id',
             'client_event_date',
+            "coalesce(user_role, 'none')",
             'coalesce(district_id, -1)',
             'coalesce(program_id, -1)',
             'coalesce(resource_id, -1)',
@@ -50,7 +76,7 @@ user_daily_activity as (
         application_name,
         event_category
     from 
-        events
+        event_user_joined
     group by all
 ),
 

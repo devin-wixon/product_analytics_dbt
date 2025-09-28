@@ -3,7 +3,7 @@ semantic_models:
     description: |
       Purpose: Provides user-level information for semantic analysis.  
       Granularity: One row per user.  
-    model: ref('int_users_district')
+    model: ref('int_users_district_role')
     
     entities:
       - name: user

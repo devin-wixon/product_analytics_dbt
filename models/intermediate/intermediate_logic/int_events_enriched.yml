@@ -43,11 +43,7 @@ models:
         description: "{{ doc('program_id') }}"
       - name: resource_id
         description: "{{ doc('resource_id') }}"
-      - name: is_app_launch_event
-        description: "{{ doc('is_app_launch_event') }}"
-      - name: is_login_event
-        description: "{{ doc('is_login_event') }}"
-      - name: folder_id
-        description: "{{ doc('folder_id') }}"
-      - name: framework_id
-        description: "{{ doc('framework_id') }}"
+      - name: week_number
+        description: "{{ doc('week_number') }}"
+      - name: application_name
+        description: "{{ doc('application_name') }}"

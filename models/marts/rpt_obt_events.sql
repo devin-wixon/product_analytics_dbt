@@ -6,11 +6,7 @@ with
 events as (
   select
   -- use * and exclude, not explicit select; columns may be generated through pivots in int_ layer
-  -- exclude district_id; if not sl, will remove dep on int_user_districts in fct_events and use date-based user attributes
     *
-      exclude(
-        district_id
-    )
   from
     {{ ref('fct_events') }}
   {%- if target.name == 'Development' %}

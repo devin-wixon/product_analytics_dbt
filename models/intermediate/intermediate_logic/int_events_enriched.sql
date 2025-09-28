@@ -25,6 +25,8 @@ with events as (
         server_timestamp,
         client_timestamp,
         user_id,
+        -- session_uuid is different concept; need to build session with macro
+        -- may need this in the future for IP address, device type, etc.
         -- session_uuid,
         event_name,
         -- cleaning

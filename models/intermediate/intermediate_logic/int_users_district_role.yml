@@ -1,9 +1,9 @@
 version: 2
 
 models:
-  - name: int_users_district
+  - name: int_users_district_role
     description: |
-      Purpose: A bridge table to map users to associated districts for modeling not requiring more detailed user attributes.
+      Purpose: bridge table to map users to associated districts for modeling not requiring more detailed user attributes.
       Granularity: One row per user.
       Filters: Excludes users with `user_role` = 'student'.
       Notes: The highest user role (administrator > teacher) is provided when users have multiple roles.

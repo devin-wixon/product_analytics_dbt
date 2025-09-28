@@ -7,8 +7,8 @@ users_district_role as (
     select
         user_id,
         district_id,
-        min(user_role) as user_highest_role,
-        min(user_email_sent_utc) as first_email_sent_utc
+        min(user_role) as user_role,
+        max(user_email_sent_utc) as user_email_sent_utc
     from
         {{ ref('stg_taco__users') }}
     where

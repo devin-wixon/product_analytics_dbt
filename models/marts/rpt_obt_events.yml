@@ -19,8 +19,6 @@ models:
         description: "{{ doc('client_timestamp') }}"
       - name: user_id
         description: "{{ doc('user_id') }}"
-      - name: session_uuid
-        description: "{{ doc('session_uuid') }}"
       - name: event_name
         description: "{{ doc('event_name') }}"
       - name: event_path
@@ -47,22 +45,14 @@ models:
         description: "{{ doc('application_name') }}"
       - name: is_app_launch_event
         description: "{{ doc('is_app_launch_event') }}"
-      - name: is_login_event
-        description: "{{ doc('is_login_event') }}"
       - name: is_planner_open_event
         description: "{{ doc('is_planner_open_event') }}"
       - name: is_weekly_planner_event
         description: "{{ doc('is_weekly_planner_event') }}"
-      - name: folder_id
-        description: "{{ doc('folder_id') }}"
-      - name: framework_id
-        description: "{{ doc('framework_id') }}"
-      - name: focus_area_id
-        description: "{{ doc('focus_area_id') }}"
-
+        
       # User columns
-      - name: user_sk
-        description: "{{ doc('user_sk') }}"
+      - name: user_id
+        description: "{{ doc('user_id') }}"
       - name: user_grades
         description: "{{ doc('user_grades') }}"
       - name: user_identifier
