@@ -1,15 +1,17 @@
-with
+{% set dimensions = [
+    'district_id',
+    'program_id',
+    'resource_id',
+    'application_name',
+    'resource_type',
+    'event_category'
+] %}
 
-datespine as (
+with calendar_dates as (
     select
-        date_day,
-        week_monday_date,
-        month_start_date,
-        school_year_start_date
+        date_day
     from {{ ref('dim_day_datespine') }}
-    where
-        -- Limit to today and earlier to avoid future dates
-        date_day <= CONVERT_TIMEZONE('UTC', CURRENT_TIMESTAMP())::DATE + 1
+    where date_day <= convert_timezone('utc', current_timestamp())::date
 ),
 
 events as (
@@ -17,87 +19,108 @@ events as (
         server_event_date,
         user_id,
         district_id,
-        district_name,
-        district_type,
         program_id,
-        program_name,
-        user_role,
         resource_id,
-        resource_type,
         application_name,
+        resource_type,
         event_category,
-        min(example_event_id) as example_event_id,
-        max(had_events_per_user_day_context)
-            as had_events_per_user_day_context,
-        sum(n_events_per_user_day_context)
-            as n_events_per_user_day_context
+        sum(n_events_per_user_day_context) as n_events_per_user_day_context,
+        min(example_event_id) as example_event_id
     from {{ ref('rpt_obt_events_dims_daily') }}
     group by all
 ),
 
-user_first_event as (
+-- build user–dimension pairs for densification
+user_dimension_pairs as (
+    select distinct
+        user_id
+        {% for dim in dimensions %}, {{ dim }}{% endfor %}
+    from events
+),
+
+-- densify: every user–dimension pair × every calendar date
+user_dimension_dates as (
+    select
+        calendar_dates.date_day,
+        user_dimension_pairs.user_id
+        {% for dim in dimensions %}, user_dimension_pairs.{{ dim }}{% endfor %}
+    from user_dimension_pairs
+    cross join calendar_dates
+),
+
+-- dimension-scoped first events
+{% for dim in dimensions -%}
+user_first_event_{{ dim }} as (
     select
         user_id,
-        min(server_event_date) as user_first_event_date
+        {{ dim }},
+        min(server_event_date) as user_first_event_{{ dim }}
     from events
-    group by user_id
-),
+    group by user_id, {{ dim }}
+){% if not loop.last %},{% endif %}
+{% endfor %},
 
--- for every user that had an event and every day x every dimension, get whether they had events on that day or the 6 prior days
--- and whether they were eligible to be counted as wau/mau on that day (ie had their first event at least 7/28 days prior)
-join_datespine_events as (
+base as (
     select
-        datespine.date_day,
-        datespine.week_monday_date,
-        datespine.month_start_date,
-        datespine.school_year_start_date,
-        users.user_id,
-        users.user_first_event_date,
-        events.district_id,
-        events.district_name,
-        events.district_type,
-        events.program_id,
-        events.program_name,
-        events.user_role,
-        events.resource_id,
-        events.resource_type,
-        events.application_name,
-        events.event_category,
-        coalesce(events.n_events_per_user_day_context, 0) as n_events,
-        coalesce(events.had_events_per_user_day_context, false) as had_events
-    from user_first_event as users
-    cross join datespine
+        user_dimension_dates.date_day,
+        user_dimension_dates.user_id
+        {% for dim in dimensions %}, user_dimension_dates.{{ dim }}{% endfor %},
+
+        coalesce(events.n_events_per_user_day_context, 0) as n_events_per_user_day_context,
+        events.example_event_id
+
+        {% for dim in dimensions %}
+        , user_first_event_{{ dim }}.user_first_event_{{ dim }}
+        , case
+            when user_dimension_dates.date_day >= dateadd(day, 28, user_first_event_{{ dim }}.user_first_event_{{ dim }})
+            then true else false
+          end as is_user_first_date_over_28_days_{{ dim }}
+        {% endfor %}
+
+    from user_dimension_dates
+
     left join events
-        on events.user_id = users.user_id
-       and events.server_event_date = datespine.date_day
+      on user_dimension_dates.user_id = events.user_id
+     and user_dimension_dates.date_day = events.server_event_date
+     {% for dim in dimensions %}
+     and user_dimension_dates.{{ dim }} = events.{{ dim }}
+     {% endfor %}
+
+    {% for dim in dimensions %}
+    left join user_first_event_{{ dim }}
+      on user_dimension_dates.user_id = user_first_event_{{ dim }}.user_id
+     and user_dimension_dates.{{ dim }} = user_first_event_{{ dim }}.{{ dim }}
+    {% endfor %}
 ),
 
-final as (
+rolled as (
     select
-        *,
-        -- not eligible for wau/mau calculation if didn't have 28 days to potentially be active
-        case
-            when date_day >= dateadd('day', 28, user_first_event_date)
-            then True
-            else False
-        end as is_user_first_date_over_28_days,
+        base.date_day,
+        base.user_id
+        {% for dim in dimensions %}, base.{{ dim }}{% endfor %},
 
-        -- did the user have events that day or the prior 6 days?
-        max(had_events_per_user_day_context) over (
-            partition by user_id, date_day
-            order by date_day
+        base.n_events_per_user_day_context,
+        base.example_event_id
+
+        {% for dim in dimensions %}
+        , base.user_first_event_{{ dim }}
+        , base.is_user_first_date_over_28_days_{{ dim }}
+
+        , max(case when base.n_events_per_user_day_context > 0 then 1 end) over (
+            partition by base.user_id, base.{{ dim }}
+            order by base.date_day
             rows between 6 preceding and current row
-        ) as is_user_active_last_7_days,
-                -- did the user have events that day or the prior 6 days?
-        max(had_events_per_user_day_context) over (
-            partition by user_id, date_day
-            order by date_day
-            rows between 28 preceding and current row
-        ) as is_user_active_last_28_days
-        
-    from join_datespine_events
+          ) as is_active_last_7d_{{ dim }}
+
+        , max(case when base.n_events_per_user_day_context > 0 then 1 end) over (
+            partition by base.user_id, base.{{ dim }}
+            order by base.date_day
+            rows between 27 preceding and current row
+          ) as is_active_last_28d_{{ dim }}
+        {% endfor %}
+
+    from base
 )
 
-select
-    *
-from final
+select *
+from rolled
