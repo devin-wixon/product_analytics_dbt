@@ -69,17 +69,12 @@ join_datespine_events as (
 final as (
     select
         *,
-        -- User eligibility flags
+        -- not eligible for wau/mau calculation if didn't have 28 days to potentially be active
         case
             when date_day >= dateadd('day', 28, user_first_event_date)
-                then 1
-            else 0
-        end as is_eligible_for_mau,
-        case
-            when date_day >= dateadd('day', 7, user_first_event_date)
-                then 1
-            else 0
-        end as is_eligible_for_wau
+            then True
+            else False
+        end as is_user_first_date_over_28_days
     from join_datespine_events
 )
 
