@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: int_user_activity_daily_all_dimensions
+  - name: fct_user_activity_daily_all_dimensions
     description: |
       Purpose: User daily activity aggregated across all dimensional contexts for flexible aggregation.
       Granularity: One row per user per day per unique dimensional context (district, program, resource, application).

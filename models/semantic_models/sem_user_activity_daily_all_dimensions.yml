@@ -4,7 +4,7 @@ semantic_models:
       Purpose: User daily activity patterns across all event types and dimensions for flexible aggregation.
       Granularity: One row per user per day per dimensional context.
       Notes: Dynamically adapts to new event categories and supports flexible time grain aggregation.
-    model: ref('int_user_activity_daily_all_dimensions')
+    model: ref('fct_user_activity_daily_all_dimensions')
     defaults:
       agg_time_dimension: client_event_date
 
@@ -103,6 +103,20 @@ semantic_models:
           time_granularity: day
 
     # measures:
+    measures:
+      - name: n_events_per_user_day_context
+        description: "Count of events that we capture. Note that the count may change due to event logging changes, rather than due to user volume or user behavior."
+        agg: sum
+        expr: n_events_per_user_day_context
+        create_metric: True
+        label: "Count of Events in Context"
+
+      - name: n_active_users_per_context
+        description: "Count of unique users with any type of event that we capture within the filters."
+        agg: count_distinct
+        expr: user_id
+        create_metric: True
+        label: "Users with Events in Context"
         # - name: n_user_days_in_context
         #   agg: count_distinct
         #   expr: CONCAT(user_id, '|', client_event_date)
