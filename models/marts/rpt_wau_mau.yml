@@ -52,14 +52,3 @@ models:
       - name: user_first_event_date
         description: "{{ doc('user_first_event_date') }}"
 
-      # Activity metrics
-      - name: had_events_per_user_day_context
-        description: ""
-      - name: n_events_per_user_day_context
-        description: ""
-
-      # Eligibility flags for active user calculations
-      - name: is_eligible_for_mau
-        description: ""
-      - name: is_eligible_for_wau
-        description: ""

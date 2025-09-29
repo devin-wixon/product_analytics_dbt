@@ -43,27 +43,33 @@ user_first_event as (
     group by user_id
 ),
 
+-- for every user that had an event and every day x every dimension, get whether they had events on that day or the 6 prior days
+-- and whether they were eligible to be counted as wau/mau on that day (ie had their first event at least 7/28 days prior)
 join_datespine_events as (
-    -- Cross join datespine with all users to ensure complete coverage
     select
         datespine.date_day,
         datespine.week_monday_date,
         datespine.month_start_date,
         datespine.school_year_start_date,
-        events.* exclude(
-            had_events_per_user_day_context,
-            n_events_per_user_day_context
-        ),
-        user_first_event.user_first_event_date,
-        coalesce(had_events_per_user_day_context, false)
-            as had_events_per_user_day_context,
-        coalesce(n_events_per_user_day_context, 0)
-            as n_events_per_user_day_context
-    from datespine
+        users.user_id,
+        users.user_first_event_date,
+        events.district_id,
+        events.district_name,
+        events.district_type,
+        events.program_id,
+        events.program_name,
+        events.user_role,
+        events.resource_id,
+        events.resource_type,
+        events.application_name,
+        events.event_category,
+        coalesce(events.n_events_per_user_day_context, 0) as n_events,
+        coalesce(events.had_events_per_user_day_context, false) as had_events
+    from user_first_event as users
+    cross join datespine
     left join events
-        on datespine.date_day = events.server_event_date
-    left join user_first_event
-        on events.user_id = user_first_event.user_id
+        on events.user_id = users.user_id
+       and events.server_event_date = datespine.date_day
 ),
 
 final as (
@@ -74,7 +80,21 @@ final as (
             when date_day >= dateadd('day', 28, user_first_event_date)
             then True
             else False
-        end as is_user_first_date_over_28_days
+        end as is_user_first_date_over_28_days,
+
+        -- did the user have events that day or the prior 6 days?
+        max(had_events_per_user_day_context) over (
+            partition by user_id, date_day
+            order by date_day
+            rows between 6 preceding and current row
+        ) as is_user_active_last_7_days,
+                -- did the user have events that day or the prior 6 days?
+        max(had_events_per_user_day_context) over (
+            partition by user_id, date_day
+            order by date_day
+            rows between 28 preceding and current row
+        ) as is_user_active_last_28_days
+        
     from join_datespine_events
 )
 
