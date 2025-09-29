@@ -4,7 +4,7 @@ semantic_models:
       Purpose: User daily activity patterns across all event types and dimensions for flexible aggregation.
       Granularity: One row per user per day per dimensional context.
       Notes: Dynamically adapts to new event categories and supports flexible time grain aggregation.
-    model: ref('fct_user_activity_daily_all_dimensions')
+    model: ref('fct_user_events_dims_daily')
     defaults:
       agg_time_dimension: client_event_date
 
@@ -28,6 +28,7 @@ semantic_models:
       - name: resource
         type: foreign
         expr: resource_id
+
 
     dimensions:
       # Dimensional context

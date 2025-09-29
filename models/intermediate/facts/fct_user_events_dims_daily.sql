@@ -43,10 +43,9 @@ on
 
 user_daily_activity as (
     select
-        -- Explicit primary key
         {{ dbt_utils.generate_surrogate_key([
             'user_id',
-            'client_event_date',
+            'server_event_date',
             "coalesce(user_role, 'none')",
             'coalesce(district_id, -1)',
             'coalesce(program_id, -1)',
@@ -56,7 +55,7 @@ user_daily_activity as (
         ]) }} as user_daily_context_sk,
 
         count(event_id) as n_events_per_user_day_context,
-        1 as had_events_per_user_day_context,
+        True as had_events_per_user_day_context,
 
         -- If event categories are pivoted to boolean data create activity flags for all event types
         -- {# 
@@ -69,7 +68,7 @@ user_daily_activity as (
 
         -- Include key dimensional context columns
         user_id,
-        client_event_date,
+        server_event_date,
         district_id,
         program_id,
         resource_id,

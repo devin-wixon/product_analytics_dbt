@@ -38,6 +38,11 @@ Date of the event, derived from client timestamp.
 {% enddocs %}
 
 
+{% docs example_event_id %}
+An event id chosen arbitrarily to allow traceability when changing the granularity above the event level.
+{% enddocs %}
+
+
 {% docs server_event_date %}
 Date of the event, derived from server timestamp.
 {% enddocs %}
@@ -234,4 +239,8 @@ School year as a two-digit label (e.g., "24-25") based on July 1 - June 30 acade
 
 {% docs school_year_start_date %}
 Start date of the school year (e.g., 2025-07-01), calculated from school year label and project variables for start month/day.
+{% enddocs %}
+
+{% docs user_first_event_date %}
+The first event date for the user at any time, ignoring any filters and context such as dimensions.
 {% enddocs %}
