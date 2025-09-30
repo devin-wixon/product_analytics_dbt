@@ -1,8 +1,8 @@
 {% set dimensions = [
+    'application_name',
     'district_id',
     'program_id',
     'resource_id',
-    'application_name',
     'resource_type',
     'event_category'
 ] %}
@@ -49,14 +49,14 @@ user_district_dates as (
 
 -- dimension-scoped blocks
 {% for dim in dimensions %}
--- districts and roles are used in filter; district is also a potential aggregation
+-- districts are used in filter; district is also a potential aggregation
 -- so district_id will be repeated for one block
 {{ dim }}_base as (
     select distinct
         udd.date_day,
         udd.user_id,
         udd.district_id,
-        events.{{ dim }} as dim_value,
+        cast(events.{{ dim }} as varchar) as dim_value,
         '{{ dim }}' as dim_name,
         case
             when udd.date_day >= dateadd(day, 28, first_event.first_event_date_user_dim)
