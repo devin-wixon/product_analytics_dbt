@@ -15,6 +15,8 @@ final as
     * exclude (
         event_id,
         server_timestamp,
+        client_timestamp,
+        client_event_date,
         event_name,
         event_value_human_readable,
         error_data_object,

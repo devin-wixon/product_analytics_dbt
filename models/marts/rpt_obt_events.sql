@@ -168,7 +168,7 @@ from
   left join districts on user_events_combined.district_id = districts.district_id
   left join programs on events.program_id = programs.program_id
   left join resources on events.resource_id = resources.resource_id
-  left join datespine on events.server_timestamp = datespine.date_day
+  left join datespine on events.server_event_date = datespine.date_day
 ),
 
 final as
