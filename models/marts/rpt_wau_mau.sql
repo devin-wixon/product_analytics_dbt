@@ -52,7 +52,7 @@ user_district_dates as (
 -- districts and roles are used in filter; district is also a potential aggregation
 -- so district_id will be repeated for one block
 {{ dim }}_base as (
-    select
+    select distinct
         udd.date_day,
         udd.user_id,
         udd.district_id,
