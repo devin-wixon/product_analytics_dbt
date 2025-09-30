@@ -116,8 +116,8 @@ user_events_exact as (
     -- users_history.user_created_at_utc,
   from events
   inner join users_history on events.user_id = users_history.user_id
-    and users_history.dbt_valid_from <= events.client_timestamp
-    and (users_history.dbt_valid_to is null or users_history.dbt_valid_to > events.client_timestamp)
+    and users_history.dbt_valid_from <= events.server_timestamp
+    and (users_history.dbt_valid_to is null or users_history.dbt_valid_to > events.server_timestamp)
 ),
 
 user_events_fallback as (
@@ -137,7 +137,7 @@ user_events_fallback as (
       partition by events.event_id 
       order by abs(
                 datediff(
-                  day, events.client_event_date::date, 
+                  day, events.server_event_date::date, 
                            coalesce(users_history.dbt_valid_to, '9999-12-31')::date))
     ) = 1
 ),
@@ -168,7 +168,7 @@ from
   left join districts on user_events_combined.district_id = districts.district_id
   left join programs on events.program_id = programs.program_id
   left join resources on events.resource_id = resources.resource_id
-  left join datespine on events.client_event_date = datespine.date_day
+  left join datespine on events.server_timestamp = datespine.date_day
 ),
 
 final as

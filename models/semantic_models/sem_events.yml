@@ -5,9 +5,9 @@ semantic_models:
       Granularity: One row per event.  
       Notes: Provides maximum flexibility for cross-dimensional analysis (users x districts x resources x programs).  
     model: ref('fct_events')
-    # client_event_date is going to be the date base for the date spine
+    # server_event_date is going to be the date base for the date spine
     defaults:
-      agg_time_dimension: client_event_date
+      agg_time_dimension: server_event_date
     
     entities:
     # event_id is the primary key
@@ -22,10 +22,6 @@ semantic_models:
       - name: resource
         type: foreign
         expr: resource_id
-
-      - name: district
-        type: foreign
-        expr: district_id
 
       - name: program
         type: foreign
@@ -50,10 +46,6 @@ semantic_models:
         type: categorical
         description: "{{ doc('resource_id') }}"
 
-      # - name: district_id
-      #   type: categorical
-      #   description: "{{ doc('district_id') }}"
-
     # other attributes
       - name: event_name
         type: categorical
@@ -71,44 +63,44 @@ semantic_models:
       # booleans
 
       # date related; need to add metric_time dimensions for Tableau parameters
-      - name: client_event_date
+      - name: server_event_date
         type: time
-        description: "{{ doc('client_event_date') }}"
+        description: "{{ doc('server_event_date') }}"
         type_params:
           time_granularity: day
 
       - name: metric_time_day
         type: time
-        description: "{{ doc('client_event_date') }}"
-        expr: client_event_date
+        description: "{{ doc('server_event_date') }}"
+        expr: server_event_date
         type_params:
           time_granularity: day
           
       - name: metric_time_week
         type: time
         description: "Event client date aggregated to week level"
-        expr: client_event_date
+        expr: server_event_date
         type_params:
           time_granularity: week
 
       - name: metric_time_month
         type: time
         description: "Event client date aggregated to month level"
-        expr: client_event_date
+        expr: server_event_date
         type_params:
           time_granularity: month
 
       - name: metric_time_quarter
         type: time
         description: "Event client date aggregated to quarter level"
-        expr: client_event_date
+        expr: server_event_date
         type_params:
           time_granularity: quarter
 
       - name: metric_time_year
         type: time
         description: "Event client date aggregated to year level"
-        expr: client_event_date
+        expr: server_event_date
         type_params:
           time_granularity: year
 
@@ -117,9 +109,9 @@ semantic_models:
         description: "Event client date aggregated to the last day of the school year level, such as 2025-06-30 for 24-25."
         expr: |
           case
-            when month(client_event_date) >= {{ var('school_year_start_month') }}
-            then date_from_parts(year(client_event_date) + 1, {{ var('school_year_end_month') }}, {{ var('school_year_end_day') }})
-            else date_from_parts(year(client_event_date), {{ var('school_year_end_month') }}, {{ var('school_year_end_day') }})
+            when month(server_event_date) >= {{ var('school_year_start_month') }}
+            then date_from_parts(year(server_event_date) + 1, {{ var('school_year_end_month') }}, {{ var('school_year_end_day') }})
+            else date_from_parts(year(server_event_date), {{ var('school_year_end_month') }}, {{ var('school_year_end_day') }})
           end
         type_params:
           time_granularity: day

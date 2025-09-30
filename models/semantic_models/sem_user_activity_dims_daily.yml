@@ -6,7 +6,7 @@ semantic_models:
       Notes: Dynamically adapts to new event categories and supports flexible time grain aggregation.
     model: ref('fct_user_events_dims_daily')
     defaults:
-      agg_time_dimension: client_event_date
+      agg_time_dimension: server_event_date
 
     entities:
       - name: user_daily_context
@@ -57,37 +57,37 @@ semantic_models:
         description: "{{ doc('event_category') }}"
 
       # Flexible time dimensions
-      - name: client_event_date
+      - name: server_event_date
         type: time
-        description: "{{ doc('client_event_date') }}"
+        description: "{{ doc('server_event_date') }}"
         type_params:
           time_granularity: day
 
       - name: metric_time_day
         type: time
         description: "Daily time dimension for user activity"
-        expr: client_event_date
+        expr: server_event_date
         type_params:
           time_granularity: day
 
       - name: metric_time_week
         type: time
         description: "Weekly time dimension for user activity"
-        expr: client_event_date
+        expr: server_event_date
         type_params:
           time_granularity: week
 
       - name: metric_time_month
         type: time
         description: "Monthly time dimension for user activity"
-        expr: client_event_date
+        expr: server_event_date
         type_params:
           time_granularity: month
           
       - name: metric_time_quarter
         type: time
         description: "Quarterly time dimension for user activity"
-        expr: client_event_date
+        expr: server_event_date
         type_params:
           time_granularity: quarter
 
@@ -96,9 +96,9 @@ semantic_models:
         description: "Event client date aggregated to school year level (July 1 - June 30). Will produce the last day of the school year."
         expr: |
           case
-            when month(client_event_date) >= {{ var('school_year_start_month') }}
-            then date_from_parts(year(client_event_date) + 1, {{ var('school_year_end_month') }}, {{ var('school_year_end_day') }})
-            else date_from_parts(year(client_event_date), {{ var('school_year_end_month') }}, {{ var('school_year_end_day') }})
+            when month(server_event_date) >= {{ var('school_year_start_month') }}
+            then date_from_parts(year(server_event_date) + 1, {{ var('school_year_end_month') }}, {{ var('school_year_end_day') }})
+            else date_from_parts(year(server_event_date), {{ var('school_year_end_month') }}, {{ var('school_year_end_day') }})
           end
         type_params:
           time_granularity: day
@@ -120,7 +120,7 @@ semantic_models:
         label: "Users with Events in Context"
         # - name: n_user_days_in_context
         #   agg: count_distinct
-        #   expr: CONCAT(user_id, '|', client_event_date)
+        #   expr: CONCAT(user_id, '|', server_event_date)
         #   create_metric: true
 
         # - name: days_active_per_user_week_in_context
