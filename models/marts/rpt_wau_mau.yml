@@ -3,14 +3,19 @@ version: 2
 models:
   - name: rpt_wau_mau
     description: |
-      Purpose: 
-      Granularity: 
-      Filters: Inherits student exclusion from upstream `rpt_obt_events_dims_daily`.
-      Notes: 
+      Purpose: Calculates weekly active users (WAU) and monthly active users (MAU) metrics across multiple dimensions.
+      Granularity: One row per date, district, dimension name, and dimension value combination.
+      Filters: Inherits student exclusion from upstream `rpt_obt_events_dims_daily`. Users must have at least 28 days of event history for a dimension to be included in counts.
+      Notes: WAU counts users active in a 7-day rolling window, MAU counts users active in a 28-day rolling window. Dimensions include application_name, district_id, program_id, resource_id, resource_type, and event_category.
     columns:
-      # Date spine columns
       - name: date_day
         description: "{{ doc('date_day') }}"
         data_tests:
           - not_null
+      - name: district_id
+        description: "{{ doc('district_id') }}"
+      - name: district_name
+        description: "{{ doc('district_name') }}"
+      - name: district_type
+        description: "{{ doc('district_type') }}"
      

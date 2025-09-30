@@ -34,7 +34,7 @@ user_district_pairs as (
     select distinct
         user_id,
         district_id
-from events
+    from events
 ),
 
 -- densify user–district × dates
@@ -42,7 +42,7 @@ user_district_dates as (
     select
         calendar_dates.date_day,
         user_district_pairs.user_id,
-        user_district_pairs.district_id,
+        user_district_pairs.district_id
     from user_district_pairs
     cross join calendar_dates
 ),
@@ -59,8 +59,13 @@ user_district_dates as (
         cast(events.{{ dim }} as varchar) as dim_value,
         '{{ dim }}' as dim_name,
         case
-            when udd.date_day >= dateadd(day, 28, first_event.first_event_date_user_dim)
-            then true else false
+            when udd.date_day >= dateadd(
+                day,
+                28,
+                first_event.first_event_date_user_dim
+            )
+                then true
+            else false
         end as is_user_dim_eligible,
         events.user_id as had_event_user
     from user_district_dates udd
@@ -88,13 +93,29 @@ user_district_dates as (
             {{ dim }}_base.dim_value,
             {{ dim }}_base.dim_name,
             {{ dim }}_base.is_user_dim_eligible,
-            max(case when {{ dim }}_base.had_event_user is not null then 1 else 0 end) over (
-                partition by {{ dim }}_base.user_id, {{ dim }}_base.dim_value
+            max(
+                case
+                    when {{ dim }}_base.had_event_user is not null
+                        then 1
+                    else 0
+                end
+            ) over (
+                partition by
+                    {{ dim }}_base.user_id,
+                    {{ dim }}_base.dim_value
                 order by {{ dim }}_base.date_day
                 rows between 6 preceding and current row
             ) as has_wau_window,
-            max(case when {{ dim }}_base.had_event_user is not null then 1 else 0 end) over (
-                partition by {{ dim }}_base.user_id, {{ dim }}_base.dim_value
+            max(
+                case
+                    when {{ dim }}_base.had_event_user is not null
+                        then 1
+                    else 0
+                end
+            ) over (
+                partition by
+                    {{ dim }}_base.user_id,
+                    {{ dim }}_base.dim_value
                 order by {{ dim }}_base.date_day
                 rows between 27 preceding and current row
             ) as has_mau_window
@@ -105,8 +126,18 @@ user_district_dates as (
         district_id,
         dim_value,
         dim_name,
-        count(distinct case when is_user_dim_eligible and has_wau_window = 1 then user_id end) as wau,
-        count(distinct case when is_user_dim_eligible and has_mau_window = 1 then user_id end) as mau
+        count(
+            distinct case
+                when is_user_dim_eligible and has_wau_window = 1
+                    then user_id
+            end
+        ) as wau,
+        count(
+            distinct case
+                when is_user_dim_eligible and has_mau_window = 1
+                    then user_id
+            end
+        ) as mau
     from windowed
     group by
         date_day,
@@ -127,16 +158,19 @@ user_district_dates as (
 final_with_names as (
     select
         final.*,
+        div0(wau, mau) as wau_mau_ratio,
         districts_lookup.district_name,
         districts_lookup.district_type
     from final
     left join (
-        select distinct district_id, district_name, district_type
+        select distinct
+            district_id,
+            district_name,
+            district_type
         from events
     ) as districts_lookup
-      on final.district_id = districts_lookup.district_id
+        on final.district_id = districts_lookup.district_id
 )
-
 
 select *
 from final_with_names
