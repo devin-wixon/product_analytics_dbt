@@ -29,13 +29,9 @@ with events as (
         -- may need this in the future for IP address, device type, etc.
         -- session_uuid,
         event_name,
-        -- cleaning
-        iff(event_path = '' or event_path = '/', null, event_path)
-            as event_path,
-        iff(event_value = '' or event_value = '/', null, event_value)
-            as event_value,
-        -- event_path,
-        -- event_value,
+        -- don't clean; / means dashboard
+        event_path,
+        event_value,
         event_value_human_readable
         -- _source_filename,
         -- _loaded_at_utc
