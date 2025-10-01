@@ -13,7 +13,7 @@ final as (
         author_id::int as resource_author_id,
         -- replace spaces and hypens in resource type and make lowercase
         code::string as resource_code,
-        title::string as resource_title,
+        trim(title::string) as resource_title,
         description::string as resource_description,
         file_url::string as resource_file_url,
         section_title::string as resource_section_title,
