@@ -62,6 +62,12 @@ models:
       - name: short_month_year
         description: "{{ doc('short_month_year') }}"
         granularity: month
+      - name: wau_lookback_start_date
+        description: "{{ doc('wau_lookback_start_date') }}"
+        granularity: day
+      - name: mau_lookback_start_date
+        description: "{{ doc('mau_lookback_start_date') }}"
+        granularity: day
       # - name: full_month_year
       #   description: Full month and year (e.g., January 2025).
       #   granularity: month

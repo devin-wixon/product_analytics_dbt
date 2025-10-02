@@ -45,6 +45,10 @@ final as (
         concat(monthname(date_day), ' ', year(date_day)) as short_month_year,
         -- concat(to_char(date_day,'MMMM'), ' ', year(date_day)) as full_month_year,
 
+        -- wau mau rolling dates; also need to add conidition that user start <= 28 days
+        dateadd(day, -6, date_day) as wau_lookback_start_date,
+        dateadd(day, -27, date_day) as mau_lookback_start_date,
+
         -- School year calculations (July 1 - June 30)
         -- Not using a macro; do once here for joining everywhere
         case

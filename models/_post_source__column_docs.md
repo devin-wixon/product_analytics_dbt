@@ -68,13 +68,16 @@ Values: replace, additive
 Values: stateid, identifier, username, sourcedid, state
 {% enddocs %}
 
+
 {% docs rostering_upload_method %}
 Values: manual, sftp.
 {% enddocs %}
 
+
 {% docs is_selfservice_authentication_show_clever %}
 Controls visibility of Clever authentication in self-service portal.
 {% enddocs %}
+
 
 {% docs is_selfservice_rostering_show_clever %}
 Controls visibility of Clever rostering in self-service portal.
@@ -182,6 +185,11 @@ Week number of the year as an integer, extracted using week() function.
 {% enddocs %}
 
 
+{% docs mau_lookback_start_date %}
+The date 27 days prior to the date day in the date scaffolding model. Used for scaffolding 28 day rolling calculations.
+{% enddocs %}
+
+
 {% docs month_of_year_number %}
 Month number of the year as an integer (1-12), extracted using month() function.
 {% enddocs %}
@@ -241,6 +249,12 @@ School year as a two-digit label (e.g., "24-25") based on July 1 - June 30 acade
 Start date of the school year (e.g., 2025-07-01), calculated from school year label and project variables for start month/day.
 {% enddocs %}
 
+
 {% docs user_first_event_date %}
 The first event date for the user at any time, ignoring any filters and context such as dimensions.
+{% enddocs %}
+
+
+{% docs wau_lookback_start_date %}
+The date six days prior to the date day in the date scaffolding model. Used for scaffolding 7 day rolling calculations.
 {% enddocs %}

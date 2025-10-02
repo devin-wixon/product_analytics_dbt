@@ -3,31 +3,32 @@ version: 2
 models:
   - name: rpt_obt_events
     description: |
-      Purpose: Comprehensive event reporting model combining user events with context for analytics.  
-      Granularity: One row per event, uniquely identified by `event_id`.  
-      Notes: Uses the current version of program, resource, and district information rather than the version at the time of the event.  
-      User attributes are as of the time of the event.
+      Purpose: Comprehensive event reporting model combining user events with dimensional context for analytics.
+      Granularity: One row per event, uniquely identified by `event_id`.
+      Notes: Uses current version of program, resource, and district information. User attributes reflect the state at event time using SCD2 logic with fallback matching for data quality.
     columns:
-      # Event columns
+      # Event columns from fct_events
       - name: event_id
         description: "{{ doc('event_id') }}"
         data_tests:
           - unique
           - not_null
+      - name: server_timestamp
+        description: "{{ doc('server_timestamp') }}"
       - name: client_timestamp
         description: "{{ doc('client_timestamp') }}"
       - name: user_id
         description: "{{ doc('user_id') }}"
       - name: event_name
         description: "{{ doc('event_name') }}"
-      - name: event_path
-        description: "{{ doc('event_path') }}"
       - name: event_value_human_readable
         description: "{{ doc('event_value_human_readable') }}"
+      - name: event_category
+        description: "{{ doc('event_category') }}"
+      - name: server_event_date
+        description: "{{ doc('server_event_date') }}"
       - name: client_event_date
         description: "{{ doc('client_event_date') }}"
-      - name: event_category
-        description: ""
       - name: path_entered
         description: "{{ doc('path_entered') }}"
       - name: path_left
@@ -35,53 +36,120 @@ models:
       - name: focus_area_label
         description: ""
       - name: week_number
-        description: ""
+        description: "{{ doc('week_number') }}"
       - name: program_id
         description: "{{ doc('program_id') }}"
       - name: resource_id
         description: "{{ doc('resource_id') }}"
       - name: application_name
         description: "{{ doc('application_name') }}"
-      - name: is_app_launch_event
-        description: "{{ doc('is_app_launch_event') }}"
-      - name: is_planner_open_event
-        description: "{{ doc('is_planner_open_event') }}"
-      - name: is_weekly_planner_event
-        description: "{{ doc('is_weekly_planner_event') }}"
-        
-      # User columns
-      - name: user_id
-        description: "{{ doc('user_id') }}"
-      - name: user_grades
-        description: "{{ doc('user_grades') }}"
-      - name: user_identifier
-        description: "{{ doc('user_identifier') }}"
-      - name: user_role
-        description: "{{ doc('user_role') }}"
-      - name: user_role_id
-        description: "{{ doc('user_role_id') }}"
-      - name: user_status
-        description: "{{ doc('user_status') }}"
-      - name: user_email_sent_utc
-        description: "{{ doc('email_sent_utc') }}"
-      - name: user_updated_at_utc
-        description: "{{ doc('updated_at_utc') }}"
-      - name: user_other_grades
-        description: "{{ doc('user_other_grades') }}"
-      - name: user_invite_status
-        description: "{{ doc('user_invite_status') }}"
 
-      # District columns
+      # User columns from user_events_combined (dim_users_history)
       - name: district_id
         description: "{{ doc('district_id') }}"
+      - name: user_invite_status
+        description: "{{ doc('user_invite_status') }}"
+      - name: user_role
+        description: "{{ doc('user_role') }}"
+
+      # District columns from dim_districts_current
       - name: district_name
         description: "{{ doc('district_name') }}"
-      - name: district_state
-        description: "{{ doc('district_state') }}"
       - name: district_type
         description: "{{ doc('district_type') }}"
+      - name: district_state
+        description: "{{ doc('district_state') }}"
       - name: district_website_slug
         description: "{{ doc('district_website_slug') }}"
       - name: is_distributed_demo_district
         description: "{{ doc('is_distributed_demo_district') }}"
 
+      # Program columns from dim_programs_current
+      - name: program_name
+        description: ""
+      - name: program_age_group
+        description: ""
+      - name: is_program_supplemental
+        description: ""
+      - name: program_type
+        description: ""
+      - name: is_program_district_auto_add
+        description: ""
+      - name: program_language
+        description: ""
+      - name: program_license_type
+        description: ""
+      - name: program_release_year
+        description: ""
+      - name: program_phase
+        description: ""
+      - name: program_market_specific
+        description: ""
+      - name: is_program_demo
+        description: ""
+
+      # Resource columns from dim_resources_current
+      - name: resource_program_id
+        description: ""
+      - name: resource_author_id
+        description: ""
+      - name: resource_code
+        description: ""
+      - name: resource_title
+        description: ""
+      - name: resource_order_number
+        description: ""
+      - name: is_resource_legacy
+        description: ""
+      - name: is_resource_downloadable
+        description: ""
+      - name: resource_provider_id
+        description: ""
+      - name: is_resource_public
+        description: ""
+      - name: resource_publication_status
+        description: ""
+      - name: resource_publication_origin_id
+        description: ""
+      - name: resource_focus_area
+        description: ""
+      - name: resource_estimated_time
+        description: ""
+      - name: resource_physical_reference
+        description: ""
+      - name: resource_type
+        description: ""
+
+      # Date dimension columns from dim_day_datespine
+      - name: week_monday_date
+        description: "{{ doc('week_monday_date') }}"
+      - name: month_start_date
+        description: "{{ doc('month_start_date') }}"
+      - name: day_of_week_number
+        description: "{{ doc('day_of_week_number') }}"
+      - name: day_of_month_number
+        description: "{{ doc('day_of_month_number') }}"
+      - name: day_of_year_number
+        description: "{{ doc('day_of_year_number') }}"
+      - name: week_of_year_number
+        description: "{{ doc('week_of_year_number') }}"
+      - name: month_of_year_number
+        description: "{{ doc('month_of_year_number') }}"
+      - name: quarter_of_year_number
+        description: "{{ doc('quarter_of_year_number') }}"
+      - name: short_weekday_name
+        description: "{{ doc('short_weekday_name') }}"
+      - name: short_month_name
+        description: "{{ doc('short_month_name') }}"
+      - name: year_month_sort
+        description: "{{ doc('year_month_sort') }}"
+      - name: year_quarter_sort
+        description: "{{ doc('year_quarter_sort') }}"
+      - name: wau_lookback_start_date
+        description: "{{ doc('wau_lookback_start_date') }}"
+      - name: mau_lookback_start_date
+        description: "{{ doc('mau_lookback_start_date') }}"
+      - name: school_year_label
+        description: "{{ doc('school_year_label') }}"
+      - name: school_year_start_date
+        description: "{{ doc('school_year_start_date') }}"

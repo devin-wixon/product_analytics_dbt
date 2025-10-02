@@ -3,13 +3,20 @@ version: 2
 models:
   - name: rpt_obt_events_dims_daily
     description: |
-      Purpose: Aggregated event analytics by dimensions at daily grain for comprehensive reporting and analysis.
-      Granularity: One row per unique combination of event dimensions.
-      Filters: Excludes student user roles.
-      Notes: Events are grouped by all dimensions to create a summarized view suitable for dashboard reporting. Includes enriched dimensional data from users, districts, programs, resources, and date spine.
+      Purpose: Provides aggregated event counts grouped by user, date, and contextual dimensions for analytics and dashboard reporting.
+      Granularity: One row per unique combination of user, date, and event context dimensions (event category, paths, programs, resources, district attributes, etc.).
+      Filters: Excludes events where `user_role` is 'student'.
+      Notes: Builds on `rpt_obt_events` by grouping events across dimensions while excluding high-cardinality fields like timestamps and event-specific details. Designed for efficient dashboard queries.
     columns:
+      # Aggregated metrics
+      - name: n_events_per_user_day_context
+        description: ""
+        data_tests:
+          - not_null
+      - name: had_events_per_user_day_context
+        description: ""
       - name: example_event_id
-        description: "Key; doesn't enforce a grain as dimensions are dynamic."
+        description: "{{ doc('example_event_id') }}"
         data_tests:
           - unique
           - not_null
@@ -32,7 +39,7 @@ models:
       - name: focus_area_label
         description: ""
       - name: week_number
-        description: ""
+        description: "{{ doc('week_number') }}"
       - name: program_id
         description: "{{ doc('program_id') }}"
       - name: resource_id
@@ -40,15 +47,13 @@ models:
       - name: application_name
         description: "{{ doc('application_name') }}"
 
-      # User dimension columns (limited subset from user_events_combined)
+      # User dimension columns
       - name: user_role
         description: "{{ doc('user_role') }}"
-      - name: user_invite_status
-        description: "{{ doc('user_invite_status') }}"
-
-      # District dimension columns
       - name: district_id
         description: "{{ doc('district_id') }}"
+
+      # District dimension columns
       - name: district_name
         description: "{{ doc('district_name') }}"
       - name: district_type
@@ -60,3 +65,92 @@ models:
       - name: is_distributed_demo_district
         description: "{{ doc('is_distributed_demo_district') }}"
 
+      # Program dimension columns
+      - name: program_name
+        description: ""
+      - name: program_age_group
+        description: ""
+      - name: is_program_supplemental
+        description: ""
+      - name: program_type
+        description: ""
+      - name: is_program_district_auto_add
+        description: ""
+      - name: program_language
+        description: ""
+      - name: program_license_type
+        description: ""
+      - name: program_release_year
+        description: ""
+      - name: program_phase
+        description: ""
+      - name: program_market_specific
+        description: ""
+      - name: is_program_demo
+        description: ""
+
+      # Resource dimension columns
+      - name: resource_program_id
+        description: ""
+      - name: resource_author_id
+        description: ""
+      - name: resource_code
+        description: ""
+      - name: resource_title
+        description: ""
+      - name: resource_order_number
+        description: ""
+      - name: is_resource_legacy
+        description: ""
+      - name: is_resource_downloadable
+        description: ""
+      - name: resource_provider_id
+        description: ""
+      - name: is_resource_public
+        description: ""
+      - name: resource_publication_status
+        description: ""
+      - name: resource_publication_origin_id
+        description: ""
+      - name: resource_focus_area
+        description: ""
+      - name: resource_estimated_time
+        description: ""
+      - name: resource_physical_reference
+        description: ""
+      - name: resource_type
+        description: ""
+
+      # Date dimension columns
+      - name: week_monday_date
+        description: "{{ doc('week_monday_date') }}"
+      - name: month_start_date
+        description: "{{ doc('month_start_date') }}"
+      - name: day_of_week_number
+        description: "{{ doc('day_of_week_number') }}"
+      - name: day_of_month_number
+        description: "{{ doc('day_of_month_number') }}"
+      - name: day_of_year_number
+        description: "{{ doc('day_of_year_number') }}"
+      - name: week_of_year_number
+        description: "{{ doc('week_of_year_number') }}"
+      - name: month_of_year_number
+        description: "{{ doc('month_of_year_number') }}"
+      - name: quarter_of_year_number
+        description: "{{ doc('quarter_of_year_number') }}"
+      - name: short_weekday_name
+        description: "{{ doc('short_weekday_name') }}"
+      - name: short_month_name
+        description: "{{ doc('short_month_name') }}"
+      - name: year_month_sort
+        description: "{{ doc('year_month_sort') }}"
+      - name: year_quarter_sort
+        description: "{{ doc('year_quarter_sort') }}"
+      - name: wau_lookback_start_date
+        description: "{{ doc('wau_lookback_start_date') }}"
+      - name: mau_lookback_start_date
+        description: "{{ doc('mau_lookback_start_date') }}"
+      - name: school_year_label
+        description: "{{ doc('school_year_label') }}"
+      - name: school_year_start_date
+        description: "{{ doc('school_year_start_date') }}"

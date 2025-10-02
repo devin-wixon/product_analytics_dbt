@@ -2,17 +2,7 @@ with
     events as
 (
     select 
-        *
-    from 
-        {{ ref('rpt_obt_events') }}
-),
-
--- not forcing a granularity
--- group by all columns, which are created dynamically and can change
--- dims include: event_category, server date, client date, path_entered, path_left, program, resource, framework, framework_item, folder...
-final as
-(select
-    * exclude (
+        * exclude (
         event_id,
         server_timestamp,
         client_timestamp,
@@ -26,7 +16,17 @@ final as
         -- search_string,
         visibility_status,
         user_invite_status
-    ),
+    )
+    from 
+        {{ ref('rpt_obt_events') }}
+),
+
+-- not forcing a granularity
+-- group by all columns, which are created dynamically and can change
+-- dims include: event_category, server date, client date, path_entered, path_left, program, resource, framework, framework_item, folder...
+final as
+(select
+    *,
     count(event_id) as n_events_per_user_day_context,
     True as had_events_per_user_day_context,
     -- using one event_id that occured in the context as a surrogate key for traceability
