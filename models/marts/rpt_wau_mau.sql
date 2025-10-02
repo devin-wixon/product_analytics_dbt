@@ -1,6 +1,6 @@
-{config(
+{{ config(
     enabled=False
-)}
+) }}
 
 {% set dimensions = [
     'application_name',
