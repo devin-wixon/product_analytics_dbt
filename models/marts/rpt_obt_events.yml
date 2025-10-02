@@ -145,10 +145,10 @@ models:
         description: "{{ doc('year_month_sort') }}"
       - name: year_quarter_sort
         description: "{{ doc('year_quarter_sort') }}"
-      - name: wau_lookback_start_date
-        description: "{{ doc('wau_lookback_start_date') }}"
-      - name: mau_lookback_start_date
-        description: "{{ doc('mau_lookback_start_date') }}"
+      # - name: wau_lookback_start_date
+      #   description: "{{ doc('wau_lookback_start_date') }}"
+      # - name: mau_lookback_start_date
+      #   description: "{{ doc('mau_lookback_start_date') }}"
       - name: school_year_label
         description: "{{ doc('school_year_label') }}"
       - name: school_year_start_date

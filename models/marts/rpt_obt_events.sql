@@ -94,8 +94,8 @@ datespine as (
         short_month_name,
         year_month_sort,
         year_quarter_sort,
-        wau_lookback_start_date,
-        mau_lookback_start_date,
+        -- wau_lookback_start_date,
+        -- mau_lookback_start_date,
         school_year_label,
         school_year_start_date
     from
