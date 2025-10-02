@@ -20,13 +20,14 @@
     }) -%}
 {%- endfor -%}
 
-SELECT * FROM (
-    VALUES 
+select * 
+from (
+    values 
     {%- for metric in metrics_list %}
         ('{{ metric.name }}', '{{ metric.description }}', '{{ metric.type }}', CURRENT_TIMESTAMP())
         {%- if not loop.last -%},{%- endif -%}
     {%- endfor %}
-) AS metrics_glossary(
+) as metrics_glossary(
     metric_name, 
     metric_description, 
     metric_type, 
