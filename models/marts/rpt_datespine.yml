@@ -1,0 +1,72 @@
+version: 2
+
+models:
+  - name: rpt_datespine
+    description: |
+      Purpose: Calendar dimension table with date attributes for analytics.
+      Granularity: One row per calendar date from 2025-02-01 to 2050-12-31.
+      Notes: Used for semantic modeling datespine and other date-based analyses.
+    
+    columns:
+      # - name: calendar_date_sk
+      #   description: Surrogate key for the calendar date dimension.
+      - name: date_day
+        description: "{{ doc('date_day') }}"
+        tests:
+          - unique
+          - not_null
+        granularity: day
+      - name: week_monday_date
+        description: "{{ doc('week_monday_date') }}"
+      - name: month_start_date
+        description: "{{ doc('month_start_date') }}"
+        granularity: month
+      - name: day_of_week_number
+        description: "{{ doc('day_of_week_number') }}"
+      - name: day_of_month_number
+        description: "{{ doc('day_of_month_number') }}"
+      - name: day_of_year_number
+        description: "{{ doc('day_of_year_number') }}"
+      - name: week_of_year_number
+        description: "{{ doc('week_of_year_number') }}"
+        granularity: week
+      - name: month_of_year_number
+        description: "{{ doc('month_of_year_number') }}"
+        granularity: month
+      - name: quarter_of_year_number
+        description: "{{ doc('quarter_of_year_number') }}"
+        granularity: quarter
+      - name: year_number
+        description: "{{ doc('year_number') }}"
+        granularity: year
+      - name: short_weekday_name
+        description: "{{ doc('short_weekday_name') }}"
+      - name: full_weekday_name
+        description: "{{ doc('full_weekday_name') }}"
+      - name: short_month_name
+        description: "{{ doc('short_month_name') }}"
+        granularity: month
+      - name: full_month_name
+        description: "{{ doc('full_month_name') }}"
+        granularity: month
+      - name: year_month_sort
+        description: "{{ doc('year_month_sort') }}"
+        granularity: month
+      - name: year_quarter_sort
+        description: "{{ doc('year_quarter_sort') }}"
+        granularity: quarter
+      - name: short_month_year
+        description: "{{ doc('short_month_year') }}"
+        granularity: month
+      - name: wau_lookback_start_date
+        description: "{{ doc('wau_lookback_start_date') }}"
+        granularity: day
+      - name: mau_lookback_start_date
+        description: "{{ doc('mau_lookback_start_date') }}"
+        granularity: day
+      - name: school_year_label
+        description: "{{ doc('school_year_label') }}"
+        granularity: year
+      - name: school_year_start_date
+        description: "{{ doc('school_year_start_date') }}"
+        granularity: day
