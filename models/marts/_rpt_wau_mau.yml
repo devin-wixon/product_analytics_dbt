@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: rpt_wau_mau
+  - name: _rpt_wau_mau
     description: |
       Purpose: Calculates weekly active users (WAU) and monthly active users (MAU) metrics across multiple dimensions.
       Granularity: One row per date, district, dimension name, and dimension value combination.

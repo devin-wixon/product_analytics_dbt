@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: rpt_wau_mau_by_user
+  - name: _rpt_wau_mau_by_user
     description: |
       Purpose: Provides a scaffold of all dates with associated weekly and monthly lookback windows, joined to daily event data for calculating rolling WAU/MAU metrics.
       Granularity: One row per scaffolded date and event context (user, district, program, resource, etc.).  
