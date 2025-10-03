@@ -1,3 +1,23 @@
+{{ 
+  config(
+    materialized = 'incremental', 
+    incremental_strategy = 'merge',
+    unique_key = [
+        'date_day',
+        'server_event_date',
+        'user_id',
+        'user_role',
+        'event_category',
+        'program_id',
+        'resource_id',
+        'district_id',
+        'application_name'
+    ],
+    on_schema_change = "sync_all_columns"
+  ) 
+}}
+
+
 with events_dims_daily as (
     select
         server_event_date,
