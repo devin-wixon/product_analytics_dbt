@@ -56,4 +56,3 @@ final as (
 select *
 from 
     final
-where user_id = 499751 order by date_day, server_event_date

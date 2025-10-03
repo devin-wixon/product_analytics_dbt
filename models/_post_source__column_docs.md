@@ -53,6 +53,17 @@ True means admins (with permission) will be redirected to onboarding as soon the
 {% enddocs %}
 
 
+{% docs is_user_eligible_for_mau %}
+At the row's date value, is the user's first event date before 27 days prior (the `mau_lookback_start_date`)?
+Used to determine if a user should be in the WAU/MAU ratio and excluding users that didn't have the full MAU opportunity space.
+{% enddocs %}
+
+
+{% docs is_user_first_event_date %}
+The first event date for the user across all events captured, without date filters.
+{% enddocs %}
+
+
 {% docs rostering_method %}
 Values: classlink, clever, flat_file_csv, oneroster
 {% enddocs %}
