@@ -16,10 +16,6 @@ models:
         description: "{{ doc('mau_lookback_start_date') }}"
       - name: wau_lookback_start_date
         description: "{{ doc('wau_lookback_start_date') }}"
-      - name: is_user_first_event_date
-        description: ""
-      - name: is_user_eligible_for_mau
-        description: ""
 
       # Event dimension columns
       - name: server_event_date
@@ -56,6 +52,10 @@ models:
         description: "{{ doc('is_distributed_demo_district') }}"
       - name: application_name
         description: "{{ doc('application_name') }}"
+      - name: application_name
+        description: "{{ doc('application_name') }}"
+      
+      # Other columns
       - name: is_user_first_event_date
         description: "{{ doc('is_user_first_event_date') }}"
       - name: is_user_eligible_for_mau

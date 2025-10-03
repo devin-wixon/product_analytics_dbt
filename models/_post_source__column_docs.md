@@ -60,7 +60,7 @@ Used to determine if a user should be in the WAU/MAU ratio and excluding users t
 
 
 {% docs is_user_first_event_date %}
-The first event date for the user across all events captured, without date filters.
+Boolean: True if the current date matches the user's first event date across all events captured, otherwise false.
 {% enddocs %}
 
 
