@@ -7,7 +7,9 @@ models:
       Granularity: One row per scaffolded date and event context (user, district, program, resource, etc.).  
         Each `server_event_date` and context combination will appear in every scaffold date's lookback window.
       Filters: Excludes events where `user_role` is 'student'.
-      Notes: Uses date scaffolding to enable calculation of weekly active users (7-day window) and monthly active users (28-day window) for each date.
+      Notes: 
+      - Is incremental to allow for efficient daily updates. Merge strategy can be changed to append using `server_event_date` after production testing.
+      - Uses date scaffolding to enable calculation of weekly active users (7-day window) and monthly active users (28-day window) for each date.
     columns:
       # Date scaffold columns
       - name: date_day
