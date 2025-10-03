@@ -1,3 +1,7 @@
+{{ config(
+    enabled= false
+) }}
+
 with
 
 enrollments as (
@@ -16,16 +20,12 @@ enrollments as (
         -- but will be used where available
         (
             enrollment_start_date is null
-            or enrollment_start_date > current_date
+            or enrollment_start_date <= current_date
         )
         and (
-            enrollment_start_date is null
-            or enrollment_start_date > current_date
+            enrollment_end_date is null
+            or enrollment_end_date >= current_date
         )
-        -- filter to current records from snapshot
-        and dbt_valid_from <= current_timestamp()
-        and dbt_valid_to is null
-),
 
 -- select one record per user x role x class x school, prioritizing most recent modification
 user_current_enrollment as (

@@ -49,7 +49,7 @@ models:
         description: "{{ doc('resource_id') }}"
 
       - name: application_name
-        description: "{ doc('application_name') }"
+        description: "{{ doc('application_name') }}"
 
       - name: event_category
         description: "{{ doc('event_category') }}"

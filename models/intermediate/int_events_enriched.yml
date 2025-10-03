@@ -21,8 +21,6 @@ models:
         description: "{{ doc('user_id') }}"
       - name: event_name
         description: "{{ doc('event_name') }}"
-      - name: event_category
-        description: "{{ doc('event_category') }}"
       - name: event_path
         description: "{{ doc('event_path') }}"
       - name: event_value

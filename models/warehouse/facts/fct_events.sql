@@ -9,7 +9,7 @@ events as (
 
 final as (
     select
-        events.*,
+        events.*
     from
         events
     )
