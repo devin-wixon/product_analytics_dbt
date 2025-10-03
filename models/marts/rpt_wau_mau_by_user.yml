@@ -3,135 +3,55 @@ version: 2
 models:
   - name: rpt_wau_mau_by_user
     description: |
-      Purpose: 
-      Granularity:
+      Purpose: Provides a scaffold of all dates with associated weekly and monthly lookback windows, joined to daily event data for calculating rolling WAU/MAU metrics.
+      Granularity: One row per date and event context (user, district, program, resource, etc.).
       Filters: Excludes events where `user_role` is 'student'.
-      Notes:
+      Notes: Uses date scaffolding to enable calculation of weekly active users (7-day window) and monthly active users (28-day window) for each date.
     columns:
+      # Date scaffold columns
+      - name: date_day
+        description: "{{ doc('date_day') }}"
+      - name: mau_lookback_start_date
+        description: "{{ doc('mau_lookback_start_date') }}"
+      - name: wau_lookback_start_date
+        description: "{{ doc('wau_lookback_start_date') }}"
+      - name: is_user_first_event_date
+        description: ""
+      - name: is_user_eligible_for_mau
+        description: ""
 
-    
       # Event dimension columns
-      - name: user_id
-        description: "{{ doc('user_id') }}"
       - name: server_event_date
         description: "{{ doc('server_event_date') }}"
-      - name: event_category
-        description: "{{ doc('event_category') }}"
-      - name: path_entered
-        description: "{{ doc('path_entered') }}"
-      - name: path_left
-        description: "{{ doc('path_left') }}"
-      - name: focus_area_label
-        description: ""
-      - name: week_number
-        description: "{{ doc('week_number') }}"
-      - name: program_id
-        description: "{{ doc('program_id') }}"
-      - name: resource_id
-        description: "{{ doc('resource_id') }}"
-      - name: application_name
-        description: "{{ doc('application_name') }}"
-
-      # User dimension columns
+      - name: school_year_label
+        description: "{{ doc('school_year_label') }}"
+      - name: school_year_start_date
+        description: "{{ doc('school_year_start_date') }}"
+      - name: user_id
+        description: "{{ doc('user_id') }}"
       - name: user_role
         description: "{{ doc('user_role') }}"
+      - name: event_category
+        description: "{{ doc('event_category') }}"
+      - name: program_id
+        description: "{{ doc('program_id') }}"
+      - name: program_name
+        description: ""
+      - name: resource_id
+        description: "{{ doc('resource_id') }}"
+      - name: resource_title
+        description: ""
+      - name: resource_type
+        description: ""
       - name: district_id
         description: "{{ doc('district_id') }}"
-
-      # District dimension columns
       - name: district_name
         description: "{{ doc('district_name') }}"
       - name: district_type
         description: "{{ doc('district_type') }}"
       - name: district_state
         description: "{{ doc('district_state') }}"
-      - name: district_website_slug
-        description: "{{ doc('district_website_slug') }}"
       - name: is_distributed_demo_district
         description: "{{ doc('is_distributed_demo_district') }}"
-
-      # Program dimension columns
-      - name: program_name
-        description: ""
-      - name: program_age_group
-        description: ""
-      - name: is_program_supplemental
-        description: ""
-      - name: program_type
-        description: ""
-      - name: is_program_district_auto_add
-        description: ""
-      - name: program_language
-        description: ""
-      - name: program_license_type
-        description: ""
-      - name: program_release_year
-        description: ""
-      - name: program_phase
-        description: ""
-      - name: program_market_specific
-        description: ""
-      - name: is_program_demo
-        description: ""
-
-      # Resource dimension columns
-      - name: resource_program_id
-        description: ""
-      - name: resource_author_id
-        description: ""
-      - name: resource_code
-        description: ""
-      - name: resource_title
-        description: ""
-      - name: resource_order_number
-        description: ""
-      - name: is_resource_legacy
-        description: ""
-      - name: is_resource_downloadable
-        description: ""
-      - name: resource_provider_id
-        description: ""
-      - name: is_resource_public
-        description: ""
-      - name: resource_publication_status
-        description: ""
-      - name: resource_publication_origin_id
-        description: ""
-      - name: resource_focus_area
-        description: ""
-      - name: resource_estimated_time
-        description: ""
-      - name: resource_physical_reference
-        description: ""
-      - name: resource_type
-        description: ""
-
-      # Date dimension columns
-      - name: week_monday_date
-        description: "{{ doc('week_monday_date') }}"
-      - name: month_start_date
-        description: "{{ doc('month_start_date') }}"
-      - name: day_of_week_number
-        description: "{{ doc('day_of_week_number') }}"
-      - name: day_of_month_number
-        description: "{{ doc('day_of_month_number') }}"
-      - name: day_of_year_number
-        description: "{{ doc('day_of_year_number') }}"
-      - name: week_of_year_number
-        description: "{{ doc('week_of_year_number') }}"
-      - name: month_of_year_number
-        description: "{{ doc('month_of_year_number') }}"
-      - name: quarter_of_year_number
-        description: "{{ doc('quarter_of_year_number') }}"
-      - name: short_weekday_name
-        description: "{{ doc('short_weekday_name') }}"
-      - name: short_month_name
-        description: "{{ doc('short_month_name') }}"
-      - name: year_month_sort
-        description: "{{ doc('year_month_sort') }}"
-      - name: year_quarter_sort
-        description: "{{ doc('year_quarter_sort') }}"
-      - name: school_year_label
-        description: "{{ doc('school_year_label') }}"
-      - name: school_year_start_date
-        description: "{{ doc('school_year_start_date') }}"
+      - name: application_name
+        description: "{{ doc('application_name') }}"
