@@ -1,61 +1,46 @@
 version: 2
 
 models:
-  - name: dim_users_history
+  - name: dim_users_most_recent
     description: |
-      Purpose: Provides historical tracking of user attribute changes over time.
-      Granularity: One row per user per time period when attributes changed.
+      Purpose: Provides the most recent information for each user; includes deleted and backfilled users.
+      Granularity: One row per user.
+      Notes: Special handling for backfilled users where `dbt_valid_to` may never be null.
     columns:
-      - name: dbt_scd_id
-        description: "{{ doc('dbt_scd_id') }}"
+      - name: user_id
+        description: "{{ doc('user_id') }}"
         tests:
           - unique
           - not_null
-          
-      - name: user_id
-        description: "{{ doc('user_id') }}"
-
       - name: user_role
         description: "{{ doc('user_role') }}"
-
       - name: district_id
         description: "{{ doc('district_id') }}"
-
       - name: user_sourced_id
         description: "{{ doc('user_sourced_id') }}"
-
       - name: is_disable_auto_sync
         description: "{{ doc('is_disable_auto_sync') }}"
-
       - name: is_manually_added
         description: ""
-
       - name: user_invite_status
         description: "{{ doc('user_invite_status') }}"
-
       - name: user_grades
         description: "{{ doc('user_grades') }}"
-
       - name: user_other_grades
         description: "{{ doc('user_other_grades') }}"
-
       - name: user_email_sent_utc
         description: ""
-
       - name: user_updated_at_utc
-        description: ""
-
+        description: "{{ doc('updated_at_utc') }}"
       - name: user_created_at_utc
         description: ""
-
+      - name: dbt_scd_id
+        description: "{{ doc('dbt_scd_id') }}"
       - name: dbt_valid_from
         description: "{{ doc('dbt_valid_from') }}"
-
       - name: dbt_valid_to
         description: "{{ doc('dbt_valid_to') }}"
-
       - name: dbt_updated_at
         description: "{{ doc('dbt_updated_at') }}"
-
       - name: dbt_is_deleted
         description: "{{ doc('dbt_is_deleted') }}"
