@@ -53,16 +53,21 @@ with
       order by user_id
   ),
 
+  user_has_events as (
+      select distinct user_id
+      from user_events
+  ),
+
     user_history_enriched as(
-        select
+        select distinct
             user_history.*,
             user_categories.user_category,
-            user_events.user_id is not null as has_user_event
+            user_has_events.user_id is not null as has_user_event
         from user_history
         left join user_categories
             on user_history.user_id = user_categories.user_id
-        left join user_events
-            on user_history.user_id = user_events.user_id
+        left join user_has_events
+            on user_history.user_id = user_has_events.user_id
   ),
 
   -- For username_password users: find first time for each status.
@@ -123,7 +128,7 @@ with
           min(case when user_day_index = 2 then event_date end) as second_user_active_date,
           boolor_agg(user_day_index = 1) as is_user_active,
           boolor_agg(user_day_index = 2) as is_user_active_two_days,
-          count(distinct event_date) as n_user_active_days,
+          count(distinct event_date) as n_user_active_days
       from user_events
       group by user_id
   ),
@@ -131,11 +136,11 @@ with
   -- Combine all user funnel data
   user_funnel_base as (
       select
-          user_categories.user_id,
-          user_categories.user_category,
+          user_history_enriched.user_id,
+          user_history_enriched.user_category,
           -- Month start date: null for legacy users, otherwise use first record month or creation month
           case
-              when user_categories.user_category in ('legacy', 'backfill') then null
+              when user_history_enriched.user_category in ('legacy', 'backfill') then null
               -- month_start_date will never be null
               else user_first_record_month.month_start_date
           end as month_start_date,
@@ -154,7 +159,7 @@ with
           
           -- Registered flag and date; same logic as above
             user_ever_registered.is_user_registered,
-            user_ever_registered.min_user_register_date
+            user_ever_registered.min_user_register_date,
 
           -- Active flag (all user types)
           user_active_days.is_user_active,
@@ -170,23 +175,17 @@ with
               user_active_days.second_user_active_date
           ) as days_elapsed_first_to_second_active_day
 
-      from user_categories
-      left join users_most_recent
-          on user_categories.user_id = users_most_recent.user_id
+      from user_history_enriched
       left join user_first_record_month
-          on user_categories.user_id = user_first_record_month.user_id
+          on user_history_enriched.user_id = user_first_record_month.user_id
       left join user_ever_not_invited
-          on user_categories.user_id = user_ever_not_invited.user_id
+          on user_history_enriched.user_id = user_ever_not_invited.user_id
       left join user_ever_invited
-          on user_categories.user_id = user_ever_invited.user_id
-      left join user_first_registered
-          on user_categories.user_id = user_first_registered.user_id
+          on user_history_enriched.user_id = user_ever_invited.user_id
       left join user_ever_registered
-          on user_categories.user_id = user_ever_registered.user_id
+          on user_history_enriched.user_id = user_ever_registered.user_id
       left join user_active_days
-          on user_categories.user_id = user_active_days.user_id
-      left join user_second_active_day
-          on user_categories.user_id = user_second_active_day.user_id
+          on user_history_enriched.user_id = user_active_days.user_id
   ),
 
   final as (
@@ -204,6 +203,7 @@ with
           is_user_active,
           min_user_active_date,
           is_user_active_two_days,
+          n_user_active_days,
           days_elapsed_first_to_second_active_day
       from user_funnel_base
   )
