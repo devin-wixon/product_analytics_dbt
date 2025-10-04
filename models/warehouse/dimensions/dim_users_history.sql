@@ -1,20 +1,10 @@
 with
 
 users as (
-    select *
-    from
-        {{ ref('stg_taco__users') }}
+    select
+        *
+    from {{ ref('stg_taco__users') }}
 ),
-
--- denormalize disrict, which is 1:1 with users
--- districts as 
--- (select
---     *
--- from
---     {{ ref('dim_districts_current') }}
-
--- ),
-
 joined as (
     select
         user_id,
@@ -34,16 +24,15 @@ joined as (
         dbt_valid_to,
         dbt_updated_at,
         dbt_is_deleted
-    from
-        users
+    from users
 ),
 
 final as (
-    select *
-    from
-        joined
+    select
+        *
+    from joined
 )
 
-select *
-from
-    final
+select
+    *
+from final

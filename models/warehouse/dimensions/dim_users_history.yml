@@ -21,6 +21,9 @@ models:
       - name: is_disable_auto_sync
         description: "{{ doc('is_disable_auto_sync') }}"
 
+      - name: is_manually_added
+        description: ""
+
       - name: user_invite_status
         description: "{{ doc('user_invite_status') }}"
 
@@ -29,7 +32,16 @@ models:
 
       - name: user_other_grades
         description: "{{ doc('user_other_grades') }}"
-      
+
+      - name: user_email_sent_utc
+        description: ""
+
+      - name: user_updated_at_utc
+        description: ""
+
+      - name: user_created_at_utc
+        description: ""
+
       - name: dbt_scd_id
         description: "{{ doc('dbt_scd_id') }}"
         tests:
@@ -41,6 +53,9 @@ models:
 
       - name: dbt_valid_to
         description: "{{ doc('dbt_valid_to') }}"
+
+      - name: dbt_updated_at
+        description: "{{ doc('dbt_updated_at') }}"
 
       - name: dbt_is_deleted
         description: "{{ doc('dbt_is_deleted') }}"
