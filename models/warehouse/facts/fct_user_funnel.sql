@@ -26,14 +26,6 @@ with
           end as user_category
       from users_most_recent
   ),
-  user_history_enriched as(
-        select
-            user_history.*,
-            user_categories.user_category
-        from user_history
-        left join user_categories
-            on user_history.user_id = user_categories.user_id
-  )
 
   -- For all users, find first month they had any record
   -- This includes any dbt_valid_from date (including 1900-01-01)
@@ -41,24 +33,54 @@ with
       select
           user_id,
           date_trunc('month', min(dbt_valid_from))::date as month_start_date
-      from user_history_enriched
+      from user_history
       group by user_id
   ),
-  -- For username_password users: find first time for each status
+
+    -- Get user active dates from events
+  user_events as (
+      select
+          user_id,
+          event_date,
+          row_number() over (partition by user_id order by event_date asc) as user_day_index
+      from (
+          select distinct
+              user_id,
+              server_event_date as event_date
+          from {{ ref('fct_events') }}
+          where user_id is not null
+      )
+      order by user_id
+  ),
+
+    user_history_enriched as(
+        select
+            user_history.*,
+            user_categories.user_category,
+            user_events.user_id is not null as has_user_event
+        from user_history
+        left join user_categories
+            on user_history.user_id = user_categories.user_id
+        left join user_events
+            on user_history.user_id = user_events.user_id
+  ),
+
+  -- For username_password users: find first time for each status.
+  -- if they have any event but no record of the status, count them as having moved through the status with no date
 
   -- Check if user was ever not_invited and get min date
   user_ever_not_invited as (
       select
           user_id,
           true as is_user_not_invited,
-          min(dbt_valid_from) as min_user_not_invited_date_to_check,
+          min(case when user_invite_status = 'not_invited' then dbt_valid_from end) as min_user_not_invited_date_to_check,
           -- null out the date when we don't have a real date
           case when min_user_not_invited_date_to_check::date = '1900-01-01' then null else min_user_not_invited_date_to_check end as min_user_not_invited_date
       from user_history_enriched
       where 
       -- any user previously username password and now sso could have a record: only consider their sso funnel phases
         user_category = 'username_password'
-        and user_invite_status = 'not_invited'
+        and (user_invite_status = 'not_invited' or has_user_event)
       group by user_id
   ),
 
@@ -67,13 +89,13 @@ with
       select
           user_id,
           true as is_user_invited,
-          min(dbt_valid_from) as min_user_invited_date_to_check,
+          min(case when user_invite_status = 'invited' then dbt_valid_from end) as min_user_invited_date_to_check,
           -- null out the date when we don't have a real date
           case when min_user_invited_date_to_check::date = '1900-01-01' then null else min_user_invited_date_to_check end as min_user_invited_date
       from user_history_enriched
       where 
         user_category = 'username_password'
-        and user_invite_status = 'invited'
+        and (user_invite_status = 'invited' or has_user_event)
       group by user_id
   ),
 
@@ -82,25 +104,17 @@ with
   user_ever_registered as (
       select
           user_id,
-          min(dbt_valid_from) as min_user_register_date_to_check,
+            true as is_user_registered,
+           min(case when user_invite_status = 'registered' then dbt_valid_from end) as min_user_register_date_to_check,
           -- null out the date when we don't have a real date
           case when min_user_register_date_to_check::date = '1900-01-01' then null else min_user_register_date_to_check end as min_user_register_date
       from user_history_enriched
       where 
-        user_invite_status = 'registered'
-        and user_category = 'username_password'
+      user_category = 'username_password'
+      and (user_invite_status = 'registered' or has_user_event)
       group by user_id
   ),
 
-  -- Get user active dates from events
-  user_events as (
-      select
-          user_id,
-          server_event_date as event_date,
-          row_number() over (partition by user_id, server_event_date order by server_event_date asc) as user_day_index
-      from {{ ref('fct_events') }}
-      where user_id is not null
-  ),
 
   user_active_days as (
       select
