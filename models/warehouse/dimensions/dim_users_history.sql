@@ -1,7 +1,7 @@
 with
 
 users as (
-    select * exclude (dbt_updated_at, dbt_is_deleted)
+    select *
     from
         {{ ref('stg_taco__users') }}
 ),
@@ -17,33 +17,25 @@ users as (
 
 joined as (
     select
-        users.user_id,
-        users.user_role,
-        users.district_id,
-        -- district attributes
-        -- districts.district_id,
-        -- districts.district_name,
-        -- districts.district_state,
-        -- district_type,
-        users.user_sourced_id,
-        users.is_disable_auto_sync,
-        users.is_manually_added,
-        users.user_invite_status,
-        users.user_grades,
-        users.user_other_grades,
-        users.user_email_sent_utc,
-        users.user_updated_at_utc,
-        users.user_created_at_utc,
-        users.dbt_scd_id,
-        users.dbt_valid_from,
-        users.dbt_valid_to
-
+        user_id,
+        user_role,
+        district_id,
+        user_sourced_id,
+        is_disable_auto_sync,
+        is_manually_added,
+        user_invite_status,
+        user_grades,
+        user_other_grades,
+        user_email_sent_utc,
+        user_updated_at_utc,
+        user_created_at_utc,
+        dbt_scd_id,
+        dbt_valid_from,
+        dbt_valid_to,
+        dbt_updated_at,
+        dbt_is_deleted
     from
         users
--- inner join
---     districts
--- on
---     users.district_id = districts.district_id   
 ),
 
 final as (

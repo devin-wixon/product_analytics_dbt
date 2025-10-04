@@ -41,3 +41,6 @@ models:
 
       - name: dbt_valid_to
         description: "{{ doc('dbt_valid_to') }}"
+
+      - name: dbt_is_deleted
+        description: "{{ doc('dbt_is_deleted') }}"
