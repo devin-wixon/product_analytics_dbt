@@ -1,0 +1,114 @@
+version: 2
+
+models:
+  - name: fct_user_funnel
+    description: |
+      Purpose: User funnel analysis tracking progression through invitation, registration, and activation phases.
+      Granularity: One row per user.
+      User Categories:
+        - legacy: Users with dbt_valid_from = '1900-01-01' (unknown entry date)
+        - sso: Users whose most recent user_invite_status is 'sso' (and not legacy)
+        - backfill: Users whose most recent user_invite_status is 'backfill' (and not legacy)
+        - username_password: All other users (not legacy, not sso, not backfill)
+      Funnel Phases by Category:
+        - legacy: created -> active -> active on 2+ days (no month_start_date tracking)
+        - sso: created -> active -> active on 2+ days (tracked by month_start_date)
+        - backfill: created -> active -> active on 2+ days (tracked by month_start_date)
+        - username_password: not_invited -> invited -> registered -> active -> active on 2+ days (tracked by month_start_date)
+      Notes:
+        - Legacy users have null month_start_date and represent "status as of today"
+        - Not invited, invitation, and registration phases only apply to username_password users
+        - Some username_password users may skip the not_invited phase
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - user_id
+
+    columns:
+      - name: user_category
+        description: |
+          User category based on most recent dbt_valid_from and user_invite_status.
+          Values: 'legacy', 'sso', 'backfill', 'username_password'
+          Legacy users have dbt_valid_from = '1900-01-01' and unknown entry date.
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['legacy', 'sso', 'backfill', 'username_password']
+
+      - name: month_start_date
+        description: |
+          First month the user entered the system.
+          Null for legacy users (unknown entry date).
+          For non-legacy users: first month they had any record in dim_users_history (excluding 1900-01-01 dates), or month of user_created_at_utc as fallback.
+
+      - name: user_id
+        description: "{{ doc('user_id') }}"
+        tests:
+          - unique
+          - not_null
+
+      - name: is_user_created
+        description: |
+          Boolean flag indicating user has been created.
+          Always true for all users.
+        tests:
+          - not_null
+          - accepted_values:
+              values: [true]
+
+      - name: is_user_not_invited
+        description: |
+          Boolean flag indicating user was ever in not_invited status.
+          Null for legacy/sso/backfill users (not_invited phase does not apply).
+          For username_password users: true if user ever had user_invite_status of 'not_invited'.
+
+      - name: min_user_not_invited_date
+        description: |
+          Earliest dbt_valid_from date when user_invite_status was 'not_invited'.
+          Null for legacy/sso/backfill users or username_password users who never had not_invited status.
+
+      - name: is_user_invited
+        description: |
+          Boolean flag indicating user was ever invited.
+          Null for legacy/sso/backfill users (invitation phase does not apply).
+          For username_password users: true if user ever had user_invite_status of 'invited'.
+
+      - name: min_user_invited_date
+        description: |
+          Earliest dbt_valid_from date when user_invite_status was 'invited'.
+          Null for legacy/sso/backfill users or username_password users who never had invited status.
+
+      - name: is_user_registered
+        description: |
+          Boolean flag indicating user was ever registered.
+          Null for legacy/sso/backfill users (registration phase does not apply).
+          For username_password users: true if user ever had user_invite_status of 'registered'.
+
+      - name: min_user_register_date
+        description: |
+          Earliest dbt_valid_from date when user_invite_status was 'registered'.
+          Null for legacy/sso/backfill users.
+
+      - name: is_user_active
+        description: |
+          Boolean flag indicating user had at least one event on any day.
+          Applies to all user categories.
+        tests:
+          - not_null
+
+      - name: min_user_active_date
+        description: |
+          Earliest server_event_date from fct_events for this user.
+          Null if user has never had any events.
+
+      - name: is_user_active_two_days
+        description: |
+          Boolean flag indicating user had events on 2 or more distinct days.
+          Applies to all user categories.
+        tests:
+          - not_null
+
+      - name: days_elapsed_first_to_second_active_day
+        description: |
+          Number of days between first and second active day.
+          Null if user has not been active on 2+ days.
