@@ -177,5 +177,6 @@ sources:
               - not_null
           - name: invite_status
             data_tests:
+              - not_null
               - accepted_values:
                   values: ['not_invited', 'invited', 'registered', 'sso', 'backfill']

@@ -6,17 +6,17 @@ models:
       Purpose: User funnel analysis tracking progression through invitation, registration, and activation phases.
       Granularity: One row per user.
       User Categories:
-        - backfill: Users whose most recent user_invite_status is 'backfill' (manually backfilled users; will have dbt_valid_from = '1900-01-01'; may not have a null dbt_valid_to)
-        - legacy: Non-backfill users with dbt_valid_from = '1900-01-01' (unknown entry date)
+        - backfill: Users whose most recent user_invite_status is 'backfill' (manually backfilled users; will have `dbt_valid_from` = '1900-01-01'; may not have a null `dbt_valid_to`)
+        - legacy: Non-backfill users with `dbt_valid_from` = '1900-01-01' (unknown entry date)
         - sso: Users whose most recent user_invite_status is 'sso' (and not backfill/legacy)
         - username_password: All other users (not backfill, not legacy, not sso)
       Funnel Phases by Category:
-        - backfill: created -> active -> active on 2+ days (null month_start_date)
-        - legacy: created -> active -> active on 2+ days (null month_start_date)
-        - sso: created -> active -> active on 2+ days (tracked by month_start_date)
-        - username_password: created -> not_invited -> invited -> registered -> active -> active on 2+ days (tracked by month_start_date)
+        - backfill: created -> active -> active on 2+ days (null `month_start_date`)
+        - legacy: created -> active -> active on 2+ days (null `month_start_date`)
+        - sso: created -> active -> active on 2+ days (tracked by `month_start_date`)
+        - username_password: created -> not_invited -> invited -> registered -> active -> active on 2+ days (tracked by `month_start_date`)
       Notes:
-        - Backfill and legacy users have null month_start_date and represent "status as of today"
+        - Backfill and legacy users have null `month_start_date` and represent "status as of today"
         - Not invited, invitation, and registration phases only apply to username_password users
         - Username_password users who never had a status but have events are inferred to have passed through invited/registered (with null dates)
         - Username_password users without events get false for phases they never had
