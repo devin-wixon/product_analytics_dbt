@@ -169,9 +169,9 @@ with
           user_ever_registered.min_user_register_date,
 
           -- Active flag (all user types)
-          user_active_days.is_user_active,
+          ifnull(user_active_days.is_user_active, false) as is_user_active,
           user_active_days.min_user_active_date,
-          user_active_days.is_user_active_two_days,
+          ifnull(user_active_days.is_user_active_two_days, false) as is_user_active_two_days,
           user_active_days.second_user_active_date,
           ifnull(user_active_days.n_user_active_days, 0) as n_user_active_days,
 

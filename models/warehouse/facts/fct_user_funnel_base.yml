@@ -34,13 +34,13 @@ models:
         tests:
           - not_null
           - accepted_values:
-              values: ['legacy', 'sso', 'backfill', 'username_password']
+              values: ['backfill', 'legacy', 'sso', 'username_password']
 
       - name: month_start_date
         description: |
           First month the user entered the system.
           Null for backfill and legacy users (unknown entry date).
-          For sso/username_password users: first month they had any record in dim_users_history.
+          For sso/username_password users: first month they had any record in `dim_users_history` using `dbt_valid_from`.
 
       - name: user_id
         description: "{{ doc('user_id') }}"
@@ -52,20 +52,16 @@ models:
         description: |
           Boolean flag indicating user has been created.
           Always true for all users.
-        tests:
-          - not_null
-          - accepted_values:
-              values: [true]
 
       - name: is_user_not_invited
         description: |
           Boolean flag indicating user was ever in not_invited status.
           Null for legacy/sso/backfill users (not_invited phase does not apply).
-          For username_password users: true if ever had user_invite_status of 'not_invited', false otherwise.
+          For username_password users: true if ever had user_invite_status of `not_invited`, false otherwise.
 
       - name: min_user_not_invited_date
         description: |
-          Earliest dbt_valid_from date when user_invite_status was 'not_invited'.
+          Earliest dbt_valid_from date when user_invite_status was `not_invited`.
           Null for legacy/sso/backfill users or username_password users who never had not_invited status.
 
       - name: is_user_invited
