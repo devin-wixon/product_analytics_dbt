@@ -39,9 +39,9 @@ Example: SAGE54321
 {% enddocs %}
 
 
-{% docs district_last_sync_utc %}
-<!-- TAG TO DO confirm values and flesh out with their meaning. -->
-Example: 2025-07-30 00:00:00.000
+{% docs district_updated_at_utc %}
+The last time a sync was received (`district_last_sync_utc`) _or_ a manual change was made to the district.
+District.updated_at: sync received OR manually added.
 {% enddocs %}
 
 

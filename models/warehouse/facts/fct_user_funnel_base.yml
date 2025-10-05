@@ -27,20 +27,14 @@ models:
 
     columns:
       - name: user_category
-        description: |
-          User category based on most recent dbt_valid_from and user_invite_status.
-          Values: 'legacy', 'sso', 'backfill', 'username_password'
-          Legacy users have dbt_valid_from = '1900-01-01' and unknown entry date.
+        description: "{{ doc('user_category') }}"
         tests:
           - not_null
           - accepted_values:
               values: ['backfill', 'legacy', 'sso', 'username_password']
 
       - name: month_start_date
-        description: |
-          First month the user entered the system.
-          Null for backfill and legacy users (unknown entry date).
-          For sso/username_password users: first month they had any record in `dim_users_history` using `dbt_valid_from`.
+        description: "{{ doc('month_start_date') }}"
 
       - name: user_id
         description: "{{ doc('user_id') }}"
@@ -49,75 +43,46 @@ models:
           - not_null
 
       - name: is_user_created
-        description: |
-          Boolean flag indicating user has been created.
-          Always true for all users.
+        description: "{{ doc('is_user_created') }}"
 
       - name: is_user_not_invited
-        description: |
-          Boolean flag indicating user was ever in not_invited status.
-          Null for legacy/sso/backfill users (not_invited phase does not apply).
-          For username_password users: true if ever had user_invite_status of `not_invited`, false otherwise.
+        description: "{{ doc('is_user_not_invited') }}"
 
       - name: min_user_not_invited_date
-        description: |
-          Earliest dbt_valid_from date when user_invite_status was `not_invited`.
-          Null for legacy/sso/backfill users or username_password users who never had not_invited status.
+        description: "{{ doc('min_user_not_invited_date') }}"
 
       - name: is_user_invited
-        description: |
-          Boolean flag indicating user was ever invited or has events.
-          Null for legacy/sso/backfill users (invitation phase does not apply).
-          For username_password users: true if had user_invite_status of 'invited' OR has any events, false otherwise.
+        description: "{{ doc('is_user_invited') }}"
 
       - name: min_user_invited_date
-        description: |
-          Earliest dbt_valid_from date when user_invite_status was 'invited'.
-          Null for legacy/sso/backfill users, or username_password users who were inferred (have events but no 'invited' record).
+        description: "{{ doc('min_user_invited_date') }}"
 
       - name: is_user_registered
-        description: |
-          Boolean flag indicating user was ever registered or has events.
-          Null for legacy/sso/backfill users (registration phase does not apply).
-          For username_password users: true if had user_invite_status of 'registered' OR has any events, false otherwise.
+        description: "{{ doc('is_user_registered') }}"
 
       - name: min_user_register_date
-        description: |
-          Earliest dbt_valid_from date when user_invite_status was 'registered'.
-          Null for legacy/sso/backfill users, or username_password users who were inferred (have events but no 'registered' record).
+        description: "{{ doc('min_user_register_date') }}"
 
       - name: is_user_active
-        description: |
-          Boolean flag indicating user had at least one event on any day.
-          Applies to all user categories.
+        description: "{{ doc('is_user_active') }}"
         tests:
           - not_null
 
       - name: min_user_active_date
-        description: |
-          Earliest server_event_date from fct_events for this user.
-          Null if user has never had any events.
+        description: "{{ doc('min_user_active_date') }}"
 
       - name: is_user_active_two_days
-        description: |
-          Boolean flag indicating user had events on 2 or more distinct days.
-          Applies to all user categories.
+        description: "{{ doc('is_user_active_two_days') }}"
         tests:
           - not_null
 
       - name: second_user_active_date
-        description: |
-          Second active day (server_event_date) for this user.
-          Null if user has been active on less than 2 days.
+        description: "{{ doc('second_user_active_date') }}"
 
       - name: n_user_active_days
-        description: |
-          Total count of distinct days the user had events.
-          Zero if user has never had any events.
+        description: "{{ doc('n_user_active_days') }}"
         tests:
           - not_null
 
       - name: days_elapsed_first_to_second_active_day
-        description: |
-          Number of days between first and second active day.
-          Null if user has not been active on 2+ days.
+        description: "{{ doc('days_elapsed_first_to_second_active_day') }}"
