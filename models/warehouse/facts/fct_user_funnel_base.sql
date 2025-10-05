@@ -210,6 +210,7 @@ with
           is_user_active,
           min_user_active_date,
           is_user_active_two_days,
+          second_user_active_date,
           n_user_active_days,
           days_elapsed_first_to_second_active_day
       from user_funnel_base

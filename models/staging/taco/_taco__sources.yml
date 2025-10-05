@@ -179,4 +179,5 @@ sources:
             data_tests:
               - not_null
               - accepted_values:
-                  values: ['not_invited', 'invited', 'registered', 'sso', 'backfill']
+                  arguments:
+                    values: ['not_invited', 'invited', 'registered', 'sso', 'backfill']

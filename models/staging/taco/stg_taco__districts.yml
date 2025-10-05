@@ -42,9 +42,9 @@ models:
       - name: district_sage_id
         description: "{{ doc('district_sage_id') }}"
       - name: district_last_sync_utc
-        description: "{{ doc('district_last_sync_utc') }}"
+        description: ""
       - name: district_updated_at_utc
-        description: "{{ doc('updated_at_utc') }}"
+        description: "{{ doc('district_updated_at_utc') }}"
       - name: roster_file_created_at_utc
         description: "{{ doc('roster_file_created_at_utc') }}"
       - name: auto_rostering_checked_at_utc

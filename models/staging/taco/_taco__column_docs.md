@@ -265,7 +265,7 @@ Indicates the onboarding status of the user.
 | registered   | auth_method is username_password and user completed registration and setting up their password   |
 | backfill   | User was manually backfilled after deletion, and may have limited data other than district   |
 
-Note: Note: A user can change rostering methods. For example, an administrator may start with username password, then switch to SSO.
+Note: A user can change rostering methods. For example, an administrator may start with username password, then switch to SSO.
 {% enddocs %}
 
 

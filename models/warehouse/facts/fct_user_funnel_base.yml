@@ -20,27 +20,24 @@ models:
         - Not invited, invitation, and registration phases only apply to username_password users
         - Username_password users who never had a status but have events are inferred to have passed through invited/registered (with null dates)
         - Username_password users without events get false for phases they never had
-    tests:
-      - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - user_id
 
     columns:
-      - name: user_category
-        description: "{{ doc('user_category') }}"
-        tests:
-          - not_null
-          - accepted_values:
-              values: ['backfill', 'legacy', 'sso', 'username_password']
-
-      - name: month_start_date
-        description: "{{ doc('month_start_date') }}"
-
       - name: user_id
         description: "{{ doc('user_id') }}"
         tests:
           - unique
           - not_null
+
+      - name: user_category
+        description: "{{ doc('user_category') }}"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['backfill', 'legacy', 'sso', 'username_password']
+
+      - name: month_start_date
+        description: "{{ doc('month_start_date') }}"
 
       - name: is_user_created
         description: "{{ doc('is_user_created') }}"

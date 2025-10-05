@@ -44,7 +44,7 @@ Day of the month as an integer (1-31), extracted using dayofmonth() function.
 
 
 {% docs day_of_week_number %}
-Day of week as integer using Snowflakes dayofweek() function, which returns:
+Day of week as integer using Snowflake's dayofweek() function, which returns:
 SUNDAY=0, MONDAY=1, TUESDAY=2, WEDNESDAY=3, THURSDAY=4, FRIDAY=5, SATURDAY=6
 {% enddocs %}
 
