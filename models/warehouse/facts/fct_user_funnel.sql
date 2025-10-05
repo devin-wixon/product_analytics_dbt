@@ -71,7 +71,6 @@ with
   ),
 
   -- For username_password users: find first time for each status.
-  -- if they have any event but no record of the status, count them as having moved through the status with no date
 
   -- Check if user was ever not_invited and get min date
   user_ever_not_invited as (
@@ -85,9 +84,11 @@ with
       where 
       -- any user previously username password and now sso could have a record: only consider their sso funnel phases
         user_category = 'username_password'
-        and (user_invite_status = 'not_invited' or has_user_event)
+        and user_invite_status = 'not_invited'
       group by user_id
   ),
+  -- for invited and registered:
+  -- if they have any event but no record of the status, count as having had the status with no date
 
     -- Check if user was ever invited and get min date
   user_ever_invited as (
@@ -136,11 +137,11 @@ with
   -- Combine all user funnel data
   user_funnel_base as (
       select
-          user_history_enriched.user_id,
-          user_history_enriched.user_category,
+          user_categories.user_id,
+          user_categories.user_category,
           -- Month start date: null for legacy users, otherwise use first record month or creation month
           case
-              when user_history_enriched.user_category in ('legacy', 'backfill') then null
+              when user_categories.user_category in ('legacy', 'backfill') then null
               -- month_start_date will never be null
               else user_first_record_month.month_start_date
           end as month_start_date,
@@ -175,17 +176,17 @@ with
               user_active_days.second_user_active_date
           ) as days_elapsed_first_to_second_active_day
 
-      from user_history_enriched
+      from user_categories
       left join user_first_record_month
-          on user_history_enriched.user_id = user_first_record_month.user_id
+          on user_categories.user_id = user_first_record_month.user_id
       left join user_ever_not_invited
-          on user_history_enriched.user_id = user_ever_not_invited.user_id
+          on user_categories.user_id = user_ever_not_invited.user_id
       left join user_ever_invited
-          on user_history_enriched.user_id = user_ever_invited.user_id
+          on user_categories.user_id = user_ever_invited.user_id
       left join user_ever_registered
-          on user_history_enriched.user_id = user_ever_registered.user_id
+          on user_categories.user_id = user_ever_registered.user_id
       left join user_active_days
-          on user_history_enriched.user_id = user_active_days.user_id
+          on user_categories.user_id = user_active_days.user_id
   ),
 
   final as (
