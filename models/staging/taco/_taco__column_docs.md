@@ -259,12 +259,13 @@ Indicates the onboarding status of the user.
 
 | Value        | Meaning                                                                 |
 |------------- |------------------------------------------------------------------------|
-| not_invited  | auth_method is username_password and invite e-mail not sent        |
+| not_invited  | auth_method is username_password and invite e-mail not sent; occurs when administrators decline the option to auto-send user invites when a roster job is processed      |
 | invited      | auth_method is username_password and invite e-mail sent            |
 | sso          | auth_method is one of (clever, classlink, SAML, openid)           |
 | registered   | auth_method is username_password and user completed registration and setting up their password   |
 | backfill   | User was manually backfilled after deletion, and may have limited data other than district   |
 
+Note: Note: A user can change rostering methods. For example, an administrator may start with username password, then switch to SSO.
 {% enddocs %}
 
 

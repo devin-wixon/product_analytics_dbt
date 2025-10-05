@@ -17,8 +17,8 @@ with
       select
           user_id,
           case
-            -- all backfill users will have dbt_valid_from = 1900-01-01 (unknown entry date)
-             when user_invite_status = 'backfill' then 'backfill'
+              -- all backfill users will have dbt_valid_from = 1900-01-01 (unknown entry date)
+              when user_invite_status = 'backfill' then 'backfill'
               -- Legacy users: not backfill and dbt_valid_from is 1900-01-01 (unknown entry date)
               when dbt_valid_from = '1900-01-01' then 'legacy'
               when user_invite_status = 'sso' then 'sso'
@@ -37,7 +37,7 @@ with
       group by user_id
   ),
 
-    -- Get user active dates from events
+  -- Get user active dates from events
   user_events as (
       select
           user_id,
@@ -58,16 +58,16 @@ with
       from user_events
   ),
 
-    user_history_enriched as(
-        select distinct
-            user_history.*,
-            user_categories.user_category,
-            user_has_events.user_id is not null as has_user_event
-        from user_history
-        left join user_categories
-            on user_history.user_id = user_categories.user_id
-        left join user_has_events
-            on user_history.user_id = user_has_events.user_id
+  user_history_enriched as (
+      select distinct
+          user_history.*,
+          user_categories.user_category,
+          user_has_events.user_id is not null as has_user_event
+      from user_history
+      left join user_categories
+          on user_history.user_id = user_categories.user_id
+      left join user_has_events
+          on user_history.user_id = user_has_events.user_id
   ),
 
   -- For username_password users: find first time for each status.
@@ -83,14 +83,14 @@ with
           case when min_user_not_invited_date_to_check::date = '1900-01-01' then null else min_user_not_invited_date_to_check end as min_user_not_invited_date
       from user_history_enriched
       where
-      -- any user previously username password and now sso could have a record: only consider their sso funnel phases
-        user_category = 'username_password'
+          -- any user previously username password and now sso could have a record: only consider their sso funnel phases
+          user_category = 'username_password'
       group by user_id
   ),
   -- for invited and registered:
   -- if they have any event but no record of the status, count as having had the status with no date
 
-    -- Check if user was ever invited and get min date
+  -- Check if user was ever invited and get min date
   user_ever_invited as (
       select
           user_id,
@@ -104,7 +104,7 @@ with
           case when min_user_invited_date_to_check::date = '1900-01-01' then null else min_user_invited_date_to_check end as min_user_invited_date
       from user_history_enriched
       where
-        user_category = 'username_password'
+          user_category = 'username_password'
       group by user_id
   ),
 
@@ -123,7 +123,7 @@ with
           case when min_user_register_date_to_check::date = '1900-01-01' then null else min_user_register_date_to_check end as min_user_register_date
       from user_history_enriched
       where
-        user_category = 'username_password'
+          user_category = 'username_password'
       group by user_id
   ),
 
@@ -161,19 +161,19 @@ with
           user_ever_not_invited.min_user_not_invited_date,
 
           -- Invited flag and date; same logic as above
-            user_ever_invited.is_user_invited,
-            user_ever_invited.min_user_invited_date,
-          
+          user_ever_invited.is_user_invited,
+          user_ever_invited.min_user_invited_date,
+
           -- Registered flag and date; same logic as above
-            user_ever_registered.is_user_registered,
-            user_ever_registered.min_user_register_date,
+          user_ever_registered.is_user_registered,
+          user_ever_registered.min_user_register_date,
 
           -- Active flag (all user types)
           user_active_days.is_user_active,
-        user_active_days.min_user_active_date,
-        user_active_days.is_user_active_two_days,
-        user_active_days.second_user_active_date,
-        ifnull(user_active_days.n_user_active_days, 0) as n_user_active_days,
+          user_active_days.min_user_active_date,
+          user_active_days.is_user_active_two_days,
+          user_active_days.second_user_active_date,
+          ifnull(user_active_days.n_user_active_days, 0) as n_user_active_days,
 
           -- Days between first and second active day
           datediff(
