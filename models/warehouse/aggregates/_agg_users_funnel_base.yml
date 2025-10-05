@@ -1,8 +1,9 @@
 version: 2
 
 models:
-  - name: agg_users_funnel_base
+  - name: _agg_users_funnel_base
     description: |
+      ** This is in a draft state for auditing and testing **
       Purpose: User funnel analysis tracking progression through invitation, registration, and activation phases.
       Granularity: One row per user.
       User Categories:
