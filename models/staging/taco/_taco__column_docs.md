@@ -55,6 +55,7 @@ Type of district.
 | district          | School district          |
 | head-start        | Head Start program            |
 | demo-test         | Demo or test         |
+
 {% enddocs %}
 
 {% docs district_settings %}
@@ -205,10 +206,6 @@ As of 2025-08, all values are "active" and the column is not useful.
 {% docs okta_user_id %}
 Identifier for the user in Okta (SSO provider).  
 Example: (empty)
-{% enddocs %}
-
-
-{% docs class_id %}
 {% enddocs %}
 
 {% docs class_sourced_id %}

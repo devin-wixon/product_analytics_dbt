@@ -136,7 +136,7 @@ Boolean: True if user had events on 2 or more distinct days, otherwise false. Ap
 
 {% docs is_user_created %}
 Boolean: True for all users; retained for funnel calculations.
-
+{% enddocs %}
 
 {% docs is_user_eligible_for_mau %}
 At the row's date value, is the user's first event date before 27 days prior (the `mau_lookback_start_date`)?
