@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: fct_user_funnel
+  - name: fct_user_funnel_base
     description: |
       Purpose: User funnel analysis tracking progression through invitation, registration, and activation phases.
       Granularity: One row per user.

@@ -76,15 +76,15 @@ with
   user_ever_not_invited as (
       select
           user_id,
-          true as is_user_not_invited,
+          -- boolor_agg returns true if any value is true, false if all are false or no rows
+          boolor_agg(user_invite_status = 'not_invited') as is_user_not_invited,
           min(case when user_invite_status = 'not_invited' then dbt_valid_from end) as min_user_not_invited_date_to_check,
           -- null out the date when we don't have a real date
           case when min_user_not_invited_date_to_check::date = '1900-01-01' then null else min_user_not_invited_date_to_check end as min_user_not_invited_date
       from user_history_enriched
-      where 
+      where
       -- any user previously username password and now sso could have a record: only consider their sso funnel phases
         user_category = 'username_password'
-        and user_invite_status = 'not_invited'
       group by user_id
   ),
   -- for invited and registered:
@@ -94,14 +94,17 @@ with
   user_ever_invited as (
       select
           user_id,
-          true as is_user_invited,
+          case
+              when boolor_agg(user_invite_status = 'invited') then true
+              when boolor_agg(has_user_event) then true
+              else false
+          end as is_user_invited,
           min(case when user_invite_status = 'invited' then dbt_valid_from end) as min_user_invited_date_to_check,
           -- null out the date when we don't have a real date
           case when min_user_invited_date_to_check::date = '1900-01-01' then null else min_user_invited_date_to_check end as min_user_invited_date
       from user_history_enriched
-      where 
+      where
         user_category = 'username_password'
-        and (user_invite_status = 'invited' or has_user_event)
       group by user_id
   ),
 
@@ -110,14 +113,17 @@ with
   user_ever_registered as (
       select
           user_id,
-            true as is_user_registered,
-           min(case when user_invite_status = 'registered' then dbt_valid_from end) as min_user_register_date_to_check,
+          case
+              when boolor_agg(user_invite_status = 'registered') then true
+              when boolor_agg(has_user_event) then true
+              else false
+          end as is_user_registered,
+          min(case when user_invite_status = 'registered' then dbt_valid_from end) as min_user_register_date_to_check,
           -- null out the date when we don't have a real date
           case when min_user_register_date_to_check::date = '1900-01-01' then null else min_user_register_date_to_check end as min_user_register_date
       from user_history_enriched
-      where 
-      user_category = 'username_password'
-      and (user_invite_status = 'registered' or has_user_event)
+      where
+        user_category = 'username_password'
       group by user_id
   ),
 
