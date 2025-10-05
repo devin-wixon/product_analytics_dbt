@@ -197,9 +197,9 @@ with
 
   final as (
       select
+          user_id,
           user_category,
           month_start_date,
-          user_id,
           is_user_created,
           is_user_not_invited,
           min_user_not_invited_date,

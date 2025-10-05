@@ -135,8 +135,7 @@ Boolean: True if user had events on 2 or more distinct days, otherwise false. Ap
 
 
 {% docs is_user_created %}
-Boolean: True if user has been created, otherwise false. Always true for all users in the funnel calculations.
-{% enddocs %}
+Boolean: True for all users; retained for funnel calculations.
 
 
 {% docs is_user_eligible_for_mau %}
