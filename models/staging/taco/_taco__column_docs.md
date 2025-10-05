@@ -39,9 +39,9 @@ Example: SAGE54321
 {% enddocs %}
 
 
-{% docs district_last_sync_utc %}
-<!-- TAG TO DO confirm values and flesh out with their meaning. -->
-Example: 2025-07-30 00:00:00.000
+{% docs district_updated_at_utc %}
+The last time a sync was received (`district_last_sync_utc`) _or_ a manual change was made to the district.
+District.updated_at: sync received OR manually added.
 {% enddocs %}
 
 
@@ -55,6 +55,7 @@ Type of district.
 | district          | School district          |
 | head-start        | Head Start program            |
 | demo-test         | Demo or test         |
+
 {% enddocs %}
 
 {% docs district_settings %}
@@ -207,10 +208,6 @@ Identifier for the user in Okta (SSO provider).
 Example: (empty)
 {% enddocs %}
 
-
-{% docs class_id %}
-{% enddocs %}
-
 {% docs class_sourced_id %}
 External class id, typically the class_id on the district SIS.
 {% enddocs %}
@@ -259,12 +256,13 @@ Indicates the onboarding status of the user.
 
 | Value        | Meaning                                                                 |
 |------------- |------------------------------------------------------------------------|
-| not_invited  | auth_method is username_password and invite e-mail not sent        |
+| not_invited  | auth_method is username_password and invite e-mail not sent; occurs when administrators decline the option to auto-send user invites when a roster job is processed      |
 | invited      | auth_method is username_password and invite e-mail sent            |
 | sso          | auth_method is one of (clever, classlink, SAML, openid)           |
 | registered   | auth_method is username_password and user completed registration and setting up their password   |
 | backfill   | User was manually backfilled after deletion, and may have limited data other than district   |
 
+Note: A user can change rostering methods. For example, an administrator may start with username password, then switch to SSO.
 {% enddocs %}
 
 

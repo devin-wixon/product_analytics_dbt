@@ -1,0 +1,86 @@
+version: 2
+
+models:
+  - name: _agg_users_funnel_base
+    description: |
+      ** This is in a draft state for auditing and testing **
+      Purpose: User funnel analysis tracking progression through invitation, registration, and activation phases.
+      Granularity: One row per user.
+      User Categories:
+        - backfill: Users whose most recent user_invite_status is 'backfill' (manually backfilled users; will have `dbt_valid_from` = '1900-01-01'; may not have a null `dbt_valid_to`)
+        - legacy: Non-backfill users with `dbt_valid_from` = '1900-01-01' (unknown entry date)
+        - sso: Users whose most recent user_invite_status is 'sso' (and not backfill/legacy)
+        - username_password: All other users (not backfill, not legacy, not sso)
+      Funnel Phases by Category:
+        - backfill: created -> active -> active on 2+ days (null `month_start_date`)
+        - legacy: created -> active -> active on 2+ days (null `month_start_date`)
+        - sso: created -> active -> active on 2+ days (tracked by `month_start_date`)
+        - username_password: created -> not_invited -> invited -> registered -> active -> active on 2+ days (tracked by `month_start_date`)
+      Notes:
+        - Backfill and legacy users have null `month_start_date` and represent "status as of today"
+        - Not invited, invitation, and registration phases only apply to username_password users
+        - Username_password users who never had a status but have events are inferred to have passed through invited/registered (with null dates)
+        - Username_password users without events get false for phases they never had
+
+    columns:
+      - name: user_id
+        description: "{{ doc('user_id') }}"
+        tests:
+          - unique
+          - not_null
+
+      - name: user_category
+        description: "{{ doc('user_category') }}"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['backfill', 'legacy', 'sso', 'username_password']
+
+      - name: month_start_date
+        description: "{{ doc('month_start_date') }}"
+
+      - name: is_user_created
+        description: "{{ doc('is_user_created') }}"
+
+      - name: is_user_not_invited
+        description: "{{ doc('is_user_not_invited') }}"
+
+      - name: min_user_not_invited_date
+        description: "{{ doc('min_user_not_invited_date') }}"
+
+      - name: is_user_invited
+        description: "{{ doc('is_user_invited') }}"
+
+      - name: min_user_invited_date
+        description: "{{ doc('min_user_invited_date') }}"
+
+      - name: is_user_registered
+        description: "{{ doc('is_user_registered') }}"
+
+      - name: min_user_register_date
+        description: "{{ doc('min_user_register_date') }}"
+
+      - name: is_user_active
+        description: "{{ doc('is_user_active') }}"
+        tests:
+          - not_null
+
+      - name: min_user_active_date
+        description: "{{ doc('min_user_active_date') }}"
+
+      - name: is_user_active_two_days
+        description: "{{ doc('is_user_active_two_days') }}"
+        tests:
+          - not_null
+
+      - name: second_user_active_date
+        description: "{{ doc('second_user_active_date') }}"
+
+      - name: n_user_active_days
+        description: "{{ doc('n_user_active_days') }}"
+        tests:
+          - not_null
+
+      - name: days_elapsed_first_to_second_active_day
+        description: "{{ doc('days_elapsed_first_to_second_active_day') }}"
