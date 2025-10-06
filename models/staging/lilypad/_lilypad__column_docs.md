@@ -23,11 +23,13 @@ Name of the event (e.g., action or trigger name).
 {% enddocs %}
 
 {% docs event_path %}
-Path or location in the application where the event occurred.
+Path that indicates what page the user was on.  
+Note that users may type paths into the URL that will appear, but are not valid in the app.
 {% enddocs %}
 
 {% docs event_value %}
-Raw value associated with the event (may be a string, number, or JSON).
+Raw value associated with the event (may be a string, number, or JSON).  
+The meaning of this value is in the event metadata seed.
 {% enddocs %}
 
 {% docs event_value_human_readable %}
