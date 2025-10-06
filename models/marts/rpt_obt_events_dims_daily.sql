@@ -24,7 +24,9 @@ final as (
             -- keeping for now some low granularity: 
             -- search_string,
             visibility_status,
-            user_invite_status
+            user_invite_status,
+            event_value,
+            event_path
         ),
         true as had_events_per_user_day_context,
         count(event_id) as n_events_per_user_day_context,
