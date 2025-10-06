@@ -41,3 +41,7 @@ models:
         description: "{{ doc('week_number') }}"
       - name: application_name
         description: "{{ doc('application_name') }}"
+      - name: event_path
+        description: "{{ doc('event_path') }}"
+      - name: event_value
+        description: "{{ doc('event_value') }}"

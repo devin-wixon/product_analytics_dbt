@@ -1,7 +1,7 @@
 with
 
 events as (
-    select * exclude (event_path, event_value)
+    select *
     from
         {{ ref("int_events_enriched") }}
 ),
