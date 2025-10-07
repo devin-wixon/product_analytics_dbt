@@ -16,7 +16,7 @@ joined as (
         user_invite_status,
         user_grades,
         user_other_grades,
-        user_email_sent_utc,
+        user_email_sent_at_utc,
         user_updated_at_utc,
         user_created_at_utc,
         dbt_scd_id,

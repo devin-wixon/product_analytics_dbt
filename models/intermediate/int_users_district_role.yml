@@ -14,3 +14,5 @@ models:
           - unique
       - name: district_id
         description: "{{ doc('district_id') }}"
+      - name: user_email_sent_at_utc
+        description: "{{ doc('user_email_sent_at_utc') }}"

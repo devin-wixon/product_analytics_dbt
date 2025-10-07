@@ -91,17 +91,21 @@ with
   -- if they have any event but no record of the status, count as having had the status with no date
 
   -- Check if user was ever invited and get min date
+  -- user_email_sent_at_utc will be the most recent invite sent, but will often be null (see docs)
   user_ever_invited as (
       select
           user_id,
           case
-              when boolor_agg(user_invite_status = 'invited') then true
+              when boolor_agg(user_invite_status = 'invited' or user_email_sent_at_utc is not null) then true
               when boolor_agg(has_user_event) then true
               else false
           end as is_user_invited,
           min(case when user_invite_status = 'invited' then dbt_valid_from end) as min_user_invited_date_to_check,
           -- null out the date when we don't have a real date
-          case when min_user_invited_date_to_check::date = '1900-01-01' then null else min_user_invited_date_to_check end as min_user_invited_date
+          coalesce(
+            case when min_user_invited_date_to_check::date = '1900-01-01' then null else min_user_invited_date_to_check end,
+            min(user_email_sent_at_utc)
+            ) as min_user_invited_date
       from user_history_enriched
       where
           user_category = 'username_password'

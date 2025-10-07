@@ -38,7 +38,7 @@ semantic_models:
       #   description: "{{ doc('is_manually_added') }}"
       # - name: email_sent_date
       #   type: time
-      #   description: "{{ doc('email_sent_utc') }}"
+      #   description: "{{ doc('user_email_sent_at_utc') }}"
       #   type_params:
       #     time_granularity: day
-      #   expr: date_trunc('day', email_sent_utc)
+      #   expr: date_trunc('day', user_email_sent_at_utc)
