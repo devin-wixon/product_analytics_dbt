@@ -37,6 +37,13 @@ models:
               arguments:
                 values: ['backfill', 'legacy', 'sso', 'username_password']
 
+      - name: user_current_invite_status
+        description: "{{ doc('user_current_invite_status') }}"
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['backfill', 'legacy', 'sso', 'invited', 'registered', 'not_invited']
+
       - name: month_start_date
         description: "{{ doc('month_start_date') }}"
 

@@ -16,6 +16,7 @@ with
   user_categories as (
       select
           user_id,
+          user_invite_status as user_current_invite_status,
           case
               -- all backfill users will have dbt_valid_from = 1900-01-01 (unknown entry date)
               when user_invite_status = 'backfill' then 'backfill'
@@ -62,6 +63,7 @@ with
       select distinct
           user_history.*,
           user_categories.user_category,
+          user_categories.user_current_invite_status,
           user_has_events.user_id is not null as has_user_event
       from user_history
       left join user_categories
@@ -149,6 +151,7 @@ with
       select
           user_categories.user_id,
           user_categories.user_category,
+          user_categories.user_current_invite_status,
           -- Month start date: null for legacy users, otherwise use first record month or creation month
           case
               when user_categories.user_category in ('legacy', 'backfill') then null
@@ -203,6 +206,7 @@ with
       select
           user_id,
           user_category,
+          user_current_invite_status,
           month_start_date,
           is_user_created,
           is_user_not_invited,
