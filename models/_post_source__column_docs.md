@@ -309,6 +309,11 @@ User category for funnel calculations based on most recent `dbt_valid_from` and 
 {% enddocs %}
 
 
+{% docs user_current_invite_status %}
+The most recent `user_invite_status` value for the user.
+{% enddocs %}
+
+
 {% docs user_first_event_date %}
 The first event date for the user at any time, ignoring any filters and context such as dimensions.
 {% enddocs %}

@@ -12,7 +12,7 @@ user_district_role as
     user_id,
     district_id,
     user_role,
-    user_email_sent_utc
+    user_email_sent_at_utc
 from
     {{ ref('int_users_district_role') }}
 ),
@@ -32,7 +32,7 @@ event_user_joined as
     events.*,
     user_district_role.district_id,
     user_district_role.user_role,
-    user_district_role.user_email_sent_utc
+    user_district_role.user_email_sent_at_utc
 from 
     events
 left join

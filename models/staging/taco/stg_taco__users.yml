@@ -31,8 +31,8 @@ models:
         description: "{{ doc('user_grades') }}"
       - name: user_other_grades
         description: "{{ doc('user_other_grades') }}"
-      - name: user_email_sent_utc
-        description: "{{ doc('email_sent_utc') }}"
+      - name: user_email_sent_at_utc
+        description: "{{ doc('user_email_sent_at_utc') }}"
       - name: user_updated_at_utc
         description: "{{ doc('updated_at_utc') }}"
       - name: dbt_scd_id

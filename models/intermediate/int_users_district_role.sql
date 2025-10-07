@@ -8,7 +8,7 @@ users_district_role as (
         user_id,
         district_id,
         min(user_role) as user_role,
-        max(user_email_sent_utc) as user_email_sent_utc
+        max(user_email_sent_at_utc) as user_email_sent_at_utc
     from
         {{ ref('stg_taco__users') }}
     group by

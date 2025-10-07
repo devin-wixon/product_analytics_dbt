@@ -112,7 +112,7 @@ user_events_exact as (
         users_history.user_role
     -- users_history.user_grades,
     -- users_history.user_other_grades,
-    -- users_history.user_email_sent_utc,
+    -- users_history.user_email_sent_at_utc,
     -- users_history.user_updated_at_utc,
     -- users_history.user_created_at_utc,
     from events

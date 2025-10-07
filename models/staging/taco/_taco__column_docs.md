@@ -218,9 +218,14 @@ External school id, typically the school_id on the district SIS.
 {% enddocs %}
 
 
-{% docs email_sent_utc %}
-<!-- TAG TO DO Confirm if only the invitation email -->
-Date or timestamp when an email was sent to the user.  
+{% docs user_email_sent_at_utc %}
+
+The most recent date an invitation email was sent to the user. Admins are shown the option to send invitation emails when users are created. Users may be invited by admins outside of Lilypad, so it will not have a value for all invited users.
+
+- SSO (Classlink, Clever, Google, etc.): The email invites users to click the link to use their SSO credentials. Administrators may opt _not_ to automatically send emails because they use an application dashboard and not Lilypad's login flow.
+- Username password: The email invites users to create a password.
+- Districts may opt not to send automated invitation emails because their rostering system loads more users than those they intend to invite. 
+
 Example: 2025-07-30 00:00:00.000
 {% enddocs %}
 

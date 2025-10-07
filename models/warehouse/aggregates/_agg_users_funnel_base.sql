@@ -16,6 +16,7 @@ with
   user_categories as (
       select
           user_id,
+          user_invite_status as user_current_invite_status,
           case
               -- all backfill users will have dbt_valid_from = 1900-01-01 (unknown entry date)
               when user_invite_status = 'backfill' then 'backfill'
@@ -62,6 +63,7 @@ with
       select distinct
           user_history.*,
           user_categories.user_category,
+          user_categories.user_current_invite_status,
           user_has_events.user_id is not null as has_user_event
       from user_history
       left join user_categories
@@ -91,17 +93,21 @@ with
   -- if they have any event but no record of the status, count as having had the status with no date
 
   -- Check if user was ever invited and get min date
+  -- user_email_sent_at_utc will be the most recent invite sent, but will often be null (see docs)
   user_ever_invited as (
       select
           user_id,
           case
-              when boolor_agg(user_invite_status = 'invited') then true
+              when boolor_agg(user_invite_status = 'invited' or user_email_sent_at_utc is not null) then true
               when boolor_agg(has_user_event) then true
               else false
           end as is_user_invited,
           min(case when user_invite_status = 'invited' then dbt_valid_from end) as min_user_invited_date_to_check,
           -- null out the date when we don't have a real date
-          case when min_user_invited_date_to_check::date = '1900-01-01' then null else min_user_invited_date_to_check end as min_user_invited_date
+          coalesce(
+            case when min_user_invited_date_to_check::date = '1900-01-01' then null else min_user_invited_date_to_check end,
+            min(user_email_sent_at_utc)
+            ) as min_user_invited_date
       from user_history_enriched
       where
           user_category = 'username_password'
@@ -145,6 +151,7 @@ with
       select
           user_categories.user_id,
           user_categories.user_category,
+          user_categories.user_current_invite_status,
           -- Month start date: null for legacy users, otherwise use first record month or creation month
           case
               when user_categories.user_category in ('legacy', 'backfill') then null
@@ -199,6 +206,7 @@ with
       select
           user_id,
           user_category,
+          user_current_invite_status,
           month_start_date,
           is_user_created,
           is_user_not_invited,
