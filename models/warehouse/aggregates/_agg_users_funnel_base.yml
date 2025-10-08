@@ -36,6 +36,9 @@ models:
           - accepted_values:
               arguments:
                 values: ['backfill', 'legacy', 'sso', 'username_password']
+      
+      - name: dbt_is_currently_deleted
+        description: "{{ doc('dbt_is_deleted') }}"
 
       - name: user_current_invite_status
         description: "{{ doc('user_current_invite_status') }}"
