@@ -148,7 +148,7 @@ Values: always TRUE
 
 
 {% docs is_primary %}
-If true, this is the primary teacher associated with the classroom. Used for third party applications that only allow one teacher per classroom.
+If true, this is the primary teacher associated with the classroom; only one teacher per classroom can be primary. Used for third party applications that only allow one teacher per classroom.
 {% enddocs %}
 
 
@@ -193,7 +193,15 @@ Example: 19642
 
 {% docs user_role %}
 Role of the user. Values are: teacher, administrator, student.  
-Example: student
+
+Notes:
+- Hierchical visibility permissions are applied to school and district administrators.
+    - A school administrator is defined as an administrator enrolled to a school.
+    - A district administrator is defined as an administrator without any school enrollment.
+- A teacher can't be created without a class enrollment
+- A student can be created without a class enrollment, but they are invalid and functionality such as sync to AIM or QR codes doesn't work. An "allow invalid" flag determines whether the district should allow invalid records to have functionality.
+
+
 {% enddocs %}
 
 
@@ -220,7 +228,7 @@ External school id, typically the school_id on the district SIS.
 
 {% docs user_email_sent_at_utc %}
 
-The most recent date an invitation email was sent to the user. Admins are shown the option to send invitation emails when users are created. Users may be invited by admins outside of Lilypad, so it will not have a value for all invited users.
+The most recent date an invitation email was sent to the user. Administrators are shown the option to send invitation emails when users are created. Users may be invited by admins outside of Lilypad, so it will not have a value for all invited users.
 
 - SSO (Classlink, Clever, Google, etc.): The email invites users to click the link to use their SSO credentials. Administrators may opt _not_ to automatically send emails because they use an application dashboard and not Lilypad's login flow.
 - Username password: The email invites users to create a password.
