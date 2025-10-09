@@ -198,8 +198,7 @@ Notes:
 - Hierchical visibility permissions are applied to school and district administrators.
     - A school administrator is defined as an administrator enrolled to a school.
     - A district administrator is defined as an administrator without any school enrollment.
-- A teacher can't be created without a class enrollment
-- A student can be created without a class enrollment, but they are invalid and functionality such as sync to AIM or QR codes doesn't work. An "allow invalid" flag determines whether the district should allow invalid records to have functionality.
+- A teacher or student can be created without a class enrollment, but they are invalid and functionality such as sync to AIM or QR codes doesn't work. The `allow_users_without_class_or_school` district setting determines whether the district should allow invalid records to have functionality.
 
 
 {% enddocs %}

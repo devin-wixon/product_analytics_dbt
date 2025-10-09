@@ -114,6 +114,11 @@ Boolean: True if event_name is 'weekly.planner.modal.program.week.select' or 'we
 {% enddocs %}
 
 
+{% docs is_rostering_allow_users_without_class_or_school %}
+True if invalid users for the district, such as students and teachers without a class, are allowed functionality. See `user_role` for more information.
+{% enddocs %}
+
+
 {% docs is_selfservice_authentication_show_clever %}
 Controls visibility of Clever authentication in self-service portal.
 {% enddocs %}

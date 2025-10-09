@@ -36,6 +36,7 @@ models:
         description: "{{ doc('rostering_state_id_field') }}"
       - name: rostering_is_active_send_invite
       - name: is_rostering_allow_users_without_class_or_school
+        description: "{{ doc('is_rostering_allow_users_without_class_or_school') }}"
       - name: is_selfservice_rostering_show_clever
         description: "{{ doc('is_selfservice_rostering_show_clever') }}"
       - name: is_selfservice_authentication_show_clever
