@@ -20,7 +20,11 @@
       "Bash(dbt parse:*)",
       "Bash(source:*)",
       "Bash(dbt sl query:*)",
-      "Bash(dbt show:*)"
+      "Bash(dbt show:*)",
+      "Bash(dbt list:*)",
+      "Bash(dbt ls:*)",
+      "Bash(dbt sl validate:*)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []
