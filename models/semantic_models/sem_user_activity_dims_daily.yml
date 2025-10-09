@@ -4,7 +4,7 @@ semantic_models:
       Purpose: User daily activity patterns across all event types and dimensions for flexible aggregation.
       Granularity: One row per user per day per dimensional context.
       Notes: Dynamically adapts to new event categories and supports flexible time grain aggregation.
-    model: ref('fct_user_events_dims_daily')
+    model: ref('agg_user_events_dims_daily')
     defaults:
       agg_time_dimension: server_event_date
 
@@ -105,32 +105,45 @@ semantic_models:
 
     # measures:
     measures:
-      - name: n_events_per_user_day_context
+      - name: n_events
         description: "Count of events that we capture. Note that the count may change due to event logging changes, rather than due to user volume or user behavior."
         agg: sum
         expr: n_events_per_user_day_context
         create_metric: True
-        label: "Count of Events in Context"
+        label: "Count of Events"
 
-      - name: n_active_users_per_context
-        description: "Count of unique users with any type of event that we capture within the filters."
+      - name: n_active_users
+        description: |
+          Count of unique users with any type of event that we capture within the filters.
+
+          Active users are defined by user ID having any captured event in the event logs, including logins and navigating through pages.
+
+          This may be an undercount because:
+          - If teachers share their username/password, we will count them as only one. A workaround to be investigated in future iterations is using IP address.
+          - Auditing suggests some infrequent user events are not being captured; this is being investigated.
+          - If users are given demo accounts (such as over 1K organizations in Sep 25), all of those users will have a single user ID.
         agg: count_distinct
         expr: user_id
         create_metric: True
-        label: "Users with Events in Context"
-        # - name: n_user_days_in_context
-        #   agg: count_distinct
-        #   expr: CONCAT(user_id, '|', server_event_date)
-        #   create_metric: true
+        label: "Active Users"
 
-        # - name: days_active_per_user_week_in_context
-        #   description: "Days active per user per week - for window calcs"
-        #   agg: count_distinct
-        #   expr: n_user_days_in_context
-        #   agg_time_dimension: metric_time_week
+saved_queries:
+  - name: test_weekly_events_users_by_dimensions
+    description: |
+      Weekly activity metrics with flexible dimensional grouping for Tableau.
 
-        # - name: n_events_in_context
-        #   description: "Sum of all events (clicks or other user behavior) that we capture, within the context (such as program and week) selected"
-        #   agg: sum
-        #   expr: n_events_per_user_day_context
-        #   create_metric: true
+    query_params:
+      metrics:
+        - n_events
+        - n_active_users
+      group_by:
+        - "TimeDimension('metric_time', 'week')"
+        - "Dimension('user__user_role')"
+        - "Dimension('district__district_name')"
+        - "Dimension('district__district_state')"
+        - "Dimension('program__program_name')"
+        - "Dimension('resource__resource_type')"
+
+    config:
+      meta:
+        tableau_description: "Weekly user activity with flexible grouping by dimensions such as role, district, program, and resource"
