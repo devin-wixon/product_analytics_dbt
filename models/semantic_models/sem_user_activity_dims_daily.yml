@@ -128,17 +128,9 @@ semantic_models:
         label: "Active Users"
 
 saved_queries:
-  - name: weekly_user_activity_by_dimensions
+  - name: test_weekly_events_users_by_dimensions
     description: |
-      Weekly user activity analysis with flexible dimensional grouping for Tableau.
-
-      This saved query provides n_events and n_active_users metrics at the weekly level,
-      with optional grouping by user role, district name, district state, program name, and resource type.
-
-      Tableau users can:
-      - View metrics without any dimensional grouping (total metrics)
-      - Group by any combination of the included dimensions (drag and drop)
-      - All dimensions in this query are compatible with the metrics
+      Weekly activity metrics with flexible dimensional grouping for Tableau.
 
     query_params:
       metrics:
