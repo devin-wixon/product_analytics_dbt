@@ -28,7 +28,7 @@ final as (
             event_value,
             path_entered,
             path_left,
-            -- leaving app name out as so often accessed thru SSO; any counts wrong
+            -- leaving app name out as so often accessed through SSO; any counts would be wrong
             application_name
         ),
         true as had_events_per_user_day_context,

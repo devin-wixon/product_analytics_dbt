@@ -4,7 +4,7 @@ models:
   - name: rpt_obt_events_dims_daily
     description: |
       Purpose: Provides aggregated event counts grouped by user, date, and contextual dimensions for analytics and dashboard reporting.
-      Granularity: One row per unique combination of user, date, and event context dimensions (event category, path, programs, resources, etc.).
+      Granularity: One row per unique combination of user, date, and event context dimensions (event category, program, resource, etc.).
       Filters: Excludes events where `user_role` is 'student'.
       Notes: Builds on `rpt_obt_events` by grouping events across dimensions while excluding high-cardinality fields like timestamps and event-specific details. Designed for efficient dashboard queries.
     columns:
