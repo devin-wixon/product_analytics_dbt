@@ -26,7 +26,10 @@ final as (
             visibility_status,
             user_invite_status,
             event_value,
-            event_path
+            path_entered,
+            path_left,
+            -- leaving app name out as so often accessed through SSO; any counts would be wrong
+            application_name
         ),
         true as had_events_per_user_day_context,
         count(event_id) as n_events_per_user_day_context,
