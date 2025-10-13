@@ -4,7 +4,7 @@ models:
   - name: rpt_obt_events_dims_daily
     description: |
       Purpose: Provides aggregated event counts grouped by user, date, and contextual dimensions for analytics and dashboard reporting.
-      Granularity: One row per unique combination of user, date, and event context dimensions (event category, paths, programs, resources, district attributes, etc.).
+      Granularity: One row per unique combination of user, date, and event context dimensions (event category, path, programs, resources, etc.).
       Filters: Excludes events where `user_role` is 'student'.
       Notes: Builds on `rpt_obt_events` by grouping events across dimensions while excluding high-cardinality fields like timestamps and event-specific details. Designed for efficient dashboard queries.
     columns:
@@ -32,10 +32,6 @@ models:
           - not_null
       - name: event_category
         description: "{{ doc('event_category') }}"
-      - name: path_entered
-        description: "{{ doc('path_entered') }}"
-      - name: path_left
-        description: "{{ doc('path_left') }}"
       - name: focus_area_label
         description: ""
       - name: week_number

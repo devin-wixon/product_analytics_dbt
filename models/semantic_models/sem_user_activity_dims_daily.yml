@@ -48,9 +48,9 @@ semantic_models:
         type: categorical
         description: "{{ doc('resource_id') }}"
 
-      - name: application_name
-        type: categorical
-        description: "{ doc('application_name') }"
+      # - name: application_name
+      #   type: categorical
+      #   description: "{ doc('application_name') }"
     
       - name: event_category
         type: categorical
@@ -119,9 +119,10 @@ semantic_models:
           Active users are defined by user ID having any captured event in the event logs, including logins and navigating through pages.
 
           This may be an undercount because:
-          - If teachers share their username/password, we will count them as only one. A workaround to be investigated in future iterations is using IP address.
+          - If teachers share their username/password, we will count them as only one. 
           - Auditing suggests some infrequent user events are not being captured; this is being investigated.
           - If users are given demo accounts (such as over 1K organizations in Sep 25), all of those users will have a single user ID.
+          - If users access the application through SSO, we do not track events.
         agg: count_distinct
         expr: user_id
         create_metric: True
