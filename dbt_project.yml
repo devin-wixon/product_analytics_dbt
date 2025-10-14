@@ -78,6 +78,9 @@ flags:
       - PackageMaterializationOverrideDeprecation
 
 vars:
+  # Exclude third-party packages from dbt-project-evaluator checks
+  exclude_packages: ["elementary", "dbt_project_evaluator"]
+
   # School year configuration
   school_year_start_month: 7    # July 1st
   school_year_start_day: 1

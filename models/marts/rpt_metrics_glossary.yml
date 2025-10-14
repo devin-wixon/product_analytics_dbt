@@ -1,0 +1,5 @@
+version: 2
+
+models:
+  - name: rpt_metrics_glossary
+    description: "Glossary of all dbt metrics defined in the project, including their names, descriptions, and types. Auto-generated from the dbt graph.metrics object."
