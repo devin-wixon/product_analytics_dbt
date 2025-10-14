@@ -101,6 +101,13 @@ vars:
     # Marts configuration (override default to require rpt_ prefix)
     marts_prefixes: ['rpt_', 'iprpt_']
 
+    exclude_sources_from_freshness_checks:
+    # don't have updated_at fields
+    - "taco.applications"
+    - "craft.resources"
+    - "craft.programs"
+
+
   # School year configuration
   school_year_start_month: 7    # July 1st
   school_year_start_day: 1

@@ -11,7 +11,9 @@ sources:
       - name: raw_lilypad__events_log
         description: "Raw event log data from Lilypad instrumentation, capturing user interactions and behavior across the platform."
         freshness:
+          # just want error; adding both for project evaluator test
           error_after: {count: 1, period: day}
+          warn_after: {count: 1, period: day}
         loaded_at_field: server_timestamp
         data_tests:
           - elementary.schema_changes:

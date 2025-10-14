@@ -12,7 +12,9 @@ sources:
       - name: data_load_log
         description: "Metadata about data extracts and loads"
         freshness:
+          # just want error; adding both for project evaluator test
           error_after: {count: 1, period: day}
+          warn_after: {count: 1, period: day}
         loaded_at_field: extract_timestamp
         data_tests:
           - elementary.schema_changes:
