@@ -24,7 +24,8 @@
       "Bash(dbt list:*)",
       "Bash(dbt ls:*)",
       "Bash(dbt sl validate:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(dbt source freshness:*)"
     ],
     "deny": [],
     "ask": []

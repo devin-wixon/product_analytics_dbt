@@ -11,6 +11,7 @@ sources:
     tables:
       - name: raw_craft__programs
         description: "Programs within Lilypad such as Toddler Joyful Discoveries"
+        # no updated_at column for freshness check; also rare updates expected
         data_tests:
           - elementary.schema_changes:
               arguments:
@@ -24,6 +25,7 @@ sources:
               - not_null
       - name: raw_craft__resources
         description: "Resources such as activities, documents, audio and video"
+        # no freshness as rare updates expected
         data_tests:
           - elementary.schema_changes:
               arguments:

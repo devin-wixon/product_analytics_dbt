@@ -24,6 +24,11 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_packages"
 
+# Set session timezone to UTC for accurate freshness checks
+# Data timestamps are stored in UTC, so session must also use UTC
+on-run-start:
+  - "ALTER SESSION SET TIMEZONE = 'UTC'"
+
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models

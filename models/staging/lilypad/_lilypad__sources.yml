@@ -10,6 +10,9 @@ sources:
     tables:
       - name: raw_lilypad__events_log
         description: ""
+        freshness:
+          error_after: {count: 1, period: day}
+        loaded_at_field: server_timestamp
         data_tests:
           - elementary.schema_changes:
               arguments:
