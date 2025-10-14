@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: _fct_enrollments_nonstudent_current
+  - name: ipfct_enrollments_nonstudent_current
     description: |
       Purpose: Current active enrollments for non-student users.
       Granularity: One row per combination of `user_id`, `user_role`, `class_id`, and `school_id`.

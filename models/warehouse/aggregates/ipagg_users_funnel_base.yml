@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: _agg_users_funnel_base
+  - name: ipagg_users_funnel_base
     description: |
       ** This is in a draft state for auditing and testing **
       Purpose: User funnel analysis tracking progression through invitation, registration, and activation phases.

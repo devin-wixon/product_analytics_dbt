@@ -28,7 +28,10 @@
       "Bash(dbt source freshness:*)",
       "WebFetch(domain:dbt-labs.github.io)",
       "Bash(dbt --no-partial-parse run --select int_all_graph_resources)",
-      "Bash(dbt --no-partial-parse run --select package:dbt_project_evaluator)"
+      "Bash(dbt --no-partial-parse run --select package:dbt_project_evaluator)",
+      "Bash(dbt:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(git mv:*)"
     ],
     "deny": [],
     "ask": []

@@ -81,6 +81,26 @@ vars:
   # Exclude third-party packages from dbt-project-evaluator checks
   exclude_packages: ["elementary", "dbt_project_evaluator"]
 
+  # dbt-project-evaluator: Custom model types and naming conventions
+  dbt_project_evaluator:
+    # Define all model types in the project
+    model_types: ['staging', 'intermediate', 'marts', 'dimensions', 'facts', 'aggregates', 'other']
+
+    # Warehouse dimensions configuration
+    dimensions_folder_name: 'dimensions'
+    dimensions_prefixes: ['dim_', 'ipdim_']
+
+    # Warehouse facts configuration
+    facts_folder_name: 'facts'
+    facts_prefixes: ['fct_', 'ipfct_']
+
+    # Warehouse aggregates configuration
+    aggregates_folder_name: 'aggregates'
+    aggregates_prefixes: ['agg_', 'ipagg_']
+
+    # Marts configuration (override default to require rpt_ prefix)
+    marts_prefixes: ['rpt_', 'iprpt_']
+
   # School year configuration
   school_year_start_month: 7    # July 1st
   school_year_start_day: 1
