@@ -14,6 +14,7 @@ final as (
 
         -- attributes
         enabled::boolean as is_enabled,
+        -- abc_group_id varchar;
         -- api_key_id::varchar as api_key_id,
         -- api_key::varchar as api_key,
 
