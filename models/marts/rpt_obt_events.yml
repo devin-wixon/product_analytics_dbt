@@ -69,60 +69,9 @@ models:
         description: "{{ doc('is_distributed_demo_district') }}"
 
       # Program columns from dim_programs_current
-      - name: program_name
-        description: ""
-      - name: program_age_group
-        description: ""
-      - name: is_program_supplemental
-        description: ""
-      - name: program_type
-        description: ""
-      - name: is_program_district_auto_add
-        description: ""
-      - name: program_language
-        description: ""
-      - name: program_license_type
-        description: ""
-      - name: program_release_year
-        description: ""
-      - name: program_phase
-        description: ""
-      - name: program_market_specific
-        description: ""
-      - name: is_program_demo
-        description: ""
 
       # Resource columns from dim_resources_current
-      - name: resource_program_id
-        description: ""
-      - name: resource_author_id
-        description: ""
-      - name: resource_code
-        description: ""
-      - name: resource_title
-        description: ""
-      - name: resource_order_number
-        description: ""
-      - name: is_resource_legacy
-        description: ""
-      - name: is_resource_downloadable
-        description: ""
-      - name: resource_provider_id
-        description: ""
-      - name: is_resource_public
-        description: ""
-      - name: resource_publication_status
-        description: ""
-      - name: resource_publication_origin_id
-        description: ""
-      - name: resource_focus_area
-        description: ""
-      - name: resource_estimated_time
-        description: ""
-      - name: resource_physical_reference
-        description: ""
-      - name: resource_type
-        description: ""
+
 
       # Date dimension columns from dim_day_datespine
       - name: week_monday_date

@@ -13,10 +13,24 @@ resources as (
     where
         dbt_valid_to is null
 ),
+programs as
+(select 
+    program_id,
+    program_name
+from 
+    {{ ref('dim_programs_current') }}
+),
 
 final as (
-    select *
-    from resources
+    select 
+        resources.*,
+        programs.program_name as resource_program_name
+    from 
+        resources
+    left join
+        programs
+    on 
+        resources.resource_program_id = programs.program_id
 )
 
 select *
