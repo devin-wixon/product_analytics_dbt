@@ -11,26 +11,33 @@ events as (
 -- dims include: server date, client date, path_entered, framework_item...
 final as (
     select
-        * exclude (
-            event_id,
-            server_timestamp,
-            client_timestamp,
-            client_event_date,
-            event_name,
-            event_value_human_readable,
-            error_data_object,
-            device_orientation,
-            screen_resolution,
-            -- keeping for now some low granularity: 
-            -- search_string,
-            visibility_status,
-            user_invite_status,
-            event_value,
-            path_entered,
-            path_left,
-            -- leaving app name out as so often accessed through SSO; any counts would be wrong
-            application_name
-        ),
+        user_id,
+        user_role,
+        server_event_date,
+        event_path,
+        event_category,
+        search_string,
+        -- program level
+        program_id,
+        program_name,
+        -- resource level
+        resource_id,
+        resource_title,
+        resource_program_id,
+        resource_program_name,
+        -- district level
+        district_id,
+        district_type,
+        district_name,
+        district_state,
+        resource_type,
+        -- date parts
+        week_monday_date,
+        month_start_date,
+        short_weekday_name,
+        year_month_sort,
+        school_year_label,
+        school_year_start_date,
         true as had_events_per_user_day_context,
         count(event_id) as n_events_per_user_day_context,
         -- using one event_id in the context as a key for traceability

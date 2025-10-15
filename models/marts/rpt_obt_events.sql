@@ -58,21 +58,23 @@ resources as (
     select
         resource_id,
         resource_program_id,
-        resource_author_id,
-        resource_code,
+        -- occasional errors lead to a different program for the resource
+        resource_program_name,
+        -- resource_author_id,
+        -- resource_code,
         resource_title,
-        resource_order_number,
-        is_resource_legacy,
-        is_resource_downloadable,
-        resource_provider_id,
-        is_resource_public,
-        resource_publication_status,
-        resource_publication_origin_id,
+        -- resource_order_number,
+        -- is_resource_legacy,
+        -- is_resource_downloadable,
+        -- resource_provider_id,
+        -- is_resource_public,
+        -- resource_publication_status,
+        -- resource_publication_origin_id,
         resource_focus_area,
         -- resource_focus_area_id, -- add dimension tables later for focus areas
         -- resource_sub_focus_area_id,
-        resource_estimated_time,
-        resource_physical_reference,
+        -- resource_estimated_time,
+        -- resource_physical_reference,
         resource_type
     from
         {{ ref('dim_resources_current') }}
@@ -191,7 +193,3 @@ final as (
 select *
 from
     final
--- include students for null district issues; filter in BI or SL as needed
--- where
---   user_role != 'student' 
---   or user_role is null
