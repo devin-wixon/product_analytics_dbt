@@ -26,6 +26,7 @@ final as (
         phase::string as program_phase,
         market_specific::string as program_market_specific,
         is_demo::boolean as is_program_demo,
+        order_number::integer as program_order_number,
 
 
         -- dates and timestamps
