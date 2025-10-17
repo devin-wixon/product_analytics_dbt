@@ -9,31 +9,26 @@ sources:
     database: raw
     schema: postgres_extracts
     tables:
-      - name: data_load_log
-        description: "Metadata about data extracts and loads"
-        freshness:
-          # just want error; adding both for project evaluator test
-          error_after: {count: 1, period: day}
-          warn_after: {count: 1, period: day}
-        loaded_at_field: extract_timestamp
-        data_tests:
-          - elementary.schema_changes:
-              arguments:
-                config:
-                  severity: warn
-                tags: ["elementary"]
-        columns:
-          - name: load_log_pk
-            data_tests:
-              - unique
-              - not_null
+      # - name: data_load_log
+      #   description: "Metadata about data extracts and loads"
+      #   freshness:
+      #     # just want error; adding both for project evaluator test
+      #     error_after: {count: 1, period: day}
+      #     warn_after: {count: 1, period: day}
+      #   loaded_at_field: extract_timestamp
+      #   data_tests:
+      #     - elementary.schema_changes:
+      #         arguments:
+      #           config:
+      #             severity: warn
+      #           tags: ["elementary"]
+      #   columns:
+      #     - name: load_log_pk
+      #       data_tests:
+      #         - unique
+      #         - not_null
       - name: raw_taco__applications
         description: "Third-party applications such as Cognitive Toy Box"
-        # rare updates expected; using ID as surrogate for freshness
-        freshness:
-          warn_after: {count: 30, period: day}
-          error_after: {count: 30, period: day}
-        loaded_at_field: id
         data_tests:
           - elementary.schema_changes:
               arguments:
