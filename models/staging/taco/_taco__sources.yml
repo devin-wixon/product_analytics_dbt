@@ -29,7 +29,11 @@ sources:
               - not_null
       - name: raw_taco__applications
         description: "Third-party applications such as Cognitive Toy Box"
-        # no freshness as rare updates expected
+        # rare updates expected; using ID as surrogate for freshness
+        freshness:
+          warn_after: {count: 30, period: day}
+          error_after: {count: 30, period: day}
+        loaded_at_field: id
         data_tests:
           - elementary.schema_changes:
               arguments:

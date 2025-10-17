@@ -31,7 +31,8 @@
       "Bash(dbt --no-partial-parse run --select package:dbt_project_evaluator)",
       "Bash(dbt:*)",
       "WebFetch(domain:github.com)",
-      "Bash(git mv:*)"
+      "Bash(git mv:*)",
+      "WebFetch(domain:raw.githubusercontent.com)"
     ],
     "deny": [],
     "ask": []

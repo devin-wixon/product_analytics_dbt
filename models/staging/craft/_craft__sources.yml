@@ -11,7 +11,11 @@ sources:
     tables:
       - name: raw_craft__programs
         description: "Programs within Lilypad such as Toddler Joyful Discoveries"
-        # no updated_at column for freshness check
+        # no updated_at column; using ID as surrogate for freshness
+        freshness:
+          warn_after: {count: 30, period: day}
+          error_after: {count: 30, period: day}
+        loaded_at_field: id
         data_tests:
           - elementary.schema_changes:
               arguments:
@@ -25,7 +29,11 @@ sources:
               - not_null
       - name: raw_craft__resources
         description: "Resources such as activities, documents, audio and video"
-        # no freshness as rare updates expected
+        # rare updates expected; 30 day threshold
+        freshness:
+          warn_after: {count: 30, period: day}
+          error_after: {count: 30, period: day}
+        loaded_at_field: updated_at
         data_tests:
           - elementary.schema_changes:
               arguments:
