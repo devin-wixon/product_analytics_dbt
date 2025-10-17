@@ -6,6 +6,6 @@ models:
     columns:
       - name: metric_name
         description: "The unique name of the metric as defined in the dbt project."
-    data_tests:
-      - unique(metric_name)
-      - not_null(metric_name)
+        data_tests:
+          - unique
+          - not_null
