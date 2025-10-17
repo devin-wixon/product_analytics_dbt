@@ -9,7 +9,7 @@ models:
     data_tests:
     # ensure no more than 20 "orphan" users; may need to backfill from S3 if more
       - dbt_utils.expression_is_true:
-          name: orphan_user_ids_above_threshold
+          name: orphan_user_ids_below_threshold
           arguments:
             expression: |
               (
@@ -20,7 +20,7 @@ models:
                   from {{ ref('snp_taco__users') }}
                   where id is not null
                 )
-              ) > 20
+              ) <= 20
           config:
             severity: warn
     columns:
