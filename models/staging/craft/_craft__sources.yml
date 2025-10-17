@@ -24,6 +24,11 @@ sources:
               - not_null
       - name: raw_craft__resources
         description: "Resources such as activities, documents, audio and video"
+        # rare updates expected; 30 day threshold
+        freshness:
+          warn_after: {count: 30, period: day}
+          error_after: {count: 30, period: day}
+        loaded_at_field: updated_at
         data_tests:
           - elementary.schema_changes:
               arguments:

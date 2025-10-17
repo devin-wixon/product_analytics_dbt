@@ -5,12 +5,7 @@ with
 
 source as (
     select
-        district_id,
-        district_settings,
-        dbt_scd_id,
-        dbt_valid_from,
-        dbt_valid_to,
-        dbt_is_deleted
+        *
     from {{ ref('stg_taco__districts') }}
     where district_settings is not null
 ),

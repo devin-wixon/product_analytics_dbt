@@ -51,6 +51,9 @@ models:
         description: "{{ doc('district_auto_rostering_checked_at') }}"
       - name: dbt_scd_id
         description: "{{ doc('dbt_scd_id') }}"
+        data_tests:
+          - unique
+          - not_null
       - name: dbt_valid_from
         description: "{{ doc('dbt_valid_from') }}"
       - name: dbt_valid_to

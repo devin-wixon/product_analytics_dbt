@@ -4,12 +4,17 @@ sources:
   - name: lilypad
     description: >
       "Events extracted from the .log files written through Lilypad instrumentation.
-      Source is a Snowpipe in Snowflake receiving SNS upon S3 object reaction in AWS."
+      Source events are written to S3 logs and loaded daily batch into Snowflake."
     database: raw
     schema: lilypad
     tables:
       - name: raw_lilypad__events_log
-        description: ""
+        description: "Raw event log data from Lilypad instrumentation, capturing user interactions and behavior across the platform."
+        freshness:
+          # just want error; adding both for project evaluator test
+          error_after: {count: 1, period: day}
+          warn_after: {count: 1, period: day}
+        loaded_at_field: server_timestamp
         data_tests:
           - elementary.schema_changes:
               arguments:
@@ -27,8 +32,3 @@ sources:
               - not_null
             config:
               severity: warn
-              # complete this once pipe is running
-            # freshness:
-            #   warn_after: { count: 1, period: day }
-            #   error_after: { count: 2, period: day }
-            #   loaded_at_field: loaded_at

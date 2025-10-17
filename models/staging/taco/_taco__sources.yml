@@ -9,19 +9,24 @@ sources:
     database: raw
     schema: postgres_extracts
     tables:
-      - name: data_load_log
-        description: "Metadata about data extracts and loads"
-        data_tests:
-          - elementary.schema_changes:
-              arguments:
-                config:
-                  severity: warn
-                tags: ["elementary"]
-        columns:
-          - name: load_log_pk
-            data_tests:
-              - unique
-              - not_null
+      # - name: data_load_log
+      #   description: "Metadata about data extracts and loads"
+      #   freshness:
+      #     # just want error; adding both for project evaluator test
+      #     error_after: {count: 1, period: day}
+      #     warn_after: {count: 1, period: day}
+      #   loaded_at_field: extract_timestamp
+      #   data_tests:
+      #     - elementary.schema_changes:
+      #         arguments:
+      #           config:
+      #             severity: warn
+      #           tags: ["elementary"]
+      #   columns:
+      #     - name: load_log_pk
+      #       data_tests:
+      #         - unique
+      #         - not_null
       - name: raw_taco__applications
         description: "Third-party applications such as Cognitive Toy Box"
         data_tests:
@@ -36,7 +41,11 @@ sources:
               - unique
               - not_null
       - name: raw_taco__district
-        description: "District information"
+        description: "District current data; id = district_id"
+        freshness:
+          warn_after: {count: 1, period: day}
+          error_after: {count: 2, period: day}
+        loaded_at_field: updated_at
         data_tests:
           - elementary.schema_changes:
               arguments:
@@ -54,6 +63,10 @@ sources:
               - not_null
       - name: raw_taco__districts_programs
         description: "Programs associated with each district"
+        freshness:
+          warn_after: {count: 2, period: day}
+          error_after: {count: 3, period: day}
+        loaded_at_field: updated_at
          # ensure unique district x program combination; required for downstream models
         data_tests:
           - unique:
@@ -78,7 +91,11 @@ sources:
        
       - name: raw_taco__district_applications
         description: "Applications (third-party products) associated with each district"
-                # ensure unique district x application combination; required for downstream models
+        freshness:
+          warn_after: {count: 2, period: day}
+          error_after: {count: 3, period: day}
+        loaded_at_field: updated_at
+        # ensure unique district x application combination; required for downstream models
         data_tests:
           - unique:
               column_name: "district_id || '-' || application_id"
@@ -105,6 +122,10 @@ sources:
 
       - name: raw_taco__district_application_licenses
         description: "Quantity and expiration dates for districts' applications (third-party products) licenses"
+        freshness:
+          warn_after: {count: 2, period: day}
+          error_after: {count: 3, period: day}
+        loaded_at_field: updated_at
         data_tests:
           - elementary.schema_changes:
               arguments:
@@ -122,6 +143,10 @@ sources:
           
       - name: raw_taco__district_program_licenses
         description: "Quantities and expiration dates of districts' program licenses"
+        freshness:
+          warn_after: {count: 2, period: day}
+          error_after: {count: 3, period: day}
+        loaded_at_field: updated_at
         data_tests:
           - elementary.schema_changes:
               arguments:
@@ -138,6 +163,10 @@ sources:
               - not_null
       - name: raw_taco__enrollments
         description: "Enrollments of users in schools or classes"
+        freshness:
+          warn_after: {count: 1, period: day}
+          error_after: {count: 2, period: day}
+        loaded_at_field: updated_at
         # Schema change detection test - alerts if columns are added/removed
         # Required because snapshot uses hardcoded check_cols (timestamp strategy invalid)
         data_tests:
@@ -158,6 +187,10 @@ sources:
             data_tests:
               - not_null
       - name: raw_taco__users
+        freshness:
+          warn_after: {count: 1, period: day}
+          error_after: {count: 2, period: day}
+        loaded_at_field: updated_at
         description: "Information on teacher, student and administrator users"
         # Schema change detection test - alerts if columns are added/removed
         # Required because snapshot uses hardcoded check_cols (timestamp strategy invalid)

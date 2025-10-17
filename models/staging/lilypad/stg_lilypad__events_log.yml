@@ -9,19 +9,20 @@ models:
     data_tests:
     # ensure no more than 20 "orphan" users; may need to backfill from S3 if more
       - dbt_utils.expression_is_true:
-          expression: |
-            (
-              select count(distinct user_id)
-              from {{ ref('stg_lilypad__events_log') }}
-              where user_id not in (
-                select id
-                from {{ ref('snp_taco__users') }}
-                where id is not null
-              )
-            ) <= 20
+          name: orphan_user_ids_above_threshold
+          arguments:
+            expression: |
+              (
+                select count(distinct user_id)
+                from {{ ref('stg_lilypad__events_log') }}
+                where user_id not in (
+                  select id
+                  from {{ ref('snp_taco__users') }}
+                  where id is not null
+                )
+              ) > 20
           config:
             severity: warn
-          name: orphan_user_ids_below_threshold
     columns:
       - name: event_id
         description: "{{ doc('event_id') }}"

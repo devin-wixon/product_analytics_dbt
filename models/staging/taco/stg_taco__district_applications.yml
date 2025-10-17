@@ -4,7 +4,7 @@ models:
   - name: stg_taco__district_applications
     description: |
       Purpose: Snapshot of district x third-party application associations from the taco database with column typing and renaming.
-      Granularity: Full SCD2 history. one row per record id per snapshot, defined by `dbt_scd_id`.  
+      Granularity: One row per district x application association per snapshot, defined by `dbt_scd_id`.
       Source tests for uniqueness of `district_id` x `application_id` combination.
     columns:
       # source tests uniqueness of district_application_id; this will have dups due to snapshots
@@ -15,6 +15,9 @@ models:
         description: "{{ doc('district_id') }}"
       - name: dbt_scd_id
         description: "{{ doc('dbt_scd_id') }}"
+        data_tests:
+          - not_null
+          - unique
       - name: dbt_valid_from
         description: "{{ doc('dbt_valid_from') }}"
       - name: dbt_valid_to

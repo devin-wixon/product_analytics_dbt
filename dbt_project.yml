@@ -24,6 +24,11 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_packages"
 
+# Set session timezone to UTC for consistent timestamp handling across all dbt operations
+# Data timestamps are stored in UTC, so session must also use UTC
+on-run-start:
+  - "ALTER SESSION SET TIMEZONE = 'UTC'"
+
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
@@ -36,7 +41,12 @@ models:
   elementary:
     +schema: "elementary"
     ## To disable elementary for dev, uncomment this:
-    # enabled: "{{ target.name in ['prod','analytics'] }}"
+    enabled: "{{ target.name in ['prod','ci'] }}"
+
+  dbt_project_evaluator:
+    # Don't run in prod (performance), DO run in CI (with error severity), CAN run in dev with flag
+    +enabled: "{{ target.name != 'prod' and (target.name == 'ci' or var('run_project_evaluator', false)) }}"
+    +schema: "dbt_project_evaluator"
 
   product_analytics:
     staging:
@@ -64,6 +74,13 @@ seeds:
   product_analytics:
     +schema: seeds
 
+  dbt_project_evaluator:
+    dbt_project_evaluator_exceptions:
+      +enabled: false
+
+data_tests:
+  dbt_project_evaluator:
+    +severity: "{{ env_var('DBT_PROJECT_EVALUATOR_SEVERITY', 'warn') }}"
 
 flags:
   require_explicit_package_overrides_for_builtin_materializations: false
@@ -73,6 +90,29 @@ flags:
       - PackageMaterializationOverrideDeprecation
 
 vars:
+  # Exclude third-party packages from dbt-project-evaluator checks
+  exclude_packages: ["elementary", "dbt_project_evaluator"]
+
+  # dbt-project-evaluator: Custom model types and naming conventions
+  dbt_project_evaluator:
+    # Define all model types in the project
+    model_types: ['staging', 'intermediate', 'marts', 'dimensions', 'facts', 'aggregates', 'other']
+
+    # Warehouse dimensions configuration
+    dimensions_folder_name: 'dimensions'
+    dimensions_prefixes: ['dim_', 'ipdim_']
+
+    # Warehouse facts configuration
+    facts_folder_name: 'facts'
+    facts_prefixes: ['fct_', 'ipfct_']
+
+    # Warehouse aggregates configuration
+    aggregates_folder_name: 'aggregates'
+    aggregates_prefixes: ['agg_', 'ipagg_']
+
+    # Marts configuration (override default to require rpt_ prefix)
+    marts_prefixes: ['rpt_', 'iprpt_']
+
   # School year configuration
   school_year_start_month: 7    # July 1st
   school_year_start_day: 1
