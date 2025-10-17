@@ -3,3 +3,9 @@ version: 2
 models:
   - name: rpt_metrics_glossary
     description: "Glossary of all dbt metrics defined in the project, including their names, descriptions, and types. Auto-generated from the dbt graph.metrics object."
+    columns:
+      - name: metric_name
+        description: "The unique name of the metric as defined in the dbt project."
+    data_tests:
+      - unique(metric_name)
+      - not_null(metric_name)

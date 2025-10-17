@@ -3,8 +3,12 @@ version: 2
 models:
   - name: stg_craft__resources
     description: |
-      Purpose: Resource data from the craft database with column typing and renaming.  
-      Granularity: One row per resource, defined by `resource_id`.  
+      Purpose: Snapshot of resources data from the craft database with column typing and renaming.  
+      Granularity: One row per resource per snapshot, defined by `dbt_scd_id`.
     columns:
       # source tests uniqueness and not null for resource_id; this will have dups due to snapshots
-      - name: resource_id
+      - name: dbt_scd_id
+        description: "{{ doc('dbt_scd_id') }}"
+        data_tests:
+          - not_null
+          - unique

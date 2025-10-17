@@ -105,9 +105,6 @@ vars:
     # Marts configuration (override default to require rpt_ prefix)
     marts_prefixes: ['rpt_', 'iprpt_']
 
-    # require for all but staging
-    require_primary_key_tests_for_model_types: ['intermediate', 'marts', 'dimensions', 'facts', 'aggregates', 'other']
-
   # School year configuration
   school_year_start_month: 7    # July 1st
   school_year_start_day: 1

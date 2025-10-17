@@ -8,6 +8,9 @@ models:
     columns:
       # source tests for unique district_program_license_id
       - name: district_program_license_id
+        data_tests:
+          - not_null
+          - unique
       - name: district_id
         description: "{{ doc('district_id') }}"
       - name: updated_at_utc
