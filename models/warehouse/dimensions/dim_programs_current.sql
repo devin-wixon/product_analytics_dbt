@@ -13,6 +13,7 @@ programs as (
     from {{ ref('stg_craft__programs') }}
     where
         dbt_valid_to is null
+        and program_deleted_date is null
 ),
 
 final as (

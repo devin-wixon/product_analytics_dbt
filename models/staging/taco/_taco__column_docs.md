@@ -285,24 +285,27 @@ Example: 30d739da4641597758f41a2ac02b2f99
 
 
 {% docs dbt_updated_at %}
-Timestamp when the snapshot row was last updated (managed by dbt).  
+Timestamp when dbt detected a change and the snapshot row was created or inserted (column is created by dbt).  
 Example: 2025-07-30 00:00:00.000
 {% enddocs %}
 
 
 {% docs dbt_valid_from %}
-Timestamp when the snapshot row became valid (managed by dbt).  
+Timestamp when the snapshot row became valid (column is created by dbt).   
+- **Timestamp strategy**: Comes from the source table's `updated_at` field (or configured timestamp column)
+- **Check strategy**: Set to when dbt detected the change (will equal `dbt_updated_at`)
 Example: 2025-07-30 00:00:00.000
 {% enddocs %}
 
 
 {% docs dbt_valid_to %}
-Timestamp when the snapshot row became invalid (managed by dbt).  
+Timestamp when the snapshot row became invalid (column is created by dbt).  
+The current record for the table is identified by `dbt_valid_to is null`.  
 Example: 9999-12-31 00:00:00.000
 {% enddocs %}
 
 
 {% docs dbt_is_deleted %}
-Indicates if the record is considered deleted (managed by dbt).  
+Indicates if the record is considered deleted (column is created by dbt).  
 Example: False
 {% enddocs %}

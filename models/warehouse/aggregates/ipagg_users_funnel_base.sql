@@ -4,29 +4,16 @@ with
       select
           *
       from {{ ref('dim_users_history') }}
-  ),
 
-  -- dbt_valid_to is sometimes not ever null for backfill deleted users
-  user_backfill_nonnull_valid_to as (
-      select
-          user_id
-      from user_history
-      group by user_id
-      -- all records have backfill, and no records have a null dbt_valid_to
-      having
-          booland_agg(user_invite_status = 'backfill')
-          and not boolor_agg(dbt_valid_to is null)
   ),
 
   users_most_recent as (
       select
           user_history.*
       from user_history
-      left join user_backfill_nonnull_valid_to using (user_id)
       where
       -- most recent record for user (valid_to is null) or backfill user with no null valid_to
           user_history.dbt_valid_to is null
-          or user_backfill_nonnull_valid_to.user_id is not null
   ),
 
   -- Categorize users based on their most recent user_invite_status and dbt_valid_from
