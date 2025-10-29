@@ -12,7 +12,7 @@ with
           user_history.*
       from user_history
       where
-      -- most recent record for user (valid_to is null) or backfill user with no null valid_to
+      -- most recent record for user (valid_to is null)
           user_history.dbt_valid_to is null
   ),
 
