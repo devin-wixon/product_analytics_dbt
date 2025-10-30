@@ -3,7 +3,7 @@ semantic_models:
     description: |
       Purpose: Provides program-level information for semantic analysis.  
       Granularity: One row per program.  
-    model: ref('dim_programs_current')
+    model: ref('dim_programs_most_recent')
     
     entities:
       - name: program

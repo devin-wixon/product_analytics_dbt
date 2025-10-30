@@ -114,6 +114,17 @@ Boolean: True if event_name is 'weekly.planner.modal.program.week.select' or 'we
 {% enddocs %}
 
 
+{% docs is_program_deleted %}
+Boolean: True if either dbt snapshots identifies a row as no longer in the source data _or_ the program has a deleted date.
+Note that deleted programs are typically retained in Craft, with a deleted date added.
+{% enddocs %}
+
+{% docs is_resource_deleted %}
+Boolean: True if either dbt snapshots identifies a row as no longer in the source data _or_ the resource has a deleted date.
+Note that deleted resources were historically not retained in Craft, and as of Nov 2025 began to be retained with a deleted date column.
+{% enddocs %}
+
+
 {% docs is_rostering_allow_users_without_class_or_school %}
 True if invalid users for the district, such as students and teachers without a class, are allowed functionality. See `user_role` for more information.
 {% enddocs %}

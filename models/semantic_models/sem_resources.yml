@@ -3,7 +3,7 @@ semantic_models:
     description: |
       Purpose: Provides resource-level information for semantic analysis.  
       Granularity: One row per resource.  
-    model: ref('dim_resources_current')
+    model: ref('dim_resources_most_recent')
     
     entities:
       - name: resource

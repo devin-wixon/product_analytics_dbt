@@ -1,4 +1,5 @@
 {
     "dbt.dbtIntegration": "cloud",
-    "dbt.lineage.defaultExpansion": 3
+    "dbt.lineage.defaultExpansion": 3,
+    "workbench.editor.enablePreview": false
 }

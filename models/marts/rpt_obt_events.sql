@@ -51,7 +51,7 @@ programs as (
         is_program_demo
 
     from
-        {{ ref('dim_programs_current') }}
+        {{ ref('dim_programs_most_recent') }}
 ),
 
 resources as (
@@ -77,7 +77,7 @@ resources as (
         -- resource_physical_reference,
         resource_type
     from
-        {{ ref('dim_resources_current') }}
+        {{ ref('dim_resources_most_recent') }}
 ),
 
 

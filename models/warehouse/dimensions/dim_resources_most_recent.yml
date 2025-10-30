@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: dim_resources_most_recent
+    description: |
+      Purpose: Provides most recent information on resources such as documents, videos, and other materials from Craft system.
+      Granularity: One row per resource.
+      Filters: Resource record with the most recent `dbt_valid_from` date.
+    columns:
+      - name: resource_id
+        description: "{{ doc('resource_id') }}"
+        tests:
+          - unique
+          - not_null
+      - name: resource_program_id
+        description: "{{ doc('program_id') }}"
+      - name: resource_author_id
+        description: "{{ doc('resource_author_id') }}"
+      - name: resource_provider_id
+        description: "{{ doc('resource_provider_id') }}"
+      - name: dbt_valid_from
+        description: "{{ doc('dbt_valid_from') }}"
+      - name: dbt_valid_to
+        description: "{{ doc('dbt_valid_to') }}"
+      - name: is_resource_deleted
+        description: "{{ doc('is_resource_deleted') }}"

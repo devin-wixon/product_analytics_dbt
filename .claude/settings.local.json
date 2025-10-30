@@ -32,7 +32,8 @@
       "Bash(dbt:*)",
       "WebFetch(domain:github.com)",
       "Bash(git mv:*)",
-      "WebFetch(domain:raw.githubusercontent.com)"
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(xargs cat:*)"
     ],
     "deny": [],
     "ask": []

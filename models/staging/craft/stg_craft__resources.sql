@@ -40,6 +40,8 @@ final as (
         -- timestamps
         created_at::timestamp as resource_created_at,
         updated_at::timestamp as resource_updated_at,
+        deleted_at::timestamp as resource_deleted_at,
+
 
         -- snapshot columns
         dbt_scd_id,
