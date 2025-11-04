@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: int_users_district_role_date
+    description: |
+      Purpose: Reusable model that joins events to user dimensions with exact SCD and fallback logic.
+      Granularity: One row per user_id x date (server_event_date).
+      Filters: Excludes null user_id and server_event_date values from events.
+      Notes: Uses exact SCD matching first, then falls back to closest temporal match for orphaned events.
+             Fallback logic uses directional distance calculation to find the nearest valid user record.
+             Match type is tracked for data quality monitoring and debugging.
+    columns:
+      - name: server_event_date
+        description: "{{ doc('server_event_date') }}"
+        tests:
+          - not_null
+      - name: user_id
+        description: "{{ doc('user_id') }}"
+        tests:
+          - not_null
+      - name: district_id
+        description: "{{ doc('district_id') }}"
+      - name: user_invite_status
+        description: "{{ doc('user_invite_status') }}"
+      - name: user_role
+        description: "{{ doc('user_role') }}"
+      - name: match_type
+        description: "{{ doc('user_role_match_type') }}"
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['exact', 'fallback']
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - user_id
+              - server_event_date

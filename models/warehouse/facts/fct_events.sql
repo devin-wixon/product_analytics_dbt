@@ -4,6 +4,7 @@ events as (
     select *
     from
         {{ ref("int_events_enriched") }}
+    {{ dev_limit(1000) }}
 ),
 
 

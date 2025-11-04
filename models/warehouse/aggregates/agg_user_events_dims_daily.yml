@@ -4,9 +4,10 @@ models:
   - name: agg_user_events_dims_daily
     description: |
       Purpose: User daily activity aggregated across all dimensional contexts for flexible aggregation.
-      Granularity: One row per user per day per unique dimensional context (district, program, resource, application).
-      Filters: Limited to 100 rows in Development environment.
-      Notes: Dynamically generates boolean activity flags for all event categories. Supports flexible time grain aggregation through semantic modeling.
+      Granularity: One row per user per day per unique dimensional context (district, program, resource, application, user role).
+      Filters: None (uses int_users_district_role_date which handles event filtering).
+      Notes: Uses temporally accurate user attributes (role, district, invite status) as of each event date via int_users_district_role_date.
+             Dynamically generates boolean activity flags for all event categories. Supports flexible time grain aggregation through semantic modeling.
     # tests:
 
     columns:
@@ -53,6 +54,15 @@ models:
 
       - name: event_category
         description: "{{ doc('event_category') }}"
+
+      - name: user_role
+        description: "{{ doc('user_role') }}"
+
+      - name: user_invite_status
+        description: "{{ doc('user_invite_status') }}"
+
+      - name: match_type
+        description: "Indicates whether the user record was matched via 'exact' SCD logic or 'fallback' temporal proximity. Used for data quality monitoring."
 
       # Dynamically generated activity flag columns
       # Note: These columns are generated dynamically based on event categories in the seed data

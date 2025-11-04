@@ -160,6 +160,11 @@ models:
 
 ```
 
+### Macro documentation
+- Comments within macro regarding expected behaviors and arguments
+- Doc block in `macros_docs.md` with brief, high-level definition
+- Doc block referenced in `macros_definitions.yml`
+
 ### Lineage and Dependencies
 
 Use dbt Cloud Catalog to explore:
@@ -191,6 +196,11 @@ This is important for snapshots and other transformations, as timestamps in sour
 
 **School year**
 The school year that is specified via project-level variables in `dbt_project.yml`.
+
+**Development limits**
+Some models limit rows in development. To override this for testing in dev, use the macro variable.
+Example run of `fct_events` without a development limit:  
+`dbt run -s fct_events --vars '{disable_dev_limit: true}'`
 
 ## Troubleshooting
 

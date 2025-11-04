@@ -1,5 +1,5 @@
 semantic_models:
-  - name: sem_user_activity_all_dimensions
+  - name: sem_user_activity_dims_daily
     description: |
       Purpose: User daily activity patterns across all event types and dimensions for flexible aggregation.
       Granularity: One row per user per day per dimensional context.
@@ -35,6 +35,10 @@ semantic_models:
       - name: user_id
         type: categorical
         description: "{{ doc('user_id') }}"
+
+      - name: user_role
+        type: categorical
+        description: "{{ doc('user_role') }}"
 
       - name: district_id
         type: categorical
@@ -136,7 +140,7 @@ saved_queries:
         - n_active_users
       group_by:
         - "TimeDimension('metric_time', 'week')"
-        - "Dimension('user__user_role')"
+        - "Dimension('user_daily_context__user_role')"
         - "Dimension('district__district_name')"
         - "Dimension('district__district_state')"
         - "Dimension('program__program_name')"

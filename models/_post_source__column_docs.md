@@ -335,6 +335,11 @@ The first event date for the user at any time, ignoring any filters and context 
 {% enddocs %}
 
 
+{% docs user_role_match_type %}
+Indicates whether the user record was matched via 'exact' SCD logic or 'fallback' temporal proximity. Used for data quality monitoring.
+{% enddocs %}
+
+
 {% docs user_pool_client_id %}
 AWS Cognito User Pool client identifier for authentication services.
 {% enddocs %}

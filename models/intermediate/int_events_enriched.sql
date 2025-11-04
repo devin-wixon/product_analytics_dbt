@@ -36,9 +36,7 @@ with events as (
         -- _source_filename,
         -- _loaded_at_utc
     from {{ ref('stg_lilypad__events_log') }}
-        {%- if target.name == 'Development' %}
-            limit 100
-        {%- endif %}
+    {{ dev_limit(1000) }}
 
 ),
 

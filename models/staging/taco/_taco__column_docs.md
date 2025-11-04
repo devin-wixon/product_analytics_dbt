@@ -158,6 +158,9 @@ Numeric identifier associated with the user role.
 
 {% docs user_id %}
 Unique identifier for the user record.  
+
+**Note**: There are scenarios where a `user_id` may change for the same user. Examples: A district changes rostering methods to SSO, or moves from summer to academic year then back to academic year. Typically CS will do a conversion. However, if they just change the `user_sourced_id`, a new `user_id` will be created.
+
 Example: 452698
 {% enddocs %}
 

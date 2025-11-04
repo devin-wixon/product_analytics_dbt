@@ -7,20 +7,18 @@ events as (
     -- use * with exclude, not explicit select; cols may be dynamic
     from
         {{ ref('fct_events') }}
-    {%- if target.name == 'Development' %}
-    limit 1000
-  {%- endif -%}
 ),
 
-users_history as (
+users_by_date as (
     select
-        * exclude (
-            user_sourced_id,
-            is_disable_auto_sync,
-            is_manually_added
-        )
+        server_event_date,
+        user_id,
+        district_id,
+        user_invite_status,
+        user_role,
+        match_type
     from
-        {{ ref('dim_users_history') }}
+        {{ ref('int_users_district_role_date') }}
 ),
 
 districts as (
@@ -104,68 +102,10 @@ datespine as (
         {{ ref('dim_day_datespine') }}
 ),
 
--- User-Event matching with fallback logic for data cleanliness issues
-user_events_exact as (
-    select
-        events.event_id,
-        events.user_id,
-        users_history.district_id,
-        users_history.user_invite_status,
-        users_history.user_role
-    -- users_history.user_grades,
-    -- users_history.user_other_grades,
-    -- users_history.user_email_sent_at_utc,
-    -- users_history.user_updated_at_utc,
-    -- users_history.user_created_at_utc,
-    from events
-    inner join users_history on
-        events.user_id = users_history.user_id
-        and events.server_timestamp >= users_history.dbt_valid_from
-        and (
-            users_history.dbt_valid_to is null
-            or events.server_timestamp < users_history.dbt_valid_to
-        )
-),
-
-user_events_fallback as (
-    select
-        events.event_id,
-        events.user_id,
-        users_history.district_id,
-        users_history.user_invite_status,
-        users_history.user_role
-    from events
-    left join user_events_exact on events.event_id = user_events_exact.event_id
-    inner join users_history on events.user_id = users_history.user_id
-    where
-        user_events_exact.user_id is null  -- events without exact user match
-        -- closest in time to event date within user's valid date range
-    qualify row_number() over (
-        partition by events.event_id
-        order by abs(
-            datediff(
-                day, events.server_event_date::date,
-                coalesce(users_history.dbt_valid_to, '9999-12-31')::date
-            )
-        )
-    ) = 1
-),
-
-user_events_combined as (
-    -- Exact SCD matches first (preferred)
-    select * exclude (user_id) from user_events_exact
-    where user_id is not null
-
-    union all
-
-    -- Closest temporal matches for orphaned events
-    select * exclude (user_id) from user_events_fallback
-),
-
 joined as (
     select
         events.*,
-        user_events_combined.* exclude (event_id),
+        users_by_date.* exclude (server_event_date, user_id),
         districts.* exclude (district_id),
         programs.* exclude (program_id),
         -- add focus_area table later as needed
@@ -174,11 +114,12 @@ joined as (
     from
         events
     left join
-        user_events_combined
-        on events.event_id = user_events_combined.event_id
+        users_by_date
+        on events.user_id = users_by_date.user_id
+        and events.server_event_date = users_by_date.server_event_date
     left join
         districts
-        on user_events_combined.district_id = districts.district_id
+        on users_by_date.district_id = districts.district_id
     left join programs on events.program_id = programs.program_id
     left join resources on events.resource_id = resources.resource_id
     left join datespine on events.server_event_date = datespine.date_day
