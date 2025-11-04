@@ -64,8 +64,8 @@ sources:
       - name: raw_taco__districts_programs
         description: "Programs associated with each district"
         freshness:
-          warn_after: {count: 2, period: day}
-          error_after: {count: 3, period: day}
+          warn_after: {count: 5, period: day}
+          error_after: {count: 7, period: day}
         loaded_at_field: updated_at
          # ensure unique district x program combination; required for downstream models
         data_tests:
@@ -92,8 +92,8 @@ sources:
       - name: raw_taco__district_applications
         description: "Applications (third-party products) associated with each district"
         freshness:
-          warn_after: {count: 2, period: day}
-          error_after: {count: 3, period: day}
+          warn_after: {count: 5, period: day}
+          error_after: {count: 7, period: day}
         loaded_at_field: updated_at
         # ensure unique district x application combination; required for downstream models
         data_tests:
@@ -123,8 +123,8 @@ sources:
       - name: raw_taco__district_application_licenses
         description: "Quantity and expiration dates for districts' applications (third-party products) licenses"
         freshness:
-          warn_after: {count: 2, period: day}
-          error_after: {count: 3, period: day}
+          warn_after: {count: 5, period: day}
+          error_after: {count: 7, period: day}
         loaded_at_field: updated_at
         data_tests:
           - elementary.schema_changes:
@@ -144,8 +144,8 @@ sources:
       - name: raw_taco__district_program_licenses
         description: "Quantities and expiration dates of districts' program licenses"
         freshness:
-          warn_after: {count: 2, period: day}
-          error_after: {count: 3, period: day}
+          warn_after: {count: 5, period: day}
+          error_after: {count: 7, period: day}
         loaded_at_field: updated_at
         data_tests:
           - elementary.schema_changes:
