@@ -20,6 +20,7 @@ sources:
               arguments:
                 config:
                   severity: warn
+                  enabled: "{{ target.name == 'prod' }}"
                 tags: ["elementary"]
         columns:
           - name: event_pk

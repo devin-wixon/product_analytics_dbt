@@ -13,5 +13,7 @@ models:
           - unique
       - name: district_id
         description: "{{ doc('district_id') }}"
+      - name: license_start_date
+        description: "{{ doc('license_start_date') }}"
       - name: updated_at_utc
         description: "{{ doc('updated_at_utc') }}"

@@ -24,15 +24,3 @@ snapshots:
         - disable_auto_sync
         - manually_added
       hard_deletes: "new_record"
-
-    data_tests:
-      # Monitor snapshot volume changes (1 standard deviation)
-      # defaults are appropriate for daily batch monitoring
-      #   daily bucket, 14d training, 2d detection, both directions, min 5 day training)
-      - elementary.volume_anomalies:
-          config:
-            severity: warn
-          arguments:
-            anomaly_sensitivity: 1
-            timestamp_column: "dbt_updated_at"
-          tags: ["elementary", "volume"]

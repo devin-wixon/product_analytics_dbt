@@ -29,8 +29,6 @@ models:
         description: "{{ doc('user_status') }}"
       - name: user_grades
         description: "{{ doc('user_grades') }}"
-      - name: user_other_grades
-        description: "{{ doc('user_other_grades') }}"
       - name: user_email_sent_at_utc
         description: "{{ doc('user_email_sent_at_utc') }}"
       - name: user_updated_at_utc

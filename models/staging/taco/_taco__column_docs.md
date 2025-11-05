@@ -218,66 +218,9 @@ Identifier for the user in Okta (SSO provider).
 Example: (empty)
 {% enddocs %}
 
+
 {% docs class_sourced_id %}
 External class id, typically the class_id on the district SIS.
-{% enddocs %}
-
-
-{% docs school_sourced_id %}
-External school id, typically the school_id on the district SIS.
-{% enddocs %}
-
-
-{% docs user_email_sent_at_utc %}
-
-The most recent date an invitation email was sent to the user. Administrators are shown the option to send invitation emails when users are created. Users may be invited by admins outside of Lilypad, so it will not have a value for all invited users.
-
-- SSO (Classlink, Clever, Google, etc.): The email invites users to click the link to use their SSO credentials. Administrators may opt _not_ to automatically send emails because they use an application dashboard and not Lilypad's login flow.
-- Username password: The email invites users to create a password.
-- Districts may opt not to send automated invitation emails because their rostering system loads more users than those they intend to invite. 
-
-Example: 2025-07-30 00:00:00.000
-{% enddocs %}
-
-
-{% docs district_id %}
-Internal district identifier. May join to Salesforce district identifier data.
-{% enddocs %}
-
-
-{% docs updated_at_utc %}
-Timestamp of the last modification _or_ roster upload of the record in UTC.
-This value may change if
-* a record has a fresh roster upload that does _or_ does not change anything, or
-* a record has a manual update that does _or_ does not change a column's value
-Example: 2025-07-30 00:00:00.000
-{% enddocs %}
-
-
-{% docs user_other_grades %}
-<!-- TAG TO DO confirm values and flesh out with their meaning. -->
-{% enddocs %}
-
-
-{% docs is_disable_auto_sync %}
-If true, any changes to the user will be ignored in following syncs.   
-This applies to both new and existing users.  
-This setting can be disabled in the user interface if needed.  
-{% enddocs %}
-
-
-{% docs user_invite_status %}
-Indicates the onboarding status of the user.  
-
-| Value        | Meaning                                                                 |
-|------------- |------------------------------------------------------------------------|
-| not_invited  | auth_method is username_password and invite e-mail not sent; occurs when administrators decline the option to auto-send user invites when a roster job is processed      |
-| invited      | auth_method is username_password and invite e-mail sent            |
-| sso          | auth_method is one of (clever, classlink, SAML, openid)           |
-| registered   | auth_method is username_password and user completed registration and setting up their password   |
-| backfill   | User was manually backfilled after deletion, and may have limited data other than district   |
-
-Note: A user can change rostering methods. For example, an administrator may start with username password, then switch to SSO.
 {% enddocs %}
 
 
@@ -312,3 +255,63 @@ Example: 9999-12-31 00:00:00.000
 Indicates if the record is considered deleted (column is created by dbt).  
 Example: False
 {% enddocs %}
+
+
+{% docs school_sourced_id %}
+External school id, typically the school_id on the district SIS.
+{% enddocs %}
+
+
+{% docs license_start_date %}
+The date the license becomes effective for user access.
+Null means it is effective now and did not have a start date set.
+{% enddocs %}
+
+
+{% docs user_email_sent_at_utc %}
+
+The most recent date an invitation email was sent to the user. Administrators are shown the option to send invitation emails when users are created. Users may be invited by admins outside of Lilypad, so it will not have a value for all invited users.
+
+- SSO (Classlink, Clever, Google, etc.): The email invites users to click the link to use their SSO credentials. Administrators may opt _not_ to automatically send emails because they use an application dashboard and not Lilypad's login flow.
+- Username password: The email invites users to create a password.
+- Districts may opt not to send automated invitation emails because their rostering system loads more users than those they intend to invite. 
+
+Example: 2025-07-30 00:00:00.000
+{% enddocs %}
+
+
+{% docs district_id %}
+Internal district identifier. May join to Salesforce district identifier data.
+{% enddocs %}
+
+
+{% docs updated_at_utc %}
+Timestamp of the last modification _or_ roster upload of the record in UTC.
+This value may change if
+* a record has a fresh roster upload that does _or_ does not change anything, or
+* a record has a manual update that does _or_ does not change a column's value
+Example: 2025-07-30 00:00:00.000
+{% enddocs %}
+
+
+{% docs is_disable_auto_sync %}
+If true, any changes to the user will be ignored in following syncs.   
+This applies to both new and existing users.  
+This setting can be disabled in the user interface if needed.  
+{% enddocs %}
+
+
+{% docs user_invite_status %}
+Indicates the onboarding status of the user.  
+
+| Value        | Meaning                                                                 |
+|------------- |------------------------------------------------------------------------|
+| not_invited  | auth_method is username_password and invite e-mail not sent; occurs when administrators decline the option to auto-send user invites when a roster job is processed      |
+| invited      | auth_method is username_password and invite e-mail sent            |
+| sso          | auth_method is one of (clever, classlink, SAML, openid)           |
+| registered   | auth_method is username_password and user completed registration and setting up their password   |
+| backfill   | User was manually backfilled after deletion, and may have limited data other than district   |
+
+Note: A user can change rostering methods. For example, an administrator may start with username password, then switch to SSO.
+{% enddocs %}
+
