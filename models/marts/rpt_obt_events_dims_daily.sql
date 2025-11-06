@@ -25,6 +25,8 @@ final as (
         resource_title,
         resource_program_id,
         resource_program_name,
+        resource_theme,
+        resource_week,
         -- district level
         district_id,
         district_type,
