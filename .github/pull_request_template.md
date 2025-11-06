@@ -1,3 +1,5 @@
+
+
 ## Description & motivation
 
 
@@ -7,7 +9,6 @@
 ## Type of Change
 
 - [ ] New model
-- [ ] New column in existing model
 - [ ] Bugfix
 - [ ] Refactoring
 - [ ] Documentation

@@ -58,8 +58,6 @@ resources as (
         resource_program_id,
         -- occasional errors lead to a different program for the resource
         resource_program_name,
-        resource_theme,
-        resource_week,
         -- resource_author_id,
         -- resource_code,
         resource_title,
