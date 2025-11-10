@@ -3,7 +3,7 @@ semantic_models:
     description: |
       Purpose: Provides district-level information for semantic analysis.  
       Granularity: One row per district.  
-    model: ref('dim_districts_current')
+    model: ref('dim_districts_most_recent')
     
     entities:
       - name: district
