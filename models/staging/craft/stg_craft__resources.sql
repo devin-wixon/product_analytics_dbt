@@ -47,7 +47,8 @@ final as (
         dbt_valid_to,
         dbt_updated_at,
         dbt_is_deleted::boolean as dbt_is_deleted,
-        dbt_is_deleted or resource_deleted_at_utc is not null as is_resource_deleted,
+        dbt_is_deleted
+        or resource_deleted_at_utc is not null as is_resource_deleted,
         trim(title::string) as resource_title,
         -- replace spaces and hypens in resource type and make lowercase
         lower(
@@ -59,7 +60,7 @@ final as (
     from source_table
 )
 
--- reorganizing column order
+-- reorder columns
 select
     -- core identifiers and attributes
     resource_id,
