@@ -1,6 +1,3 @@
-
--- TAG TO DO: Configure this to build as incremental table by client_event_date; expensive to run and build
-
 with events as (
     select *
     from
@@ -19,16 +16,6 @@ user_district_role_date as (
         {{ ref('int_users_district_role_date') }}
 ),
 
--- if event categories are pivoted to boolean data
-    -- {#
-    -- {%- set event_categories = dbt_utils.get_column_values(
-    --     table=ref('seed_event_log_metadata'),
-    --     column='event_category',
-    --     where="event_category is not null and event_category != ''",
-    --     order_by='event_category'
-    --     )%}
-    -- #}
-
 event_user_joined as (
     select
         events.*,
@@ -36,11 +23,8 @@ event_user_joined as (
         user_district_role_date.user_role,
         user_district_role_date.user_invite_status,
         user_district_role_date.match_type
-    from
-        events
-    left join
-        user_district_role_date
-    on
+    from events
+    left join user_district_role_date on 
         events.user_id = user_district_role_date.user_id
         and events.server_event_date = user_district_role_date.server_event_date
 ),

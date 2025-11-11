@@ -17,18 +17,6 @@ models:
           - unique
           - not_null
 
-      # - name: n_events_per_user_day_context
-      #   description: Total count of events for this user on this day within this dimensional context
-      #   tests:
-      #     - not_null
-
-      # - name: had_events_per_user_day_context
-      #   description: Boolean flag (always 1) indicating the user had activity in this context on this day
-      #   tests:
-      #     - not_null
-      #     - accepted_values:
-      #         values: [1]
-
       # Dimensional context columns (ordered to match SQL output)
       - name: user_id
         description: "{{ doc('user_id') }}"
