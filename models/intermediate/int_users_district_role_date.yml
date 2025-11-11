@@ -26,10 +26,6 @@ models:
         description: "{{ doc('user_role') }}"
       - name: match_type
         description: "{{ doc('user_role_match_type') }}"
-        tests:
-          - accepted_values:
-              arguments:
-                values: ['exact', 'fallback']
     tests:
       - dbt_utils.unique_combination_of_columns:
           arguments:

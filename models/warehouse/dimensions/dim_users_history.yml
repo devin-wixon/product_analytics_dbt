@@ -21,6 +21,9 @@ models:
       - name: district_id
         description: "{{ doc('district_id') }}"
 
+      - name: is_user_deleted
+        description: "{{ doc('is_user_deleted') }}"
+
       - name: user_sourced_id
         description: "{{ doc('user_sourced_id') }}"
 
@@ -39,11 +42,9 @@ models:
       - name: user_email_sent_at_utc
         description: "{{ doc('user_email_sent_at_utc') }}"
 
-      - name: user_updated_at_utc
-        description: ""
-
-      - name: user_created_at_utc
-        description: ""
+      - name: user_deleted_at_utc
+        description: "{{ doc('user_deleted_at_utc') }}"
+      
 
       - name: dbt_valid_from
         description: "{{ doc('dbt_valid_from') }}"

@@ -1,11 +1,7 @@
--- TAG TO DO union with district_general_settings
--- {'end_date': '2025-06-30', 'start_date': '2025-06-18', 'classroom_schedule': {'friday': {}, 'monday': {}, 'sunday': {}, 'tuesday': {}, 'saturday': {}, 'thursday': {}, 'wednesday': {}}}
-
 with
 
 source as (
-    select
-        *
+    select *
     from {{ ref('stg_taco__districts') }}
     where district_settings is not null
 ),
@@ -19,12 +15,12 @@ extracted_settings as (
             district_settings:grades::string,
             ''
         ) as district_grades,
-
-        -- Rostering settings
         coalesce(
             district_settings:rostering:method::string,
             ''
         ) as rostering_method,
+
+        -- Rostering settings
         district_settings:rostering:classlink_id::string
             as rostering_classlink_id,
         district_settings:rostering:clever_id::string
@@ -40,37 +36,36 @@ extracted_settings as (
         district_settings:rostering:allow_users_without_class_or_school::boolean
             as is_rostering_allow_users_without_class_or_school,
 
-        -- Self-service settings
         district_settings:selfservice:rostering:show_clever::boolean
             as is_selfservice_rostering_show_clever,
         district_settings:selfservice:authentication:show_clever::boolean
             as is_selfservice_authentication_show_clever,
 
-        -- Authentication settings
+        -- Self-service settings
         district_settings:authentication:provider::string
             as authentication_provider,
         district_settings:authentication:login_field::string
             as authentication_login_field,
 
-        -- Authentication ClassLink settings
+        -- Authentication settings
         district_settings:authentication:classlink_settings:classlink_id::string
             as authentication_classlink_settings_classlink_id,
-
-        -- Authentication Clever settings
         district_settings:authentication:clever_settings:clever_id::string
             as authentication_clever_settings_clever_id,
+
+        -- Authentication ClassLink settings
         district_settings:authentication:clever_settings:provider_name::string
             as authentication_clever_settings_provider_name,
 
-        -- Authentication SAML settings
+        -- Authentication Clever settings
         district_settings:authentication:saml_settings:provider_name::string
             as authentication_saml_settings_provider_name,
         district_settings:authentication:saml_settings:metadata_document_file::string
             as authentication_saml_settings_metadata_document_file,
+
+        -- Authentication SAML settings
         district_settings:authentication:saml_settings:metadata_document_source::string
             as authentication_saml_settings_metadata_document_source,
-
-        -- Onboarding and user pool
         district_settings:onboarding_required::boolean
             as is_onboarding_required,
         district_settings:user_pool_client_id::string
@@ -80,11 +75,9 @@ extracted_settings as (
 ),
 
 final as (
-    select
-        *
+    select *
     from extracted_settings
 )
 
-select
-    *
+select *
 from final

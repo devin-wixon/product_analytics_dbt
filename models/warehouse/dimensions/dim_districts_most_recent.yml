@@ -93,7 +93,6 @@ models:
         description: "{{ doc('authentication_clever_settings_provider_name') }}"
       - name: authentication_saml_settings_provider_name
         description: "{{ doc('authentication_saml_settings_provider_name') }}"
-      - name: authentication_saml_settings_metadata_document_file
       - name: authentication_saml_settings_metadata_document_source
         description: "{{ doc('authentication_saml_settings_metadata_document_source') }}"
       - name: is_onboarding_required

@@ -12,6 +12,10 @@ models:
         tests:
           - unique
           - not_null
+      - name: resource_cloned_from
+        description: "{{ doc('resource_cloned_from') }}"
+      - name: is_resource_deleted
+        description: "{{ doc('is_entity_deleted') }}"
       - name: resource_program_id
         description: "{{ doc('program_id') }}"
       - name: resource_author_id

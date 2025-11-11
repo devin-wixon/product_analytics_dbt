@@ -12,6 +12,8 @@ models:
         tests:
           - unique
           - not_null
+      - name: is_program_deleted
+        description: "{{ doc('is_entity_deleted') }}"
       - name: is_program_district_auto_add
         description: "{{ doc('is_program_district_auto_add') }}"
       - name: program_license_type

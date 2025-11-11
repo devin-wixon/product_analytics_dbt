@@ -30,7 +30,7 @@ districts as (
         district_website_slug,
         is_distributed_demo_district
     from
-        {{ ref('dim_districts_current') }}
+        {{ ref('dim_districts_most_recent') }}
 ),
 
 programs as (
@@ -115,8 +115,9 @@ joined as (
         events
     left join
         users_by_date
-        on events.user_id = users_by_date.user_id
-        and events.server_event_date = users_by_date.server_event_date
+        on
+            events.user_id = users_by_date.user_id
+            and events.server_event_date = users_by_date.server_event_date
     left join
         districts
         on users_by_date.district_id = districts.district_id

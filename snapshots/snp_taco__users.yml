@@ -15,6 +15,7 @@ snapshots:
         - identifier
         - status
         - sourced_id
+        - created_at
         - deleted_at
         - role
         - email_sent

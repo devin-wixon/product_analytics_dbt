@@ -69,6 +69,11 @@ All values are TRUE as of 8/25.
 {% enddocs %}
 
 
+{% docs is_user_deleted %}
+True if the user either has a deleted timestamp in Taco or the record was deleted and detected by dbt snapshots.
+{% enddocs %}
+
+
 {% docs district_website_slug %}
 Website slug for the district. This is the subdomain for Lilypad in the URL (https://district_website_slug.lilypad2.frogstreet.com will be the URL).  
 Example: dallas-isd
@@ -131,6 +136,7 @@ Row-level identifier of the enrollment record in the external system. Used by ou
 Optional column that is often null.
 {% enddocs %}
 
+
 {% docs enrollment_start_date %}
 Optional column that is often null.
 {% enddocs %}
@@ -140,6 +146,7 @@ Optional column that is often null.
 This is not used by our systems.
 Values: active, tobedeleted
 {% enddocs %}
+
 
 {% docs is_enrollment_active %}
 This is not used by our systems.
@@ -152,9 +159,17 @@ If true, this is the primary teacher associated with the classroom; only one tea
 {% enddocs %}
 
 
+{% docs user_deleted_at_utc %}
+**Most deleted users will have a null value.**
+Timestamp when the user was deleted in Taco. 
+User deletions in Taco began to be tracked in Nov 2025. Prior to that, user history was captured via SCD2 snapshots starting in Sep 2025.
+{% enddocs %}
+
+
 {% docs user_role_id %}
 Numeric identifier associated with the user role.
 {% enddocs %}
+
 
 {% docs user_id %}
 Unique identifier for the user record.  
@@ -163,6 +178,7 @@ Unique identifier for the user record.
 
 Example: 452698
 {% enddocs %}
+
 
 {% docs user_sk %}
 Surrogate key for the user, used for uniqueness and joins.
@@ -202,15 +218,12 @@ Notes:
     - A school administrator is defined as an administrator enrolled to a school.
     - A district administrator is defined as an administrator without any school enrollment.
 - A teacher or student can be created without a class enrollment, but they are invalid and functionality such as sync to AIM or QR codes doesn't work. The `allow_users_without_class_or_school` district setting determines whether the district should allow invalid records to have functionality.
-
-
 {% enddocs %}
 
 
 {% docs user_status %}
 As of 2025-08, all values are "active" and the column is not useful.
 {% enddocs %}
-
 
 
 {% docs okta_user_id %}
@@ -271,7 +284,6 @@ Null means it is effective now and did not have a start date set.
 {% docs user_email_sent_at_utc %}
 
 The most recent date an invitation email was sent to the user. Administrators are shown the option to send invitation emails when users are created. Users may be invited by admins outside of Lilypad, so it will not have a value for all invited users.
-
 - SSO (Classlink, Clever, Google, etc.): The email invites users to click the link to use their SSO credentials. Administrators may opt _not_ to automatically send emails because they use an application dashboard and not Lilypad's login flow.
 - Username password: The email invites users to create a password.
 - Districts may opt not to send automated invitation emails because their rostering system loads more users than those they intend to invite. 
