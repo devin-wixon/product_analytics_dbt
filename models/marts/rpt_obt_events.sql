@@ -30,7 +30,7 @@ districts as (
         district_website_slug,
         is_distributed_demo_district
     from
-        {{ ref('dim_districts_current') }}
+        {{ ref('dim_districts_most_recent') }}
 ),
 
 programs as (
