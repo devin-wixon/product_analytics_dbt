@@ -35,6 +35,7 @@ final as (
         physical_reference::string as resource_physical_reference,
         physical_page_number::int as resource_physical_page_number,
         fts_title::string as resource_fts_title,
+        cloned_from::int as resource_cloned_from,
 
         -- timestamps
         updated_at::timestamp as resource_updated_at_utc,

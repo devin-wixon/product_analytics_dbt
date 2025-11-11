@@ -33,6 +33,10 @@ User ID of the author of the record; not editable in UI.
 {% enddocs %}
 
 
+{% docs resource_cloned_from %}
+`program_id` that the resource was copied from when it was created.
+{% enddocs %}
+
 {% docs resource_provider_id %}
 Joins with the `resource_providers` table and identifies the type of provider for the resource we're embedding.
 Examples of resource providers: Sprout Video, URL, Youtube, Vimeo.
