@@ -186,9 +186,9 @@ user_funnel_base as (
         user_categories.user_current_invite_status,
         user_categories.dbt_is_currently_deleted,
         -- Month start date: null for legacy users, otherwise use first record month or creation month
+        -- Created flag (all users are created)
         true as is_user_created,
 
-        -- Created flag (all users are created)
         user_ever_not_invited.is_user_not_invited,
 
         -- Not invited flag and date;

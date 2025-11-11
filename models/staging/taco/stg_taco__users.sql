@@ -99,6 +99,5 @@ select
     dbt_valid_to,
     dbt_is_deleted
 
-
 from
     final

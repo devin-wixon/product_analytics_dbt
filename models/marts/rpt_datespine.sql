@@ -1,5 +1,4 @@
 with
-
 datespine as (
     select *
     from {{ ref('dim_day_datespine') }}

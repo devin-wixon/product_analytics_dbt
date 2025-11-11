@@ -25,18 +25,16 @@ final as (
         market_specific::string as program_market_specific,
         is_demo::boolean as is_program_demo,
         order_number::integer as program_order_number,
-
         deleted_at::date as program_deleted_date,
-        dbt_scd_id,
 
         -- snapshot columns
+        dbt_scd_id,
         dbt_valid_from,
         dbt_valid_to,
         dbt_updated_at,
         dbt_is_deleted::boolean as dbt_is_deleted,
         dbt_is_deleted
         or program_deleted_date is not null as is_program_deleted
-
     from source_table
 )
 

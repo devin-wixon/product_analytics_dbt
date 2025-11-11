@@ -11,10 +11,18 @@ extracted_settings as (
         *,
 
         -- Extract grades
-        district_settings:rostering:classlink_id::string
-            as rostering_classlink_id,
+        coalesce(
+            district_settings:grades::string,
+            ''
+        ) as district_grades,
+        coalesce(
+            district_settings:rostering:method::string,
+            ''
+        ) as rostering_method,
 
         -- Rostering settings
+        district_settings:rostering:classlink_id::string
+            as rostering_classlink_id,
         district_settings:rostering:clever_id::string
             as rostering_clever_id,
         district_settings:rostering:upload_method::string
@@ -60,17 +68,7 @@ extracted_settings as (
         district_settings:onboarding_required::boolean
             as is_onboarding_required,
         district_settings:user_pool_client_id::string
-            as user_pool_client_id,
-
-        -- Onboarding and user pool
-        coalesce(
-            district_settings:grades::string,
-            ''
-        ) as district_grades,
-        coalesce(
-            district_settings:rostering:method::string,
-            ''
-        ) as rostering_method
+            as user_pool_client_id
 
     from source
 ),

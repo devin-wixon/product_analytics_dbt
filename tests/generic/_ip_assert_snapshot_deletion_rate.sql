@@ -27,7 +27,7 @@
 with daily_changes as (
     select
         count(*) as total_daily_changes,
-        count(case when dbt_is_deleted = 'True' then 1 end) as daily_deletions
+        count(case when dbt_is_deleted = true then 1 end) as daily_deletions
     from {{ target.database }}.{% if target.name == 'prod' %}snapshots{% else %}{{ target.schema }}{% endif %}.{{ model.name }}
     where dbt_updated_at >= current_date - 1
 ),
