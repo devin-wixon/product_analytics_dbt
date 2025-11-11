@@ -16,13 +16,13 @@ final as (
         license::string as license,
         quantity_licenses::int as quantity_licenses,
         -- sales_record::string as sales_record
-        
+
         -- dates and timestamps
         start_date::date as license_start_date,
         created_at::timestamp as created_at_utc,
         updated_at::timestamp as updated_at_utc,
         deleted_at::timestamp as deleted_at_utc,
-       expiration_date::timestamp as expiration_at_utc
+        expiration_date::timestamp as expiration_at_utc
 
     from source_table
 )
