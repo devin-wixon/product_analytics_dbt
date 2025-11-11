@@ -5,10 +5,8 @@ districts as (
         *,
         {{ is_distributed_demo_district('district_id') }} as is_distributed_demo_district
     from {{ ref('int_districts_history_parse_settings') }}
-    qualify row_number() over (
-        partition by district_id
-        order by dbt_valid_from desc
-    ) = 1
+    where
+        dbt_valid_to is null
 ),
 
 final as (

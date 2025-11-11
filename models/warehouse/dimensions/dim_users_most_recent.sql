@@ -7,11 +7,8 @@ users as (
             dbt_updated_at
         )
     from {{ ref('stg_taco__users') }}
-    qualify row_number() over (
-        partition by user_id
-        order by dbt_valid_from desc
-    ) = 1
-
+    where
+        dbt_valid_to is null
 ),
 
 

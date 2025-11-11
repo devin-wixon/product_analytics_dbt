@@ -8,10 +8,8 @@ programs as (
             dbt_updated_at
         )
     from {{ ref('stg_craft__programs') }}
-    qualify row_number() over (
-        partition by program_id
-        order by dbt_valid_from desc
-    ) = 1
+    where
+        dbt_valid_to is null
 ),
 
 final as (
