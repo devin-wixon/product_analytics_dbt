@@ -5,7 +5,7 @@ models:
     description: |
         Purpose: Provides most recent information on Taco districts.
         Granularity: One row per district.
-        Filters: District record with the most recent `dbt_valid_from` date.    
+        Filters: District record with the most recent `dbt_valid_from` date.
     columns:
       - name: district_id
         description: "{{ doc('district_id') }}"

@@ -24,7 +24,7 @@ event_user_joined as (
         user_district_role_date.user_invite_status,
         user_district_role_date.match_type
     from events
-    left join user_district_role_date on 
+    left join user_district_role_date on
         events.user_id = user_district_role_date.user_id
         and events.server_event_date = user_district_role_date.server_event_date
 ),

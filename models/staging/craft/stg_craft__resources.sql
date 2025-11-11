@@ -97,6 +97,7 @@ select
     resource_publication_origin_id,
     resource_focus_area_id,
     resource_sub_focus_area_id,
+    resource_cloned_from,
 
     -- urls and links
     resource_file_url,

@@ -35,6 +35,7 @@ extracted_settings as (
             as rostering_is_active_send_invite,
         district_settings:rostering:allow_users_without_class_or_school::boolean
             as is_rostering_allow_users_without_class_or_school,
+
         district_settings:selfservice:rostering:show_clever::boolean
             as is_selfservice_rostering_show_clever,
         district_settings:selfservice:authentication:show_clever::boolean
