@@ -5,8 +5,7 @@ models:
   - name: int_districts_history_parse_settings
     description: |
       Purpose: Parses district settings from JSON to structured columns including rostering, authentication, and onboarding configurations.
-      Granularity: One row per district.
-      Filters: Picks the snapshot record with `dbt_valid_to` is null
+      Granularity: One row per district snapshot record (preserves history).
     columns:
       - name: dbt_scd_id
         tests:

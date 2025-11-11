@@ -68,6 +68,10 @@ Example: {'grades': 'IT,PR,PK,TK,Other,KG,02', 'rostering': {'method': 'classlin
 All values are TRUE as of 8/25.
 {% enddocs %}
 
+{% docs is_user_deleted %}
+True if the user is either marked as deleted in Taco or the record was deleted and detected by dbt snapshots.
+{% enddocs %}
+
 
 {% docs district_website_slug %}
 Website slug for the district. This is the subdomain for Lilypad in the URL (https://district_website_slug.lilypad2.frogstreet.com will be the URL).  
@@ -151,6 +155,13 @@ Values: always TRUE
 
 {% docs is_primary %}
 If true, this is the primary teacher associated with the classroom; only one teacher per classroom can be primary. Used for third party applications that only allow one teacher per classroom.
+{% enddocs %}
+
+
+{% docs user_deleted_at_utc %}
+**Most deleted users will have a null value.**
+Timestamp when the user was deleted in Taco. 
+User deletions in Taco began to be tracked in Nov 2025. Prior to that, user history was captured via SCD2 snapshots starting in Sep 2025.
 {% enddocs %}
 
 

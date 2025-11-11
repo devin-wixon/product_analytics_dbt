@@ -11,7 +11,7 @@ final as (
         folder_id::int as resource_folder_id,
         program_id::int as resource_program_id,
         author_id::int as resource_author_id,
-        -- replace spaces and hypens in resource type and make lowercase
+
         code::string as resource_code,
         description::string as resource_description,
         file_url::string as resource_file_url,
@@ -37,9 +37,9 @@ final as (
         fts_title::string as resource_fts_title,
 
         -- timestamps
-        updated_at::timestamp as resource_updated_at,
-        deleted_at::timestamp as resource_deleted_at,
-        created_at::timestamp as resource_created_at,
+        updated_at::timestamp as resource_updated_at_utc,
+        deleted_at::timestamp as resource_deleted_at_utc,
+        created_at::timestamp as resource_created_at_utc,
 
         -- snapshot columns
         dbt_scd_id,
@@ -47,7 +47,9 @@ final as (
         dbt_valid_to,
         dbt_updated_at,
         dbt_is_deleted::boolean as dbt_is_deleted,
+        dbt_is_deleted or resource_deleted_at_utc is not null as is_resource_deleted,
         trim(title::string) as resource_title,
+        -- replace spaces and hypens in resource type and make lowercase
         lower(
             replace(
                 replace(type::string, ' ', '_'),
@@ -65,6 +67,7 @@ select
     resource_code,
     resource_title,
     resource_type,
+    is_resource_deleted,
 
     -- descriptions and content
     resource_description,
@@ -101,9 +104,9 @@ select
     resource_thumbnail_web_url,
 
     -- timestamps
-    resource_created_at,
-    resource_updated_at,
-    resource_deleted_at,
+    resource_created_at_utc,
+    resource_updated_at_utc,
+    resource_deleted_at_utc,
 
     -- dbt snapshot columns
     dbt_scd_id,

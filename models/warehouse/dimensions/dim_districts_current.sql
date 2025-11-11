@@ -1,10 +1,8 @@
 with
 
 districts as (
-    select
-        *,
-        {{ is_distributed_demo_district('district_id') }} as is_distributed_demo_district
-    from {{ ref('int_districts_history_parse_settings') }}
+    select *
+    from {{ ref('dim_districts_most_recent') }}
     where
         dbt_valid_to is null
 ),

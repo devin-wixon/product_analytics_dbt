@@ -22,7 +22,7 @@ final as (
         email_sent::timestamp as user_email_sent_at_utc,
         updated_at::timestamp as user_updated_at_utc,
         created_at::timestamp as user_created_at_utc,
-        deleted_at::timestamp as deleted_at_utc,
+        deleted_at::timestamp as user_deleted_at_utc,
 
         -- snapshot columns
         dbt_scd_id,
@@ -30,6 +30,7 @@ final as (
         dbt_valid_to,
         dbt_updated_at,
         dbt_is_deleted::boolean as dbt_is_deleted,
+        dbt_is_deleted or user_deleted_at_utc is not null as is_user_deleted,
 
         -- can be Active or active
         lower(status::string) as user_status,
@@ -71,6 +72,7 @@ select
     user_sourced_id,
     user_identifier,
     user_role,
+    is_user_deleted,
 
     -- status and role attributes
     user_status,
@@ -88,7 +90,7 @@ select
     -- timestamps
     user_updated_at_utc,
     user_email_sent_at_utc,
-    deleted_at_utc,
+    user_deleted_at_utc,
     dbt_scd_id,
 
     -- dbt snapshot columns

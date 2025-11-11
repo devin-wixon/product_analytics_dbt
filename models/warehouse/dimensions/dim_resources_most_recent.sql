@@ -5,8 +5,7 @@ resources as (
         * exclude (
             dbt_scd_id,
             dbt_updated_at
-        ),
-        dbt_is_deleted or resource_deleted_at is not null as is_resource_deleted
+        )
     from {{ ref('stg_craft__resources') }}
     qualify row_number() over (
         partition by resource_id

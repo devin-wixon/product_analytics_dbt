@@ -31,6 +31,8 @@ models:
         description: "{{ doc('user_grades') }}"
       - name: user_email_sent_at_utc
         description: "{{ doc('user_email_sent_at_utc') }}"
+      - name: user_deleted_at_utc
+        description: "{{ doc('user_deleted_at_utc') }}"
       - name: user_updated_at_utc
         description: "{{ doc('updated_at_utc') }}"
       - name: dbt_scd_id
@@ -46,3 +48,5 @@ models:
         description: "{{ doc('dbt_updated_at') }}"
       - name: dbt_is_deleted
         description: "{{ doc('dbt_is_deleted') }}"
+      - name: is_user_deleted
+        description: "{{ doc('is_user_deleted') }}"

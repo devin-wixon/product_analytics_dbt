@@ -5,7 +5,7 @@ models:
     description: |
         Purpose: Provides most recent information on Taco districts.
         Granularity: One row per district.
-        Filters: District record with the most recent `dbt_valid_from` date.
+        Filters: District record with the most recent `dbt_valid_from` date.    
     columns:
       - name: district_id
         description: "{{ doc('district_id') }}"
@@ -93,7 +93,6 @@ models:
         description: "{{ doc('authentication_clever_settings_provider_name') }}"
       - name: authentication_saml_settings_provider_name
         description: "{{ doc('authentication_saml_settings_provider_name') }}"
-      - name: authentication_saml_settings_metadata_document_file
       - name: authentication_saml_settings_metadata_document_source
         description: "{{ doc('authentication_saml_settings_metadata_document_source') }}"
       - name: is_onboarding_required
