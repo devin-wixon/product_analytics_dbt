@@ -1,4 +1,9 @@
 
+{% docs is_entity_deleted %}
+True if the entity either has a deleted timestamp in Taco/Craft or the record was deleted and detected by dbt snapshots.
+{% enddocs %}
+
+
 {% docs is_program_district_auto_add %}
 Boolean: True if the program is always included with products and added by default to new districts.
 {% enddocs %}

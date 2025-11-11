@@ -68,8 +68,9 @@ Example: {'grades': 'IT,PR,PK,TK,Other,KG,02', 'rostering': {'method': 'classlin
 All values are TRUE as of 8/25.
 {% enddocs %}
 
+
 {% docs is_user_deleted %}
-True if the user is either marked as deleted in Taco or the record was deleted and detected by dbt snapshots.
+True if the user either has a deleted timestamp in Taco or the record was deleted and detected by dbt snapshots.
 {% enddocs %}
 
 

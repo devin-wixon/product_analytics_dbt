@@ -12,3 +12,5 @@ models:
         data_tests:
           - not_null
           - unique
+      - name: is_resource_deleted
+        description: "{{ doc('is_entity_deleted') }}"
