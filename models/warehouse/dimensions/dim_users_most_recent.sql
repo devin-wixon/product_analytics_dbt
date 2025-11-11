@@ -11,13 +11,12 @@ users as (
         partition by user_id
         order by dbt_valid_from desc
     ) = 1
-        
+
 ),
-     
+
 
 final as (
-    select
-        *
+    select *
     from users
 )
 

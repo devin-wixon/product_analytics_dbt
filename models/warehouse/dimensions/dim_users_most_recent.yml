@@ -20,8 +20,6 @@ models:
         description: "{{ doc('user_sourced_id') }}"
       - name: is_disable_auto_sync
         description: "{{ doc('is_disable_auto_sync') }}"
-      - name: is_manually_added
-        description: ""
       - name: user_invite_status
         description: "{{ doc('user_invite_status') }}"
       - name: user_grades
