@@ -13,7 +13,6 @@ final as (
         author_id::int as resource_author_id,
         -- replace spaces and hypens in resource type and make lowercase
         code::string as resource_code,
-        trim(title::string) as resource_title,
         description::string as resource_description,
         file_url::string as resource_file_url,
         section_title::string as resource_section_title,
@@ -38,10 +37,9 @@ final as (
         fts_title::string as resource_fts_title,
 
         -- timestamps
-        created_at::timestamp as resource_created_at,
         updated_at::timestamp as resource_updated_at,
         deleted_at::timestamp as resource_deleted_at,
-
+        created_at::timestamp as resource_created_at,
 
         -- snapshot columns
         dbt_scd_id,
@@ -49,6 +47,7 @@ final as (
         dbt_valid_to,
         dbt_updated_at,
         dbt_is_deleted::boolean as dbt_is_deleted,
+        trim(title::string) as resource_title,
         lower(
             replace(
                 replace(type::string, ' ', '_'),
@@ -58,6 +57,60 @@ final as (
     from source_table
 )
 
-select *
+-- reorganizing column order
+select
+    -- core identifiers and attributes
+    resource_id,
+    resource_uuid,
+    resource_code,
+    resource_title,
+    resource_type,
+
+    -- descriptions and content
+    resource_description,
+    resource_short_description,
+    resource_section_title,
+    resource_fts_title,
+
+    -- classification and metadata
+    resource_focus_area,
+    resource_publication_status,
+    resource_order_number,
+    resource_estimated_time,
+    resource_physical_reference,
+    resource_physical_page_number,
+
+    -- boolean flags
+    is_resource_legacy,
+    is_resource_downloadable,
+    is_resource_public,
+
+    -- foreign keys
+    resource_folder_id,
+    resource_program_id,
+    resource_author_id,
+    resource_provider_id,
+    resource_publication_origin_id,
+    resource_focus_area_id,
+    resource_sub_focus_area_id,
+
+    -- urls and links
+    resource_file_url,
+    resource_link,
+    resource_thumbnail_mobile_url,
+    resource_thumbnail_web_url,
+
+    -- timestamps
+    resource_created_at,
+    resource_updated_at,
+    resource_deleted_at,
+
+    -- dbt snapshot columns
+    dbt_scd_id,
+    dbt_updated_at,
+    dbt_valid_from,
+    dbt_valid_to,
+    dbt_is_deleted
+
 from
     final
