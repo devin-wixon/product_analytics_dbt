@@ -1,6 +1,3 @@
--- Reusable model for joining events to user dimensions
--- Returns one row per user_id x date with the most recent user attributes
--- Performance optimized: removed redundant aggregation step, uses DISTINCT to deduplicate to date level
 with
 
 events as (
@@ -55,11 +52,13 @@ user_events_fallback as (
         users_history.user_role,
         'fallback' as match_type
     from events
-    left join user_events_exact on
-        events.user_id = user_events_exact.user_id
-        and events.server_event_date = user_events_exact.server_event_date
-    inner join users_history on
-        events.user_id = users_history.user_id
+    left join user_events_exact
+        on
+            events.user_id = user_events_exact.user_id
+            and events.server_event_date = user_events_exact.server_event_date
+    inner join users_history
+        on
+            events.user_id = users_history.user_id
     where
         user_events_exact.user_id is null  -- Only events without exact match
     qualify row_number() over (
@@ -67,11 +66,25 @@ user_events_fallback as (
         order by
             -- Calculate minimum distance to the valid date range
             case
-                when events.server_event_date < users_history.dbt_valid_from::date
-                    then datediff(day, events.server_event_date, users_history.dbt_valid_from::date)
-                when users_history.dbt_valid_to is not null
-                    and events.server_event_date >= users_history.dbt_valid_to::date
-                    then datediff(day, users_history.dbt_valid_to::date, events.server_event_date)
+                when
+                    events.server_event_date
+                    < users_history.dbt_valid_from::date
+                    then
+                        datediff(
+                            day,
+                            events.server_event_date,
+                            users_history.dbt_valid_from::date
+                        )
+                when
+                    users_history.dbt_valid_to is not null
+                    and events.server_event_date
+                    >= users_history.dbt_valid_to::date
+                    then
+                        datediff(
+                            day,
+                            users_history.dbt_valid_to::date,
+                            events.server_event_date
+                        )
                 else 0  -- Should not happen, but safeguard
             end asc,
             -- Tiebreaker: prefer most recent record
