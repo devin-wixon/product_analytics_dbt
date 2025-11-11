@@ -50,13 +50,7 @@ final as (
         dbt_is_deleted::boolean as dbt_is_deleted,
         dbt_is_deleted or resource_deleted_at_utc is not null as is_resource_deleted,
         trim(title::string) as resource_title,
-        -- replace spaces and hypens in resource type and make lowercase
-        lower(
-            replace(
-                replace(type::string, ' ', '_'),
-                '-', '_'
-            )
-        ) as resource_type
+        lower(type::string) as resource_type
     from source_table
 )
 

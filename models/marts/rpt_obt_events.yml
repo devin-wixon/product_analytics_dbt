@@ -5,7 +5,7 @@ models:
     description: |
       Purpose: Comprehensive event reporting model combining user events with dimensional context for analytics.
       Granularity: One row per event, uniquely identified by `event_id`.
-      Notes: Uses current version of program, resource, and district information. User attributes reflect the state at event time using SCD2 logic with fallback matching for data quality.
+      Notes: Uses most recent version of program, resource, and district information. User attributes reflect the state at event time using SCD2 logic with fallback matching for data quality.
     columns:
       # Event columns from fct_events
       - name: event_id
@@ -41,6 +41,8 @@ models:
         description: "{{ doc('program_id') }}"
       - name: resource_id
         description: "{{ doc('resource_id') }}"
+      - name: resource_type
+        description: "{{ doc('resource_type') }}"
       - name: application_name
         description: "{{ doc('application_name') }}"
       - name: event_path
@@ -67,10 +69,6 @@ models:
         description: "{{ doc('district_website_slug') }}"
       - name: is_distributed_demo_district
         description: "{{ doc('is_distributed_demo_district') }}"
-
-      # Program columns from dim_programs_current
-
-      # Resource columns from dim_resources_current
 
 
       # Date dimension columns from dim_day_datespine

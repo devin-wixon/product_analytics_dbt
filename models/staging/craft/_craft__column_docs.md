@@ -46,3 +46,9 @@ User ID of the author of the record; not editable in UI.
 Joins with the `resource_providers` table and identifies the type of provider for the resource we're embedding.
 Examples of resource providers: Sprout Video, URL, Youtube, Vimeo.
 {% enddocs %}
+
+
+{% docs resource_type %}
+The type of the resource assigned to it in Craft.
+Values are: activity, audio (music), book, document, image, text, web link, video
+{% enddocs %}
