@@ -1,15 +1,13 @@
 with
 
 datespine as (
-    select
-        *
+    select *
     from {{ ref('dim_day_datespine') }}
 
 ),
 
 final as (
-    select
-        *
+    select *
     from datespine
 )
 

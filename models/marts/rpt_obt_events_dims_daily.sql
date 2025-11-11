@@ -1,7 +1,6 @@
 with
 events as (
-    select
-        *
+    select *
     from
         {{ ref('rpt_obt_events') }}
 ),
