@@ -54,8 +54,6 @@ models:
         description: "{{ doc('is_distributed_demo_district') }}"
       - name: application_name
         description: "{{ doc('application_name') }}"
-      - name: application_name
-        description: "{{ doc('application_name') }}"
       
       # Other columns
       - name: is_user_first_event_date

@@ -26,5 +26,3 @@ models:
         description: "{{ doc('dbt_valid_from') }}"
       - name: dbt_valid_to
         description: "{{ doc('dbt_valid_to') }}"
-      - name: is_resource_deleted
-        description: "{{ doc('is_resource_deleted') }}"
