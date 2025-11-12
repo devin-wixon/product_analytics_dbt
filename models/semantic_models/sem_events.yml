@@ -1,0 +1,203 @@
+semantic_models:
+  - name: sem_events
+    description: |
+      Purpose: Event-level tracking for all captured user interactions in the Lilypad platform.
+      Granularity: One row per event (individual event occurrences).
+      Notes: Provides detailed event-level data for deep-dive analysis of user behavior, including navigation, resource interactions, planner usage, and application launches.
+    model: ref('fct_events')
+    defaults:
+      agg_time_dimension: server_event_date
+
+    entities:
+      - name: event
+        type: primary
+        expr: event_id
+
+      - name: user
+        type: foreign
+        expr: user_id
+
+      - name: district
+        type: foreign
+        expr: district_id
+
+      - name: program
+        type: foreign
+        expr: program_id
+
+      - name: resource
+        type: foreign
+        expr: resource_id
+
+
+    dimensions:
+      # Core event identifiers
+      - name: event_id
+        type: categorical
+        description: "{{ doc('event_id') }}"
+
+      - name: user_id
+        type: categorical
+        description: "{{ doc('user_id') }}"
+
+      - name: district_id
+        type: categorical
+        description: "{{ doc('district_id') }}"
+
+      - name: program_id
+        type: categorical
+        description: "{{ doc('program_id') }}"
+
+      - name: resource_id
+        type: categorical
+        description: "{{ doc('resource_id') }}"
+
+      # Event attributes
+      - name: event_name
+        type: categorical
+        description: "{{ doc('event_name') }}"
+
+      - name: event_category
+        type: categorical
+        description: "{{ doc('event_category') }}"
+
+      - name: event_path
+        type: categorical
+        description: "{{ doc('event_path') }}"
+
+      - name: event_value
+        type: categorical
+        description: "{{ doc('event_value') }}"
+
+      - name: event_value_human_readable
+        type: categorical
+        description: "{{ doc('event_value_human_readable') }}"
+
+      # Navigation context
+      - name: path_entered
+        type: categorical
+        description: "{{ doc('path_entered') }}"
+
+      - name: path_left
+        type: categorical
+        description: "{{ doc('path_left') }}"
+
+      # Planner-specific dimensions
+      - name: week_number
+        type: categorical
+        description: "{{ doc('week_number') }}"
+
+      - name: focus_area_label
+        type: categorical
+        description: Focus area label for planner filter events that select or deselect specific focus areas.
+
+      # Time dimensions with multiple grains
+      - name: server_event_date
+        type: time
+        description: "{{ doc('server_event_date') }}"
+        type_params:
+          time_granularity: day
+
+      - name: client_event_date
+        type: time
+        description: "{{ doc('client_event_date') }}"
+        type_params:
+          time_granularity: day
+
+      - name: server_timestamp
+        type: time
+        description: "{{ doc('server_timestamp') }}"
+        type_params:
+          time_granularity: second
+
+      - name: client_timestamp
+        type: time
+        description: "{{ doc('client_timestamp') }}"
+        type_params:
+          time_granularity: second
+
+      - name: metric_time_day
+        type: time
+        description: "Daily time dimension for event analysis"
+        expr: server_event_date
+        type_params:
+          time_granularity: day
+
+      - name: metric_time_week
+        type: time
+        description: "Weekly time dimension for event analysis"
+        expr: server_event_date
+        type_params:
+          time_granularity: week
+
+      - name: metric_time_month
+        type: time
+        description: "Monthly time dimension for event analysis"
+        expr: server_event_date
+        type_params:
+          time_granularity: month
+
+      - name: metric_time_quarter
+        type: time
+        description: "Quarterly time dimension for event analysis"
+        expr: server_event_date
+        type_params:
+          time_granularity: quarter
+
+      - name: metric_time_school_year
+        type: time
+        description: "Event date aggregated to school year level (July 1 - June 30). Will produce the last day of the school year."
+        expr: |
+          case
+            when month(server_event_date) >= {{ var('school_year_start_month') }}
+            then date_from_parts(year(server_event_date) + 1, {{ var('school_year_end_month') }}, {{ var('school_year_end_day') }})
+            else date_from_parts(year(server_event_date), {{ var('school_year_end_month') }}, {{ var('school_year_end_day') }})
+          end
+        type_params:
+          time_granularity: day
+
+
+    measures:
+      - name: event_level_events
+        description: "Count of individual events captured in the Lilypad platform. Note that the count may change due to event logging changes, rather than due to user volume or user behavior."
+        agg: count
+        expr: 1
+        create_metric: True
+        label: "Event Level: Event Count"
+
+      - name: event_level_users
+        description: |
+          Count of unique users who generated events within the filters.
+
+          Active users are defined by user ID having any captured event in the event logs, including logins and navigating through pages.
+
+          This may be an undercount because:
+          - If teachers share their username/password, we will count only one user.
+          - Auditing suggests some infrequent user events are not being captured; this is being investigated.
+          - If users are given demo accounts (such as over 1K organizations in Sep 25), all of those users will have a single user ID.
+          - If users access the application through SSO, we do not track events.
+        agg: count_distinct
+        expr: user_id
+        create_metric: True
+        label: "Event Level: Distinct Users"
+
+      - name: event_level_districts
+        description: "Count of unique districts associated with the events."
+        agg: count_distinct
+        expr: district_id
+        create_metric: True
+        label: "Event Level: Distinct Districts"
+
+      - name: event_level_programs
+        description: "Count of unique programs associated with the events."
+        agg: count_distinct
+        expr: program_id
+        create_metric: True
+        label: "Event Level: Distinct Programs"
+
+      - name: event_level_resources
+        description: "Count of unique resources associated with the events."
+        agg: count_distinct
+        expr: resource_id
+        create_metric: True
+        label: "Event Level: Distinct Resources"
