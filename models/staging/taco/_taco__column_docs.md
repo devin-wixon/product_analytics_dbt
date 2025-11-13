@@ -143,7 +143,7 @@ Optional column that is often null.
 
 
 {% docs enrollment_status %}
-This is not used by our systems.
+This is not used by Lilypad, as enrollment data is the most current provided by the user.
 Values: active, tobedeleted
 {% enddocs %}
 

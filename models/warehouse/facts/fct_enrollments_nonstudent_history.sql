@@ -15,6 +15,8 @@ final as (
         -- identifiers
         enrollment_id,
         user_id,
+        enrollment_status,
+        is_primary,
 
         -- foreign keys
         user_role,

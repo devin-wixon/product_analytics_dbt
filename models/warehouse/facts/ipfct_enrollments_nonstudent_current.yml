@@ -26,6 +26,8 @@ models:
         description: "{{ doc('user_role') }}"
       - name: district_id
         description: "{{ doc('district_id') }}"
+      - name: enrollment_status
+        description: "{{ doc('enrollment_status') }}"
       - name: enrollment_start_date
         description: "{{ doc('enrollment_start_date') }}"
       - name: enrollment_end_date

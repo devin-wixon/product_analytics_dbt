@@ -20,7 +20,6 @@ final as (
 
         -- other attributes
         primary::boolean as is_primary,
-        -- status & active are not meaningful; removed after staging layer
         status::string as enrollment_status,
         active::boolean as is_enrollment_active,
         -- other ids
