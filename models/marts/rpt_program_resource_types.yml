@@ -4,8 +4,8 @@ models:
   - name: rpt_program_resource_types
     description: |
       Purpose: Program metadata used for percentage denominators and documentation showing resource type availability.
-      Granularity: One row per propgram x resource type.
-      Note: Does not include null resource types; joins from events should be left joins to preserve those events.
+      Granularity: One row per program x resource type.
+      Note: Will include all program x resource type combinations that exist in the resources table, even if no events have occurred.
     columns:
       - name: program_resource_type_id
         description: "{{ doc('program_resource_type_id') }}"

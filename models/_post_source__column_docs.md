@@ -247,6 +247,11 @@ Integer program_id derived from event_value or event_path, only for events where
 {% enddocs %}
 
 
+{% docs program_event_category_id %}
+Unique identifier for models that aggregate by program id and event category.
+{% enddocs %}
+
+
 {% docs program_resource_type_id %}
 Unique identifier for models that aggregate by program id and resource type.
 {% enddocs %}
