@@ -25,7 +25,7 @@ request.error,keep,error,"All event_value as of 8/1/25 have the key ""message"""
 resource.download,keep,resource_download,Certain resources (documents type that are NOT PDFs) eventing was added 08/25 (in QA as of 082725),Clicked on file box or download button on header to download file resource,,,resource_id,105236,2/26/25,12/31/99
 resource.fullScreen,keep,interface,,User clicked the full screen button available on some resources,,,resource_id,56278,2/26/25,12/31/99
 resource.fullScreenExit,keep,interface,,User existed the full screen view,,,resource_id,18061,2/26/25,12/31/99
-resource.header.frameworks.open.modal,keep,in_resource_open_header_frameworks,May be empty,"While in a resource such as an acitivity, 1. clicked on a framework item in the header or plus button to open frameworks modal , or 2. clicked on a top chip from within the list that the frameworks modal opens",,,framework_item_id,,8/25/25,12/31/99
+resource.header.frameworks.open.modal,keep,in_resource_open_header_frameworks,"event_value will be null if the ""+"" or the header itself is opened; event_value will correspond to a chip ID if a chip is clicked.","While in a resource such as an activity, clicked on a framework item in the header.",,,framework_item_id,,8/25/25,12/31/99
 resource.media.changeVolume,keep,music_action,,"User changed music volume, such as by clicking the volume up or down buttons on a song",,,resource_id,48185,2/26/25,12/31/99
 resource.media.pause,keep,music_action,,User paused music media,,,resource_id,37390,2/26/25,12/31/99
 resource.media.play,keep,music_action,,User played music media,,,resource_id,37390,2/26/25,12/31/99
