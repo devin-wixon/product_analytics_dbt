@@ -247,6 +247,11 @@ Integer program_id derived from event_value or event_path, only for events where
 {% enddocs %}
 
 
+{% docs program_resource_type_id %}
+Unique identifier for models that aggregate by program id and resource type.
+{% enddocs %}
+
+
 {% docs quarter_of_year_number %}
 Quarter number of the year as an integer (1-4), extracted using quarter() function.
 {% enddocs %}
