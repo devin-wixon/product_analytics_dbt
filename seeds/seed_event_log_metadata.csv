@@ -42,9 +42,9 @@ resource.video.pause,keep,video_action,,"Paused a video; note that as of 091025 
 resource.video.play,keep,video_action,,"Clicked play on a video; note that as of 091025 not all videos can have interactions captured, so some may be missing this event.",,,resource_id,,9/10/25,12/31/99
 router.enter,keep,page_navigation,,User entered a page,x,path_entered,,,2/26/25,12/31/99
 router.left,keep,page_navigation,"event_value = route user just left, path = route user navigating TO",User leaves a page,x,path_left,,,2/26/25,12/31/99
-support.and.feedback.menu.contact.district.admin.button.click,supportAndFeedback.menu.contactDistrictAdmin.button.click,support_request,Empty event_value,Clicked on button 'Contact district admin' at support and feedback menu ,,,,,8/25/25,12/31/99
-support.and.feedback.menu.join.feedback.community.button.click,camelcase as above,join_feedback_community,Empty event_value,"Clicked on ""Join Feedback Community"" in support and feedback menu. Launches the form to join Innovator's Pond",,,,,7/25/25,12/31/99
-support.and.feedback.menu.support.button.click,camelcase as above,support_request,Empty event_value,Clicked on button 'Support & Feedback' at support and feedback menu,,,,,8/25/25,12/31/99
+support.and.feedback.menu.contact.district.admin.button.click,"supportAndFeedback.menu.contactDistrictAdmin[ should be what the button says, not ""button"", in alignment with other event names, many of which involve button clicks]",support_request,Empty event_value,Clicked on button 'Contact district admin' at support and feedback menu ,,,,,8/25/25,12/31/99
+support.and.feedback.menu.join.feedback.community.button.click,supportAndFeedback.menu.joinFeedbackCommunity,join_feedback_community,Empty event_value,"Clicked on ""Join Feedback Community"" in support and feedback menu. Launches the form to join Innovator's Pond",,,,,7/25/25,12/31/99
+support.and.feedback.menu.support.button.click,supportAndFeedback.menu.support,support_request,Empty event_value,Clicked on button 'Support & Feedback' at support and feedback menu,,,,,8/25/25,12/31/99
 weekly.planner.modal.close,weeklyPlanner.modal.close,planner_modal,,Closed weekly planner modal,,,program_id,10,4/11/25,12/31/99
 weekly.planner.modal.lastWeeklyPlanner.open,weeklyPlanner.modal.lastWeeklyPlanner.launch,planner_launch,,Opened last weekly planner opened,,,program_id,10,4/11/25,12/31/99
 weekly.planner.modal.open,camelcase as above,planner_modal,event_value is null,Opened weekly planner modal,,,,null,4/11/25,12/31/99
