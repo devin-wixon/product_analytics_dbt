@@ -3,7 +3,10 @@
 with
 
 events as (
-    select *
+    select *,
+    -- functionality within the broad weekly planner
+    left(event_category, 7) = 'planner' 
+        and event_category != 'planner_modal' as is_planner_event,
     -- use * with exclude, not explicit select; cols may be dynamic
     from
         {{ ref('fct_events') }}
