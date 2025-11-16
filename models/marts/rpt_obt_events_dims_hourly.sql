@@ -15,9 +15,9 @@ final as (
         client_timestamp_hour,
         server_event_date,
         -- event details
-            -- human readable: for resources filters and resource more sidebarß
+        -- human readable: for resources filters and resource more sidebarß
         event_value_human_readable,
-            -- path: for pageviews
+        -- path: for pageviews
         event_path,
         event_category,
         is_planner_event,
