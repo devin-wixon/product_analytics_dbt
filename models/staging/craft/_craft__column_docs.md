@@ -42,6 +42,13 @@ User ID of the author of the record; not editable in UI.
 `program_id` that the resource was copied from when it was created.
 {% enddocs %}
 
+
+{% docs resource_program_id %}
+The `program_id` value that is uniquely associated with the resource.
+Occasionally but rarely, a `resource_id` will show use in a different program, so this value is preferred over the event's `program_id` to identify the program associated with the resource.
+{% enddocs %}
+
+
 {% docs resource_provider_id %}
 Joins with the `resource_providers` table and identifies the type of provider for the resource we're embedding.
 Examples of resource providers: Sprout Video, URL, Youtube, Vimeo.
