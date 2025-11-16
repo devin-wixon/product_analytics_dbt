@@ -14,5 +14,4 @@ models:
           - not_null
       - name: resource_type
         description: "{{ doc('resource_type') }}"
-      - name: program_resource_type_id
-        description: "{{ doc('program_resource_type_id') }}"
+
