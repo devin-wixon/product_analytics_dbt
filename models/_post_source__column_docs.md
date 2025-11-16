@@ -116,7 +116,7 @@ True means admins (with permission) will be redirected to onboarding as soon the
 
 {% docs is_planner_event %}
 Boolean: True if the `event_category` starts with `planner`, but isn't the planner modal.
-Needed to assess the broad launch and use of any functionality within the weekly planner; the modal is used only to launch it.,
+Needed to assess the broad launch and use of any functionality within the weekly planner; the modal is used only to launch it.
 {% enddocs %}
 
 

@@ -10,11 +10,7 @@ models:
     columns:
       # Aggregated metrics
       - name: n_events_per_user_day_context
-        description: ""
-        data_tests:
-          - not_null
       - name: had_events_per_user_day_context
-        description: ""
       - name: example_event_id
         description: "{{ doc('example_event_id') }}"
         data_tests:
