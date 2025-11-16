@@ -21,8 +21,8 @@ resources as (
 event_resource_id_agg as (
     select 
         resource_id,
-        min(server_event_date) as first_active_date_resource_id,
-        max(server_event_date) as last_active_date_resource_id
+        min(server_event_date) as first_event_date_resource_id,
+        max(server_event_date) as last_event_date_resource_id
     from
         {{ ref('fct_events') }}
     group by
@@ -35,8 +35,8 @@ joined as (
         programs.program_name as program_name,
         resources.resource_type,
         count(resources.resource_id) as n_resources_in_program_resource_type,
-        min(event_resource_id_agg.first_active_date_resource_id) as first_active_date_program_resource_type,
-        max(event_resource_id_agg.last_active_date_resource_id) as last_active_date_program_resource_type
+        min(event_resource_id_agg.first_event_date_resource_id) as first_event_date_program_resource_type,
+        max(event_resource_id_agg.last_event_date_resource_id) as last_event_date_program_resource_type
     from resources
     left join event_resource_id_agg 
         on resources.resource_id = event_resource_id_agg.resource_id
