@@ -4,7 +4,6 @@ with
 
 events as (
     select *,
-    -- functionality within the broad weekly planner
     left(event_category, 7) = 'planner' 
         and event_category != 'planner_modal' as is_planner_event,
     -- use * with exclude, not explicit select; cols may be dynamic
@@ -108,6 +107,8 @@ datespine as (
 joined as (
     select
         events.*,
+        -- hour in a 24 hour format from the local
+        hour(events.client_timestamp) as client_timestamp_hour,
         users_by_date.* exclude (server_event_date, user_id),
         districts.* exclude (district_id),
         programs.* exclude (program_id),

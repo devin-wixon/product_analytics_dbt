@@ -17,6 +17,8 @@ models:
         description: "{{ doc('server_timestamp') }}"
       - name: client_timestamp
         description: "{{ doc('client_timestamp') }}"
+      - name: client_timestamp_hour
+        description: "{{ doc('client_timestamp_hour') }}"
       - name: user_id
         description: "{{ doc('user_id') }}"
       - name: event_name

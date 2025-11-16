@@ -30,6 +30,8 @@ models:
         description: "{{ doc('server_event_date') }}"
         data_tests:
           - not_null
+      - name: client_timestamp_hour
+        description: "{{ doc('client_timestamp_hour') }}"
       - name: event_category
         description: "{{ doc('event_category') }}"
       - name: is_planner_event

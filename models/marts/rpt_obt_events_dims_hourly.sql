@@ -12,8 +12,7 @@ final as (
     select
         user_id,
         user_role,
-        -- create hour from the server timestamp
-        date_trunc('hour', server_timestamp) as server_event_date_hour,
+        client_timestamp_hour,
         server_event_date,
         -- event details
             -- human readable: for resources filters and resource more sidebarß

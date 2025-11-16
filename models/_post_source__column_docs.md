@@ -33,6 +33,11 @@ Date of the event, derived from client timestamp.
 {% enddocs %}
 
 
+{% docs client_timestamp_hour %}
+The hour in 24-hour format from the client timestamp on the event.
+See notes in `client_timestamp`.
+{% enddocs %}
+
 {% docs date_day %}
 The calendar date serving as the natural key for the date dimension.
 {% enddocs %}
