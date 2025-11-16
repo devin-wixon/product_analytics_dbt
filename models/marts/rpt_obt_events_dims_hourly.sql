@@ -12,11 +12,16 @@ final as (
     select
         user_id,
         user_role,
+        client_timestamp_hour,
         server_event_date,
+        -- event details
+        -- human readable: for resources filters and resource more sidebar
+        event_value_human_readable,
+        -- path: for pageviews
         event_path,
         event_category,
-        search_string,
         is_planner_event,
+        search_string,
         -- program level
         program_id,
         program_name,

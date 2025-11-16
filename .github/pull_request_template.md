@@ -7,6 +7,7 @@
 ## Type of Change
 
 - [ ] New model
+- [ ] New column in existing model
 - [ ] Bugfix
 - [ ] Refactoring
 - [ ] Documentation
@@ -41,6 +42,7 @@
 
 ## Checklist
 - [ ] My SQL follows the [Frog Street Style Guide](https://frogstreetpress.sharepoint.com/:w:/s/DigitalProductInitiatives/EUFT5R_p38RPuaDg3C53jMYB0n2GTrXR1baGD20AagvZ1A?e=XLHG4K)
+- [ ] I have linted any models touched using the .sqlfluff configuration
 - [ ] `dbt build` completes successfully and dbt tests pass (if not, detail why)
 - [ ] I have materialized my models appropriately.
 - [ ] I have added appropriate tests and documentation to any new models.

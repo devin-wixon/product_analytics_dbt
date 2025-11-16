@@ -33,6 +33,11 @@ Date of the event, derived from client timestamp.
 {% enddocs %}
 
 
+{% docs client_timestamp_hour %}
+The hour in 24-hour format from the client timestamp on the event.
+See notes in `client_timestamp`.
+{% enddocs %}
+
 {% docs date_day %}
 The calendar date serving as the natural key for the date dimension.
 {% enddocs %}
@@ -109,8 +114,9 @@ True means admins (with permission) will be redirected to onboarding as soon the
 {% enddocs %}
 
 
-{% docs is_planner_open_event %}
-Boolean: True if event_name is 'weekly.planner.modal.program.week.select' or 'weekly.planner.modal.lastWeeklyPlanner.open', otherwise false.
+{% docs is_planner_event %}
+Boolean: True if the `event_category` starts with `planner`, but isn't the planner modal.
+Needed to assess the broad launch and use of any functionality within the weekly planner; the modal is used only to launch it.
 {% enddocs %}
 
 
@@ -118,6 +124,7 @@ Boolean: True if event_name is 'weekly.planner.modal.program.week.select' or 'we
 Boolean: True if either dbt snapshots identifies a row as no longer in the source data _or_ the program has a deleted date.
 Note that deleted programs are typically retained in Craft, with a deleted date added.
 {% enddocs %}
+
 
 {% docs is_resource_deleted %}
 Boolean: True if either dbt snapshots identifies a row as no longer in the source data _or_ the resource has a deleted date.
