@@ -16,6 +16,7 @@ final as (
         event_path,
         event_category,
         search_string,
+        is_planner_event,
         -- program level
         program_id,
         program_name,
