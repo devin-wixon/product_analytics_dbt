@@ -1,0 +1,62 @@
+version: 2
+
+models:
+  - name: rpt_obt_events_dims_hourly
+    description: |
+      Purpose: Provides aggregated event counts grouped by user, hour, date, and contextual dimensions for analytics and dashboard reporting.
+      Granularity: One row per unique combination of user, hour, date, and event context dimensions (event category, program, resource, etc.).
+      Filters: Excludes events where `user_role` is 'student'.
+      Notes: Builds on `rpt_obt_events` by grouping events across dimensions while excluding high-cardinality fields like timestamps and event-specific details. Designed for efficient dashboard queries.
+    columns:
+      # Aggregated metrics
+      - name: n_events_per_user_day_context
+        description: ""
+        data_tests:
+          - not_null
+      - name: had_events_per_user_day_context
+        description: ""
+      - name: example_event_id
+        description: "{{ doc('example_event_id') }}"
+        data_tests:
+          - unique
+          - not_null
+
+      # Event dimension columns
+      - name: user_id
+        description: "{{ doc('user_id') }}"
+        data_tests:
+          - not_null
+      - name: server_event_date
+        description: "{{ doc('server_event_date') }}"
+        data_tests:
+          - not_null
+      - name: event_category
+        description: "{{ doc('event_category') }}"
+      - name: is_planner_event
+        description: "{{ doc('is_planner_event') }}"
+      - name: program_id
+        description: "{{ doc('program_id') }}"
+      - name: resource_id
+        description: "{{ doc('resource_id') }}"
+      - name: user_role
+        description: "{{ doc('user_role') }}"
+      - name: district_id
+        description: "{{ doc('district_id') }}"
+      - name: district_name
+        description: "{{ doc('district_name') }}"
+      - name: district_type
+        description: "{{ doc('district_type') }}"
+      - name: district_state
+        description: "{{ doc('district_state') }}"
+      - name: week_monday_date
+        description: "{{ doc('week_monday_date') }}"
+      - name: month_start_date
+        description: "{{ doc('month_start_date') }}"
+      - name: short_weekday_name
+        description: "{{ doc('short_weekday_name') }}"
+      - name: year_month_sort
+        description: "{{ doc('year_month_sort') }}"
+      - name: school_year_label
+        description: "{{ doc('school_year_label') }}"
+      - name: school_year_start_date
+        description: "{{ doc('school_year_start_date') }}"
