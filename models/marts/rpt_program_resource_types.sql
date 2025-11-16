@@ -16,7 +16,7 @@ resources as (
         {{ ref('dim_resources_most_recent') }}
 ),
 
--- get start and end dates for each resource id and program combination
+-- get first and most recent dates for each resource id and program combination
 -- a resource-id is program-specific
 event_resource_id_agg as (
     select 
