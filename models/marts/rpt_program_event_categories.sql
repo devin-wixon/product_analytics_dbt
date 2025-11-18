@@ -39,7 +39,8 @@ joined as (
         events.first_active_date_program_category,
         events.last_active_date_program_category
     from categories
-    left join events
+    -- includes only program categories with events
+    inner join events
         on categories.event_category = events.event_category
 ),
 
