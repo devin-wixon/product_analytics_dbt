@@ -158,14 +158,14 @@ semantic_models:
 
 
     measures:
-      - name: event_level_events
+      - name: n_events
         description: "Count of individual events captured in the Lilypad platform. Note that the count may change due to event logging changes, rather than due to user volume or user behavior."
         agg: count
         expr: 1
         create_metric: True
         label: "Event Level: Event Count"
 
-      - name: event_level_users
+      - name: n_users
         description: |
           Count of unique users who generated events within the filters.
 
@@ -181,21 +181,21 @@ semantic_models:
         create_metric: True
         label: "Event Level: Distinct Users"
 
-      - name: event_level_districts
+      - name: n_districts
         description: "Count of unique districts associated with the events."
         agg: count_distinct
         expr: district_id
         create_metric: True
         label: "Event Level: Distinct Districts"
 
-      - name: event_level_programs
+      - name: n_programs
         description: "Count of unique programs associated with the events."
         agg: count_distinct
         expr: program_id
         create_metric: True
         label: "Event Level: Distinct Programs"
 
-      - name: event_level_resources
+      - name: n_resources
         description: "Count of unique resources associated with the events."
         agg: count_distinct
         expr: resource_id
