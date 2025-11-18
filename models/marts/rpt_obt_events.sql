@@ -1,9 +1,6 @@
--- using exclude rather than explicit columns
--- to ensure new columns are included
 with
 
 events as (
-        -- use * with exclude, not explicit select; cols may be dynamic
     select *,
     left(event_category, 7) = 'planner' 
         and event_category != 'planner_modal' as is_planner_event
