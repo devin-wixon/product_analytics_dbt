@@ -3,9 +3,10 @@
 with
 
 events as (
-    select *,
-    left(event_category, 7) = 'planner' 
-        and event_category != 'planner_modal' as is_planner_event,
+    select
+        *,
+        left(event_category, 7) = 'planner'
+        and event_category != 'planner_modal' as is_planner_event
     -- use * with exclude, not explicit select; cols may be dynamic
     from
         {{ ref('fct_events') }}
@@ -58,7 +59,7 @@ resources as (
     select
         resource_id,
         resource_program_id,
-        -- occasional errors lead to a different program for the resource
+        -- occasional errors: event program may differ from resource's program
         resource_program_name,
         -- resource_author_id,
         -- resource_code,
@@ -108,13 +109,13 @@ joined as (
     select
         events.*,
         -- hour in a 24 hour format from the local
-        hour(events.client_timestamp) as client_timestamp_hour,
         users_by_date.* exclude (server_event_date, user_id),
         districts.* exclude (district_id),
         programs.* exclude (program_id),
-        -- add focus_area table later as needed
         resources.* exclude (resource_id),
-        datespine.* exclude (date_day)
+        -- add focus_area table later as needed
+        datespine.* exclude (date_day),
+        hour(events.client_timestamp) as client_timestamp_hour
     from
         events
     left join
