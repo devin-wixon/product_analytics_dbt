@@ -29,6 +29,8 @@ models:
         description: "{{ doc('event_category') }}"
       - name: event_type
         description: "{{ doc('event_type') }}"
+        data tests:
+          - not null
       - name: event_value_human_readable
         description: "{{ doc('event_value_human_readable') }}"
       - name: server_event_date
