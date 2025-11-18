@@ -7,3 +7,5 @@ macros:
     description: '{{ doc("is_distributed_demo_district_description") }}'
   - name: dev_limit
     description: '{{ doc("dev_limit_description") }}'
+  - name: assign_event_type
+    description: '{{ doc("assign_event_type_description") }}'
