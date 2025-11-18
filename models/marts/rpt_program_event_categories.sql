@@ -19,6 +19,8 @@ events as
     max(server_event_date) as last_active_date_program_category
 from
     {{ ref('fct_events') }}
+where
+    program_id is not null
 group by
     event_category,
     program_id
@@ -39,10 +41,6 @@ joined as (
     from categories
     left join events
         on categories.event_category = events.event_category
-    group by
-        program_event_category_id,
-        categories.event_category,
-        events.program_id
 ),
 
 final as (
@@ -54,4 +52,4 @@ select *
 from
     final
 order by
-    program_resource_type_id
+    program_event_category_id
