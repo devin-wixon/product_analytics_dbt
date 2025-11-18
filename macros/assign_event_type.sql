@@ -13,7 +13,7 @@
         USAGE:
         select
             event_category,
-            {%raw%}{{ assign_event_type('event_category') }}{%endraw%} as event_type
+            {{ assign_event_type('event_category') }} as event_type
         from your_table
     -#}
 
