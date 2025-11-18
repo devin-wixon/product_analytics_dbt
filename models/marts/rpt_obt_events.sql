@@ -3,10 +3,10 @@
 with
 
 events as (
+        -- use * with exclude, not explicit select; cols may be dynamic
     select *,
     left(event_category, 7) = 'planner' 
-        and event_category != 'planner_modal' as is_planner_event,
-    -- use * with exclude, not explicit select; cols may be dynamic
+        and event_category != 'planner_modal' as is_planner_event
     from
         {{ ref('fct_events') }}
 ),
