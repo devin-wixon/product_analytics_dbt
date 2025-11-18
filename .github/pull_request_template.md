@@ -7,6 +7,7 @@
 ## Type of Change
 
 - [ ] New model
+- [ ] New macro
 - [ ] New column in existing model
 - [ ] Bugfix
 - [ ] Refactoring

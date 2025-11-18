@@ -30,6 +30,8 @@ models:
         description: "{{ doc('client_timestamp_hour') }}"
       - name: event_category
         description: "{{ doc('event_category') }}"
+      - name: event_type
+        description: "{{ doc('event_type') }}"
       - name: is_planner_event
         description: "{{ doc('is_planner_event') }}"
       - name: program_id
