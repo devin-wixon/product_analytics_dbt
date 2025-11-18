@@ -163,7 +163,7 @@ semantic_models:
         agg: count
         expr: 1
         create_metric: True
-        label: "Event Level: Event Count"
+        label: "Event Count"
 
       - name: n_users
         description: |
@@ -179,25 +179,25 @@ semantic_models:
         agg: count_distinct
         expr: user_id
         create_metric: True
-        label: "Event Level: Distinct Users"
+        label: "# Active Users"
 
       - name: n_districts
         description: "Count of unique districts associated with the events."
         agg: count_distinct
         expr: district_id
         create_metric: True
-        label: "Event Level: Distinct Districts"
+        label: "# Districts"
 
       - name: n_programs
         description: "Count of unique programs associated with the events."
         agg: count_distinct
         expr: program_id
         create_metric: True
-        label: "Event Level: Distinct Programs"
+        label: "# Programs"
 
       - name: n_resources
         description: "Count of unique resources associated with the events."
         agg: count_distinct
         expr: resource_id
         create_metric: True
-        label: "Event Level: Distinct Resources"
+        label: "# Resources"
