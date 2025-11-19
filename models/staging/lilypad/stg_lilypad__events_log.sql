@@ -15,8 +15,9 @@ final as (
         name::string as event_name,
         path::string as event_path,
         event_value::string as event_value,
-        -- category, -- leave category out as unreliable
-        event_value_human_readable,
+        -- category, -- leave category out as unreliable; use category in metadata seed
+        -- replace curly apostrophes with straight ones for consistency when aggregating
+        replace(event_value_human_readable, chr(8217), chr(39)) as event_value_human_readable,
 
         -- timestamps
         server_timestamp::timestamp as server_timestamp,

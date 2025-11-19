@@ -7,7 +7,6 @@ events as (
 
 -- not forcing a granularity
 -- group by all columns, which are created dynamically and can change
--- dims include: server date, client date, path_entered, framework_item...
 final as (
     select
         user_id,
@@ -20,6 +19,7 @@ final as (
         -- path: for pageviews
         event_path,
         event_category,
+        event_type,
         is_planner_event,
         search_string,
         -- program level

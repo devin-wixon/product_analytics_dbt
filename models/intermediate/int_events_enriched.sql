@@ -174,7 +174,6 @@ events_add_pivots as
   {%- endif -%}
 
     -- non-foreign key
-    -- TAG IMPROVEMENT: Union the column sets and apply try_cast to only id_join_columns
     -- rest of loop is identical 
     {%- if not_id_columns -%}
         {%- for col in not_id_columns -%}
@@ -210,21 +209,22 @@ events_add_pivots as
     events_add_column_info
 ),
 
-final as 
-(select 
+final as
+(select
    events_add_pivots.* exclude (
-        -- event_path, 
-        -- event_value, 
-        event_value_joins_to, 
+        -- event_path,
+        -- event_value,
+        event_value_joins_to,
         event_value_not_id,
-        notes, 
-        event_trigger, 
-        handled_as_exception_in_code, 
-        example_values, 
-        event_capture_end_date, 
+        notes,
+        event_trigger,
+        handled_as_exception_in_code,
+        example_values,
+        event_capture_end_date,
         event_capture_start_date
-        )
-        
+        ),
+    {{ assign_event_type('event_category') }} as event_type
+
     -- don't persist ETL
     -- _source_filename,
     -- _loaded_at_utc,

@@ -9,12 +9,10 @@ events as (
 
 
 final as (
-    select
-        events.*
+    select *
     from
         events
-    )
-
+)
 
 select *
 from

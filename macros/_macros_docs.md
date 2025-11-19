@@ -34,3 +34,9 @@ By default, limits to the number of rows specified in the macro call (default: 1
 * To disable: `dbt run --vars '{disable_dev_limit: true}'`
 * To override: `dbt run --vars '{dev_limit_rows: 500}'`
 {% enddocs %}
+
+
+{% docs assign_event_type_description %}
+Assigns each `event_category` value a higher-level event type based on a hardcoded mapping for reporting.  
+**Returns:** String value representing the event type, or NULL if the event_category doesn't have a defined mapping.
+{% enddocs %}
