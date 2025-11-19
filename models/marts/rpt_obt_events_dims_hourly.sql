@@ -19,6 +19,7 @@ final as (
         -- path: for pageviews
         event_path,
         event_category,
+        event_type,
         is_planner_event,
         search_string,
         -- program level
