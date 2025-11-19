@@ -1,21 +1,21 @@
 event_name,proposed_new_event_name,event_category,notes,event_trigger,handled_as_exception_in_code,event_value_not_id,event_value_joins_to,example_values,event_capture_start_date,event_capture_end_date
 auth.login,auth.login,login,event_value is user_id; don't put in join_to so not add'l column added,Use logged in successfully,,,,147434,4/7/25,12/31/99
-auth.logout,auth.logout,logout,event_value is user_id; don't put in join_to so not add'l column added,Only clicking log out will trigger this (not closing all browser tabs),,,,147434,2/27/25,12/31/99
-CTA.PopUp.programConversion.viewAt,popup.programConversion.view,pop_up_view,,Shown the pop up for a backend program conversion (such as from document library program to fully native program),,,program_id,118,9/22/25,12/31/99
-CTA.PopUp.programConversion.ctaClickedAt,popup.programConversion.click,pop_up_click,,Dismissed the pop up for a backend program conversion (such as from document library program to fully native program),,,program_id,118,9/22/25,12/31/99
-CTA.PopUp.programConversion.dismissedAt,popup.programConversion.dismiss,pop_up_dismiss,,Clicked the pop up for a backend program conversion (such as from document library program to fully native program),,,program_id,118,9/22/25,12/31/99
+auth.logout,dash.logout,logout,event_value is user_id; don't put in join_to so not add'l column added,Only clicking log out will trigger this (not closing all browser tabs),,,,147434,2/27/25,12/31/99
+CTA.PopUp.programConversion.viewAt,dash.popup.programConversion.view,pop_up_view,,Shown the pop up for a backend program conversion (such as from document library program to fully native program),,,program_id,118,9/22/25,12/31/99
+CTA.PopUp.programConversion.ctaClickedAt,dash.popup.programConversion.click,pop_up_click,,Dismissed the pop up for a backend program conversion (such as from document library program to fully native program),,,program_id,118,9/22/25,12/31/99
+CTA.PopUp.programConversion.dismissedAt,dash.popup.programConversion.dismiss,pop_up_dismiss,,Clicked the pop up for a backend program conversion (such as from document library program to fully native program),,,program_id,118,9/22/25,12/31/99
 CTAPopUp.splash2025.ctaClickedAt,NA,pop_up_click,event_value is date; can get from other event log columns,Clicked the pop-up for Splash 2025,,,,,5/19/25,12/31/99
 CTAPopUp.splash2025.dismissedAt,NA,pop_up_dismiss,event_value is date; can get from other event log columns,Dismissed the pop-up for Splash 2025,,,,,5/19/25,12/31/99
 CTAPopUp.splash2025.viewAt,NA,pop_up_view,event_value is date; can get from other event log columns,Viewed the pop-up for Splash 2025,,,,,5/19/25,12/31/99
-device.orientation,keep,interface,,,,device_orientation,,portrait-secondary,2/26/25,12/31/99
-device.resolution,keep,interface,,,,screen_resolution,,962x601,2/26/25,12/31/99
-productLaunchOpen,keep,app_launch,Note the event_value is the name not the application_id,User opened a third party application product,,application_name,,Cognitive ToyBox Web Portal,2/26/25,12/31/99
+device.orientation,browser.orientation,interface,,,,device_orientation,,portrait-secondary,2/26/25,12/31/99
+device.resolution,browser.resolution,interface,,,,screen_resolution,,962x601,2/26/25,12/31/99
+productLaunchOpen,products.productLaunch,app_launch,Note the event_value is the name not the application_id,User opened a third party application product,,application_name,,Cognitive ToyBox Web Portal,2/26/25,12/31/99
 program.resource.accordion.close,resourceCenter.accordion.close,resources_accordion,,"Close a ""top level"" (blue bar) accordion",,,program_group_id,84,4/11/25,12/31/99
 program.resource.accordion.list.close,resourceCenter.accordion.list.close,resources_accordion,,"Close an internal accordion filter (a folder, not a grouping level)",,,folder_id,"18856, 5176",4/11/25,12/31/99
 program.resource.accordion.list.open,resourceCenter.accordion.list.open,resources_accordion,,"Open an internal accordion filter (a folder, not a grouping level)",,,folder_id,"18856, 5176",4/11/25,12/31/99
 program.resource.accordion.open,resourceCenter.accordion.open,resources_accordion,,"Open a ""top level"" (blue bar) accordion",,,program_group_id,"18856, 5176",4/11/25,12/31/99
-weekly.planner.program.week.filter.close,keep,planner_filter,event_value_human_readable is a concatenation; not recreatable through data (elements will be in restructured events),"Closed weekly planner filter (by focus area, standard)",,,program_id,10,4/11/25,12/31/99
-weekly.planner.program.week.filter.open,keep,planner_filter,event_value_human_readable is a concatenation; not recreatable through data (elements will be in restructured events),Opened weekly planner filter,,,program_id,10,4/11/25,12/31/99
+weekly.planner.program.week.filter.close,weekPlanner.filter.close,planner_filter,event_value_human_readable is a concatenation; not recreatable through data (elements will be in restructured events),"Closed weekly planner filter (by focus area, standard)",,,program_id,10,4/11/25,12/31/99
+weekly.planner.program.week.filter.open,weekPlanner.filter.open,planner_filter,event_value_human_readable is a concatenation; not recreatable through data (elements will be in restructured events),Opened weekly planner filter,,,program_id,10,4/11/25,12/31/99
 program.resource.search,resourceCenter.search,resource_search,,User searched for resources,,search_string,,Fernando,2/26/25,12/31/99
 weekly.planner.program.week.filter.deselect,weeklyPlanner.week.filter.deselect,planner_filter,event_value_human_readable is a concatenation; not recreatable through data (elements will be in restructured events),Deselect focus area type on weekly planner filter,x,focus_area_value,,"greeting_circle, inquiry_and_exploration",4/11/25,12/31/99
 weekly.planner.program.week.filter.deselect.all,weeklyPlanner.week.filter.deselect.all,planner_filter,event_value_human_readable is a concatenation; not recreatable through data (elements will be in restructured events),Deselect all focus area types on weekly planner filter,,,program_id,10,4/11/25,12/31/99

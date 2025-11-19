@@ -1,14 +1,31 @@
+{{ config(
+    materialized='incremental',
+    incremental_strategy='append'
+) }}
+
 with
 
 events as (
     select distinct
         user_id,
-        server_event_date
+        server_event_date,
+        -- batch tracking for incremental loads
+        to_number(
+            {% if is_incremental() %}
+            ( select max(dbt_row_batch_id) + 1 from {{ this }} )
+            {% else %}
+            0
+            {% endif %}
+            , 38, 0
+        ) as dbt_row_batch_id
     from
         {{ ref('fct_events') }}
     where
         user_id is not null
         and server_event_date is not null
+        {% if is_incremental() %}
+        and server_event_date > (select max(server_event_date) from {{ this }})
+        {% endif %}
 ),
 
 users_history as (
@@ -28,6 +45,7 @@ user_events_exact as (
     select
         events.user_id,
         events.server_event_date,
+        events.dbt_row_batch_id,
         users_history.district_id,
         users_history.user_invite_status,
         users_history.user_role,
@@ -47,6 +65,7 @@ user_events_fallback as (
     select
         events.user_id,
         events.server_event_date,
+        events.dbt_row_batch_id,
         users_history.district_id,
         users_history.user_invite_status,
         users_history.user_role,
@@ -100,7 +119,8 @@ final as (
         district_id,
         user_invite_status,
         user_role,
-        match_type
+        match_type,
+        dbt_row_batch_id
     from
         user_events_exact
 
@@ -112,7 +132,8 @@ final as (
         district_id,
         user_invite_status,
         user_role,
-        match_type
+        match_type,
+        dbt_row_batch_id
     from
         user_events_fallback
 )

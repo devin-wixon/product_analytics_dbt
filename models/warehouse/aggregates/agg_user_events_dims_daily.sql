@@ -1,7 +1,25 @@
+{{ config(
+    materialized='incremental',
+    incremental_strategy='append'
+) }}
+
 with events as (
-    select *
+    select
+        *,
+        -- batch tracking for incremental loads
+        to_number(
+            {% if is_incremental() %}
+            ( select max(dbt_row_batch_id) + 1 from {{ this }} )
+            {% else %}
+            0
+            {% endif %}
+            , 38, 0
+        ) as dbt_row_batch_id
     from
         {{ ref('fct_events') }}
+    {% if is_incremental() %}
+    where server_event_date > (select max(server_event_date) from {{ this }})
+    {% endif %}
 ),
 
 user_district_role_date as (
@@ -14,6 +32,9 @@ user_district_role_date as (
         match_type
     from
         {{ ref('int_users_district_role_date') }}
+    {% if is_incremental() %}
+    where server_event_date > (select max(server_event_date) from {{ this }})
+    {% endif %}
 ),
 
 event_user_joined as (
@@ -64,7 +85,8 @@ user_daily_activity as (
         event_category,
         user_role,
         user_invite_status,
-        match_type
+        match_type,
+        dbt_row_batch_id
     from
         event_user_joined
     group by all

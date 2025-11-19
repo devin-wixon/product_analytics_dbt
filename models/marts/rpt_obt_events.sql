@@ -1,13 +1,30 @@
+{{ config(
+    materialized='incremental',
+    incremental_strategy='append'
+) }}
+
 with
 
 events as (
     select
         *,
         left(event_category, 7) = 'planner'
-        and event_category != 'planner_modal' as is_planner_event
+        and event_category != 'planner_modal' as is_planner_event,
+        -- batch tracking for incremental loads
+        to_number(
+            {% if is_incremental() %}
+            ( select max(dbt_row_batch_id) + 1 from {{ this }} )
+            {% else %}
+            0
+            {% endif %}
+            , 38, 0
+        ) as dbt_row_batch_id
 
     from
         {{ ref('fct_events') }}
+    {% if is_incremental() %}
+    where server_event_date > (select max(server_event_date) from {{ this }})
+    {% endif %}
 ),
 
 users_by_date as (
