@@ -7,14 +7,7 @@ with events as (
     select
         *,
         -- batch tracking for incremental loads
-        to_number(
-            {% if is_incremental() %}
-            ( select max(dbt_row_batch_id) + 1 from {{ this }} )
-            {% else %}
-            0
-            {% endif %}
-            , 38, 0
-        ) as dbt_row_batch_id
+        {{ generate_incremental_batch_id() }}
     from
         {{ ref('fct_events') }}
     {% if is_incremental() %}

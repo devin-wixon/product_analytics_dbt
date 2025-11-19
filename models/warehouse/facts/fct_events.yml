@@ -47,3 +47,5 @@ models:
         description: "{{ doc('event_path') }}"
       - name: event_value
         description: "{{ doc('event_value') }}"
+      - name: dbt_row_batch_id
+        description: "{{ doc('dbt_row_batch_id') }}"

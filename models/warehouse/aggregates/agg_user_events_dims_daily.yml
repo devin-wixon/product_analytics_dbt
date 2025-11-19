@@ -52,6 +52,9 @@ models:
       - name: match_type
         description: "Indicates whether the user record was matched via 'exact' SCD logic or 'fallback' temporal proximity. Used for data quality monitoring."
 
+      - name: dbt_row_batch_id
+        description: "{{ doc('dbt_row_batch_id') }}"
+
       # Dynamically generated activity flag columns
       # Note: These columns are generated dynamically based on event categories in the seed data
       # The pattern is: had_[category]_activity_per_user_day_context

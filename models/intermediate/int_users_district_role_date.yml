@@ -26,6 +26,8 @@ models:
         description: "{{ doc('user_role') }}"
       - name: match_type
         description: "{{ doc('user_role_match_type') }}"
+      - name: dbt_row_batch_id
+        description: "{{ doc('dbt_row_batch_id') }}"
     tests:
       - dbt_utils.unique_combination_of_columns:
           arguments:

@@ -37,6 +37,12 @@ By default, limits to the number of rows specified in the macro call (default: 1
 
 
 {% docs assign_event_type_description %}
-Assigns each `event_category` value a higher-level event type based on a hardcoded mapping for reporting.  
+Assigns each `event_category` value a higher-level event type based on a hardcoded mapping for reporting.
 **Returns:** String value representing the event type, or NULL if the event_category doesn't have a defined mapping.
+{% enddocs %}
+
+
+{% docs generate_incremental_batch_id_description %}
+Generates a batch tracking ID for incremental loads. Returns 0 for full refreshes, or max existing batch ID + 1 for incremental runs.
+**Returns:** NUMBER(38,0) column named `dbt_row_batch_id`.
 {% enddocs %}
