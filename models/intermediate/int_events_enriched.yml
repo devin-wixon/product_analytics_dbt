@@ -11,10 +11,11 @@ models:
       # model is incremental, so confirm full count
       # only validate last 7 days to reduce compute costs
       - dbt_expectations.expect_table_row_count_to_equal_other_table:
-          compare_model: ref('stg_lilypad__events_log')
-          factor: 1.0
-          row_condition: "server_event_date >= current_date - 7"
-          compare_row_condition: "date(server_timestamp) >= current_date - 7"
+          arguments:
+            compare_model: ref('stg_lilypad__events_log')
+            factor: 1.0
+            row_condition: "server_event_date >= current_date - 7"
+            compare_row_condition: "date(server_timestamp) >= current_date - 7"
     columns:
       - name: event_id
         description: "{{ doc('event_id') }}"
