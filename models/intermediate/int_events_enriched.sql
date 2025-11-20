@@ -44,7 +44,7 @@ with events as (
         {{ generate_incremental_batch_id() }}
     from {{ ref('stg_lilypad__events_log') }}
     {% if is_incremental() %}
-    where date(server_timestamp) > (select max(date(server_timestamp)) from {{ this }})
+    where date(server_timestamp) > (select max(server_event_date) from {{ this }})
     {% endif %}
     {{ dev_limit(1000) }}
 

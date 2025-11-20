@@ -1,19 +1,12 @@
 {{ config(
-    materialized='incremental',
-    incremental_strategy='append'
+    materialized='table'
 ) }}
 
 with
 events as (
-    select
-        *,
-        -- batch tracking for incremental loads
-        {{ generate_incremental_batch_id() }}
+    select *
     from
         {{ ref('rpt_obt_events') }}
-    {% if is_incremental() %}
-    where server_event_date > (select max(server_event_date) from {{ this }})
-    {% endif %}
 ),
 
 -- not forcing a granularity
@@ -54,7 +47,6 @@ aggregated as (
         year_month_sort,
         school_year_label,
         school_year_start_date,
-        dbt_row_batch_id,
         true as had_events_per_user_day_context,
         count(event_id) as n_events_per_user_day_context,
         -- using one event_id in the context as a key for traceability

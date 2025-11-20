@@ -6,7 +6,10 @@
 with
 
 events as (
-    select *
+    select
+        * exclude (dbt_row_batch_id),
+        -- batch tracking for incremental loads
+        {{ generate_incremental_batch_id() }}
     from
         {{ ref("int_events_enriched") }}
     {% if is_incremental() %}

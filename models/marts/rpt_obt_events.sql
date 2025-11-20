@@ -1,6 +1,5 @@
 {{ config(
-    materialized='incremental',
-    incremental_strategy='append'
+    materialized='table'
 ) }}
 
 with
@@ -9,15 +8,9 @@ events as (
     select
         *,
         left(event_category, 7) = 'planner'
-        and event_category != 'planner_modal' as is_planner_event,
-        -- batch tracking for incremental loads
-        {{ generate_incremental_batch_id() }}
-
+        and event_category != 'planner_modal' as is_planner_event
     from
         {{ ref('fct_events') }}
-    {% if is_incremental() %}
-    where server_event_date > (select max(server_event_date) from {{ this }})
-    {% endif %}
 ),
 
 users_by_date as (
