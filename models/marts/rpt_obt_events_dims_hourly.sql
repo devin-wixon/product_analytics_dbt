@@ -1,7 +1,3 @@
-{{ config(
-    materialized='table'
-) }}
-
 with
 events as (
     select *
