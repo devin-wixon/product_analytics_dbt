@@ -9,7 +9,7 @@ models:
     tests:
       - dbt_utils.equal_rowcount:
           config:
-            enabled: "{{ target.name != 'dev' }}"
+            enabled: "{{ target.name != 'Development' }}"
           arguments:
             compare_model: source('lilypad', 'raw_lilypad__events_log')
     columns:
