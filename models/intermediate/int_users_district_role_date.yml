@@ -9,6 +9,13 @@ models:
       Notes: Uses exact SCD matching first, then falls back to closest temporal match for orphaned events.
              Fallback logic uses directional distance calculation to find the nearest valid user record.
              Match type is tracked for data quality monitoring and debugging.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - user_id
+              - server_event_date
+    
     columns:
       - name: server_event_date
         description: "{{ doc('server_event_date') }}"
@@ -26,9 +33,5 @@ models:
         description: "{{ doc('user_role') }}"
       - name: match_type
         description: "{{ doc('user_role_match_type') }}"
-    tests:
-      - dbt_utils.unique_combination_of_columns:
-          arguments:
-            combination_of_columns:
-              - user_id
-              - server_event_date
+      - name: dbt_row_batch_id
+        description: "{{ doc('dbt_row_batch_id') }}"

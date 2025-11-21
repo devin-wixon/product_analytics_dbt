@@ -1,6 +1,6 @@
 {% macro is_distributed_demo_district(district_id) %}
 
-    {#-
+    {#
         This macro identifies demo districts given to organizations to use during Back to School 2025 onboarding.
         
         ARGUMENTS:
@@ -20,7 +20,7 @@
             district_id,
             {%raw%}{{ is_distributed_demo_district('district_id') }}{%endraw%} as is_distributed_demo_district
         from your_table
-    -#}
+    #}
 
     case
         when {{ district_id }} in (7871, 7877, 7870) then true

@@ -7,6 +7,13 @@ models:
       Granularity: One row per event occurrence.
       Filters: Excludes raw `event_path` and `event_value` columns; includes enriched and parsed event data.
       Notes: Events are enriched with dimensional information, parsed IDs, and boolean flags for event categorization.
+    tests:
+      # confirm incremental model row count matches source table row count
+      - dbt_utils.equal_rowcount:
+          config:
+            enabled: "{{ target.name != 'Development' }}"
+          arguments:
+            compare_model: source('lilypad', 'raw_lilypad__events_log')
     columns:
       - name: event_id
         description: "{{ doc('event_id') }}"
@@ -47,3 +54,5 @@ models:
         description: "{{ doc('event_path') }}"
       - name: event_value
         description: "{{ doc('event_value') }}"
+      - name: dbt_row_batch_id
+        description: "{{ doc('dbt_row_batch_id') }}"

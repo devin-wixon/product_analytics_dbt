@@ -112,13 +112,13 @@ semantic_models:
         type: time
         description: "{{ doc('server_timestamp') }}"
         type_params:
-          time_granularity: second
+          time_granularity: day
 
       - name: client_timestamp
         type: time
         description: "{{ doc('client_timestamp') }}"
         type_params:
-          time_granularity: second
+          time_granularity: day
 
       - name: metric_time_day
         type: time

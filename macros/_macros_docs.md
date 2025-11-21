@@ -37,6 +37,6 @@ By default, limits to the number of rows specified in the macro call (default: 1
 
 
 {% docs assign_event_type_description %}
-Assigns each `event_category` value a higher-level event type based on a hardcoded mapping for reporting.  
+Assigns each `event_category` value a higher-level event type based on a hardcoded mapping for reporting.
 **Returns:** String value representing the event type, or NULL if the event_category doesn't have a defined mapping.
 {% enddocs %}

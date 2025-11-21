@@ -5,7 +5,6 @@ events as (
         *,
         left(event_category, 7) = 'planner'
         and event_category != 'planner_modal' as is_planner_event
-
     from
         {{ ref('fct_events') }}
 ),

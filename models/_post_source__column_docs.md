@@ -64,6 +64,11 @@ Number of days between first and second active day. Null if user has not been ac
 {% enddocs %}
 
 
+{% docs dbt_row_batch_id %}
+Incremental batch identifier that tracks which dbt run created each row. Starts at 0 for the initial full-refresh run and increments by 1 for each subsequent incremental run. Used for data quality monitoring, troubleshooting incremental loads, and validating that daily batches are loaded correctly without gaps or duplicates.
+{% enddocs %}
+
+
 {% docs district_grades %}
 Comma-separated list of grade levels supported by the district.
 {% enddocs %}

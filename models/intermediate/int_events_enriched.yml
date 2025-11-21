@@ -49,3 +49,5 @@ models:
         description: "{{ doc('week_number') }}"
       - name: application_name
         description: "{{ doc('application_name') }}"
+      - name: dbt_row_batch_id
+        description: "{{ doc('dbt_row_batch_id') }}"

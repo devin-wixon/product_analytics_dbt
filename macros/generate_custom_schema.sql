@@ -1,13 +1,13 @@
 {% macro generate_schema_name(custom_schema_name, node) -%}
 
-    {#-
+    {#
         This macro generates a schema name for a model, allowing for different schemas
         between development and production environments.
 
         ARGUMENTS:
         - custom_schema_name: The schema name configured for the model in dbt_project.yml or the model's config block.
-                              For example, a model in models/marts/my_model.sql might have `{{ config(schema='marts') }}`.
-                              In this case, `custom_schema_name` would be 'marts'. If not provided, it's `None`.
+                For example, a model in models/marts/my_model.sql might have `{{ config(schema='marts') }}`.
+                In this case, `custom_schema_name` would be 'marts'. If not provided, it's `None`.
         - node: The model's node object in the dbt graph.
 
         BEHAVIOR:
@@ -20,7 +20,7 @@
           target in their `profiles.yml` file. This is a developer-specific schema, like 'dbt_dlw' where 'dlw' are a developer's initials.
           This prevents developers from accidentally writing to production schemas during development. All models will be built into this single
           developer-specific schema.
-    -#}
+    #}
 
     {%- set default_schema = target.schema -%}
     {%- if target.name == 'prod' -%}

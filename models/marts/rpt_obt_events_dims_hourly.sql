@@ -7,7 +7,7 @@ events as (
 
 -- not forcing a granularity
 -- group by all columns, which are created dynamically and can change
-final as (
+aggregated as (
     select
         user_id,
         user_role,
@@ -50,11 +50,17 @@ final as (
     from
         events
     group by all
+),
+
+final as (
+    select *
+    from
+        aggregated
+    where
+        user_role != 'student'
+        or user_role is null
 )
 
 select *
 from
     final
-where
-    user_role != 'student'
-    or user_role is null
