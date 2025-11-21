@@ -14,7 +14,7 @@ models:
           arguments:
             combination_of_columns:
               - user_id
-              - server_event_date    
+              - server_event_date
     
     columns:
       - name: server_event_date
