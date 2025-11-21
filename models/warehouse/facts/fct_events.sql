@@ -11,7 +11,7 @@ events as (
         -- each incremental model tracks its own batch_id for independent pipeline monitoring
         to_number(
             {% if is_incremental() %}
-            ( select max(dbt_row_batch_id) + 1 from {{ this }} )
+                (select max(dbt_row_batch_id) + 1 from {{ this }} )
             {% else %}
             0
             {% endif %}
