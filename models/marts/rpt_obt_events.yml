@@ -6,6 +6,12 @@ models:
       Purpose: Comprehensive event reporting model combining user events with dimensional context for analytics.
       Granularity: One row per event, uniquely identified by `event_id`.
       Notes: Uses most recent version of program, resource, and district information. User attributes reflect the state at event time using SCD2 logic with fallback matching for data quality.
+    tests:
+      - dbt_utils.equal_rowcount:
+          config:
+            enabled: "{{ target.name != 'dev' }}"
+          arguments:
+            compare_model: source('lilypad', 'raw_lilypad__events_log')
     columns:
       # Event columns from fct_events
       - name: event_id
