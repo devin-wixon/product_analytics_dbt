@@ -9,10 +9,10 @@ events as (
     select distinct
         user_id,
         server_event_date,
-        -- each incremental model tracks its own batch_id for independent pipeline monitoring
+        -- batch tracking for incremental loads
         to_number(
             {% if is_incremental() %}
-            ( select max(dbt_row_batch_id) + 1 from {{ this }} )
+                (select max(dbt_row_batch_id) + 1 from {{ this }})
             {% else %}
             0
             {% endif %}
@@ -24,7 +24,8 @@ events as (
         user_id is not null
         and server_event_date is not null
         {% if is_incremental() %}
-        and server_event_date > (select max(server_event_date) from {{ this }})
+            and date(server_timestamp)
+                > (select max(server_event_date) from {{ this }})
         {% endif %}
 ),
 

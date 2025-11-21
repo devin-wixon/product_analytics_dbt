@@ -43,7 +43,7 @@ with events as (
         -- batch tracking for incremental loads
         to_number(
             {% if is_incremental() %}
-            ( select max(dbt_row_batch_id) + 1 from {{ this }} )
+                (select max(dbt_row_batch_id) + 1 from {{ this }} )
             {% else %}
             0
             {% endif %}
@@ -52,7 +52,8 @@ with events as (
     from {{ ref('stg_lilypad__events_log') }}
     {% if is_incremental() %}
         where 
-            date(server_timestamp) > (select max(server_event_date) from {{ this }})
+            date(server_timestamp)
+                > (select max(server_event_date) from {{ this }})
     {% endif %}
     {{ dev_limit(1000) }}
 
