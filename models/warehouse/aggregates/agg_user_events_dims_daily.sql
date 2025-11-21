@@ -5,9 +5,16 @@
 
 with events as (
     select
-        *,
-        -- batch tracking for incremental loads
-        {{ generate_incremental_batch_id() }}
+        * exclude (dbt_row_batch_id),
+        -- each incremental model tracks its own batch_id for independent pipeline monitoring
+        to_number(
+            {% if is_incremental() %}
+            ( select max(dbt_row_batch_id) + 1 from {{ this }} )
+            {% else %}
+            0
+            {% endif %}
+            , 38, 0
+        ) as dbt_row_batch_id
     from
         {{ ref('fct_events') }}
     {% if is_incremental() %}

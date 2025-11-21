@@ -41,10 +41,18 @@ with events as (
         -- _source_filename,
         -- _loaded_at_utc
         -- batch tracking for incremental loads
-        {{ generate_incremental_batch_id() }}
+        to_number(
+            {% if is_incremental() %}
+            ( select max(dbt_row_batch_id) + 1 from {{ this }} )
+            {% else %}
+            0
+            {% endif %}
+            , 38, 0
+        ) as dbt_row_batch_id
     from {{ ref('stg_lilypad__events_log') }}
     {% if is_incremental() %}
-    where date(server_timestamp) > (select max(server_event_date) from {{ this }})
+        where 
+            date(server_timestamp) > (select max(server_event_date) from {{ this }})
     {% endif %}
     {{ dev_limit(1000) }}
 

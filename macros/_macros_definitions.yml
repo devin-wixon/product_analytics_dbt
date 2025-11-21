@@ -9,5 +9,3 @@ macros:
     description: '{{ doc("dev_limit_description") }}'
   - name: assign_event_type
     description: '{{ doc("assign_event_type_description") }}'
-  - name: generate_incremental_batch_id
-    description: '{{ doc("generate_incremental_batch_id_description") }}'
