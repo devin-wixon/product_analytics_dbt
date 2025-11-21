@@ -1,6 +1,6 @@
 {% macro dev_limit(limit_rows=100) %}
 
-    {#-
+    {#
         This macro applies a row limit in the Development environment to speed up model builds
         during development. In production and other environments, no limit is applied.
 
@@ -31,7 +31,7 @@
         select *
         from {{ ref('my_large_table') }}
         {{ dev_limit() }}
-    -#}
+    #}
 
     {%- if target.name == 'Development' -%}
         {%- if var('disable_dev_limit', false) == false -%}

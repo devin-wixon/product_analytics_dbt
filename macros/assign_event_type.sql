@@ -1,6 +1,6 @@
 {% macro assign_event_type(event_category_column) %}
 
-    {#-
+    {#
         Assigns each `event_category` value a higher-level event type based on a hardcoded mapping for reporting.
 
         ARGUMENTS:
@@ -15,7 +15,7 @@
             event_category,
             {{ assign_event_type('event_category') }} as event_type
         from your_table
-    -#}
+    #}
 
     decode(
         {{ event_category_column }},
