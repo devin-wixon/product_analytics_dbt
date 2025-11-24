@@ -19,8 +19,9 @@ resources as (
 
 joined as (
     select
+        -- name to distinguish event program vs resource program
         resources.resource_program_id,
-        programs.program_name,
+        programs.program_name as resource_program_name,
         resources.resource_type,
         resources.resource_program_id
         || '-'
