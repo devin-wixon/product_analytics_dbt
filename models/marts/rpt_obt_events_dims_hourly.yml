@@ -20,6 +20,8 @@ models:
         description: "{{ doc('server_event_date') }}"
         data_tests:
           - not_null
+      - name: n_events_per_user_dim_context
+        description: "{{ doc('n_events_per_user_dim_context') }}"
       - name: event_value_human_readable
         description: "{{ doc('event_value_human_readable') }}"
       - name: event_path

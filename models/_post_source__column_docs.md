@@ -256,6 +256,12 @@ Includes resources with no events.
 {% enddocs %}
 
 
+{% docs n_events_per_user_dim_context %}
+In models that aggregate to a grain size larger than the event, this is the number of events per the grain size.
+It should be summed to achieve a total count of events.
+{% enddocs %}
+
+
 {% docs n_user_active_days %}
 Total count of distinct days the user had events, based in the server timestamp.  Zero if user has never had any events.
 {% enddocs %}
