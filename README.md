@@ -163,6 +163,8 @@ The project evaluator checks for issues including the below.
 - **Dependencies**: No circular dependencies or inappropriate references
 - **Sources**: Source freshness is configured
 
+Project evaluator is configured in `dbt_project.yml` and exceptions are in a seed CSV.
+
 ## Documentation
 
 ### Documentation Standards
