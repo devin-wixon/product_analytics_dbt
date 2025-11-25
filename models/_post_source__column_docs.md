@@ -104,10 +104,11 @@ Full weekday name (e.g., Monday, Tuesday, Wednesday), derived from day of week n
 {% enddocs %}
 
 
-{% docs has_multiple_activity_resources_in_program %}
-Count of distinct `resource_id` per program with resource type `activity` is greater than one.
-Used to filter out one-off cases so the programs with activities available are accurate.
+{% docs has_multiple_resources_in_program_resource_type %}
+Count of distinct `resource_id` per program and resource type combination.
+Used to filter out one-off cases so the programs with type 'activity' available are accurate.
 {% enddocs %}
+
 
 {% docs is_app_launch_event %}
 Boolean: True if event_name is 'productLaunchOpen', otherwise false.

@@ -45,9 +45,9 @@ joined as (
     -- avoids cases such as the one "pledge" activity in non-native programs
     where
         not (
-            resources.resource_type = 'activity'
-            and has_multiple_resources_in_program_resource_type = false
-        )
+            resource_type = 'activity' 
+            and has_multiple_resources_in_program_resource_type = False
+            )
 ),
 
 final as (
