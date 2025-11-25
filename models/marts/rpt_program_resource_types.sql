@@ -12,7 +12,6 @@ programs as (
 -- deleted, test resourcs may falsely appear to be a native program
 resources as (
     select
-        resource_id,
         resource_type,
         resource_program_id,
         resource_program_id
@@ -24,7 +23,6 @@ resources as (
     where
         is_resource_deleted = false
     group by 
-        resource_id,
         resource_type,
         resource_program_id,
         program_resource_type_id
