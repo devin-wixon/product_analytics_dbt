@@ -9,7 +9,7 @@ programs as (
 ),
 
 -- only include current resources
--- deleted, test resourcs may falsely appear to be a native program
+-- deleted test resources may falsely appear to be a native program
 resources as (
     select
         resource_type,
@@ -40,6 +40,9 @@ joined as (
     from resources
     left join programs
         on resources.resource_program_id = programs.program_id
+    -- only include program resource types with multiple resources
+    -- to avoid one-off cases where a resource type is listed but only has one resource
+    where resources.n_resources_in_program_resource_type > 1
     having n_resources_in_program_resource_type = 1
 ),
 
