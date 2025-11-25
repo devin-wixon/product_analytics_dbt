@@ -6,7 +6,7 @@ models:
       Purpose: Program metadata used for percentage denominators and documentation showing resource type availability.
       Granularity: One row per program x resource type.
       Notes: Will include all program x resource type combinations that exist in the resources table, even if no events have occurred.
-      Filters: Excludes 'activity' resource types when only one resource exists in the program to avoid misleading denominators.
+      Filters: Excludes 'activity' resource type for the program when only one resource exists in the program to avoid misleading denominators.
         All other resource types are included regardless of count.
         For example, two programs have only one resource of type 'activity', but are not native programs.
     columns:
