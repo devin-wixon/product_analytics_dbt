@@ -22,7 +22,7 @@ resources as (
         {{ ref('dim_resources_most_recent') }}
     where
         is_resource_deleted = false
-    group by 
+    group by
         resource_type,
         resource_program_id,
         program_resource_type_id
@@ -36,12 +36,13 @@ joined as (
         resources.resource_type,
         resources.n_resources_in_program_resource_type,
         resources.program_resource_type_id,
-        resources.n_resources_in_program_resource_type > 1 as has_multiple_resources_in_program_resource_type
+        resources.n_resources_in_program_resource_type
+        > 1 as has_multiple_resources_in_program_resource_type
     from resources
     left join programs
         on resources.resource_program_id = programs.program_id
     -- only include program resource types with multiple resources
-    -- to avoid one-off cases where a resource type is listed but only has one resource
+    -- avoids cases such as the one "pledge" activity in non-native programs
     where has_multiple_resources_in_program_resource_type
 ),
 
