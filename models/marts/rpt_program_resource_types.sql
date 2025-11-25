@@ -43,7 +43,11 @@ joined as (
         on resources.resource_program_id = programs.program_id
     -- only include program resource types with multiple resources
     -- avoids cases such as the one "pledge" activity in non-native programs
-    where has_multiple_resources_in_program_resource_type
+    where 
+        not (
+            resource_type = 'activity' 
+            and has_multiple_resources_in_program_resource_type
+            )
 ),
 
 final as (
