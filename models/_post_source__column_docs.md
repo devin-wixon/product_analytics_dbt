@@ -104,6 +104,11 @@ Full weekday name (e.g., Monday, Tuesday, Wednesday), derived from day of week n
 {% enddocs %}
 
 
+{% docs has_multiple_resources_in_program_resource_type %}
+Count of distinct `resource_id` per program and resource type (`n_resources_in_program_resource_type`) is greater than one.
+Used to filter out one-off cases so the programs with resource types available are accurate.
+{% enddocs %}
+
 {% docs is_app_launch_event %}
 Boolean: True if event_name is 'productLaunchOpen', otherwise false.
 {% enddocs %}
@@ -241,6 +246,12 @@ Month number of the year as an integer (1-12), extracted using month() function.
 
 {% docs month_start_date %}
 First date of the month containing the calendar date, calculated using date_trunc('month', date_day).
+{% enddocs %}
+
+
+{% docs n_resources_in_program_resource_type %}
+Count of unique `resource_id` within the program per resource type.
+Includes resources with no events.
 {% enddocs %}
 
 

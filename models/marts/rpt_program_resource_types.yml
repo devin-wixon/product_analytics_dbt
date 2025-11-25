@@ -6,6 +6,8 @@ models:
       Purpose: Program metadata used for percentage denominators and documentation showing resource type availability.
       Granularity: One row per program x resource type.
       Notes: Will include all program x resource type combinations that exist in the resources table, even if no events have occurred.
+      Filters: Only includes program x resource type combinations if more than one resource exists in that combination to avoid misleading denominators.
+        For example, two programs have only one resource of type 'activity', but are not native.
     columns:
       - name: program_resource_type_id
         description: "{{ doc('program_resource_type_id') }}"
@@ -14,4 +16,6 @@ models:
           - not_null
       - name: resource_type
         description: "{{ doc('resource_type') }}"
+      - name: n_resources_in_program_resource_type
+        description: "{{ doc('n_resources_in_program_resource_type') }}"
 
