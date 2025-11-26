@@ -10,12 +10,24 @@ models:
       # source tests not null for user_id
       - name: user_id
         description: "{{ doc('user_id') }}"
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_taco__users')
+                field: user_id
+                where: "dbt_valid_to IS NULL"
       - name: user_role
         description: "{{ doc('user_role') }}"
       - name: user_role_id
         description: "{{ doc('user_role_id') }}"
       - name: district_id
         description: "{{ doc('district_id') }}"
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_taco__districts')
+                field: district_id
+                where: "dbt_valid_to IS NULL"
       - name: is_primary
         description: "{{ doc('is_primary') }}"
       - name: enrollment_status

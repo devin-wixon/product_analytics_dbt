@@ -142,7 +142,7 @@ The project uses a multi-layered testing strategy to ensure data quality:
 
 1. **Source freshness checks**: Monitor data recency (configured in `_sources.yml` files)
 2. **Model tests**: Unique keys, relationships, accepted values. 
-3. **Custom tests**: Business logic validation (in `tests/generic/`)
+3. **Relationship tests**: Foreign keys have testing to ensure only known prior orphans exist.
 4. **dbt Project Evaluator**: Enforce project structure and best practices
 5. **Elementary monitoring**: Track anomalies and data health (production only), including schema changes for all source models
 
