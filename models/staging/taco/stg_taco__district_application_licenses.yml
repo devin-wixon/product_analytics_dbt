@@ -13,6 +13,17 @@ models:
           - unique
       - name: district_id
         description: "{{ doc('district_id') }}"
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_taco__districts')
+                field: district_id
+      - name: application_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_taco__applications')
+                field: application_id
       - name: license_start_date
         description: "{{ doc('license_start_date') }}"
       - name: updated_at_utc

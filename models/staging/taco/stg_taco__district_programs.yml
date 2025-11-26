@@ -15,6 +15,17 @@ models:
       # source tests for unique district_id x program_id combination
       - name: district_id
         description: "{{ doc('district_id') }}"
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_taco__districts')
+                field: district_id
+      - name: program_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_craft__programs')
+                field: program_id
       - name: updated_at_utc
         description: "{{ doc('updated_at_utc') }}"
       - name: dbt_scd_id
