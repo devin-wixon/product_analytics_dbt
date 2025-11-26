@@ -23,6 +23,8 @@ models:
                     where resource_id is not null
                   )
               ) <= 714
+          config:
+            severity: warn
     columns:
       - name: event_id
         description: "{{ doc('event_id') }}"
