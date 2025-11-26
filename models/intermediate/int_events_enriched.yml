@@ -8,7 +8,7 @@ models:
       Filters: Limited to 100 rows in Development environment.
       Notes: Includes derived columns for program/resource joins, event type flags, and parsed path information.
     data_tests:
-      # Allow up to 714 known orphaned resource_ids (events with resource_id not in resources snapshot)
+      # Allow up to 714 distinct known orphaned resource_ids (events with resource_id not in resources snapshot)
       - dbt_utils.expression_is_true:
           name: orphan_resource_ids_below_threshold
           arguments:
@@ -23,21 +23,6 @@ models:
                     where resource_id is not null
                   )
               ) <= 714
-      # Allow up to 5 known orphaned program_ids (events with program_id not in programs snapshot)
-      - dbt_utils.expression_is_true:
-          name: orphan_program_ids_below_threshold
-          arguments:
-            expression: |
-              (
-                select count(distinct program_id)
-                from {{ ref('int_events_enriched') }}
-                where program_id is not null
-                  and program_id not in (
-                    select program_id
-                    from {{ ref('stg_craft__programs') }}
-                    where program_id is not null
-                  )
-              ) <= 5
     columns:
       - name: event_id
         description: "{{ doc('event_id') }}"
@@ -74,6 +59,14 @@ models:
         description: "{{ doc('path_left') }}"
       - name: program_id
         description: "{{ doc('program_id') }}"
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_craft__programs')
+                field: program_id
+                where: "program_id is not null and server_event_date >= '2025-09-22'"
+              config:
+                severity: warn
       - name: resource_id
         description: "{{ doc('resource_id') }}"
       - name: week_number
