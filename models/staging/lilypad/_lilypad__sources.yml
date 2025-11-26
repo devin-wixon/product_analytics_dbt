@@ -36,4 +36,5 @@ sources:
           - name: path
             data_tests:
               - not_null:
-                  where: "server_timestamp >= '2025-04-01'"
+                  arguments:
+                    where: "server_timestamp >= '2025-04-01'"
