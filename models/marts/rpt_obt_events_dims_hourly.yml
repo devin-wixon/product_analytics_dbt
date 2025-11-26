@@ -20,8 +20,6 @@ models:
         description: "{{ doc('server_event_date') }}"
         data_tests:
           - not_null
-      - name: n_events_per_user_dim_context
-        description: "{{ doc('n_events_per_user_dim_context') }}"
       - name: event_value_human_readable
         description: "{{ doc('event_value_human_readable') }}"
       - name: event_path
@@ -38,6 +36,8 @@ models:
         description: "{{ doc('resource_id') }}"
       - name: resource_program_id
         description: "{{ doc('resource_program_id') }}"
+      - name: resource_program_name
+        description: "{{ doc('resource_program_name') }}"
       - name: district_id
         description: "{{ doc('district_id') }}"
       - name: district_type
@@ -60,6 +60,8 @@ models:
         description: "{{ doc('school_year_label') }}"
       - name: school_year_start_date
         description: "{{ doc('school_year_start_date') }}"
+      - name: n_events_per_user_dim_context
+        description: "{{ doc('n_events_per_user_dim_context') }}"
       - name: example_event_id
         description: "{{ doc('example_event_id') }}"
         data_tests:

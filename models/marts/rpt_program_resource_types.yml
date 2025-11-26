@@ -12,19 +12,17 @@ models:
     columns:
       - name: resource_program_id
         description: "{{ doc('resource_program_id') }}"
+      - name: resource_program_name
+        description: "{{ doc('resource_program_name') }}"
       - name: resource_type
         description: "{{ doc('resource_type') }}"
+      - name: n_resources_in_program_resource_type
+        description: "{{ doc('n_resources_in_program_resource_type') }}"
       - name: program_resource_type_id
         description: "{{ doc('program_resource_type_id') }}"
         data_tests:
           - unique
           - not_null
-      - name: resource_type
-        description: "{{ doc('resource_type') }}"
-      - name: n_resources_in_program_resource_type
-        description: "{{ doc('n_resources_in_program_resource_type') }}"
       - name: has_multiple_resources_in_program_resource_type
         description: "{{ doc('has_multiple_resources_in_program_resource_type') }}"
-      - name: resource_program_name
-        description: "{{ doc('resource_program_name') }}"
 
