@@ -41,7 +41,7 @@ models:
       - name: user_invite_status
         description: "{{ doc('user_invite_status') }}"
       - name: match_type
-        description: "Indicates whether the user record was matched via 'exact' SCD logic or 'fallback' temporal proximity. Used for data quality monitoring."
+        description: "{{ doc('user_role_match_type') }}"
       - name: dbt_row_batch_id
         description: "{{ doc('dbt_row_batch_id') }}"
 
