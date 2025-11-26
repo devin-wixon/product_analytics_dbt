@@ -7,6 +7,37 @@ models:
       Granularity: One row per event, uniquely identified by `event_id`.
       Filters: Limited to 100 rows in Development environment.
       Notes: Includes derived columns for program/resource joins, event type flags, and parsed path information.
+    data_tests:
+      # Allow up to 714 known orphaned resource_ids (events with resource_id not in resources snapshot)
+      - dbt_utils.expression_is_true:
+          name: orphan_resource_ids_below_threshold
+          arguments:
+            expression: |
+              (
+                select count(distinct resource_id)
+                from {{ ref('int_events_enriched') }}
+                where resource_id is not null
+                  and resource_id not in (
+                    select resource_id
+                    from {{ ref('stg_craft__resources') }}
+                    where resource_id is not null
+                  )
+              ) <= 714
+      # Allow up to 5 known orphaned program_ids (events with program_id not in programs snapshot)
+      - dbt_utils.expression_is_true:
+          name: orphan_program_ids_below_threshold
+          arguments:
+            expression: |
+              (
+                select count(distinct program_id)
+                from {{ ref('int_events_enriched') }}
+                where program_id is not null
+                  and program_id not in (
+                    select program_id
+                    from {{ ref('stg_craft__programs') }}
+                    where program_id is not null
+                  )
+              ) <= 5
     columns:
       - name: event_id
         description: "{{ doc('event_id') }}"
