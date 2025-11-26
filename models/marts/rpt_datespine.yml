@@ -46,7 +46,7 @@ models:
       - name: wau_lookback_start_date
         description: "{{ doc('wau_lookback_start_date') }}"
       - name: mau_lookback_start_date
-      #   description: Full month and year (e.g., January 2025).
+        description: "{{ doc('mau_lookback_start_date') }}"
       - name: school_year_label
         description: "{{ doc('school_year_label') }}"
       - name: school_year_start_date

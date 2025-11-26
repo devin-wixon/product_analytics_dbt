@@ -312,6 +312,12 @@ Values: stateid, identifier, username, sourcedid, state
 {% enddocs %}
 
 
+{% docs resource_program_name %}
+The program name associated with the resource's program id.
+See notes in `resource_program_id`.
+{% enddocs %}
+
+
 {% docs rostering_upload_method %}
 Values: manual, sftp.
 {% enddocs %}

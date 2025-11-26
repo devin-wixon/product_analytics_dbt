@@ -23,6 +23,11 @@ sources:
             data_tests:
               - unique
               - not_null
+          - name: phase
+            data_tests:
+              - accepted_values:
+                  arguments:
+                    values: ['Draft', 'Deprecated', 'Active', 'Phase-Out']
       - name: raw_craft__resources
         description: "Resources such as activities, documents, audio and video"
         # rare updates expected; 30 day threshold

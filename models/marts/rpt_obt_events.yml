@@ -23,20 +23,16 @@ models:
         description: "{{ doc('server_timestamp') }}"
       - name: client_timestamp
         description: "{{ doc('client_timestamp') }}"
-      - name: client_timestamp_hour
-        description: "{{ doc('client_timestamp_hour') }}"
       - name: user_id
         description: "{{ doc('user_id') }}"
       - name: event_name
         description: "{{ doc('event_name') }}"
-      - name: event_value_human_readable
-        description: "{{ doc('event_value_human_readable') }}"
       - name: event_category
         description: "{{ doc('event_category') }}"
       - name: event_type
         description: "{{ doc('event_type') }}"
-      - name: is_planner_event
-        description: "{{ doc('is_planner_event') }}"
+      - name: event_value_human_readable
+        description: "{{ doc('event_value_human_readable') }}"
       - name: server_event_date
         description: "{{ doc('server_event_date') }}"
       - name: client_event_date
@@ -45,32 +41,34 @@ models:
         description: "{{ doc('path_entered') }}"
       - name: path_left
         description: "{{ doc('path_left') }}"
-      - name: focus_area_label
-        description: ""
-      - name: week_number
-        description: "{{ doc('week_number') }}"
       - name: program_id
         description: "{{ doc('program_id') }}"
       - name: resource_id
         description: "{{ doc('resource_id') }}"
-      - name: resource_type
-        description: "{{ doc('resource_type') }}"
+      - name: week_number
+        description: "{{ doc('week_number') }}"
       - name: application_name
         description: "{{ doc('application_name') }}"
       - name: event_path
         description: "{{ doc('event_path') }}"
       - name: event_value
         description: "{{ doc('event_value') }}"
+      - name: dbt_row_batch_id
+        description: "{{ doc('dbt_row_batch_id') }}"
+      - name: is_planner_event
+        description: "{{ doc('is_planner_event') }}"
 
-      # User columns from user_events_combined (dim_users_history)
+      # User columns from int_users_district_role_date
       - name: district_id
         description: "{{ doc('district_id') }}"
       - name: user_invite_status
         description: "{{ doc('user_invite_status') }}"
       - name: user_role
         description: "{{ doc('user_role') }}"
+      - name: match_type
+        description: "{{ doc('user_role_match_type') }}"
 
-      # District columns from dim_districts_current
+      # District columns from dim_districts_most_recent
       - name: district_name
         description: "{{ doc('district_name') }}"
       - name: district_type
@@ -82,6 +80,23 @@ models:
       - name: is_distributed_demo_district
         description: "{{ doc('is_distributed_demo_district') }}"
 
+      # Program columns from dim_programs_most_recent
+      - name: is_program_district_auto_add
+        description: "{{ doc('is_program_district_auto_add') }}"
+      - name: program_license_type
+        description: "{{ doc('program_license_type') }}"
+      - name: program_release_year
+        description: "{{ doc('program_release_year') }}"
+      - name: program_market_specific
+        description: "{{ doc('program_market_specific') }}"
+      - name: program_phase
+        description: "{{ doc('program_phase') }}"
+
+      # Resource columns from dim_resources_most_recent
+      - name: resource_program_id
+        description: "{{ doc('resource_program_id') }}"
+      - name: resource_type
+        description: "{{ doc('resource_type') }}"
 
       # Date dimension columns from dim_day_datespine
       - name: week_monday_date
@@ -108,11 +123,11 @@ models:
         description: "{{ doc('year_month_sort') }}"
       - name: year_quarter_sort
         description: "{{ doc('year_quarter_sort') }}"
-      # - name: wau_lookback_start_date
-      #   description: "{{ doc('wau_lookback_start_date') }}"
-      # - name: mau_lookback_start_date
-      #   description: "{{ doc('mau_lookback_start_date') }}"
       - name: school_year_label
         description: "{{ doc('school_year_label') }}"
       - name: school_year_start_date
         description: "{{ doc('school_year_start_date') }}"
+
+      # Calculated column
+      - name: client_timestamp_hour
+        description: "{{ doc('client_timestamp_hour') }}"

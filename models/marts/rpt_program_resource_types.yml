@@ -10,6 +10,10 @@ models:
         All other resource types are included regardless of count.
         For example, two programs have only one resource of type 'activity', but are not native programs.
     columns:
+      - name: resource_program_id
+        description: "{{ doc('resource_program_id') }}"
+      - name: resource_type
+        description: "{{ doc('resource_type') }}"
       - name: program_resource_type_id
         description: "{{ doc('program_resource_type_id') }}"
         data_tests:
