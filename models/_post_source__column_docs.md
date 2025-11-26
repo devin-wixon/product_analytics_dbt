@@ -256,6 +256,12 @@ Includes resources with no events.
 {% enddocs %}
 
 
+{% docs n_events_per_user_dim_context %}
+In models that aggregate to a grain size larger than the event, this is the number of events per the grain size.
+It should be summed to achieve a total count of events.
+{% enddocs %}
+
+
 {% docs n_user_active_days %}
 Total count of distinct days the user had events, based in the server timestamp.  Zero if user has never had any events.
 {% enddocs %}
@@ -309,6 +315,12 @@ Values: replace, additive
 {% docs rostering_state_id_field %}
 <!-- TAG TO DO confirm values and flesh out with their meaning. -->
 Values: stateid, identifier, username, sourcedid, state
+{% enddocs %}
+
+
+{% docs resource_program_name %}
+The program name associated with the resource's program id.
+See notes in `resource_program_id`.
 {% enddocs %}
 
 
