@@ -14,6 +14,8 @@ models:
         description: "{{ doc('resource_program_id') }}"
       - name: resource_program_name
         description: "{{ doc('resource_program_name') }}"
+      - name: program_phase
+        description: "{{ doc('program_phase') }}"
       - name: resource_type
         description: "{{ doc('resource_type') }}"
       - name: n_resources_in_program_resource_type
