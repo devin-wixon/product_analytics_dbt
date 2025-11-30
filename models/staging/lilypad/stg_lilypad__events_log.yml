@@ -16,6 +16,7 @@ models:
         description: "{{ doc('user_id') }}"
         data_tests:
           # Ensure no more than 20 "orphan" users; may need to backfill from S3 if more
+          # change to dbt_utils.relationships_where when no new orphaned users
           - orphaned_foreign_key_count:
               arguments:
                 to: ref('snp_taco__users')

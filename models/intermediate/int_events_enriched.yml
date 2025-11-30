@@ -55,6 +55,8 @@ models:
         description: "{{ doc('resource_id') }}"
         data_tests:
           # Allow up to 714 distinct known orphaned resource_ids (events with resource_id not in resources snapshot)
+          # Some orphan resources are still being used in events;
+          # change to dbt_utils.relationships_where when no more use in orphaned resources
           - orphaned_foreign_key_count:
               arguments:
                 to: ref('stg_craft__resources')
