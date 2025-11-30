@@ -15,6 +15,11 @@ models:
         description: "{{ doc('district_id') }}"
         data_tests:
           - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_taco__districts')
+                field: district_id
+                where: "dbt_valid_to IS NULL"
       - name: user_role
         description: "{{ doc('user_role') }}"
       - name: user_sourced_id

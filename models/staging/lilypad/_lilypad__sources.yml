@@ -33,3 +33,8 @@ sources:
               - not_null
             config:
               severity: warn
+          - name: path
+            data_tests:
+              - not_null:
+                  arguments:
+                    where: "server_timestamp >= '2025-04-01'"
