@@ -7,24 +7,6 @@ models:
       Granularity: One row per event, uniquely identified by `event_id`.
       Filters: Limited to 100 rows in Development environment.
       Notes: Includes derived columns for program/resource joins, event type flags, and parsed path information.
-    data_tests:
-      # Allow up to 714 distinct known orphaned resource_ids (events with resource_id not in resources snapshot)
-      - dbt_utils.expression_is_true:
-          name: orphan_resource_ids_below_threshold
-          arguments:
-            expression: |
-              (
-                select count(distinct resource_id)
-                from {{ ref('int_events_enriched') }}
-                where resource_id is not null
-                  and resource_id not in (
-                    select resource_id
-                    from {{ ref('stg_craft__resources') }}
-                    where resource_id is not null
-                  )
-              ) <= 714
-          config:
-            severity: warn
     columns:
       - name: event_id
         description: "{{ doc('event_id') }}"
@@ -71,6 +53,15 @@ models:
                 severity: warn
       - name: resource_id
         description: "{{ doc('resource_id') }}"
+        data_tests:
+          # Allow up to 714 distinct known orphaned resource_ids (events with resource_id not in resources snapshot)
+          - orphaned_foreign_key_count:
+              arguments:
+                to: ref('stg_craft__resources')
+                field: resource_id
+                threshold: 714
+              config:
+                severity: warn
       - name: week_number
         description: "{{ doc('week_number') }}"
       - name: application_name

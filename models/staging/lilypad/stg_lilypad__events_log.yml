@@ -6,23 +6,6 @@ models:
       Purpose: Events log from Lilypad raw events, with column typing and renaming as needed.
       Granularity: One row per event, uniquely identified by `event_pk`.
       Notes: Includes Snowflake event ingestion metadata columns.
-    data_tests:
-    # ensure no more than 20 "orphan" users; may need to backfill from S3 if more
-      - dbt_utils.expression_is_true:
-          name: orphan_user_ids_below_threshold
-          arguments:
-            expression: |
-              (
-                select count(distinct user_id)
-                from {{ ref('stg_lilypad__events_log') }}
-                where user_id not in (
-                  select id
-                  from {{ ref('snp_taco__users') }}
-                  where id is not null
-                )
-              ) <= 20
-          config:
-            severity: warn
     columns:
       - name: event_id
         description: "{{ doc('event_id') }}"
@@ -31,6 +14,15 @@ models:
           - unique
       - name: user_id
         description: "{{ doc('user_id') }}"
+        data_tests:
+          # Ensure no more than 20 "orphan" users; may need to backfill from S3 if more
+          - orphaned_foreign_key_count:
+              arguments:
+                to: ref('snp_taco__users')
+                field: id
+                threshold: 20
+              config:
+                severity: warn
       - name: session_uuid
         description: "{{ doc('session_uuid') }}"
       - name: event_name
