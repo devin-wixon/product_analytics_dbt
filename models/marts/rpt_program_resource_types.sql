@@ -3,7 +3,9 @@ with
 programs as (
     select
         program_id,
-        program_name
+        program_name,
+        is_program_demo,
+        program_phase
     from
         {{ ref('dim_programs_most_recent') }}
 ),
@@ -33,6 +35,8 @@ joined as (
         -- name to distinguish event program vs resource program
         resources.resource_program_id,
         programs.program_name as resource_program_name,
+        programs.is_program_demo,
+        programs.program_phase,
         resources.resource_type,
         resources.n_resources_in_program_resource_type,
         resources.program_resource_type_id,
@@ -51,11 +55,23 @@ joined as (
 ),
 
 final as (
-    select *
+    select *,
+    -- boolean flag for whether program has activity resources
+    -- denormalized: is a program granularity rather than proram x resource type
+        max(resource_type = 'activity') over (partition by resource_program_id) as has_program_activity_resources
     from joined
 )
 
-select *
+-- reorder columns
+select 
+    program_resource_type_id,
+    resource_program_id,
+    resource_program_name,
+    is_program_demo,
+    program_phase,
+    resource_type,
+    n_resources_in_program_resource_type,
+    has_program_activity_resources
 from
     final
 order by
