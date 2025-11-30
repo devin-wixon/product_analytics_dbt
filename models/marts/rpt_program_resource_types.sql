@@ -55,15 +55,18 @@ joined as (
 ),
 
 final as (
-    select *,
-    -- boolean flag for whether program has activity resources
-    -- denormalized: is a program granularity rather than proram x resource type
-        max(resource_type = 'activity') over (partition by resource_program_id) as has_program_activity_resources
+    select
+        *,
+        -- boolean flag for whether program has activity resources
+        -- denormalized: program granularity not than proram x resource type
+        max(resource_type = 'activity')
+            over (partition by resource_program_id)
+            as has_program_activity_resources
     from joined
 )
 
 -- reorder columns
-select 
+select
     program_resource_type_id,
     resource_program_id,
     resource_program_name,
