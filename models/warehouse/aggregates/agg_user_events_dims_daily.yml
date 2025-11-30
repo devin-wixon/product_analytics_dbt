@@ -22,37 +22,26 @@ models:
         description: "{{ doc('user_id') }}"
         tests:
           - not_null
-
       - name: server_event_date
         description: "{{ doc('server_event_date') }}"
         tests:
           - not_null
-
       - name: district_id
         description: "{{ doc('district_id') }}"
-
       - name: program_id
         description: "{{ doc('program_id') }}"
-
       - name: resource_id
         description: "{{ doc('resource_id') }}"
-
       - name: application_name
         description: "{{ doc('application_name') }}"
-
       - name: event_category
         description: "{{ doc('event_category') }}"
-
       - name: user_role
         description: "{{ doc('user_role') }}"
-
       - name: user_invite_status
         description: "{{ doc('user_invite_status') }}"
-
       - name: match_type
-        description: "Indicates whether the user record was matched via 'exact' SCD logic or 'fallback' temporal proximity. Used for data quality monitoring."
-
-      # Dynamically generated activity flag columns
-      # Note: These columns are generated dynamically based on event categories in the seed data
-      # The pattern is: had_[category]_activity_per_user_day_context
+        description: "{{ doc('user_role_match_type') }}"
+      - name: dbt_row_batch_id
+        description: "{{ doc('dbt_row_batch_id') }}"
 

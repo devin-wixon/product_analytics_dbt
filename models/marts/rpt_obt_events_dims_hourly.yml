@@ -8,26 +8,22 @@ models:
       Filters: Excludes events where `user_role` is 'student'.
       Notes: Builds on `rpt_obt_events` by grouping events across dimensions while excluding high-cardinality fields like timestamps and event-specific details. Designed for efficient dashboard queries.
     columns:
-      # Aggregated metrics
-      - name: n_events_per_user_day_context
-      - name: had_events_per_user_day_context
-      - name: example_event_id
-        description: "{{ doc('example_event_id') }}"
-        data_tests:
-          - unique
-          - not_null
-
-      # Event dimension columns
       - name: user_id
         description: "{{ doc('user_id') }}"
         data_tests:
           - not_null
+      - name: user_role
+        description: "{{ doc('user_role') }}"
+      - name: client_timestamp_hour
+        description: "{{ doc('client_timestamp_hour') }}"
       - name: server_event_date
         description: "{{ doc('server_event_date') }}"
         data_tests:
           - not_null
-      - name: client_timestamp_hour
-        description: "{{ doc('client_timestamp_hour') }}"
+      - name: event_value_human_readable
+        description: "{{ doc('event_value_human_readable') }}"
+      - name: event_path
+        description: "{{ doc('event_path') }}"
       - name: event_category
         description: "{{ doc('event_category') }}"
       - name: event_type
@@ -38,16 +34,20 @@ models:
         description: "{{ doc('program_id') }}"
       - name: resource_id
         description: "{{ doc('resource_id') }}"
-      - name: user_role
-        description: "{{ doc('user_role') }}"
+      - name: resource_program_id
+        description: "{{ doc('resource_program_id') }}"
+      - name: resource_program_name
+        description: "{{ doc('resource_program_name') }}"
       - name: district_id
         description: "{{ doc('district_id') }}"
-      - name: district_name
-        description: "{{ doc('district_name') }}"
       - name: district_type
         description: "{{ doc('district_type') }}"
+      - name: district_name
+        description: "{{ doc('district_name') }}"
       - name: district_state
         description: "{{ doc('district_state') }}"
+      - name: resource_type
+        description: "{{ doc('resource_type') }}"
       - name: week_monday_date
         description: "{{ doc('week_monday_date') }}"
       - name: month_start_date
@@ -60,3 +60,10 @@ models:
         description: "{{ doc('school_year_label') }}"
       - name: school_year_start_date
         description: "{{ doc('school_year_start_date') }}"
+      - name: n_events_per_user_dim_context
+        description: "{{ doc('n_events_per_user_dim_context') }}"
+      - name: example_event_id
+        description: "{{ doc('example_event_id') }}"
+        data_tests:
+          - unique
+          - not_null

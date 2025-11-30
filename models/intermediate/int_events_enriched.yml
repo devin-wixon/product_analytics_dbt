@@ -43,9 +43,30 @@ models:
         description: "{{ doc('path_left') }}"
       - name: program_id
         description: "{{ doc('program_id') }}"
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_craft__programs')
+                field: program_id
+                where: "program_id is not null and server_event_date >= '2025-09-22'"
+              config:
+                severity: warn
       - name: resource_id
         description: "{{ doc('resource_id') }}"
+        data_tests:
+          # Allow up to 714 distinct known orphaned resource_ids (events with resource_id not in resources snapshot)
+          # Some orphan resources are still being used in events;
+          # change to dbt_utils.relationships_where when no more use in orphaned resources
+          - orphaned_foreign_key_count:
+              arguments:
+                to: ref('stg_craft__resources')
+                field: resource_id
+                threshold: 714
+              config:
+                severity: warn
       - name: week_number
         description: "{{ doc('week_number') }}"
       - name: application_name
         description: "{{ doc('application_name') }}"
+      - name: dbt_row_batch_id
+        description: "{{ doc('dbt_row_batch_id') }}"

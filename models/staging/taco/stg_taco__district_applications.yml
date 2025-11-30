@@ -13,6 +13,19 @@ models:
       # source tests for unique district_id x application_id combination
       - name: district_id
         description: "{{ doc('district_id') }}"
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_taco__districts')
+                field: district_id
+                where: "dbt_valid_to IS NULL"
+      - name: application_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_taco__applications')
+                field: application_id
+                where: "dbt_valid_to IS NULL"
       - name: dbt_scd_id
         description: "{{ doc('dbt_scd_id') }}"
         data_tests:

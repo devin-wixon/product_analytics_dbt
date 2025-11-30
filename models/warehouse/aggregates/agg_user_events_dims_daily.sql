@@ -1,7 +1,27 @@
+{{ config(
+    materialized='incremental',
+    incremental_strategy='append'
+) }}
+
 with events as (
-    select *
+    select
+        * exclude (dbt_row_batch_id),
+        -- batch tracking for incremental loads
+        to_number(
+            {% if is_incremental() %}
+                (select max(dbt_row_batch_id) + 1 from {{ this }} )
+            {% else %}
+            0
+            {% endif %}
+            , 38, 0
+        ) as dbt_row_batch_id
     from
         {{ ref('fct_events') }}
+    {% if is_incremental() %}
+        where
+            date(server_timestamp)
+                > (select max(server_event_date) from {{ this }})
+    {% endif %}
 ),
 
 user_district_role_date as (
@@ -44,17 +64,6 @@ user_daily_activity as (
 
         count(event_id) as n_events_per_user_day_context,
         True as had_events_per_user_day_context,
-
-        -- If event categories are pivoted to boolean data create activity flags for all event types
-        -- {#
-        -- {%- if event_categories %}
-        --     {%- for category in event_categories %}
-        -- max(is_{{ category }}_event) as had_{{ category }}_activity_per_user_day_context,
-        --     {%- endfor %}
-        -- {%- endif %}
-        -- #}
-
-        -- Include key dimensional context columns
         user_id,
         server_event_date,
         district_id,
@@ -64,7 +73,8 @@ user_daily_activity as (
         event_category,
         user_role,
         user_invite_status,
-        match_type
+        match_type,
+        dbt_row_batch_id
     from
         event_user_joined
     group by all

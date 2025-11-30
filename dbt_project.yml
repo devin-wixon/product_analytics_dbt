@@ -41,7 +41,7 @@ models:
   elementary:
     +schema: "elementary"
     ## To disable elementary for dev, uncomment this:
-    enabled: "{{ target.name in ['prod','ci'] }}"
+    enabled: "{{ target.name != 'Development' }}"
 
   dbt_project_evaluator:
     # Don't run in prod (performance), DO run in CI (with error severity), CAN run in dev with flag
@@ -81,13 +81,6 @@ seeds:
 data_tests:
   dbt_project_evaluator:
     +severity: "{{ env_var('DBT_PROJECT_EVALUATOR_SEVERITY', 'warn') }}"
-
-flags:
-  require_explicit_package_overrides_for_builtin_materializations: false
-  source_freshness_run_project_hooks: true
-  warn_error_options:
-    silence:
-      - PackageMaterializationOverrideDeprecation
 
 vars:
   # Exclude third-party packages from dbt-project-evaluator checks

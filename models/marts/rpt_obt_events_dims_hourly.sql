@@ -7,7 +7,7 @@ events as (
 
 -- not forcing a granularity
 -- group by all columns, which are created dynamically and can change
-final as (
+aggregated as (
     select
         user_id,
         user_role,
@@ -43,18 +43,23 @@ final as (
         year_month_sort,
         school_year_label,
         school_year_start_date,
-        true as had_events_per_user_day_context,
-        count(event_id) as n_events_per_user_day_context,
+        count(event_id) as n_events_per_user_dim_context,
         -- using one event_id in the context as a key for traceability
         min(event_id) as example_event_id
     from
         events
     group by all
+),
+
+final as (
+    select *
+    from
+        aggregated
+    where
+        user_role != 'student'
+        or user_role is null
 )
 
 select *
 from
     final
-where
-    user_role != 'student'
-    or user_role is null

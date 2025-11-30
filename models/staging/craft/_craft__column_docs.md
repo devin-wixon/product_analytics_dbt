@@ -28,6 +28,16 @@ Used for ordering programs in the UI.
 {% enddocs %}
 
 
+{% docs program_phase %}
+| Value             | Meaning                       |
+|-------------------|------------------------------|
+| Draft        | The program is in development and has not been released for external customers. |
+| Deprecated     | The program should no longer be sold or have active usage. |
+| Active     | The program is available to be sold and will have active usage. |
+| Phase-Out     | The program should no longer be sold, but may still have active usage. |
+{% enddocs %}
+
+
 {% docs program_release_year %}
 The year that the Lilypad digital program transitioned to Live. This is not the content release date or the copyright date.
 {% enddocs %}

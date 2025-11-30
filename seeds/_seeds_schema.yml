@@ -8,3 +8,12 @@ seeds:
         data_tests:
           - unique
           - not_null
+      - name: event_category
+        data_tests:
+          - not_null
+      - name: event_capture_start_date
+        data_tests:
+          - not_null
+      - name: event_capture_end_date
+        data_tests:
+          - not_null

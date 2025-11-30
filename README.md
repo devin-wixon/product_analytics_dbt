@@ -6,8 +6,10 @@ A dbt project for transforming product usage data from Taco (user management), L
 
 - [Key Resources](#key-resources)
 - [Getting Started](#getting-started)
+  - [Session Settings](#session-settings)
 - [Project Structure](#project-structure)
   - [Event Logic](#event-logic)
+  - [Incremental Models](#incremental-models)
 - [Development-Specific Commands](#development-specific-commands)
 - [Data Governance](#data-governance)
 - [Documentation](#documentation)
@@ -59,6 +61,17 @@ The project uses environment-specific configurations:
 - **CI (`ci`)**: Runs full test suite and project evaluator with error severity
 - **Production (`prod`)**: Uses custom schemas (staging, intermediate, warehouse, marts), skips project evaluator for performance
 
+### Session Settings
+
+**Timezone**
+UTC timezone is enforced for all dbt runs:
+```yaml
+on-run-start:
+  - "ALTER SESSION SET TIMEZONE = 'UTC'"
+```
+
+This is important for snapshots and other transformations, as timestamps in source data are stored in UTC.
+
 ## Project Structure
 
 ```
@@ -99,14 +112,27 @@ The `int_events_enriched` model performs complex enrichment of raw events using 
 - Classifies events into business categories (login, planner, app launch)
 - Requires maintenance when new event names are added; a relationship test will warn if names are not in the metadata CSV
 
+### Incremental Models
+
+Event-based models use incremental materialization with an `append` strategy to optimize performance and reduce warehouse costs. This also maintains the `event_id` values, as they are created in the pipeline. Incremental models filter new data using date-based logic (typically on `server_event_date` or `server_timestamp`) and track batch processing via `dbt_row_batch_id` for pipeline observability.
+
+To identify incremental models, search for `materialized='incremental'` in model configurations. To rebuild an incremental model from scratch when needed, use: `dbt build --full-refresh --models <model_name>`
+
 ## Development-Specific Commands
 
-- Snapshots run on a schedule in production and should not be run manually in development. Consider using `favor-state` as needed; see [defer docs](https://docs.getdbt.com/reference/node-selection/defer) to avoid building snapshots in dev layer.
+- Snapshots:  
+Run on a schedule in production and should not be run manually in development. Consider using `favor-state` as needed; see [defer docs](https://docs.getdbt.com/reference/node-selection/defer) to avoid building snapshots in dev layer.
 
-- Run project evaluator: Validate your changes against best practices before committing: 
-    - `dbt test --models package:dbt_project_evaluator` # run just the evaluator tests
-    - `dbt run --vars '{run_project_evaluator: true}'` # run models and evaluator tests
-    - `dbt build --vars '{run_project_evaluator: true}'` # build including evaluator tests
+- Project evaluator:
+Requires `--vars '{run_project_evaluator: true}'` in development. See [dbt Project Evaluator](#dbt-project-evaluator) section for details.
+    - `dbt run --vars '{run_project_evaluator: true}'`
+    - `dbt build --vars '{run_project_evaluator: true}'`
+
+- Development limits:  
+Some models limit rows in development. To override this for testing in dev, use the macro variable.
+Example run of `fct_events` without a development limit:  
+`dbt run -s fct_events --vars '{disable_dev_limit: true}'`
+
 
 ## Data Governance
 
@@ -116,7 +142,7 @@ The project uses a multi-layered testing strategy to ensure data quality:
 
 1. **Source freshness checks**: Monitor data recency (configured in `_sources.yml` files)
 2. **Model tests**: Unique keys, relationships, accepted values. 
-3. **Custom tests**: Business logic validation (in `tests/generic/`)
+3. **Relationship tests**: Foreign keys have testing to ensure only known prior orphans exist.
 4. **dbt Project Evaluator**: Enforce project structure and best practices
 5. **Elementary monitoring**: Track anomalies and data health (production only), including schema changes for all source models
 
@@ -137,6 +163,8 @@ The project evaluator checks for issues including the below.
 - **Dependencies**: No circular dependencies or inappropriate references
 - **Sources**: Source freshness is configured
 
+Project evaluator is configured in `dbt_project.yml` and exceptions are in a seed CSV.
+
 ## Documentation
 
 ### Documentation Standards
@@ -146,19 +174,20 @@ All models should include in their `.yml` files:
 ```yaml
 models:
   - name: model_name
-    description: |. 
-        Purpose:  
-        Granularity:  
-        Filters:  
-        Notes:  
+    description: |
+        Purpose:
+        Granularity:
+        Filters:
+        Notes:
     columns:
       - name: column_name
-        description: | 
-        Only doc blocks should be referenced, with potential exception for columns in only one model.
-        Doc blocks and other documentation should never reuse the column's name, and should only be provided if they add information content.    
-        For example, "a student's unique identifier" is not added information for a `student_id` column.
-
+        description: "{{ doc('column_doc_block') }}"  # Use doc blocks; avoid repeating column name
 ```
+
+**Documentation guidelines:**
+- Prefer doc blocks over inline descriptions (exception: columns unique to one model)
+- Descriptions should add information content, not repeat the column name
+- Example: "a student's unique identifier" adds no value for `student_id`
 
 ### Macro documentation
 - Comments within macro regarding expected behaviors and arguments
@@ -183,25 +212,6 @@ Use dbt Power User to explore:
 - [Elementary Data Observability](https://docs.elementary-data.com)
 - [Snowflake Documentation](https://docs.snowflake.com)
 
-## Session Settings & Project variables
-
-**Timezone**
-UTC timezone is enforced for all dbt runs:
-```yaml
-on-run-start:
-  - "ALTER SESSION SET TIMEZONE = 'UTC'"
-```
-
-This is important for snapshots and other transformations, as timestamps in source data are stored in UTC.
-
-**School year**
-The school year that is specified via project-level variables in `dbt_project.yml`.
-
-**Development limits**
-Some models limit rows in development. To override this for testing in dev, use the macro variable.
-Example run of `fct_events` without a development limit:  
-`dbt run -s fct_events --vars '{disable_dev_limit: true}'`
-
 ## Troubleshooting
 
 ### Getting Help
@@ -222,5 +232,5 @@ The PR template contains detailed sections to complete for documenting changes.
 
 ---
 **Project Version:** 1.0.0
-**Last Updated:** 2025-10-17
+**Last Updated:** 2025-11-20
 **Maintainers:** Devin Wixon, dwixon@frogstreet.com

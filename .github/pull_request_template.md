@@ -13,15 +13,14 @@
 - [ ] Refactoring
 - [ ] Documentation
 - [ ] Breaking change
+- [ ] Add tests
+- [ ] New singular or generic tests
 
 ## To-do before merge
 
-
 ## To-do after merge
 
-
 ## Lineage DAG Diff
-
 
 ## Validation of models:
 
@@ -31,15 +30,9 @@
 
 ### Data value diff
 
-
 ## dbt test results
 
-
 ## Impact Considerations
-
-
-## Changes to existing models
-
 
 ## Checklist
 - [ ] My SQL follows the [Frog Street Style Guide](https://frogstreetpress.sharepoint.com/:w:/s/DigitalProductInitiatives/EUFT5R_p38RPuaDg3C53jMYB0n2GTrXR1baGD20AagvZ1A?e=XLHG4K)
