@@ -59,7 +59,7 @@ final as (
 select 
     n_resources_in_program_resource_type,
     resource_program_id,
-    program_name,
+    resource_program_name,
     resource_type,
     n_resources_in_program_resource_type
 from
