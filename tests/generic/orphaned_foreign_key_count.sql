@@ -1,4 +1,6 @@
-{% test orphaned_foreign_key_count(model, column_name, to, field, threshold, to_condition=None) %}
+{% test orphaned_foreign_key_count(
+    model, column_name, to, field, threshold, to_condition=None
+    ) %}
 {#
     Test that validates the count of orphaned foreign key values doesn't exceed a threshold.
 
@@ -21,7 +23,7 @@
               severity: warn
 #}
 
-{{ config(severity='warn') }}
+    {{ config(severity='warn') }}
 
 with source_table as (
     select distinct {{ column_name }} as fk_value
