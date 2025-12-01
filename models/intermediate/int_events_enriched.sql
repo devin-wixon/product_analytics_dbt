@@ -61,7 +61,7 @@ with events as (
 
 event_metadata as
 (select
-    *
+    * exclude (proposed_new_event_name)
 from
     {{ ref('seed_event_log_metadata') }}
 
