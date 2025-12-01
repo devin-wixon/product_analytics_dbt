@@ -156,10 +156,10 @@ events_add_column_info as (
         joined
 ),
 
-events_add_pivots as 
+events_add_pivots as
 (select
     -- do not follow with a comma; conditional comma below
-    events_add_column_info.*,
+    events_add_column_info.*
     
     -- columns that should be an integer and are a foreign key
     {%- set id_join_columns = dbt_utils.get_column_values(
@@ -170,7 +170,7 @@ events_add_pivots as
         ref('seed_event_log_metadata'), 'event_value_not_id') %}
     
     -- cast as integer needed for foreign keys
-    {%- if id_join_columns -%}
+    {% if id_join_columns -%}
         {%- for col in id_join_columns -%}
             {%- if col and col not in manually_added_columns -%}
                 ,
@@ -183,18 +183,9 @@ events_add_pivots as
         {%- endfor -%}
     {%- endif -%}
 
-  {%- if not_id_columns -%}
-      {%- for col in not_id_columns -%}
-          {%- if col and col not in manually_added_columns -%}
-  ,
-          {%- break -%}
-          {%- endif -%}
-      {%- endfor -%}
-  {%- endif -%}
-
     -- non-foreign key
-    -- rest of loop is identical 
-    {%- if not_id_columns -%}
+    -- rest of loop is identical
+    {% if not_id_columns -%}
         {%- for col in not_id_columns -%}
             {%- if col and col not in manually_added_columns -%}
                 ,
@@ -205,7 +196,7 @@ events_add_pivots as
                 end as {{ col }}
           {%- endif -%}
       {%- endfor -%}
-  {%- endif -%},
+  {%- endif -%}
 
     -- add boolean is_ columns for event categories
     -- code works, not currently used; commented out
