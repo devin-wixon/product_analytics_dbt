@@ -1,13 +1,13 @@
-# metrics:
-  # created as create_metric = True in sem_events
-  # - name: n_active_users
-  #   description: "Count of unique users who performed any logged event"
-  #   type: simple
-  #   type_params:
-  #     measure: n_users_with_any_event
-  #   label: "Active Users"
-  #   meta:
-  #     semantic_model: "sem_events"
+metrics:
+  # can create as create_metric = True in sem_events, but causing Tableau to not recognize the metric
+  - name: n_active_users
+    description: "Count of unique active users"
+    type: simple
+    type_params:
+      measure: n_users
+    label: "Active Users"
+    meta:
+      semantic_model: "sem_events"
 
   # TAG TO DO redo these using new category types
   # - name: n_users_opened_planner
