@@ -111,6 +111,11 @@ Used to filter out one-off cases so the programs with type 'activity' available 
 {% enddocs %}
 
 
+{% docs has_program_activity_resources %}
+Boolean: True if the program has more than one resource of type `activity`. Used as a proxy for native programs in reporting.
+{% enddocs %}
+
+
 {% docs is_app_launch_event %}
 Boolean: True if event_name is 'productLaunchOpen', otherwise false.
 {% enddocs %}
