@@ -46,8 +46,9 @@ with events as (
                 (select max(dbt_row_batch_id) + 1 from {{ this }} )
             {% else %}
                 0
-            {% endif %}
-            , 38, 0
+            {% endif %},
+            38,
+            0
         ) as dbt_row_batch_id
     from {{ ref('stg_lilypad__events_log') }}
     {% if is_incremental() %}
@@ -195,7 +196,8 @@ events_add_pivots as (
                             = '{{ col }}'
                             then
                                 try_cast(
-                                    events_add_column_info.event_value as integer
+                                    events_add_column_info.event_value
+                                        as integer
                                 )
                     end as {{ col }}
                 {%- endif -%}
