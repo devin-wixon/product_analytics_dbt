@@ -37,8 +37,7 @@ Path that indicates what page the user was on.
   -  `/resources/{program_id}/details/{resource_id}`
   - `/planner/program_id/{month or folder_id}/week`
 - Some `program.resource.search` events may have search value in the path field.
-
-Note that users may type paths into the URL that will appear, but are not valid in the app.
+- `auth.login` events may have paths to pages such as resource details when the user opens direct a resource link and its token is expired but its refresh token still valid.
 {% enddocs %}
 
 
