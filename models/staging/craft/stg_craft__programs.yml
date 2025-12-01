@@ -14,3 +14,32 @@ models:
           - unique
       - name: is_program_deleted
         description: "{{ doc('is_entity_deleted') }}"
+      - name: program_id
+      - name: program_name
+      - name: program_description
+      - name: program_type
+      - name: program_age_group
+      - name: program_language
+      - name: program_license_type
+        description: "{{ doc('program_license_type') }}"
+      - name: program_phase
+        description: "{{ doc('program_phase') }}"
+      - name: program_market_specific
+        description: "{{ doc('program_market_specific') }}"
+      - name: program_tags
+      - name: program_clone_status
+      - name: program_custom_banner
+      - name: program_release_year
+        description: "{{ doc('program_release_year') }}"
+      - name: program_order_number
+        description: "{{ doc('program_order_number') }}"
+      - name: is_program_supplemental
+      - name: is_program_district_auto_add
+        description: "{{ doc('is_program_district_auto_add') }}"
+      - name: is_program_demo
+        description: "{{ doc('is_program_demo') }}"
+      - name: program_deleted_date
+      - name: dbt_updated_at
+      - name: dbt_valid_from
+      - name: dbt_valid_to
+      - name: dbt_is_deleted

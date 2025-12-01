@@ -4,6 +4,11 @@ True if the entity either has a deleted timestamp in Taco/Craft or the record wa
 {% enddocs %}
 
 
+{% docs is_program_demo %}
+Boolean: True if the program is not released to customers and is used for demonstration or test purposes.
+{% enddocs %}
+
+
 {% docs is_program_district_auto_add %}
 Boolean: True if the program is always included with products and added by default to new districts.
 {% enddocs %}
@@ -32,7 +37,7 @@ Used for ordering programs in the UI.
 | Value             | Meaning                       |
 |-------------------|------------------------------|
 | Draft        | The program is in development and has not been released for external customers. |
-| Deprecated     | The program should no longer be sold or have active usage. |
+| Deprecated     | The program should no longer be sold have active usage. |
 | Active     | The program is available to be sold and will have active usage. |
 | Phase-Out     | The program should no longer be sold, but may still have active usage. |
 {% enddocs %}
