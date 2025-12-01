@@ -197,7 +197,7 @@ events_add_pivots as (
                             then
                                 try_cast(
                                     events_add_column_info.event_value
-                                        as integer
+                                    as integer
                                 )
                     end as {{ col }}
                 {%- endif -%}
