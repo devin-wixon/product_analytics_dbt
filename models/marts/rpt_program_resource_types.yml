@@ -10,21 +10,23 @@ models:
         All other resource types are included regardless of count.
         For example, two programs have only one resource of type 'activity', but are not native programs.
     columns:
+      - name: program_resource_type_id
+        description: "{{ doc('program_resource_type_id') }}"
+        data_tests:
+          - unique
+          - not_null
       - name: resource_program_id
         description: "{{ doc('resource_program_id') }}"
       - name: resource_program_name
         description: "{{ doc('resource_program_name') }}"
+      - name: is_program_demo
+        description: "{{ doc('is_program_demo') }}"
       - name: program_phase
         description: "{{ doc('program_phase') }}"
       - name: resource_type
         description: "{{ doc('resource_type') }}"
       - name: n_resources_in_program_resource_type
         description: "{{ doc('n_resources_in_program_resource_type') }}"
-      - name: program_resource_type_id
-        description: "{{ doc('program_resource_type_id') }}"
-        data_tests:
-          - unique
-          - not_null
-      - name: has_multiple_resources_in_program_resource_type
-        description: "{{ doc('has_multiple_resources_in_program_resource_type') }}"
+      - name: has_program_activity_resources
+        description: "{{ doc('has_program_activity_resources') }}"
 
