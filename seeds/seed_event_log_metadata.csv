@@ -9,7 +9,7 @@ CTAPopUp.splash2025.dismissedAt,NA,pop_up_dismiss,event_value is date; can get f
 CTAPopUp.splash2025.viewAt,NA,pop_up_view,event_value is date; can get from other event log columns,Viewed the pop-up for Splash 2025,,,,,5/19/25,12/31/99
 device.orientation,browser.orientation,interface,,,,device_orientation,,portrait-secondary,2/26/25,12/31/99
 device.resolution,browser.resolution,interface,,,,screen_resolution,,962x601,2/26/25,12/31/99
-productLaunchOpen,products.productLaunch,app_launch,Note the event_value is the name not the application_id,User opened a third party application product,,application_name,,Cognitive ToyBox Web Portal,2/26/25,12/31/99
+productLaunchOpen,"productLaunch [with where opened context, Lilypad or third-party SSO]",app_launch,Note the event_value is the name not the application_id,User opened a third party application product,,application_name,,Cognitive ToyBox Web Portal,2/26/25,12/31/99
 program.resource.accordion.close,resourceCenter.accordion.close,resources_accordion,,"Close a ""top level"" (blue bar) accordion",,,program_group_id,84,4/11/25,12/31/99
 program.resource.accordion.list.close,resourceCenter.accordion.list.close,resources_accordion,,"Close an internal accordion filter (a folder, not a grouping level)",,,folder_id,"18856, 5176",4/11/25,12/31/99
 program.resource.accordion.list.open,resourceCenter.accordion.list.open,resources_accordion,,"Open an internal accordion filter (a folder, not a grouping level)",,,folder_id,"18856, 5176",4/11/25,12/31/99
