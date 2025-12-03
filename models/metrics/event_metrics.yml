@@ -1,7 +1,15 @@
 metrics:
-  # can create as create_metric = True in sem_events, but causing Tableau to not recognize the metric
   - name: n_active_users
-    description: "Count of unique active users"
+    description: |
+      Count of unique users who generated events within the filters.
+
+      Active users are defined by user ID having any captured event in the event logs, including logins and navigating through pages.
+
+      This may be an undercount because:
+      - If teachers share their username/password, we will count only one user.
+      - Auditing suggests some infrequent user events are not being captured; this is being investigated.
+      - If users are given demo accounts (such as over 1K organizations in Sep 25), all of those users will have a single user ID.
+      - If users access an application through the application's SSO, we do not track events.    
     type: simple
     type_params:
       measure: n_users

@@ -171,10 +171,10 @@ semantic_models:
           - If teachers share their username/password, we will count only one user.
           - Auditing suggests some infrequent user events are not being captured; this is being investigated.
           - If users are given demo accounts (such as over 1K organizations in Sep 25), all of those users will have a single user ID.
-          - If users access the application through SSO, we do not track events.
+          - If users access an application through the application's SSO, we do not track events.
         agg: count_distinct
         expr: user_id
-        create_metric: True
+        # create_metric: True
         label: "# Active Users"
 
       - name: n_districts
