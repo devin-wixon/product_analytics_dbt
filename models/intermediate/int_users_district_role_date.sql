@@ -1,6 +1,7 @@
 {{ config(
     materialized='incremental',
-    incremental_strategy='append'
+    incremental_strategy='append',
+    on_schema_change='ignore'
 ) }}
 
 with
@@ -14,16 +15,16 @@ events as (
             {% if is_incremental() %}
                 (select max(dbt_row_batch_id) + 1 from {{ this }})
             {% else %}
-            0
-            {% endif %}
-            , 38, 0
+                0
+            {% endif %},
+            38, 0
         ) as dbt_row_batch_id
     from
         {{ ref('fct_events') }}
     where
         user_id is not null
         and server_event_date is not null
-        {% if is_incremental() %}
+    {% if is_incremental() %}
             and date(server_timestamp)
                 > (select max(server_event_date) from {{ this }})
         {% endif %}
