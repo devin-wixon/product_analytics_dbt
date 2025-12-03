@@ -9,14 +9,14 @@ with
 events as (
     select
         * exclude (dbt_row_batch_id),
-        -- each incremental model tracks its own batch_id for independent pipeline monitoring
+        -- batch tracking for incremental loads
         to_number(
             {% if is_incremental() %}
                 (select max(dbt_row_batch_id) + 1 from {{ this }} )
             {% else %}
-            0
-            {% endif %}
-            , 38, 0
+                0
+            {% endif %},
+            38, 0
         ) as dbt_row_batch_id
     from
         {{ ref("int_events_enriched") }}
