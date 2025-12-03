@@ -1,10 +1,9 @@
--- allow new columns to be added as needed for new event_value types
 {{ config(
     materialized='incremental',
     incremental_strategy='append',
     on_schema_change='append_new_columns'
 ) }}
-
+-- on_schema_change: allow new columns as needed for new event_value types
 with
 
 events as (
