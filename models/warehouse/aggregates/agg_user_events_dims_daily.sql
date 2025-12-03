@@ -11,9 +11,9 @@ with events as (
             {% if is_incremental() %}
                 (select max(dbt_row_batch_id) + 1 from {{ this }} )
             {% else %}
-            0
-            {% endif %}
-            , 38, 0
+                0
+            {% endif %}, 
+            38, 0
         ) as dbt_row_batch_id
     from
         {{ ref('fct_events') }}
@@ -63,7 +63,7 @@ user_daily_activity as (
         ]) }} as user_daily_context_sk,
 
         count(event_id) as n_events_per_user_day_context,
-        True as had_events_per_user_day_context,
+        true as had_events_per_user_day_context,
         user_id,
         server_event_date,
         district_id,

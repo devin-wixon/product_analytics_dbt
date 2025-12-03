@@ -1,4 +1,3 @@
-
 with
 -- not incremental; uses most recent values from dims
 events as (
