@@ -1,3 +1,5 @@
+
+-- not incremental; uses most recent values from dims
 with
 
 events as (
