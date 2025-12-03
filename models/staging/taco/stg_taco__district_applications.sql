@@ -15,11 +15,9 @@ final as (
         -- attributes
         enabled::boolean as is_enabled,
         -- abc_group_id varchar;
-        -- api_key_id::varchar as api_key_id,
-        -- api_key::varchar as api_key,
 
         -- timestamps
-        create_date::timestamp as created_at_utc,
+        created_at::timestamp as created_at_utc,
 
         -- snapshot columns
         dbt_scd_id,
