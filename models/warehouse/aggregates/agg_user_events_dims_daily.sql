@@ -12,7 +12,7 @@ with events as (
                 (select max(dbt_row_batch_id) + 1 from {{ this }} )
             {% else %}
                 0
-            {% endif %}, 
+            {% endif %},
             38, 0
         ) as dbt_row_batch_id
     from
