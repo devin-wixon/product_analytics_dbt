@@ -1,3 +1,4 @@
+-- allow new columns to be added as needed for new event_value types
 {{ config(
     materialized='incremental',
     incremental_strategy='append',
