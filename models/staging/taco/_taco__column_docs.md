@@ -1,239 +1,15 @@
-
 {% docs application_name %}
 Application name for third-party products such as Cognitive Toy Box.
 {% enddocs %}
 
 
-{% docs district_name %}
-Example: Dallas ISD
-{% enddocs %}
-
-
-{% docs district_address %}
-Physical address of the district.  
-Example: 123 Main St
-{% enddocs %}
-
-
-{% docs district_state %}
-State where the district is located.  
-Example: Louisiana
-{% enddocs %}
-
-
-{% docs district_sales_force_id %}
-Salesforce identifier for the district.  
-Example: SF12345
-{% enddocs %}
-
-
-{% docs district_mas_id %}
-MAS system identifier for the district.  
-Example: MAS98765
-{% enddocs %}
-
-
-{% docs district_sage_id %}
-Sage system identifier for the district.  
-Example: SAGE54321
-{% enddocs %}
-
-
-{% docs district_updated_at_utc %}
-The last time a sync was received (`district_last_sync_utc`) _or_ a manual change was made to the district.
-District.updated_at: sync received OR manually added.
-{% enddocs %}
-
-
-{% docs district_type %}
-Type of district.  
-
-| Value             | Meaning                       |
-|-------------------|------------------------------|
-| small-independent | Small independent (ICC)    |
-| international     | International district        |
-| district          | School district          |
-| head-start        | Head Start program            |
-| demo-test         | Demo or test         |
-
-{% enddocs %}
-
-{% docs district_settings %}
-JSON of settings such as grades, rostering, and authentication methods
-Example: {'grades': 'IT,PR,PK,TK,Other,KG,02', 'rostering': {'method': 'classlink', 'classlink_id': '1440', 'state_id_field': 'stateid', 'is_active_send_invite': 'false', 'allow_users_without_class_or_school': 'false'}, 'selfservice': {'rostering': {'show_clever': 'false'}, 'authentication': {'show_clever': 'true'}}, 'authentication': {'provider': 'class_link', 'classlink_settings': {'classlink_id': '1440'}}, 'product_launchers': {'aim_obs': {'url': '', 'enabled': True, 'access_key': '', 'private_key': ''}}, 'onboarding_required': 'false', 'user_pool_client_id': 'abcde'}
-{% enddocs %}
-
-
-{% docs is_district_enabled %}
-All values are TRUE as of 8/25.
-{% enddocs %}
-
-
-{% docs is_user_deleted %}
-True if the user either has a deleted timestamp in Taco or the record was deleted and detected by dbt snapshots.
-{% enddocs %}
-
-
-{% docs district_website_slug %}
-Website slug for the district. This is the subdomain for Lilypad in the URL (https://district_website_slug.lilypad2.frogstreet.com will be the URL).  
-Example: dallas-isd
-{% enddocs %}
-
-
-{% docs district_city %}
-City where the district is located.  
-Example: Dallas
-{% enddocs %}
-
-
-{% docs district_sourced_id %}
-External or source system identifier for the district.  
-Example: 12345
-{% enddocs %}
-
-
-{% docs district_identifier %}
-Alternate identifier for the district, possibly for integration or mapping.  
-Example: 67890
-{% enddocs %}
-
-
-{% docs roster_file_created_at_utc %}
-Timestamp when the district's roster file was created in the UTC time zone.  
-Example: 2025-07-30 00:00:00.000
-{% enddocs %}
-
-
-{% docs district_auto_rostering_checked_at %}
-Timestamp when auto rostering was last checked for the district.  
-Example: 2025-07-30 00:00:00.000
-{% enddocs %}
-
-
-{% docs is_district_auto_sync %}
-<!-- TAG TO DO confirm values and flesh out with their meaning. -->
-Example: TRUE
-{% enddocs %}
-
-
-{% docs district_state_international %}
-Example: Brazilia
-{% enddocs %}
-
-
-{% docs district_general_settings %}
-JSON of settings such as start date and end date
-Example: {'end_date': '2026-06-25', 'start_date': '2025-06-25', 'classroom_schedule': {'friday': {}, 'monday': {}, 'sunday': {}, 'tuesday': {}, 'saturday': {}, 'thursday': {}, 'wednesday': {}}}
-{% enddocs %}
-
-
-{% docs enrollment_sourced_id %}
-Row-level identifier of the enrollment record in the external system. Used by our system for value updates.
-{% enddocs %}
-
-
-{% docs enrollment_end_date %}
-Optional column that is often null.
-{% enddocs %}
-
-
-{% docs enrollment_start_date %}
-Optional column that is often null.
-{% enddocs %}
-
-
-{% docs enrollment_status %}
-This is not used by Lilypad, as enrollment data is the most current provided by the user.
-Values: active, tobedeleted
-{% enddocs %}
-
-
-{% docs is_enrollment_active %}
-This is not used by our systems.
-Values: always TRUE
-{% enddocs %}
-
-
-{% docs is_primary %}
-If true, this is the primary teacher associated with the classroom; only one teacher per classroom can be primary. Used for third party applications that only allow one teacher per classroom.
-{% enddocs %}
-
-
-{% docs user_deleted_at_utc %}
-**Most deleted users will have a null value.**
-Timestamp when the user was deleted in Taco. 
-User deletions in Taco began to be tracked in Nov 2025. Prior to that, user history was captured via SCD2 snapshots starting in Sep 2025.
-{% enddocs %}
-
-
-{% docs user_role_id %}
-Numeric identifier associated with the user role.
-{% enddocs %}
-
-
-{% docs user_id %}
-Unique identifier for the user record.  
-
-**Note**: There are scenarios where a `user_id` may change for the same user. Examples: A district changes rostering methods to SSO, or moves from summer to academic year then back to academic year. Typically CS will do a conversion. However, if they just change the `user_sourced_id`, a new `user_id` will be created.
-
-Example: 452698
-{% enddocs %}
-
-
-{% docs user_sk %}
-Surrogate key for the user, used for uniqueness and joins.
-Example: 8e7c2a1b2f3d4e5f6a7b8c9d0e1f2a3b
-{% enddocs %}
-
-
-{% docs user_id_valid_from_sk %}
-Surrogate key for user and the record's valid-from date, used for uniqueness and joins in user history models.
-Example: 8e7c2a1b2f3d4e5f6a7b8c9d0e1f2a3b
-{% enddocs %}
-
-
-{% docs user_sourced_id %}
-External user id, typically the user_id on the district SIS.
-Example: 23308
-{% enddocs %}
-
-
-{% docs user_grades %}
-Array: Grade levels associated with the user.  
-Example: ["IN", "TD", "PK"]
-{% enddocs %}
-
-
-{% docs user_identifier %}
-Alternate identifier for the user provided by the district, possibly for integration or mapping. 
-Example: 19642
-{% enddocs %}
-
-
-{% docs user_role %}
-Role of the user. Values are: teacher, administrator, student.  
-
-Notes:
-- Hierarchical visibility permissions are applied to school and district administrators.
-    - A school administrator is defined as an administrator enrolled to a school.
-    - A district administrator is defined as an administrator without any school enrollment.
-- A teacher or student can be created without a class enrollment, but they are invalid and functionality such as sync to AIM or QR codes doesn't work. The `allow_users_without_class_or_school` district setting determines whether the district should allow invalid records to have functionality.
-{% enddocs %}
-
-
-{% docs user_status %}
-As of 2025-08, all values are "active" and the column is not useful.
-{% enddocs %}
-
-
-{% docs okta_user_id %}
-Identifier for the user in Okta (SSO provider).  
-Example: (empty)
-{% enddocs %}
-
-
 {% docs class_sourced_id %}
 External class id, typically the class_id on the district SIS.
+{% enddocs %}
+
+
+{% docs dbt_is_deleted %}
+Boolean: True when the record is no longer in the source table, as tracked by dbt snapshots.
 {% enddocs %}
 
 
@@ -264,8 +40,181 @@ Example: 9999-12-31 00:00:00.000
 {% enddocs %}
 
 
-{% docs dbt_is_deleted %}
-Boolean: True when the record is no longer in the source table, as tracked by dbt snapshots.
+{% docs district_address %}
+Physical address of the district.  
+Example: 123 Main St
+{% enddocs %}
+
+
+{% docs district_auto_rostering_checked_at %}
+Timestamp when auto rostering was last checked for the district.  
+Example: 2025-07-30 00:00:00.000
+{% enddocs %}
+
+
+{% docs district_city %}
+Example: Dallas
+{% enddocs %}
+
+
+{% docs district_general_settings %}
+JSON of settings such as start date and end date
+Example: {'end_date': '2026-06-25', 'start_date': '2025-06-25', 'classroom_schedule': {'friday': {}, 'monday': {}, 'sunday': {}, 'tuesday': {}, 'saturday': {}, 'thursday': {}, 'wednesday': {}}}
+{% enddocs %}
+
+
+{% docs district_id %}
+Internal district identifier. May join to Salesforce district identifier data.
+{% enddocs %}
+
+
+{% docs district_identifier %}
+Alternate identifier for the district, possibly for integration or mapping.  
+Example: 67890
+{% enddocs %}
+
+
+{% docs district_mas_id %}
+MAS system identifier for the district.  
+Example: MAS98765
+**Note** Historically, this was manually keyed in and may have errors.
+{% enddocs %}
+
+
+{% docs district_name %}
+Example: Dallas ISD
+{% enddocs %}
+
+
+{% docs district_sage_id %}
+Sage system identifier for the district.  
+Example: SAGE54321
+{% enddocs %}
+
+
+{% docs district_sales_force_id %}
+Salesforce identifier for the district.  
+Example: SF12345
+**Note** Prior to Dec 2025, this was manually keyed in and may have errors.
+{% enddocs %}
+
+
+{% docs district_settings %}
+JSON of settings such as grades, rostering, and authentication methods
+Example: {'grades': 'IT,PR,PK,TK,Other,KG,02', 'rostering': {'method': 'classlink', 'classlink_id': '1440', 'state_id_field': 'stateid', 'is_active_send_invite': 'false', 'allow_users_without_class_or_school': 'false'}, 'selfservice': {'rostering': {'show_clever': 'false'}, 'authentication': {'show_clever': 'true'}}, 'authentication': {'provider': 'class_link', 'classlink_settings': {'classlink_id': '1440'}}, 'product_launchers': {'aim_obs': {'url': '', 'enabled': True, 'access_key': '', 'private_key': ''}}, 'onboarding_required': 'false', 'user_pool_client_id': 'abcde'}
+{% enddocs %}
+
+
+{% docs district_sourced_id %}
+External or source system identifier for the district.  
+Example: 12345
+{% enddocs %}
+
+
+{% docs district_state %}
+State where the district is located.  
+Example: Louisiana
+{% enddocs %}
+
+
+{% docs district_state_international %}
+Example: Brazilia
+{% enddocs %}
+
+
+{% docs district_type %}
+Type of district.  
+
+| Value             | Meaning                       |
+|-------------------|------------------------------|
+| small-independent | Small independent (ICC)    |
+| international     | International district        |
+| district          | School district          |
+| head-start        | Head Start program            |
+| demo-test         | District used for demonstrations or internal testing        |
+
+{% enddocs %}
+
+
+{% docs district_updated_at_utc %}
+The last time a sync was received (`district_last_sync_utc`) _or_ a manual change was made to the district.
+District.updated_at: sync received OR manually added.
+{% enddocs %}
+
+
+{% docs district_website_slug %}
+Website slug for the district. This is the subdomain for Lilypad in the URL (https://district_website_slug.lilypad2.frogstreet.com will be the URL).  
+Example: dallas-isd
+{% enddocs %}
+
+
+{% docs enrollment_end_date %}
+Optional column that is often null.
+{% enddocs %}
+
+
+{% docs enrollment_sourced_id %}
+Row-level identifier of the enrollment record in the external system. Used by our system for value updates.
+{% enddocs %}
+
+
+{% docs enrollment_start_date %}
+Optional column that is often null.
+{% enddocs %}
+
+
+{% docs enrollment_status %}
+This is not used by Lilypad, as enrollment data is the most current provided by the user.
+Values: active, tobedeleted
+{% enddocs %}
+
+
+{% docs is_disable_auto_sync %}
+If true, any changes to the user will be ignored in following syncs.   
+This applies to both new and existing users.  
+This setting can be disabled in the user interface if needed.  
+{% enddocs %}
+
+
+{% docs is_district_auto_sync %}
+<!-- TAG TO DO confirm values and flesh out with their meaning. -->
+Example: TRUE
+{% enddocs %}
+
+
+{% docs is_district_enabled %}
+All values are TRUE as of 12/25.  Not persisted into analytics.
+{% enddocs %}
+
+
+{% docs is_enrollment_active %}
+This is not used by our systems.
+Values: always TRUE
+{% enddocs %}
+
+
+{% docs is_primary %}
+If true, this is the primary teacher associated with the classroom; only one teacher per classroom can be primary. Used for third party applications that only allow one teacher per classroom.
+{% enddocs %}
+
+
+{% docs is_user_deleted %}
+True if the user either has a deleted timestamp in Taco or the record was deleted and detected by dbt snapshots.
+{% enddocs %}
+
+
+{% docs license_start_date %}
+The date the license becomes effective for user access.
+Null means it is effective now and did not have a start date set.
+{% enddocs %}
+
+
+{% docs okta_user_id %}
+{% enddocs %}
+
+
+{% docs roster_file_created_at_utc %}
+The most recent timestamp, if any, when the user requested an export of the roster.
 {% enddocs %}
 
 
@@ -274,9 +223,19 @@ External school id, typically the school_id on the district SIS.
 {% enddocs %}
 
 
-{% docs license_start_date %}
-The date the license becomes effective for user access.
-Null means it is effective now and did not have a start date set.
+{% docs updated_at_utc %}
+Timestamp of the last modification _or_ roster upload of the record in UTC.
+This value may change if
+* a record has a fresh roster upload that does _or_ does not change anything, or
+* a record has a manual update that does _or_ does not change a column's value
+Example: 2025-07-30 00:00:00.000
+{% enddocs %}
+
+
+{% docs user_deleted_at_utc %}
+**Most deleted users will have a null value.**
+Timestamp when the user was deleted in Taco. 
+User deletions in Taco began to be tracked in Nov 2025. Prior to that, user history was captured via SCD2 snapshots starting in Sep 2025.
 {% enddocs %}
 
 
@@ -291,24 +250,30 @@ Example: 2025-07-30 00:00:00.000
 {% enddocs %}
 
 
-{% docs district_id %}
-Internal district identifier. May join to Salesforce district identifier data.
+{% docs user_grades %}
+Array: Grade levels associated with the user.  
+Example: ["IN", "TD", "PK"]
 {% enddocs %}
 
 
-{% docs updated_at_utc %}
-Timestamp of the last modification _or_ roster upload of the record in UTC.
-This value may change if
-* a record has a fresh roster upload that does _or_ does not change anything, or
-* a record has a manual update that does _or_ does not change a column's value
-Example: 2025-07-30 00:00:00.000
+{% docs user_id %}
+Unique identifier for the user record.  
+
+**Note**: There are scenarios where a `user_id` may change for the same user. Examples: A district changes rostering methods to SSO, or moves from summer to academic year then back to academic year. Typically CS will do a conversion. However, if they just change the `user_sourced_id`, a new `user_id` will be created.
+
+Example: 452698
 {% enddocs %}
 
 
-{% docs is_disable_auto_sync %}
-If true, any changes to the user will be ignored in following syncs.   
-This applies to both new and existing users.  
-This setting can be disabled in the user interface if needed.  
+{% docs user_id_valid_from_sk %}
+Surrogate key for user and the record's valid-from date, used for uniqueness and joins in user history models.
+Example: 8e7c2a1b2f3d4e5f6a7b8c9d0e1f2a3b
+{% enddocs %}
+
+
+{% docs user_identifier %}
+Alternate identifier for the user provided by the district, possibly for integration or mapping. 
+Example: 19642
 {% enddocs %}
 
 
@@ -326,3 +291,35 @@ Indicates the onboarding status of the user.
 Note: A user can change rostering methods. For example, an administrator may start with username password, then switch to SSO.
 {% enddocs %}
 
+
+{% docs user_role %}
+Role of the user. Values are: teacher, administrator, student.  
+
+Notes:
+- Hierarchical visibility permissions are applied to school and district administrators.
+    - A school administrator is defined as an administrator enrolled to a school.
+    - A district administrator is defined as an administrator without any school enrollment.
+- A teacher or student can be created without a class enrollment, but they are invalid and functionality such as sync to AIM or QR codes doesn't work. The `allow_users_without_class_or_school` district setting determines whether the district should allow invalid records to have functionality.
+{% enddocs %}
+
+
+{% docs user_role_id %}
+Numeric identifier associated with the user role.
+{% enddocs %}
+
+
+{% docs user_sk %}
+Surrogate key for the user, used for uniqueness and joins.
+Example: 8e7c2a1b2f3d4e5f6a7b8c9d0e1f2a3b
+{% enddocs %}
+
+
+{% docs user_sourced_id %}
+External user id, typically the user_id on the district SIS.
+Example: 23308
+{% enddocs %}
+
+
+{% docs user_status %}
+As of 2025-08, all values are "active" and the column is not useful.
+{% enddocs %}
