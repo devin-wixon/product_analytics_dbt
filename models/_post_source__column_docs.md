@@ -15,11 +15,7 @@ Human-readable name of the Clever provider/district.
 
 {% docs authentication_provider %}
 Primary authentication provider for the district.
-{% enddocs %}
-
-
-{% docs authentication_saml_settings_metadata_document_source %}
-Source type for SAML metadata document (e.g., file).
+Values include: oidc, saml, clever, password, class_link
 {% enddocs %}
 
 
@@ -117,13 +113,18 @@ Boolean: True if the program has more than one resource of type `activity`. Used
 {% enddocs %}
 
 
+{% docs is_active_send_invite %}
+Boolean: True if the district settings will send new users an invitation automatically.
+{% enddocs %}
+
+
 {% docs is_app_launch_event %}
-Boolean: True if event_name is 'productLaunchOpen', otherwise false.
+Boolean: True if `event_name` is 'productLaunchOpen', otherwise false.
 {% enddocs %}
 
 
 {% docs is_distributed_demo_district %}
-Boolean: True if the district is one of the distributed demo districts given to organizations for Back to School onboarding, otherwise false.
+Boolean: True if the district is one of the distributed "demonstration" districts given to organizations without user licensing for Back to School onboarding.
 {% enddocs %}
 
 

@@ -33,6 +33,8 @@ models:
         description: "{{ doc('rostering_state_id_field') }}"
       - name: is_rostering_allow_users_without_class_or_school
         description: "{{ doc('is_rostering_allow_users_without_class_or_school') }}"
+      - name: is_active_send_invite
+        description: "{{ doc('is_active_send_invite') }}"
       - name: is_selfservice_rostering_show_clever
         description: "{{ doc('is_selfservice_rostering_show_clever') }}"
       - name: is_selfservice_authentication_show_clever
@@ -48,7 +50,6 @@ models:
       - name: authentication_saml_settings_provider_name
         description: "{{ doc('authentication_saml_settings_provider_name') }}"
       - name: authentication_saml_settings_metadata_document_source
-        description: "{{ doc('authentication_saml_settings_metadata_document_source') }}"
       - name: is_onboarding_required
         description: "{{ doc('is_onboarding_required') }}"
       - name: user_pool_client_id

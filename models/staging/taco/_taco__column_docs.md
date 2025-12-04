@@ -47,8 +47,7 @@ Example: 123 Main St
 
 
 {% docs district_auto_rostering_checked_at %}
-Timestamp when auto rostering was last checked for the district.  
-Example: 2025-07-30 00:00:00.000
+UTC timestamp of the most recent server check for files to sync for the district.”
 {% enddocs %}
 
 
@@ -106,7 +105,7 @@ Example: {'grades': 'IT,PR,PK,TK,Other,KG,02', 'rostering': {'method': 'classlin
 
 
 {% docs district_sourced_id %}
-External or source system identifier for the district.  
+External or source system identifier for the district, typically provided during a sync.
 Example: 12345
 {% enddocs %}
 
@@ -138,7 +137,6 @@ Type of district.
 
 {% docs district_updated_at_utc %}
 The last time a sync was received (`district_last_sync_utc`) _or_ a manual change was made to the district.
-District.updated_at: sync received OR manually added.
 {% enddocs %}
 
 
@@ -177,7 +175,7 @@ This setting can be disabled in the user interface if needed.
 
 
 {% docs is_district_auto_sync %}
-<!-- TAG TO DO confirm values and flesh out with their meaning. -->
+Boolean: True if the district automatically syncs, overwriting any manually entered values.
 Example: TRUE
 {% enddocs %}
 
@@ -257,7 +255,7 @@ Example: ["IN", "TD", "PK"]
 
 
 {% docs user_id %}
-Unique identifier for the user record.  
+Internal Frog Street unique identifier for the user record.  
 
 **Note**: There are scenarios where a `user_id` may change for the same user. Examples: A district changes rostering methods to SSO, or moves from summer to academic year then back to academic year. Typically CS will do a conversion. However, if they just change the `user_sourced_id`, a new `user_id` will be created.
 

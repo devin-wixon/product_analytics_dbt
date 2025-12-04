@@ -18,6 +18,7 @@ models:
       - name: program_name
       - name: program_description
       - name: program_type
+        description: "{{ doc('program_type') }}"
       - name: program_age_group
       - name: program_language
       - name: program_license_type
@@ -30,7 +31,7 @@ models:
       - name: program_clone_status
       - name: program_custom_banner
       - name: program_release_year
-        description: "{{ doc('program_release_year') }}"
+        description: "{{ doc('program_release_date') }}"
       - name: program_order_number
         description: "{{ doc('program_order_number') }}"
       - name: is_program_supplemental
