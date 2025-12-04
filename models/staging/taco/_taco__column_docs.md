@@ -265,8 +265,7 @@ Example: 9999-12-31 00:00:00.000
 
 
 {% docs dbt_is_deleted %}
-Indicates if the record is considered deleted (column is created by dbt).  
-Example: False
+Boolean: True when the record is no longer in the source table, as tracked by dbt snapshots.
 {% enddocs %}
 
 

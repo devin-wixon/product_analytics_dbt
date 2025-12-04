@@ -38,6 +38,7 @@ The hour in 24-hour format from the client timestamp on the event.
 See notes in `client_timestamp`.
 {% enddocs %}
 
+
 {% docs date_day %}
 The calendar date serving as the natural key for the date dimension.
 {% enddocs %}
@@ -63,9 +64,9 @@ Day of the year as an integer (1-366), extracted using dayofyear() function.
 Number of days between first and second active day. Null if user has not been active on 2+ days.
 {% enddocs %}
 
-
 {% docs dbt_row_batch_id %}
-Incremental batch identifier that tracks which dbt run created each row. Starts at 0 for the initial full-refresh run and increments by 1 for each subsequent incremental run.  
+Incremental batch identifier that tracks which dbt run created each row.  
+Starts at 0 for the initial full-refresh run and increments by 1 for each subsequent incremental run.  
 Used for troubleshooting incremental loads and validating that daily batches are loaded correctly.
 {% enddocs %}
 
@@ -183,6 +184,7 @@ Boolean: True if user had events on 2 or more distinct days, otherwise false. Ap
 Boolean: True for all users; retained for funnel calculations.
 {% enddocs %}
 
+
 {% docs is_user_eligible_for_mau %}
 At the row's date value, is the user's first event date before 27 days prior (the `mau_lookback_start_date`)?
 Used to determine if a user should be in the WAU/MAU ratio and excluding users that didn't have the full MAU opportunity space.
@@ -256,15 +258,15 @@ First date of the month containing the calendar date, calculated using date_trun
 {% enddocs %}
 
 
-{% docs n_resources_in_program_resource_type %}
-Count of unique `resource_id` within the program per resource type.
-Includes resources with no events.
-{% enddocs %}
-
-
 {% docs n_events_per_user_dim_context %}
 In models that aggregate to a grain size larger than the event, this is the number of events per the grain size.
 It should be summed to achieve a total count of events.
+{% enddocs %}
+
+
+{% docs n_resources_in_program_resource_type %}
+Count of unique `resource_id` within the program per resource type.
+Includes resources with no events.
 {% enddocs %}
 
 
@@ -283,13 +285,13 @@ For 'router.left' events, the path the user navigated away from.
 {% enddocs %}
 
 
-{% docs program_id %}
-Integer extracted from `event_value` or `event_path`. Null if the user was not in a particular program for the event.
+{% docs program_event_category_id %}
+Unique identifier for models that aggregate by program id and event category.
 {% enddocs %}
 
 
-{% docs program_event_category_id %}
-Unique identifier for models that aggregate by program id and event category.
+{% docs program_id %}
+Integer extracted from `event_value` or `event_path`. Null if the user was not in a particular program for the event.
 {% enddocs %}
 
 
@@ -308,6 +310,12 @@ Integer resource_id derived from event_value or event_path, only for events wher
 {% enddocs %}
 
 
+{% docs resource_program_name %}
+The program name associated with the resource's program id.
+See notes in `resource_program_id`.
+{% enddocs %}
+
+
 {% docs rostering_method %}
 Values: classlink, clever, flat_file_csv, oneroster
 {% enddocs %}
@@ -321,12 +329,6 @@ Values: replace, additive
 {% docs rostering_state_id_field %}
 <!-- TAG TO DO confirm values and flesh out with their meaning. -->
 Values: stateid, identifier, username, sourcedid, state
-{% enddocs %}
-
-
-{% docs resource_program_name %}
-The program name associated with the resource's program id.
-See notes in `resource_program_id`.
 {% enddocs %}
 
 
@@ -392,13 +394,13 @@ The first event date for the user at any time, ignoring any filters and context 
 {% enddocs %}
 
 
-{% docs user_role_match_type %}
-Indicates whether the user record was matched via 'exact' SCD logic or 'fallback' temporal proximity. Used for data quality monitoring.
+{% docs user_pool_client_id %}
+AWS Cognito User Pool client identifier for authentication services.
 {% enddocs %}
 
 
-{% docs user_pool_client_id %}
-AWS Cognito User Pool client identifier for authentication services.
+{% docs user_role_match_type %}
+Indicates whether the user record was matched via 'exact' SCD logic or 'fallback' temporal proximity. Used for data quality monitoring.
 {% enddocs %}
 
 
