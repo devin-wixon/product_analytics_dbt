@@ -69,6 +69,20 @@ Used for troubleshooting incremental loads and validating that daily batches are
 
 {% docs district_grades %}
 Comma-separated list of grade levels supported by the district.
+
+| Value | Meaning                          |
+|-------|----------------------------------|
+| IN    | Infant                           |
+| TD    | Toddler                          |
+| IT    | Infant/Toddler (combined)        |
+| PR    | Preschool/Pre-K                  |
+| PK    | Pre-Kindergarten                 |
+| TK    | Transitional Kindergarten        |
+| KG    | Kindergarten                     |
+| 01...12    | 1st Grade...12th Grade                        |
+| UG    | Ungraded / Upper Grades          |
+| Other | Other                            |
+
 {% enddocs %}
 
 

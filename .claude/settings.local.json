@@ -34,7 +34,8 @@
       "Bash(git mv:*)",
       "WebFetch(domain:raw.githubusercontent.com)",
       "Bash(xargs cat:*)",
-      "WebFetch(domain:www.elementary-data.com)"
+      "WebFetch(domain:www.elementary-data.com)",
+      "Bash(grep:*)"
     ],
     "deny": [],
     "ask": []

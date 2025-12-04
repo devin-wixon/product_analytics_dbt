@@ -91,7 +91,7 @@ models:
       - name: program_license_type
         description: "{{ doc('program_license_type') }}"
       - name: program_release_year
-        description: "{{ doc('program_release_year') }}"
+        description: "{{ doc('program_release_date') }}"
       - name: program_phase
         description: "{{ doc('program_phase') }}"
       - name: program_market_specific

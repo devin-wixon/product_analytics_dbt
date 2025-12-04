@@ -29,7 +29,7 @@ models:
       - name: program_clone_status
       - name: program_custom_banner
       - name: program_release_year
-        description: "{{ doc('program_release_year') }}"
+        description: "{{ doc('program_release_date') }}"
       - name: program_order_number
         description: "{{ doc('program_order_number') }}"
       - name: is_program_supplemental
