@@ -264,7 +264,7 @@ sources:
             data_tests:
               - unique
               - not_null
-      - name: raw_taco__schools"
+      - name: raw_taco__schools
         description: "School-level information from Taco."
         freshness:
           warn_after: {count: 3, period: day}

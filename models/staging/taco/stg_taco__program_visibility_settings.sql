@@ -12,7 +12,7 @@ final as (
         school_id::int as school_id,
         class_id::int as class_id,
         district_grade_id::int as grade_id,
-        program_id:int as program_id,
+        program_id::int as program_id,
 
         -- boolean
         enabled::boolean as is_visibility_enabled,
