@@ -57,3 +57,21 @@ sources:
               - accepted_values:
                   arguments:
                     values: ['activity', 'audio', 'book', 'document', 'image', 'text', 'video', 'web link']
+      - name: raw_craft__folders
+        description: "Folders used to organize resources within Lilypad"
+        freshness:
+          warn_after: {count: 5, period: day}
+          error_after: {count: 10, period: day}
+        loaded_at_field: updated_at
+        data_tests:
+          - elementary.schema_changes:
+              arguments:
+                config:
+                  severity: warn
+                  enabled: "{{ target.name == 'prod' }}"
+                tags: ["elementary"]
+        columns:
+          - name: id
+            data_tests:
+              - unique
+              - not_null

@@ -1,0 +1,12 @@
+version: 2
+
+models:
+  - name: stg_taco__grades
+    description: |
+      Purpose: Descriptive grade lookup table with column typing and renaming.
+      Granularity: One row per grade.
+    columns:
+      - name: grade_id
+        data_tests:
+          - not_null
+          - unique

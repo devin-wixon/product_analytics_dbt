@@ -8,6 +8,11 @@ External class id, typically the class_id on the district SIS.
 {% enddocs %}
 
 
+{% docs class_status %}
+Column is always either 'active' or null (as of 12/25).
+{% enddocs %}
+
+
 {% docs dbt_is_deleted %}
 Boolean: True when the record is no longer in the source table, as tracked by dbt snapshots.
 {% enddocs %}
@@ -207,9 +212,6 @@ Null means it is effective now and did not have a start date set.
 {% enddocs %}
 
 
-{% docs okta_user_id %}
-{% enddocs %}
-
 
 {% docs roster_file_created_at_utc %}
 The most recent timestamp, if any, when the user requested an export of the roster.
@@ -218,6 +220,11 @@ The most recent timestamp, if any, when the user requested an export of the rost
 
 {% docs school_sourced_id %}
 External school id, typically the school_id on the district SIS.
+{% enddocs %}
+
+
+{% docs school_status %}
+Column is always either 'active' or null (as of 12/25).
 {% enddocs %}
 
 
@@ -238,7 +245,6 @@ User deletions in Taco began to be tracked in Nov 2025. Prior to that, user hist
 
 
 {% docs user_email_sent_at_utc %}
-
 The most recent date an invitation email was sent to the user. Administrators are shown the option to send invitation emails when users are created. Users may be invited by admins outside of Lilypad, so it will not have a value for all invited users.
 - SSO (Classlink, Clever, Google, etc.): The email invites users to click the link to use their SSO credentials. Administrators may opt _not_ to automatically send emails because they use an application dashboard and not Lilypad's login flow.
 - Username password: The email invites users to create a password.

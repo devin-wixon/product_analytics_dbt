@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: stg_craft__folders
+    description: |
+      Purpose: Folders data from the craft database with column typing and renaming.
+      Granularity: One row per folder.
+    columns:
+      - name: folder_id
+        data_tests:
+          - not_null
+          - unique
+      - name: folder_program_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_craft__programs')
+                field: program_id
+              config:
+                severity: warn

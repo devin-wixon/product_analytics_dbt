@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: stg_taco__user_grades
+    description: |
+      Purpose: Associates the user with their grades used in Lilypad.
+      Granularity: One row per user grade.
+      Note: User grades can be used to offer access to programs or applications to the user based on district visibility settings.
+    columns:
+      - name: user_grade_id
+        data_tests:
+          - not_null
+          - unique
+      - name: user_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_taco__users')
+                field: user_id
+              config:
+                severity: warn
+      - name: grade_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_taco__grades')
+                field: grade_id
+              config:
+                severity: warn

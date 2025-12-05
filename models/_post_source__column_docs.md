@@ -67,6 +67,11 @@ Used for troubleshooting incremental loads and validating that daily batches are
 {% enddocs %}
 
 
+{% docs district_grade_id %}
+A composite identifier for the combination of `district_id` and `grade_id`.
+District grades are used to restrict the users that are imported from rosters and the visibility settings to only the grades associated with the district.
+{% enddocs %}
+
 {% docs district_grades %}
 Comma-separated list of grade levels supported by the district.
 

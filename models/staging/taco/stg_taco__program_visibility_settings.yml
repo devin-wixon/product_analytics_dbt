@@ -1,0 +1,53 @@
+version: 2
+
+models:
+  - name: stg_taco__program_visibility_settings
+    description: |
+      Purpose: Program visibility settings data from the taco database with column typing and renaming.  
+      Program visibility settings determine which programs are available to users by district, school, class, and district grade.
+      Granularity: One row per program visibility setting.
+    columns:
+      - name: program_visibility_id
+        data_tests:
+          - not_null
+          - unique
+      - name: district_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_taco__districts')
+                field: district_id
+              config:
+                severity: warn
+      - name: school_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_taco__schools')
+                field: school_id
+              config:
+                severity: warn
+      - name: class_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_taco__classes')
+                field: class_id
+              config:
+                severity: warn
+      - name: district_grade_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_taco__district_grades')
+                field: district_grade_id
+              config:
+                  severity: warn
+      - name: program_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_craft__programs')
+                field: program_id
+              config:
+                severity: warn

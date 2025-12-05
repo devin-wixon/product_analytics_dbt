@@ -228,3 +228,107 @@ sources:
               - accepted_values:
                   arguments:
                     values: ['not_invited', 'invited', 'registered', 'sso', 'backfill']
+      - name: raw_taco__classes
+        description: "Class-level information from Taco"
+        freshness:
+          warn_after: {count: 5, period: day}
+          error_after: {count: 10, period: day}
+        loaded_at_field: updated_at
+        data_tests:
+          - elementary.schema_changes:
+              arguments:
+                config:
+                  severity: warn
+                  enabled: "{{ target.name == 'prod' }}"
+                tags: ["elementary"]
+        columns:
+          - name: id
+            data_tests:
+              - unique
+              - not_null
+      - name: raw_taco__program_visibility_settings
+        description: "Which users can access programs, by district, school and class."
+        freshness:
+          warn_after: {count: 3, period: day}
+          error_after: {count: 5, period: day}
+        loaded_at_field: updated_at
+        data_tests:
+          - elementary.schema_changes:
+              arguments:
+                config:
+                  severity: warn
+                  enabled: "{{ target.name == 'prod' }}"
+                tags: ["elementary"]
+        columns:
+          - name: id
+            data_tests:
+              - unique
+              - not_null
+      - name: raw_taco__schools
+        description: "School-level information from Taco."
+        freshness:
+          warn_after: {count: 3, period: day}
+          error_after: {count: 5, period: day}
+        loaded_at_field: updated_at
+        data_tests:
+          - elementary.schema_changes:
+              arguments:
+                config:
+                  severity: warn
+                  enabled: "{{ target.name == 'prod' }}"
+                tags: ["elementary"]
+        columns:
+          - name: id
+            data_tests:
+              - unique
+              - not_null
+      - name: raw_taco__grades
+        description: "Grade-level information from Taco."
+        data_tests:
+          - elementary.schema_changes:
+              arguments:
+                config:
+                  severity: warn
+                  enabled: "{{ target.name == 'prod' }}"
+                tags: ["elementary"]
+        columns:
+          - name: id
+            data_tests:
+              - unique
+              - not_null
+      - name: raw_taco__district_grades
+        description: "Grade levels associated with the district in Taco."
+        freshness:
+          warn_after: {count: 3, period: day}
+          error_after: {count: 5, period: day}
+        loaded_at_field: updated_at
+        data_tests:
+          - elementary.schema_changes:
+              arguments:
+                config:
+                  severity: warn
+                  enabled: "{{ target.name == 'prod' }}"
+                tags: ["elementary"]
+        columns:
+          - name: id
+            data_tests:
+              - unique
+              - not_null
+      - name: raw_taco__users_grades
+        description: "Grade levels associated with the user in Taco."
+        freshness:
+          warn_after: {count: 3, period: day}
+          error_after: {count: 5, period: day}
+        loaded_at_field: updated_at
+        data_tests:
+          - elementary.schema_changes:
+              arguments:
+                config:
+                  severity: warn
+                  enabled: "{{ target.name == 'prod' }}"
+                tags: ["elementary"]
+        columns:
+          - name: id
+            data_tests:
+              - unique
+              - not_null
