@@ -30,10 +30,13 @@ models:
         description: "{{ doc('event_type') }}"
       - name: is_planner_event
         description: "{{ doc('is_planner_event') }}"
+      - name: search_string
       - name: program_id
         description: "{{ doc('program_id') }}"
+      - name: program_name
       - name: resource_id
         description: "{{ doc('resource_id') }}"
+      - name: resource_title
       - name: resource_program_id
         description: "{{ doc('resource_program_id') }}"
       - name: resource_program_name

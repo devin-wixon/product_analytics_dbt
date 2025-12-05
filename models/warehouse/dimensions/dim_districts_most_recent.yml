@@ -24,8 +24,6 @@ models:
         description: "{{ doc('district_state_international') }}"
       - name: district_type
         description: "{{ doc('district_type') }}"
-      - name: is_district_enabled
-        description: "{{ doc('is_district_enabled') }}"
       - name: district_tags
       - name: district_website_slug
         description: "{{ doc('district_website_slug') }}"
@@ -75,6 +73,7 @@ models:
       - name: rostering_state_id_field
         description: "{{ doc('rostering_state_id_field') }}"
       - name: rostering_is_active_send_invite
+        description: "{{ doc('rostering_is_active_send_invite') }}"
       - name: is_rostering_allow_users_without_class_or_school
         description: "{{ doc('is_rostering_allow_users_without_class_or_school') }}"
       - name: is_selfservice_rostering_show_clever
@@ -92,6 +91,7 @@ models:
         description: "{{ doc('authentication_clever_settings_provider_name') }}"
       - name: authentication_saml_settings_provider_name
         description: "{{ doc('authentication_saml_settings_provider_name') }}"
+      - name: authentication_saml_settings_metadata_document_file
       - name: authentication_saml_settings_metadata_document_source
       - name: is_onboarding_required
         description: "{{ doc('is_onboarding_required') }}"

@@ -35,7 +35,13 @@
       "WebFetch(domain:raw.githubusercontent.com)",
       "Bash(xargs cat:*)",
       "WebFetch(domain:www.elementary-data.com)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(paste:*)",
+      "Bash(for col in \"user_id\" \"district_id\" \"program_name\" \"resource_title\" \"program_age_group\" \"is_program_supplemental\" \"program_language\" \"resource_focus_area\" \"district_tags\" \"district_last_sync_utc\" \"rostering_classlink_id\" \"rostering_clever_id\" \"authentication_login_field\" \"search_string\")",
+      "Bash(do echo -n \"$col: \")",
+      "Bash(done)",
+      "Bash(for col in \"program_name\" \"resource_title\" \"resource_uuid\" \"resource_code\" \"district_tags\")",
+      "Bash(do echo \"Checking $col:\")"
     ],
     "deny": [],
     "ask": []

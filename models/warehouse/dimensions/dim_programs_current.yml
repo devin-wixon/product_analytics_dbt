@@ -15,8 +15,9 @@ models:
       - name: program_name
       - name: program_description
       - name: program_type
+        description: "{{ doc('program_type') }}"
       - name: is_program_deleted
-        description: "{{ doc('is_entity_deleted') }}"
+        description: "{{ doc('is_program_deleted') }}"
       - name: program_age_group
       - name: program_language
       - name: program_license_type

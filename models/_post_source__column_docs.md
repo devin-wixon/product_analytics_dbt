@@ -127,7 +127,7 @@ Boolean: True if the program has more than one resource of type `activity`. Used
 {% enddocs %}
 
 
-{% docs is_active_send_invite %}
+{% docs rostering_is_active_send_invite %}
 Boolean: True if the district settings will send new users an invitation automatically.
 {% enddocs %}
 
