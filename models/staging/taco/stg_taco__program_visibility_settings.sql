@@ -11,7 +11,7 @@ final as (
         district_id::int as district_id,
         school_id::int as school_id,
         class_id::int as class_id,
-        district_grade_id::int as grade_id,
+        district_grade_id::int as district_grade_id,
         program_id::int as program_id,
 
         -- boolean

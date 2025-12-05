@@ -3,9 +3,9 @@ version: 2
 models:
   - name: stg_taco__district_grades
     description: |
-      Purpose: Associates the distict with its grades used in Lilypad.
+      Purpose: Associates the district with its grades used in Lilypad.
       Granularity: One row per district grade.
-      Note: District grades are used to restrict the users that are imported from rosters and the visiblity settings to only the grades associated with the district.
+      Note: District grades are used to restrict the users that are imported from rosters and the visibility settings to only the grades associated with the district.
     columns:
       - name: district_grade_id
         data_tests:

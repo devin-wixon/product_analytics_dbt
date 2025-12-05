@@ -5,7 +5,7 @@ models:
     description: |
       Purpose: Associates the user with their grades used in Lilypad.
       Granularity: One row per user grade.
-      Note: User grades can used to offer access to programs or applications to the user based on district settings.
+      Note: User grades can be used to offer access to programs or applications to the user based on district visibility settings.
     columns:
       - name: user_grade_id
         data_tests:

@@ -35,15 +35,14 @@ models:
                 field: class_id
               config:
                 severity: warn
-      # - name: district_grade_id
-      #   data_tests:
-      #     - relationships:
-      #         arguments:
-      #           to: ref('stg_taco__district_grades')
-      #           field: district_grade_id
-      #         config:
-                          # severity: warn
-
+      - name: district_grade_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_taco__district_grades')
+                field: district_grade_id
+              config:
+                  severity: warn
       - name: program_id
         data_tests:
           - relationships:
