@@ -177,13 +177,6 @@ semantic_models:
         # create_metric: True
         label: "# Active Users"
 
-      - name: n_districts
-        description: "Count of unique districts associated with the events."
-        agg: count_distinct
-        expr: district_id
-        create_metric: True
-        label: "# Districts"
-
       - name: n_programs
         description: "Count of unique programs associated with the events."
         agg: count_distinct
