@@ -181,7 +181,7 @@ Example: TRUE
 
 
 {% docs is_district_enabled %}
-All values are TRUE as of 12/25.  Not persisted into analytics.
+All values are TRUE as of 12/25.  Not persisted into warehouse models.
 {% enddocs %}
 
 
