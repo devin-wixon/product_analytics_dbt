@@ -12,7 +12,7 @@ final as (
         description::string as grade_description,
 
         -- boolean
-        enabled::boolean as is_grade_enabled,
+        enabled::boolean as is_grade_enabled
     from source_table
 )
 
