@@ -8,6 +8,11 @@ External class id, typically the class_id on the district SIS.
 {% enddocs %}
 
 
+{% docs class_status %}
+Column is always either 'active' or null (as of 12/25).
+{% enddocs %}
+
+
 {% docs dbt_is_deleted %}
 Boolean: True when the record is no longer in the source table, as tracked by dbt snapshots.
 {% enddocs %}

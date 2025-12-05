@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: stg_taco__classes
+    description: |
+      Purpose: Classes data from the taco database with column typing and renaming.
+      Granularity: One row per class.
+    columns:
+      # source tests uniqueness and not null for resource_id; this will have dups due to snapshots
+      - name: class_id
+        data_tests:
+          - not_null
+          - unique
+      - name: district_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_taco__districts')
+                field: district_id
+              config:
+                severity: warn
