@@ -22,9 +22,9 @@ final as (
         fts_name::string as folder_fts_name,
 
         -- timestamps
-        created_at::timestamp as folder_created_at_utc,
-        updated_at::timestamp as folder_updated_at_utc,
-        deleted_at::timestamp as folder_deleted_at_utc
+        created_at::timestamp as created_at_utc,
+        updated_at::timestamp as updated_at_utc,
+        deleted_at::timestamp as deleted_at_utc
 
     from source_table
 )

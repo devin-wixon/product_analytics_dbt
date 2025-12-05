@@ -6,7 +6,6 @@ models:
       Purpose: Folders data from the craft database with column typing and renaming.
       Granularity: One row per folder.
     columns:
-      # source tests uniqueness and not null for resource_id; this will have dups due to snapshots
       - name: folder_id
         data_tests:
           - not_null
@@ -17,5 +16,6 @@ models:
               arguments:
                 to: ref('stg_craft__programs')
                 field: program_id
+                where: "dbt_valid_to IS NULL"
               config:
                 severity: warn

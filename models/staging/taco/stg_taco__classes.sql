@@ -27,7 +27,7 @@ final as (
         status::string as class_status,
         location::string as class_location,
         grades::string as class_grades,
-        other_grades::string as other_grades,
+        other_grades::string as class_other_grades,
         subjects::string as class_subjects,
         subject_codes::string as class_subject_codes,
         periods::string as class_periods,
@@ -37,8 +37,8 @@ final as (
         -- timestamps
         qrcodes_pdf_created_at::timestamp
             as qrcodes_pdf_created_at_utc,
-        created_at::timestamp as class_created_at_utc,
-        updated_at::timestamp as class_updated_at_utc
+        created_at::timestamp as created_at_utc,
+        updated_at::timestamp as updated_at_utc
     from source_table
 )
 
