@@ -15,7 +15,7 @@ final as (
         program_id:int as program_visibility_program_id,
 
         -- boolean
-        enabled::bolean as is_visibility_enabled,
+        enabled::boolean as is_visibility_enabled,
 
         -- timestamps
         created_at::timestamp as created_at_utc,

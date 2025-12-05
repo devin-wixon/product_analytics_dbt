@@ -18,6 +18,7 @@ models:
               arguments:
                 to: ref('stg_taco__districts')
                 field: district_id
+                where: "dbt_valid_to IS NULL"
       - name: application_id
         data_tests:
           - relationships:

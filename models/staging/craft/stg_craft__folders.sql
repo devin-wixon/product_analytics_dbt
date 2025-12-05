@@ -54,9 +54,9 @@ select
     folder_fts_name,
 
     -- timestamps
-    folder_created_at_utc,
-    folder_updated_at_utc,
-    folder_deleted_at_utc
+    created_at_utc,
+    updated_at_utc,
+    deleted_at_utc
 
 from
     final
