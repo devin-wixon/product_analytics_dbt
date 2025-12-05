@@ -8,11 +8,11 @@ source_table as (
 final as (
     select
         id::int as program_visibility_id,
-        district_id::int as program_visibility_district_id,
-        school_id::int as program_visibility_school_id,
-        class_id::int as program_visibility_class_id,
-        district_grade_id::int as program_visibility_district_grade_id,
-        program_id:int as program_visibility_program_id,
+        district_id::int as district_id,
+        school_id::int as school_id,
+        class_id::int as class_id,
+        district_grade_id::int as grade_id,
+        program_id:int as program_id,
 
         -- boolean
         enabled::boolean as is_visibility_enabled,

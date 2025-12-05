@@ -16,6 +16,5 @@ models:
               arguments:
                 to: ref('stg_craft__programs')
                 field: program_id
-                where: "dbt_valid_to IS NULL"
               config:
                 severity: warn
