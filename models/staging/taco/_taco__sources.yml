@@ -282,3 +282,17 @@ sources:
             data_tests:
               - unique
               - not_null
+      - name: raw_taco__grades
+        description: "Grade-level information from Taco."
+        data_tests:
+          - elementary.schema_changes:
+              arguments:
+                config:
+                  severity: warn
+                  enabled: "{{ target.name == 'prod' }}"
+                tags: ["elementary"]
+        columns:
+          - name: id
+            data_tests:
+              - unique
+              - not_null
