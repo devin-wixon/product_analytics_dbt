@@ -85,13 +85,14 @@ models:
       - name: program_age_group
       - name: is_program_supplemental
       - name: program_type
+        description: "{{ doc('program_type') }}"
       - name: is_program_district_auto_add
         description: "{{ doc('is_program_district_auto_add') }}"
       - name: program_language
       - name: program_license_type
         description: "{{ doc('program_license_type') }}"
       - name: program_release_year
-        description: "{{ doc('program_release_year') }}"
+        description: "{{ doc('program_release_date') }}"
       - name: program_phase
         description: "{{ doc('program_phase') }}"
       - name: program_market_specific
@@ -102,6 +103,10 @@ models:
       # Resource columns from dim_resources_most_recent
       - name: resource_program_id
         description: "{{ doc('resource_program_id') }}"
+      - name: resource_program_name
+        description: "{{ doc('resource_program_name') }}"
+      - name: resource_title
+      - name: resource_focus_area
       - name: resource_type
         description: "{{ doc('resource_type') }}"
 

@@ -12,17 +12,50 @@ models:
         tests:
           - unique
           - not_null
-      - name: resource_cloned_from
-        description: "{{ doc('resource_cloned_from') }}"
+      - name: resource_uuid
+      - name: resource_code
+      - name: resource_title
+      - name: resource_type
+        description: "{{ doc('resource_type') }}"
       - name: is_resource_deleted
-        description: "{{ doc('is_entity_deleted') }}"
+        description: "{{ doc('is_resource_deleted') }}"
+      - name: resource_description
+      - name: resource_short_description
+      - name: resource_section_title
+      - name: resource_fts_title
+      - name: resource_focus_area
+      - name: resource_publication_status
+      - name: resource_order_number
+      - name: resource_estimated_time
+      - name: resource_physical_reference
+      - name: resource_physical_page_number
+      - name: is_resource_legacy
+      - name: is_resource_downloadable
+      - name: is_resource_public
+      - name: resource_folder_id
       - name: resource_program_id
-        description: "{{ doc('program_id') }}"
+        description: "{{ doc('resource_program_id') }}"
       - name: resource_author_id
         description: "{{ doc('resource_author_id') }}"
       - name: resource_provider_id
         description: "{{ doc('resource_provider_id') }}"
+      - name: resource_publication_origin_id
+      - name: resource_focus_area_id
+      - name: resource_sub_focus_area_id
+      - name: resource_cloned_from
+        description: "{{ doc('resource_cloned_from') }}"
+      - name: resource_file_url
+      - name: resource_link
+      - name: resource_thumbnail_mobile_url
+      - name: resource_thumbnail_web_url
+      - name: resource_created_at_utc
+      - name: resource_updated_at_utc
+      - name: resource_deleted_at_utc
       - name: dbt_valid_from
         description: "{{ doc('dbt_valid_from') }}"
       - name: dbt_valid_to
         description: "{{ doc('dbt_valid_to') }}"
+      - name: dbt_is_deleted
+        description: "{{ doc('dbt_is_deleted') }}"
+      - name: resource_program_name
+        description: "{{ doc('resource_program_name') }}"

@@ -1,4 +1,3 @@
-
 {% docs is_entity_deleted %}
 True if the entity either has a deleted timestamp in Taco/Craft or the record was deleted and detected by dbt snapshots.
 {% enddocs %}
@@ -42,9 +41,13 @@ Used for ordering programs in the UI.
 | Phase-Out     | The program should no longer be sold, but may still have active usage. |
 {% enddocs %}
 
+{% docs program_type %}
+The category of the program. The most common value by far is `educational_curriculum`; infrequent values include `teacher_self_care`, `professional_development`, and `conscious_discipline`.
+{% enddocs %}
 
-{% docs program_release_year %}
-The year that the Lilypad digital program transitioned to Live. This is not the content release date or the copyright date.
+
+{% docs program_release_date %}
+The date that the Lilypad digital program transitioned to Live. This is not the content release date or the copyright date.
 {% enddocs %}
 
 

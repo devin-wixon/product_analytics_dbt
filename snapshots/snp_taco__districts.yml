@@ -2,6 +2,9 @@ version: 2
 
 snapshots:
   - name: snp_taco__districts
+    description: |
+      Purpose: Snapshot of the districts table from the Taco database, capturing changes over time.
+      Granularity: One row per district per snapshot, defined by `dbt_scd_id`.
     relation: source('taco', 'raw_taco__district')
     config:
       unique_key: id

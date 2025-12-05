@@ -2,6 +2,9 @@ version: 2
 
 snapshots:
   - name: snp_craft__programs
+    description: |
+      Purpose: Snapshot of the programs table from the Craft database, capturing changes over time.
+      Granularity: One row per program per snapshot, defined by `dbt_scd_id`.
     relation: source('craft', 'raw_craft__programs')
     config:
       unique_key: id
