@@ -1,0 +1,121 @@
+semantic_models:
+  - name: sem_users_current
+    description: |
+      Purpose: Current snapshot of all users for user-level reporting and analysis.
+      Granularity: One row per user (current state).
+      Notes: Includes both active and deleted users. Use this for current user counts, user demographics, and user-level metrics that don't require historical context.
+
+      Use this model for:
+      - Current user counts by role, district, or other attributes
+      - User demographics and profile reporting
+      - User status analysis (active vs deleted)
+
+      For event-based user analysis with historical context, use sem_events instead.
+    model: ref('dim_users_most_recent')
+    defaults:
+      agg_time_dimension: dbt_valid_from
+
+    entities:
+      - name: user
+        type: primary
+        expr: user_id
+
+      - name: district
+        type: foreign
+        expr: district_id
+
+    dimensions:
+      # User identifiers
+      - name: user_id
+        type: categorical
+        description: "{{ doc('user_id') }}"
+
+      - name: user_sourced_id
+        type: categorical
+        description: "{{ doc('user_sourced_id') }}"
+
+      - name: district_id
+        type: categorical
+        description: "{{ doc('district_id') }}"
+
+      # User attributes
+      - name: user_role
+        type: categorical
+        description: "{{ doc('user_role') }}"
+
+      - name: user_invite_status
+        type: categorical
+        description: "{{ doc('user_invite_status') }}"
+
+      - name: user_grades
+        type: categorical
+        description: "{{ doc('user_grades') }}"
+
+      - name: is_disable_auto_sync
+        type: categorical
+        description: "{{ doc('is_disable_auto_sync') }}"
+
+      - name: is_user_deleted
+        type: categorical
+        description: "{{ doc('is_user_deleted') }}"
+
+      - name: dbt_is_deleted
+        type: categorical
+        description: "{{ doc('dbt_is_deleted') }}"
+
+      # Time dimensions
+      - name: dbt_valid_from
+        type: time
+        description: "{{ doc('dbt_valid_from') }}"
+        type_params:
+          time_granularity: day
+
+      - name: user_email_sent_at
+        type: time
+        description: "{{ doc('user_email_sent_at_utc') }}"
+        expr: cast(user_email_sent_at_utc as date)
+        type_params:
+          time_granularity: day
+
+      - name: user_updated_at
+        type: time
+        description: "{{ doc('updated_at_utc') }}"
+        expr: cast(user_updated_at_utc as date)
+        type_params:
+          time_granularity: day
+
+      - name: user_deleted_at
+        type: time
+        description: "{{ doc('user_deleted_at_utc') }}"
+        expr: cast(user_deleted_at_utc as date)
+        type_params:
+          time_granularity: day
+
+    measures:
+      - name: n_users_total
+        description: "Total count of all users (including deleted users)"
+        agg: count
+        expr: user_id
+        create_metric: True
+        label: "Total Users"
+
+      - name: n_users_active
+        description: "Count of non-deleted users (is_user_deleted = false)"
+        agg: sum_boolean
+        expr: not is_user_deleted
+        create_metric: True
+        label: "Current Active Users"
+
+      - name: n_users_deleted
+        description: "Count of deleted users (is_user_deleted = true)"
+        agg: sum_boolean
+        expr: is_user_deleted
+        create_metric: True
+        label: "Deleted Users"
+
+      - name: n_districts
+        description: "Count of distinct districts associated with users"
+        agg: count_distinct
+        expr: district_id
+        create_metric: True
+        label: "# Districts"

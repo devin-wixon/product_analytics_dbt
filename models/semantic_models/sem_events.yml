@@ -1,10 +1,17 @@
 semantic_models:
   - name: sem_events
     description: |
-      Purpose: Event-level tracking for all captured user interactions in the Lilypad platform.
+      Purpose: Event-level tracking for all captured user interactions in the Lilypad platform with temporally accurate user context.
       Granularity: One row per event (individual event occurrences).
-      Notes: Provides detailed event-level data for deep-dive analysis of user behavior, including navigation, resource interactions, planner usage, and application launches.
-    model: ref('fct_events')
+      Notes: Provides detailed event-level data for deep-dive analysis of user behavior, including navigation, resource interactions, planner usage, and application launches. User attributes (role, district) are matched to the event date using SCD Type 2 logic for temporal accuracy.
+
+      Use this model for:
+      - Counting distinct users by day/week/month with flexible filtering
+      - Event analysis with user demographic context (role, district)
+      - Per-user activity distributions and metrics
+
+      Technical: Base model includes pre-joined user context from int_users_district_role_date and district attributes from dim_districts_most_recent.
+    model: ref('fct_events_with_user_context')
     defaults:
       agg_time_dimension: server_event_date
 
@@ -25,12 +32,15 @@ semantic_models:
         type: foreign
         expr: resource_id
 
+      - name: district
+        type: foreign
+        expr: district_id
+
 
     dimensions:
-      # Core event identifiers
-      - name: event_id
-        type: categorical
-        description: "{{ doc('event_id') }}"
+      # - name: event_id
+      #   type: categorical
+      #   description: "{{ doc('event_id') }}"
 
       - name: user_id
         type: categorical
@@ -86,6 +96,56 @@ semantic_models:
       - name: focus_area_label
         type: categorical
         description: Focus area label for planner filter events that select or deselect specific focus areas.
+
+      # User context dimensions (temporally accurate as of event date)
+      - name: user_role
+        type: categorical
+        description: "User's role at the time of the event (teacher, admin, etc.). Matched using SCD Type 2 logic for temporal accuracy."
+
+      - name: user_invite_status
+        type: categorical
+        description: "User's invite status at the time of the event. Matched using SCD Type 2 logic."
+
+      - name: district_id
+        type: categorical
+        description: "District ID associated with the user at the time of the event."
+
+      - name: match_type
+        type: categorical
+        description: |
+          Indicates the quality of temporal user context matching:
+          - 'exact': Event date fell within user's valid_from/valid_to range
+          - 'fallback': Nearest temporal neighbor was used (event date outside valid ranges)
+          - null: No user context found
+
+      # District context dimensions
+      - name: district_name
+        type: categorical
+        description: "{{ doc('district_name') }}"
+
+      - name: district_type
+        type: categorical
+        description: "{{ doc('district_type') }}"
+
+      - name: district_state
+        type: categorical
+        description: "{{ doc('district_state') }}"
+
+      - name: district_state_international
+        type: categorical
+        description: "{{ doc('district_state_international') }}"
+
+      - name: district_city
+        type: categorical
+        description: "{{ doc('district_city') }}"
+
+      - name: district_tags
+        type: categorical
+        description: "District tags for categorization and filtering"
+
+      - name: is_distributed_demo_district
+        type: categorical
+        description: "{{ doc('is_distributed_demo_district') }}"
 
       # Time dimensions with multiple grains
       - name: server_event_date
