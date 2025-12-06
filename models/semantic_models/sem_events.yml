@@ -10,7 +10,7 @@ semantic_models:
       - Event analysis with user demographic context (role, district)
       - Per-user activity distributions and metrics
 
-      Technical: Base model includes pre-joined user context from int_users_district_role_date and district attributes from dim_districts_most_recent.
+      Technical: Base model includes pre-joined user context from int_users_district_role_date.
     model: ref('fct_events_with_user_context')
     defaults:
       agg_time_dimension: server_event_date
@@ -67,85 +67,24 @@ semantic_models:
         type: categorical
         description: "{{ doc('event_type') }}"
 
-      - name: event_path
-        type: categorical
-        description: "{{ doc('event_path') }}"
-
-      - name: event_value
-        type: categorical
-        description: "{{ doc('event_value') }}"
-
-      - name: event_value_human_readable
-        type: categorical
-        description: "{{ doc('event_value_human_readable') }}"
-
-      # Navigation context
-      - name: path_entered
-        type: categorical
-        description: "{{ doc('path_entered') }}"
-
-      - name: path_left
-        type: categorical
-        description: "{{ doc('path_left') }}"
 
       # Planner-specific dimensions
-      - name: week_number
-        type: categorical
-        description: "{{ doc('week_number') }}"
-
-      - name: focus_area_label
-        type: categorical
-        description: Focus area label for planner filter events that select or deselect specific focus areas.
+      # - name: week_number
+      #   type: categorical
+      #   description: "{{ doc('week_number') }}"
 
       # User context dimensions (temporally accurate as of event date)
-      - name: user_role
+      - name: user_role_event_date
         type: categorical
-        description: "User's role at the time of the event (teacher, admin, etc.). Matched using SCD Type 2 logic for temporal accuracy."
+        description: "{{ doc('user_role')}}"
 
-      - name: user_invite_status
+      - name: user_invite_status_event_date
         type: categorical
-        description: "User's invite status at the time of the event. Matched using SCD Type 2 logic."
+        description: "{{ doc('user_invite_status') }}"
 
       - name: district_id
         type: categorical
-        description: "District ID associated with the user at the time of the event."
-
-      - name: match_type
-        type: categorical
-        description: |
-          Indicates the quality of temporal user context matching:
-          - 'exact': Event date fell within user's valid_from/valid_to range
-          - 'fallback': Nearest temporal neighbor was used (event date outside valid ranges)
-          - null: No user context found
-
-      # District context dimensions
-      - name: district_name
-        type: categorical
-        description: "{{ doc('district_name') }}"
-
-      - name: district_type
-        type: categorical
-        description: "{{ doc('district_type') }}"
-
-      - name: district_state
-        type: categorical
-        description: "{{ doc('district_state') }}"
-
-      - name: district_state_international
-        type: categorical
-        description: "{{ doc('district_state_international') }}"
-
-      - name: district_city
-        type: categorical
-        description: "{{ doc('district_city') }}"
-
-      - name: district_tags
-        type: categorical
-        description: "District tags for categorization and filtering"
-
-      - name: is_distributed_demo_district
-        type: categorical
-        description: "{{ doc('is_distributed_demo_district') }}"
+        description: "{{ doc('district_id') }}"
 
       # Time dimensions with multiple grains
       - name: server_event_date
@@ -174,28 +113,24 @@ semantic_models:
 
       - name: metric_time_day
         type: time
-        description: "Daily time dimension for event analysis"
         expr: server_event_date
         type_params:
           time_granularity: day
 
       - name: metric_time_week
         type: time
-        description: "Weekly time dimension for event analysis"
         expr: server_event_date
         type_params:
           time_granularity: week
 
       - name: metric_time_month
         type: time
-        description: "Monthly time dimension for event analysis"
         expr: server_event_date
         type_params:
           time_granularity: month
 
       - name: metric_time_quarter
         type: time
-        description: "Quarterly time dimension for event analysis"
         expr: server_event_date
         type_params:
           time_granularity: quarter
@@ -221,7 +156,7 @@ semantic_models:
         create_metric: True
         label: "Event Count"
 
-      - name: n_users
+      - name: n_active_users
         description: |
           Count of unique users who generated events within the filters.
 
@@ -237,16 +172,16 @@ semantic_models:
         # create_metric: True
         label: "# Active Users"
 
-      - name: n_programs
-        description: "Count of unique programs associated with the events."
-        agg: count_distinct
-        expr: program_id
-        create_metric: True
-        label: "# Programs"
+      # - name: n_programs
+      #   description: "Count of unique programs associated with the events."
+      #   agg: count_distinct
+      #   expr: program_id
+      #   create_metric: True
+      #   label: "# Programs"
 
-      - name: n_resources
-        description: "Count of unique resources associated with the events."
-        agg: count_distinct
-        expr: resource_id
-        create_metric: True
-        label: "# Resources"
+      # - name: n_resources
+      #   description: "Count of unique resources associated with the events."
+      #   agg: count_distinct
+      #   expr: resource_id
+      #   create_metric: True
+      #   label: "# Resources"

@@ -12,7 +12,7 @@ metrics:
       - If users access an application through the application's SSO, we do not track events.    
     type: simple
     type_params:
-      measure: n_users
+      measure: n_active_users
     label: "Active Users"
     meta:
       semantic_model: "sem_events"

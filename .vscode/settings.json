@@ -1,5 +1,6 @@
 {
     "dbt.dbtIntegration": "cloud",
     "dbt.lineage.defaultExpansion": 3,
-    "workbench.editor.enablePreview": false
+    "workbench.editor.enablePreview": false,
+    "dbt.perspectiveTheme": "Vintage"
 }

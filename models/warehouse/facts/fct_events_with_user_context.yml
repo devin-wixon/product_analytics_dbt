@@ -9,12 +9,11 @@ models:
       Notes: Foundation model for semantic layer - maintains event-level grain while providing user and district dimensions.
 
       Technical Details:
-      - Joins fct_events with int_users_district_role_date to get user context as of event date
-      - Further joins with dim_districts_most_recent to get district attributes
+      - Joins `fct_events` with int_users_district_role_date to get user context as of event date
       - Left joins ensure all events are preserved even if user context is not found
       - match_type dimension indicates whether user context was matched exactly or via fallback logic
     tests:
-      # Verify no row loss during joins
+      # Verify no row loss during joins or incremental loading
       - dbt_utils.equal_rowcount:
           arguments:
             compare_model: ref('fct_events')
@@ -24,6 +23,8 @@ models:
         tests:
           - unique
           - not_null
+      - name: dbt_row_batch_id
+        description: "{{ doc('dbt_row_batch_id') }}"
       - name: server_timestamp
         description: "{{ doc('server_timestamp') }}"
       - name: client_timestamp
@@ -62,36 +63,16 @@ models:
         description: "{{ doc('dbt_row_batch_id') }}"
 
       # User context columns (from int_users_district_role_date)
-      - name: user_role
-        description: "User's role at the time of the event (teacher, admin, etc.). Matched using SCD Type 2 logic."
+      - name: user_role_event_date
+        description: "{{ doc('user_role') }}"
         tests:
           - not_null:
               config:
                 severity: warn
                 where: "user_id is not null"
-      - name: user_invite_status
-        description: "User's invite status at the time of the event. Matched using SCD Type 2 logic."
+      - name: user_invite_status_event_date
+        description: "{{ doc('user_invite_status') }}"
       - name: district_id
-        description: "{{ doc('district_id') }} - District ID associated with the user at the time of the event."
+        description: "{{ doc('district_id') }}"
       - name: match_type
-        description: |
-          Indicates the quality of temporal user context matching:
-          - 'exact': Event date fell within user's valid_from/valid_to range
-          - 'fallback': Nearest temporal neighbor was used (event date outside valid ranges)
-          - null: No user context found (user_id is null or not in dim_users_history)
-
-      # District context columns (from dim_districts_most_recent)
-      - name: district_name
-        description: "{{ doc('district_name') }}"
-      - name: district_type
-        description: "{{ doc('district_type') }}"
-      - name: district_state
-        description: "{{ doc('district_state') }}"
-      - name: district_state_international
-        description: "{{ doc('district_state_international') }}"
-      - name: district_city
-        description: "{{ doc('district_city') }}"
-      - name: district_tags
-        description: "District tags for categorization and filtering"
-      - name: is_distributed_demo_district
-        description: "{{ doc('is_distributed_demo_district') }}"
+        description: "{{ doc('user_role_match_type') }}"

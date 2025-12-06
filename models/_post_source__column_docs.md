@@ -420,7 +420,10 @@ AWS Cognito User Pool client identifier for authentication services.
 
 
 {% docs user_role_match_type %}
-Indicates whether the user record was matched via 'exact' SCD logic or 'fallback' temporal proximity. Used for data quality monitoring.
+Indicates the quality of temporal user context matching:
+- 'exact': Event date fell within user's valid_from/valid_to range
+- 'fallback': Nearest temporal neighbor was used (event date outside valid ranges)
+- null: No user context found (user_id is null or not in `dim_users_history`)
 {% enddocs %}
 
 
